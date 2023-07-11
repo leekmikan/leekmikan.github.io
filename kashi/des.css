@@ -1,0 +1,72 @@
+body{
+color: #000000;
+background-image: url(img//R.jpg);
+background-size: cover;
+}
+button{
+text-align:center;
+}
+.bbase {
+  color: #000000;
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #668ad8;
+  font-size: 24px;
+  width: 700px;
+  border-radius: 3px;
+}
+.bbase:active {
+  /*ボタンを押したとき*/
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);/*下に動く*/
+  border-bottom: none;/*線を消す*/
+}
+.bs {
+  color: #000000;
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #668ad8;
+  font-size: 16px;
+  width: 200px;
+  border-radius: 3px;
+}
+.bs:active {
+  /*ボタンを押したとき*/
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);/*下に動く*/
+  border-bottom: none;/*線を消す*/
+}
+.b1{
+  background: #FF0000;
+  border-bottom: solid 4px #800000;
+}
+.b2{
+  background: #FF8000;
+  border-bottom: solid 4px #804000;
+}
+.b3{
+  background: #FFFF00;
+  border-bottom: solid 4px #808000;
+}
+.b4{
+  background: #80FF00;
+  border-bottom: solid 4px #408000;
+}
+.b5{
+  background: #00FFFF;
+  border-bottom: solid 4px #008080;
+}
+.b6{
+  background: #0080FF;
+  border-bottom: solid 4px #004080;
+}
+.b7{
+  background: #FF00FF;
+  border-bottom: solid 4px #800080;
+}
+.b8{
+  background: #FF0080;
+  border-bottom: solid 4px #800040;
+}

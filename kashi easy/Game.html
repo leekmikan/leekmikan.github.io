@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="utf-8">
+	<title>超簡単歌詞クイズ</title>
+	<link rel="stylesheet" href="des.css">
+	</head>
+		<body>
+			<button class="b6 bs" onclick="Reset()">成績リセット</button>
+			<div style="text-align:center;">
+				<h1 style="font-size: 48px" id="qs" onCopy="return false;">あああああ</h1>
+				<button class="b1 bbase" id="b0" onclick="Ans(0)">いいいいい</button><br><br>
+				<button class="b2 bbase" id="b1" onclick="Ans(1)">いいいいい</button><br><br>
+				<button class="b3 bbase" id="b2" onclick="Ans(2)">いいいいい</button><br><br>
+				<button class="b4 bbase" id="b3" onclick="Ans(3)">いいいいい</button><br><br>
+				<button class="b5 bbase" id="b4" onclick="Ans(4)">いいいいい</button><br><br>
+				<button class="b6 bbase" id="b5" onclick="Ans(5)">いいいいい</button><br><br>
+				<button class="b7 bbase" id="b6" onclick="Ans(6)">いいいいい</button><br><br>
+				<button class="b8 bbase" id="b7" onclick="Ans(7)">いいいいい</button><br><br>
+			</div>
+			<p>成績更新まであと<span id="lf">10</span>問</p>
+			<table style="width: 97vw;table-layout: fixed; text-align:center;">
+				<tr>
+					<td colspan="5">
+						<h2>総合成績<br></h2><h2 id="ga">0/0<br>(0%)</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p>アニメ・ゲーム<br></p><p id="g0">0/0<br>(0%)</p>
+						出題する<input id="Cb0"checked onclick="Cbox();" type="checkbox">
+					</td>
+					<td>
+						<p>こども<br></p><p id="g1">0/0<br>(0%)</p>
+						出題する<input id="Cb1"checked onclick="Cbox();" type="checkbox">
+					</td>
+					<td>
+						<p>テレビ<br></p><p id="g2">0/0<br>(0%)</p>
+						出題する<input id="Cb2"checked onclick="Cbox();" type="checkbox">
+					</td>
+					<td>
+						<p>VOCALOID<br></p><p id="g3">0/0<br>(0%)</p>
+						出題する<input id="Cb3"checked onclick="Cbox();" type="checkbox"> 
+					</td>
+					<td>
+						<p>海外<br></p><p id="g4">0/0<br>(0%)</p>
+						出題する<input id="Cb4"checked onclick="Cbox();" type="checkbox">
+					</td>
+				</tr>
+			</table>
+			<br><br>
+			<p>上にある歌詞の一部が表示されるので 何の曲かあてよう！</p>
+			<p>10問解くごとに成績が更新されるよ(暗記防止)</p>
+			<p>チェックボックスで出題ジャンルを選択しよう</p>
+			<p>目標: 平均正解率90%</p>
+		</body>
+		<script src="qs.js"></script>
+		<script src="main.js"></script>
+		<script src="f12.js"></script>
+		<script src="mozibakeyou.js"></script>
+	</head>
+</html>
