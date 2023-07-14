@@ -58,7 +58,7 @@ function Start(){
 	Plps();
 	ms.currentTime = 89.7;
 }
-function Setkaruta(){
+function Setkaruta(){ //未使用
 	karuta = true;
 	document.getElementById("pic").style.width = "384px";
 	document.getElementById("pic").style.height = "240px";
@@ -69,7 +69,7 @@ function Setkaruta(){
 	document.getElementById("genrex").style.visibility = "hidden";
 	document.body.style.backgroundImage = 'url(img2/tatami.jpg)';
 }
-function Setnormal(){
+function Setnormal(){ //未使用
 	karuta = false;
 	document.getElementById("pic").style.width = "800px";
 	document.getElementById("pic").style.height = "800px";
@@ -80,3 +80,4 @@ function Setnormal(){
 	document.getElementById("genrex").style.visibility = "visible";
 	document.body.style.backgroundImage = '';
 }
+document.getElementById("ques_val").innerText = ans.length;
