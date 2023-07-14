@@ -81,3 +81,4 @@ function Setnormal(){ //未使用
 	document.body.style.backgroundImage = '';
 }
 document.getElementById("ques_val").innerText = ans.length;
+document.getElementById("nol").innerText = Math.round(ans.length * 0.4);
