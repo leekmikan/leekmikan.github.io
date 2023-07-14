@@ -187,4 +187,7 @@ new Qs("まんちかん","Creatures"),
 new Qs("さば","Creatures"),
 new Qs("すずめ","Creatures"),
 new Qs("なまこ","Creatures"),
+new Qs("ぎゅうにゅうをそそぐおんな","Paintings"),
+new Qs("なくおんな","Paintings"),
+new Qs("ぽっぴんをふくおんな","Paintings"),
 ];
