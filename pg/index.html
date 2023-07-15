@@ -7,11 +7,47 @@
 	<script src="main.js"></script>
 	</head>
 		<body>
+		<div class="text_frame">
+			<h1>エフェクター</h1>
+		</div>
 		<div class="main">
 			<a href="Music.h" download="Music.h">Music.h</a>
-			<p>初期化:</p>
+			<p>例:</p>
 			<p>WaveData wd = WaveData("16bit2chのwavファイル");</p>
-			<p>畳み込み(IRファイルが必要)/フランジャー/イコライザー/コンプレッサーなどが可能</p>
+			<p>wd.Quality(8000); //サンプリング周波数を8000Hzに</p>
+			<p>wd.Export(2); //チャンネル数</p>
+			<p>wd.Dispose();</p>
+			<p>畳み込み(IRファイルが必要)/フランジャー/イコライザー/コンプレッサー</p>
+			<p>エコー/再生速度変更/ピッチ変更/多重/サンプリング周波数変更など約25種類</p>
+		</div>
+		<div class="text_frame">
+			<h1>巨大数</h1>
+		</div>
+		<div class="main">
+			<a href="Exp.h" download="Exp.h">Exp.h</a><br>
+			<a href="Exp.cs" download="Exp.cs">Exp.cs</a><br>
+			<a href="Exp.js" download="Exp.js">Exp.js</a><br>
+			<p>例(C++):</p>
+			<p>Exp num = Exp(一番上の指数の値,10^10^10...10^xの10の個数-1);</p>
+		</div>
+		<div class="text_frame">
+			<h1>開発者ツール禁止(試作)</h1>
+		</div>
+		<div class="main">
+			<a href="f12.js" download="f12.js">f12.js</a>
+			<p>ページの横幅とウインドウの横幅がほぼ一致していない場合に閉じる</p>
+			<p>Firefoxなどwindow.close()が使えないブラウザ非対応</p>
+			<p>パソコンの設定によってはページが開けなくなるかも</p>
+		</div>
+		<div class="text_frame">
+			<h1>ウインドウ(試作)</h1>
+		</div>
+		<div class="main">
+			<a href="Forms.js" download="Forms.js">Form.js</a><br>
+			<a href="Forms.css" download="Forms.css">Form.css  (jsとセット)</a>
+			<p>例:</p>
+			<p>var fm = new Form("タイトル","form1","form_title","button_close",x,y,w,h);</p>
+			<p>Makeform(fm);</p>
 		</div>
 		</body>
 	</head>
