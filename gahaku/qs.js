@@ -190,4 +190,7 @@ new Qs("なまこ","Creatures"),
 new Qs("ぎゅうにゅうをそそぐおんな","Paintings"),
 new Qs("なくおんな","Paintings"),
 new Qs("ぽっぴんをふくおんな","Paintings"),
+new Qs("ぱいもん","Characters"),
+new Qs("めーてる","Characters"),
+new Qs("はいじ","Characters"),
 ];
