@@ -2,8 +2,6 @@
 <html lang="ja">
 	<head>
 	<meta charset="utf-8">
-	<meta name="keywords" content="絵,下手,画伯,クイズ">
-	<meta name="description" content="何の絵か当てよう!">
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
 	<title>画伯の展覧会</title>
 	<link rel="stylesheet" href="des.css">
@@ -30,7 +28,7 @@
 			<div style="text-align:center">
 			<button class="ndb"onclick="Change(rd())"style="width: 200px;height: 50px;" >諦めて次の作品を見る</button>
 			<br><br><br><br><br>
-			<p>鑑賞する作品を選択<p>
+			<p>鑑賞する作品を問題番号で選択<p>
 			<input onclick="Sel()"type="number" id="sel" name="sel" required
        				minlength="0" maxlength="10" style="width: 300px;height: 50px; font-size:30px;">
 			</div><br><br><br>
@@ -38,7 +36,7 @@
 		<h2>下手な絵をみて、何の絵か当てよう！</h2>
 		<h2>答えはひらがなで作品名のところに入力</h2>
 		<h2>ジャンル「Songs」は、絵から曲名を推測する問題</h2>
-		<h2>目標:<span id="ques_val">0</span>問中<span id="nol">0</span>問正解する(画像検索使用可)</h2>
+		<h2>目標:<span id="ques_val">0</span>問中<span id="nol">0</span>問正解する</h2>
 		</div></div>
 		</body>
 		<script src="main.js"></script>
