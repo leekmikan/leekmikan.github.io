@@ -193,4 +193,5 @@ new Qs("ぽっぴんをふくおんな","Paintings"),
 new Qs("ぱいもん","Characters"),
 new Qs("めーてる","Characters"),
 new Qs("はいじ","Characters"),
+new Qs("いずみこなた","Characters"),
 ];
