@@ -1,7 +1,6 @@
 body{
 color: #000000;
 background: #A0FFFF;
-width: 1350px;
 }
 .title{
 text-align:center;
@@ -13,6 +12,7 @@ border: double 5px #4ec4d3;
 color: #000000;
 background: #00FF80;
 border-radius: 10px;
+text-align:center;
 }
 .tab{
 padding: 5px 0px;
