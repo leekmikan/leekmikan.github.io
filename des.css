@@ -2,6 +2,9 @@ body{
 color: #000000;
 background: #A0FFFF;
 }
+div{
+text-align:center;
+}
 .title{
 text-align:center;
 color: #000000;
