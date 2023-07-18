@@ -51,6 +51,10 @@ button.tab_button{
 	border: solid 3px #80A0FF;
 	background:radial-gradient(#0040FF, #A0C0FF);
 }
+.button_red{
+	border: solid 3px #FF0000;
+	background:radial-gradient(#FF0000, #FFA0C0);
+}
 .text_frame{
     background: #B0FFD0;
     border-left: double 10px #30C080;
