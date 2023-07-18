@@ -2,9 +2,6 @@ body{
 color: #000000;
 background: #A0FFFF;
 }
-div{
-    text-align: center;
-}
 .title{
 text-align:center;
 color: #000000;
@@ -15,6 +12,7 @@ border: double 5px #4ec4d3;
 color: #000000;
 background: #00FF80;
 border-radius: 10px;
+text-align:center;
 }
 .tab{
 padding: 5px 0px;
@@ -53,13 +51,37 @@ button.tab_button{
 	border: solid 3px #80A0FF;
 	background:radial-gradient(#0040FF, #A0C0FF);
 }
-.button_red{
-	border: solid 3px #FFA080;
-	background:radial-gradient(#FF0000, #FFC0A0);
-}
 .text_frame{
     background: #B0FFD0;
     border-left: double 10px #30C080;
 	width: fit-content;
 	padding: 0em 1em;
+}
+.qz>input{
+    width:100px;
+    text-align: center;
+}
+.qz{
+    width:120px;
+    text-align: center;
+    height: 120px;
+}
+.yazirusi{
+    text-align: center;
+    background: #FFFF00;
+    width:120px;
+    height: 120px;
+    font-size: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.s{
+    background: #808080;
+}
+.m{
+    background: #0000FF;
+}
+.r{
+    background: #FF0000;
 }
