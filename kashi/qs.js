@@ -108,6 +108,7 @@ var qs = [
 ["罪も罰も　贖罪も　あの世ではチャラなのさ","僕らの記念日"], //静壊
 ["繰り返す始まりと終わりの中を","Soar"], //流星P
 ["時は流れ　人は変わってゆくの","Holy Star"],//Kou
+["「私の声もそうなるかな」","ラストスコア"], //せきこみごはん
 ],
 [
 ["You could be my only sweet surrender.","I Wanna Love You Tender"], //世界一ダサいPV
