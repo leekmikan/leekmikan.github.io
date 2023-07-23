@@ -85,6 +85,6 @@ button.tab_button{
 .r{
     background: #FF0000;
 }
-span{
+span:not(#score){
 color: #A0FFFF;
 }
