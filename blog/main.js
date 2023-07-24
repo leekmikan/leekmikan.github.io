@@ -62,8 +62,14 @@ function Sh(x){
 }
 window.addEventListener("keydown", event => {
   if (event.keyCode == 38) {
-    hei = (hei + 5 > 0) ? 0 : hei + 5;
+    up();
   }else if(event.keyCode == 40){
-    hei = (hei - 5 < -text.length * canvas.width / len) ? -text.length * canvas.width / len : hei - 5;
+    down();
   }
 });
+function up(){
+hei = (hei + 10 > 0) ? 0 : hei + 10;
+}
+function down(){
+hei = (hei - 10 < -text.length * canvas.width / len) ? -text.length * canvas.width / len : hei - 10;
+}

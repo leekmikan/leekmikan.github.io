@@ -5,3 +5,27 @@ background: #FFFFFF;
 button{
 text-align:center;
 }
+.bbase {
+  color: #000000;
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #668ad8;
+  font-size: 24px;
+  width: 700px;
+  border-radius: 3px;
+}
+.bbase:active {
+  /*ボタンを押したとき*/
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);/*下に動く*/
+  border-bottom: none;/*線を消す*/
+}
+.b1{
+  background: #FF0000;
+  border-bottom: solid 4px #800000;
+}
+.b2{
+  background: #0000FF;
+  border-bottom: solid 4px #000080;
+}
