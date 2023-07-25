@@ -196,4 +196,7 @@ new Qs("はいじ","Characters"),
 new Qs("いずみこなた","Characters"),
 new Qs("きりゅうかずま","Characters"),
 new Qs("まのやすひこ","Characters"),
+new Qs("ぽちた","Characters"),
+new Qs("ごじょうまさる","Characters"),
+new Qs("ごじょうさとる","Characters"),
 ];
