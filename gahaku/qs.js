@@ -201,4 +201,5 @@ new Qs("ごじょうまさる","Characters"),
 new Qs("ごじょうさとる","Characters"),
 new Qs("さくらだふぁみりあ","Buildings"),
 new Qs("しらかわごう","Places"),
+new Qs("ないあがらのたき","Places"),
 ];
