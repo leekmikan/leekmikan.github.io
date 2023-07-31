@@ -112,6 +112,7 @@ var qs = [
 ["時は流れ　人は変わってゆくの","Holy Star"],//Kou
 ["「私の声もそうなるかな」","ラストスコア"], //せきこみごはん
 ["ボクを探す　あの子の姿","コンビニ (初音ミク)"], //cokesi
+["グットウカケタケチャーモチャーモ","Francium"], //チータン
 ],
 [
 ["You could be my only sweet surrender.","I Wanna Love You Tender"], //世界一ダサいPV
