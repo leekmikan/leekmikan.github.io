@@ -202,4 +202,6 @@ new Qs("ごじょうさとる","Characters"),
 new Qs("さくらだふぁみりあ","Buildings"),
 new Qs("しらかわごう","Places"),
 new Qs("ないあがらのたき","Places"),
+new Qs("うぃーんかいぎ","History"),
+new Qs("ひみこ","People"),
 ];
