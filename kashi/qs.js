@@ -113,6 +113,7 @@ var qs = [
 ["「私の声もそうなるかな」","ラストスコア"], //せきこみごはん
 ["ボクを探す　あの子の姿","コンビニ (初音ミク)"], //cokesi
 ["グットウカケタケチャーモチャーモ","Francium"], //チータン
+["楽観 楽観 達観 楽観 達観 楽観視","インビジブル"], //kemu
 ],
 [
 ["You could be my only sweet surrender.","I Wanna Love You Tender"], //世界一ダサいPV
