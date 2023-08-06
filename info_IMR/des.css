@@ -56,3 +56,27 @@ button.tab_button{
 	width: fit-content;
 	padding: 0em 1em;
 }
+.nml{
+background: #00a000;
+color: #000000;
+}
+.dark{
+background: #808080;
+color: #ffffff;
+}
+.inf{
+background: #ffff00;
+color: #000000;
+}
+.cor{
+background: #000000;
+color: #ffffff;
+}
+.muo{
+background: #ff8000;
+color: #000000;
+}
+.cor_s{
+background: #ff00ff;
+color: #000000;
+}
