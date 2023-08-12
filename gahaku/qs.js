@@ -204,4 +204,6 @@ new Qs("しらかわごう","Places"),
 new Qs("ないあがらのたき","Places"),
 new Qs("うぃーんかいぎ","History"),
 new Qs("ひみこ","People"),
+new Qs("よびこみくん","Items"),
+new Qs("おそれざん","Places"),
 ];
