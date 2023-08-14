@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="utf-8">
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="下手な絵をみて何の絵か当てよう。「キャラクター」「絵画」「建物」「曲」「生き物」など様々なジャンルがあるよ。">
+	<title>画伯の展覧会</title>
+	<link rel="stylesheet" href="des.css">
+	<script src="qs.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+	</head>
+		<h1 onclick="Start()"id="start" style="font-family: 'Pinyon Script', cursive;">Click to start</h1>
+		<div id="main"style="display: none">
+		<body style="width :1500px; background-size:cover">
+			<button id="mb"class="ndb"onclick="Plps()"style="width: 200px;height: 50px;" >BGM: OFF</button>
+			<div style="text-align:center;">
+				<h1 id="no" style="font-family: 'Pinyon Script', cursive;">No.1</h1><br>
+				<h1 id="genrex" style="font-family: 'Pinyon Script', cursive;">Genre : <span id="genre" style="font-family: 'Pinyon Script', cursive;">No.1</span></h1>
+				<img id="pic"src="img/Q0.jpg" style="width: 600px;height: 400px">	
+				<p id="ytb"></p>
+			</div>
+			<div style="position: relative; text-align:center;">
+				<img id="pt" src="img/pt.jpg" width="400px">
+				<div style="position: absolute; top: 50px;left: 600px;">
+					<input onclick="Ans()"type="text" id="ans" name="ans" required
+       				minlength="0" maxlength="100" style="width: 300px;height: 50px; font-size:30px;">
+				</div>
+			</div>
+			<div style="text-align:center">
+			<button class="ndb"onclick="Change(rd())"style="width: 200px;height: 50px;" >諦めて次の作品を見る</button>
+			<br><br><br><br><br>
+			<p>鑑賞する作品を問題番号で選択<p>
+			<input onclick="Sel()"type="number" id="sel" name="sel" required
+       				minlength="0" maxlength="10" style="width: 300px;height: 50px; font-size:30px;">
+			</div><br><br><br>
+		<div id="ex">
+		<h2>下手な絵をみて、何の絵か当てよう！</h2>
+		<h2>答えはひらがなで作品名のところに入力</h2>
+		<h2>ジャンル「Songs」は、絵から曲名を推測する問題</h2>
+		<h2>目標:<span id="ques_val">0</span>問中<span id="nol">0</span>問正解する</h2>
+		<br>
+		<h1>攻略のコツ</h1>
+		<h2>・ジャンルを確認しよう</h2>
+		<h2>・全体的な配色をみよう(服装は間違いが多いので注意)</h2>
+		<h2>・持ち物があれば確認しよう</h2>
+		<h2>・背景がある画像は背景が重要になってくるかも</h2>
+		</div></div>
+		</body>
+		<script src="main.js"></script>
+		<script>
+			Change(rd());
+			if(window.navigator.userAgent.match(/(iPhone|iPod|Android.*Mobile)/i)){
+			document.getElementById("start").innerText = "Tap to start";
+			}
+		</script>
+	</head>
+</html>
