@@ -1276,6 +1276,32 @@
 		</div>
 		<p>C16実行/解除→放置→Upgrade,Element,Corrupted Star購入など→C17以降攻略→C17クリアしたらThe Parallelの購入</p>
 		<p>の繰り返し</p>
+		<div class="text_frame">
+			<h1>チート</h1>
+		</div>
+		<p>※チャレンジのゴールなどの調査に使ってください</p>
+		<h2>巨大数を扱う型 (Decimal)</h2>
+		<p>IMRでは、sign,mag,layerの3つの変数で巨大数を表している</p>
+		<p>sign...符号(0なら0,1以上なら1)</p>
+		<p>mag...真数(巨大数の指数の一番右上の値　　10^xにおけるxのこと)<p>
+		<p>layer...指数に10がいくつ並んでいるか(例えば10^10^magの形で表すならlayer=2になる)</p>
+		<p>例:</p>
+		<p>10^8...{sign: 1,mag: 8,layer: 1}</p>
+		<p>15...{sign: 1,mag: 15,layer: 0}</p>
+		<p>1e1.6e10...{sign: 1,mag: 10log10(1.6),layer: 2}</p>
+		<p>eee130...{sign: 1,mag: 130,layer: 3}</p>
+		<p>1↑↑10...{sign: 1,mag: 10,layer: 9}</p>
+		<p>0...{sign: 0,mag: 0,layer: 0}</p>
+		<h2>変数例</h2>
+		<p>大半は、player.タブ名(略称の場合あり).pointsやplayer.タブ名(略称の場合あり).massなどで、管理されている</p>
+		<p>player.mass ...massの量(Decimal)</p>
+		<p>player.bh.mass ...BH massの量(Decimal)</p>
+		<p>player.inf.points ...IPの量(Decimal)</p>
+		<p>player.chal.comps.10 ...C10のクリア回数 (Decimal)(数字のところがチャレンジ番号と対応)</p>
+		<p>player.dark.c16.bestBH ...C16内での最高BH mass量(Decimal)</p>
+		<p>player.inf.core[0].type ...1番左の装備しているtheoremの名前(String)(配列は0~4)</p>
+		<p>player.inf.core[0].star[6] ...1番左の装備しているtheoremが7番目の効果を持っているか<br>
+		(Boolean)(2つ目の配列は0~7だが、6,7は基本false)</p>
 		<p style="text-align:center;"><a href="https://leekmikan.github.io/">HOME(いろんなクイズやコードなどがあるよ!)<a></p>
 	</head>
 </html>
