@@ -46,7 +46,7 @@ function Sel(){
 			n = qs.length;
 		}
 		Change(n - 1);
-		document.getElementById("sel").value = n - 1;
+		document.getElementById("sel").value = n;
 	}
 }
 function Start(){
