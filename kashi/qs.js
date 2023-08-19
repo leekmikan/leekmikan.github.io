@@ -127,7 +127,8 @@ var qs = [
 ["There's nothing you can do that can't be done","ALL YOU NEED IS LOVE"],
 ["He could preach the Bible like a preacher","Rasputin"],
 ["A guy like you should wear a warning","Toxic"],
-["Er hat den Knaben wohl in dem Arm","Erlk&ouml;nig"],
+["Er hat den Knaben wohl in dem Arm","Erlk&ouml;nig"],//魔王
+["sta nfronte a te!","O sole mio"],//オーソレミオ
 ],
 [
 ["へんなおじさんじゃありません","宮古まもる君のうた"], //沖縄
