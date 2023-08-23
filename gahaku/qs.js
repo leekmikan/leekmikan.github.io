@@ -207,4 +207,5 @@ new Qs("ひみこ","People"),
 new Qs("よびこみくん","Items"),
 new Qs("おそれざん","Places"),
 new Qs("けっしょうばんちゃん","Characters"),
+new Qs("たかぎさん","Characters"),
 ];
