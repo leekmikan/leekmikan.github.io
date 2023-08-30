@@ -210,4 +210,5 @@ new Qs("けっしょうばんちゃん","Characters"),
 new Qs("たかぎさん","Characters"),
 new Qs("あまぞんがわ","Places"),
 new Qs("とみおかせいしじょう","Places"),
+new Qs("きんかくじ","Places"),
 ];
