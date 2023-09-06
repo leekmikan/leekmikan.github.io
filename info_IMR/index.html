@@ -52,6 +52,15 @@
 		<p>表示形式:</p><br>
 		<p>アップグレード名 (本来の強さのx%,何乗するか)</p><br>
 		<p>ChallengesはHardened&lt;Insane&lt;Impossibleで、ゴールがより遠くなる</p>
+		<div onclick="obj=document.getElementById('honor').style; obj.display=(obj.display=='none')?'block':'none';">
+			<a style="cursor:pointer;">▼Honor</a>
+		</div>
+		<div id="honor" style="display:none;clear:both;">
+			<p>準備中...</p>
+		</div><br>
+		<div onclick="obj=document.getElementById('glory').style; obj.display=(obj.display=='none')?'block':'none';">
+			<a style="cursor:pointer;">▼Glory</a>
+		</div>
 		<div id="glory" style="display:none;clear:both;">
 			<p>準備中...</p>
 		</div><br>
@@ -64,9 +73,6 @@
 			<p>Renown 4:Renownごとに、Corrupted shardの獲得量が1.5倍</p>
 			<p>Renown 6:Exotic AtomがPionとKaonを増加</p>
 			<p>Renown 10:Hybridized Uran-AstatineがGloryのスケーリングを弱体化</p>
-		</div><br>
-		<div onclick="obj=document.getElementById('glory').style; obj.display=(obj.display=='none')?'block':'none';">
-			<a style="cursor:pointer;">▼Glory</a>
 		</div><br>
 		<div onclick="obj=document.getElementById('valor').style; obj.display=(obj.display=='none')?'block':'none';">
 			<a style="cursor:pointer;">▼Valor</a>
