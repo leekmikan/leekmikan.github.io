@@ -107,6 +107,7 @@ var qs = [
 ["Ievan &auml;iti se tytt&ouml;&ouml;s&auml; vahti","Ievan polkka"],
 ["'Cause this is thriller Thriller night","Thriller"],
 ["Hello  Hello Hello How Are You","Hello (Hello Song)"],
+["PEPSI, PEPSI, PEPSI MAN","Pepsi Man - Theme Song"],
 ],
 ];
 //問題数=全体-12行
