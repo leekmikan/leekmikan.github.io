@@ -191,3 +191,13 @@ function Get_Star(x){
 }
 window.onbeforeunload = mes;
 window.onload = Load;
+
+function Mode(){
+	if(document.getElementById("onoff").innerText == "OFF"){
+		document.getElementById("onoff").innerText = "ON";
+		hard1();
+	}else{
+		document.getElementById("onoff").innerText = "OFF";
+		normal1();
+	}
+}
