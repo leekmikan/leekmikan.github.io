@@ -154,6 +154,9 @@ function Reset(){
 			sum = 0;
 			Update(0);
 			document.getElementById("lf").innerHTML = 10 - (sum % 10);
+			return 1;
+		}else{
+			return 0;
 		}
 	}
 }
@@ -193,11 +196,17 @@ window.onbeforeunload = mes;
 window.onload = Load;
 
 function Mode(){
-	if(document.getElementById("onoff").innerText == "OFF"){
-		document.getElementById("onoff").innerText = "ON";
-		hard1();
-	}else{
-		document.getElementById("onoff").innerText = "OFF";
-		normal1();
+	var tmp = Reset();
+	if(tmp == 1){
+		if(document.getElementById("onoff").innerText == "OFF"){
+			document.getElementById("onoff").innerText = "ON";
+			document.getElementById("s_mode").innerText = "(HARD)";
+			hard1();
+		}else{
+			document.getElementById("onoff").innerText = "OFF";
+			document.getElementById("s_mode").innerText = "";
+			normal1();
+		}
+	Change();
 	}
 }
