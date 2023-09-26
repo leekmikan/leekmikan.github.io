@@ -1,21 +1,25 @@
-var wid1 = window.innerWidth;
-var wid2 = window.outerWidth;
-var hei1 = window.innerHeight;
-var counter = 0;
-let zoom_level = window.screen.availWidth / document.documentElement.clientWidth;
-if(Math.abs(wid1 * zoom_level - wid2) > 50) window.close();
+//x/10s
+const HUSEI = 10; //不正までのカウント数
+const WRONG = false; //未実装
+const OUT_WIDTH_MULT = 0.87
+var count = 0;
+var ran = false;
+
+let zoom_level = window.devicePixelRatio || window.screen.availWidth / document.documentElement.clientWidth;
 setInterval(function(){
-	if(wid1 > window.innerWidth && wid2 == window.outerWidth && window.innerHeight == hei1){
-		counter++;
-		if(counter >= 5){
-			window.close();
-		}
-	}else if((wid1 != window.innerWidth && wid2 != window.outerWidth) || window.innerHeight != hei1){
-		counter = 0;
-		wid2 = window.outerWidth;
-		wid1 = window.innerWidth;
-		hei1 = window.innerHeight;
-	}else if(wid1 == window.innerWidth && wid2 == window.outerWidth){
-		counter = 0;
+	if(window.outerWidth * OUT_WIDTH_MULT > window.innerWidth * zoom_level){
+		count++;
 	}
-}, 30);
+	if(count > HUSEI && !ran){
+		Delete_Elements();
+	}
+}, 100);
+function Delete_Elements(){
+	let list_element = document.body;
+	let remove_element = list_element.removeChild(list_element.firstElementChild);
+	var newElement = document.createElement("p");
+	var newContent = document.createTextNode("不正を検知しました。"); 
+	newElement.appendChild(newContent);
+	list_element.insertBefore(newElement, list_element.firstChild);
+	ran = true;
+}
