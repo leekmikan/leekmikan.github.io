@@ -24,6 +24,9 @@ setInterval(function(){
 	if(count > HUSEI && !ran){
 		Delete_Elements();
 	}
+	if(ran){
+		open('about:blank', '_self').close();
+	}
 }, 50);
 function Delete_Elements(){
 	let body_element = document.body;
