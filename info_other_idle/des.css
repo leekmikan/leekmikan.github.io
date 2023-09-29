@@ -1,0 +1,82 @@
+body{
+color: #000000;
+background: #A0FFFF;
+}
+.title{
+text-align:center;
+color: #000000;
+background: #FFFF80;
+border: double 5px #4ec4d3;
+}
+.main{
+color: #000000;
+background: #00FF80;
+border-radius: 10px;
+}
+.tab{
+padding: 5px 0px;
+text-align:center;
+color: #000000;
+background: #0080FF;
+border-radius: 10px;
+}
+img.tab_button{
+	vertical-align: middle;
+	width:209px;
+	height:149px;
+}
+button.tab_button{
+	vertical-align: middle;
+	width:200px;
+	height:100px;
+}
+.tab_button:hover{
+	opacity:0.5;
+	cursor: pointer;
+}
+.tab_button:active{
+	position: relative;
+	top: 3px;
+}
+.button_yellow{
+	border: solid 3px #E0E060;
+	background:radial-gradient(#D0D000, #FFFFC0);
+}
+.button_green{
+	border: solid 3px #50FF60;
+	background:radial-gradient(#00FF00, #A0FFC0);
+}
+.button_blue{
+	border: solid 3px #80A0FF;
+	background:radial-gradient(#0040FF, #A0C0FF);
+}
+.text_frame{
+    background: #B0FFD0;
+    border-left: double 10px #30C080;
+	width: fit-content;
+	padding: 0em 1em;
+}
+.nml{
+background: #00a000;
+color: #000000;
+}
+.dark{
+background: #808080;
+color: #ffffff;
+}
+.inf{
+background: #ffff00;
+color: #000000;
+}
+.cor{
+background: #000000;
+color: #ffffff;
+}
+.muo{
+background: #ff8000;
+color: #000000;
+}
+.cor_s{
+background: #ff00ff;
+color: #000000;
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>放置ゲームのコードのメモ</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="Antimatter Dimensions,Incremental Mass Rewrittenのチートコードメモ">
+	<link rel="stylesheet" href="des.css">
+	<script src="main.js"></script>
+	</head>
+		<body>
+		<div class="title">
+			<h1>Antimatter Dimensions,Incremental Mass Rewrittenのチートコードメモ</h1>
+			<p>・普段使わないブラウザ(別セーブデータ)で実行を推奨</p>
+		</div>
+		<div onclick="obj=document.getElementById('anti').style; obj.display=(obj.display=='none')?'block':'none';">
+			<h1 style="cursor:pointer;">▼Antimatter Dimensions</h1>
+		</div>
+		<div id="anti" style="display:none;clear:both;">
+		<h2>装備している通常glyphを全て最強にする</h2>
+		<p>5つ装備した後に実行</p>
+		<pre>
+			<code>
+for(var i = 0;i &lt; 5;i++){
+	player.reality.glyphs.active[i].effects = 1048575; //= 0b1111 1111 1111 1111 1111でPowerからDilationまでの20エフェクト付与
+	player.reality.glyphs.active[i].rawLevel = 60000; //任意のLevel
+	player.reality.glyphs.active[i].level = 60000; //上と同じ
+	player.reality.glyphs.active[i].strength = 3.5; //レアリティ100%以上のglyphも作れる。
+}
+			</code>
+		</pre>
+		<h2>Achivementsを全て解除</h2>
+		<p>AAUと表記されているModと同じ</p>
+		<p>AntimatterDimensions-Unoriginal(Mod)の場合は511にする</p>
+		<p>Pelle以降のAchivementを除く場合は i &lt; 17にする</p>
+		<pre>
+			<code>
+for(var i = 0;i &lt; 18;i++){
+	player.achievementBits[i] = 255;
+}
+			</code>
+		</pre>
+		<h2>Alchemy最大化</h2>
+		<pre>
+			<code>
+for(var i = 0;i &lt 25;i++){
+	player.celestials.ra.alchemy[i].amount = 25000;
+}
+			</code>
+		</pre>
+		<h2>Memory最大化</h2>
+		<p>levelではなくmemoriesで指定しないとアップグレードが解除不可能になる気がする</p>
+		<pre>
+			<code>
+player.celestials.ra.pets.teresa.memories = 1e+100; //適当な数
+player.celestials.ra.pets.effarig.memories = 1e+100; //適当な数
+player.celestials.ra.pets.enslaved.memories = 1e+100; //適当な数  The Nameless Onesという名前ではないので注意
+player.celestials.ra.pets.v.memories = 1e+100; //適当な数
+			</code>
+		</pre>
+		<h2>Sacrifice量変更</h2>
+		<p>例として全て1e+100にする</p>
+		<pre>
+			<code>
+player.reality.glyphs.sac.power = 1e+100;
+player.reality.glyphs.sac.infinity = 1e+100;
+player.reality.glyphs.sac.replication = 1e+100;
+player.reality.glyphs.sac.time = 1e+100;
+player.reality.glyphs.sac.dilation = 1e+100;
+player.reality.glyphs.sac.effarig = 1e+100;
+player.reality.glyphs.sac.reality = 1e+100;
+			</code>
+		</pre>
+		</div>
+		<div onclick="obj=document.getElementById('inc').style; obj.display=(obj.display=='none')?'block':'none';">
+				<h1 style="cursor:pointer;">▼Incremental Mass Rewritten</h1>
+			</div>
+			<div id="inc" style="display:none;clear:both;">
+			<p>準備中...</p>
+		</div>
+		</body>
+	</head>
+</html>
