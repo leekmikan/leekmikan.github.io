@@ -71,12 +71,62 @@ player.reality.glyphs.sac.effarig = 1e+100;
 player.reality.glyphs.sac.reality = 1e+100;
 			</code>
 		</pre>
+		<h2>Reality/Imaginary Upgradesの条件削除 購入</h2>
+		<p>必要に応じて5種類用意</p>
+		<pre>
+			<code>
+player.reality.upgReqs = 67108800; //Reality Upgradesの条件削除
+player.reality.upgradeBits = 67108800 //Reality Upgradesの購入 (Teresa開放しないver)
+player.reality.upgradeBits = 67108736 //Reality Upgradesの購入 (1つ目手動購入でTeresaを開放)
+player.reality.imaginaryUpgReqs = 67108800; //Imaginary Upgradesの条件削除
+player.reality.imaginaryUpgradeBits = 67108800; //Imaginary Upgradesの購入
+			</code>
+		</pre>
 		</div>
 		<div onclick="obj=document.getElementById('inc').style; obj.display=(obj.display=='none')?'block':'none';">
 				<h1 style="cursor:pointer;">▼Incremental Mass Rewritten</h1>
 			</div>
 			<div id="inc" style="display:none;clear:both;">
-			<p>準備中...</p>
+			<p>※チャレンジのゴールなどの調査に使ってください</p>
+		<h2>巨大数を扱う型 (Decimal)</h2>
+		<p>IMRでは、sign,mag,layerの3つの変数で巨大数を表している</p>
+		<p>sign...符号(0なら0,1以上なら1)</p>
+		<p>mag...真数(巨大数の指数の一番右上の値　　10^xにおけるxのこと)<p>
+		<p>layer...指数に10がいくつ並んでいるか(例えば10^10^magの形で表すならlayer=2になる)</p>
+		<p>例:</p>
+		<p>10^8...{sign: 1,mag: 8,layer: 1}</p>
+		<p>15...{sign: 1,mag: 15,layer: 0}</p>
+		<p>1e1.6e10...{sign: 1,mag: 10log10(1.6),layer: 2}</p>
+		<p>eee130...{sign: 1,mag: 130,layer: 3}</p>
+		<p>1↑↑10...{sign: 1,mag: 10,layer: 9}</p>
+		<p>0...{sign: 0,mag: 0,layer: 0}</p>
+		<p>コード例(massをee8(10^10^8)にする)</p>
+		<pre>
+			<code>
+player.mass.sign = 1; //正の数
+player.mass.mag = 8; //x = 8
+player.mass.layer = 2; //10^10^x
+			</code>
+		</pre>
+		<h2>変数例</h2>
+		<p>player.mass ...massの量(Decimal)</p>
+		<p>player.bh.mass ...BH massの量(Decimal)</p>
+		<p>player.inf.points ...IPの量(Decimal)</p>
+		<p>player.chal.comps.10 ...C10のクリア回数 (Decimal)(数字のところがチャレンジ番号と対応)</p>
+		<p>player.dark.c16.bestBH ...C16内での最高BH mass量(Decimal)</p>
+		<p>player.inf.core[0].type ...1番左の装備しているtheoremの名前(String)(配列は0~4)</p>
+		<p>player.inf.core[0].star[6] ...1番左の装備しているtheoremが7番目の効果を持っているか<br>
+		(Boolean)(2つ目の配列は0~7だが、6,7は基本false)</p>
+		<h2>セーブデータ</h2>
+		<p>セーブデータは、他の放置ゲームと同様にbase64で書かれているので、デコードしてあげると読める</p>
+		<p>文字列の数値は、1e100やee20などのeを用いた指数表記</p>
+		<p>例 (各rankの数値):<br>
+		{"rank":"4.7081067628641495e1492","tier":"5.690041635705477e1631","tetr":"2.616052220200814e971",<br>
+		"pent":"9.86413585488763e654","hex":"1.843073719468301e106","beyond":"1.2287524604258944e45"}</p>
+		<p>文字列でない数値は基本通常表記</p>
+		<p>例(big ripのmain upgradeの取得状況):<br>
+		"br":[8,9,11,1,2,3,4,5,6,7,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
+		</p>
 		</div>
 		</body>
 	</head>
