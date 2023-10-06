@@ -100,12 +100,19 @@ player.reality.imaginaryUpgradeBits = 67108800; //Imaginary Upgradesの購入
 		<p>eee130...{sign: 1,mag: 130,layer: 3}</p>
 		<p>1↑↑10...{sign: 1,mag: 10,layer: 9}</p>
 		<p>0...{sign: 0,mag: 0,layer: 0}</p>
-		<p>コード例(massをee8(10^10^8)にする)</p>
+		<p>コード例1(massをee16(10^10^16)にする)</p>
 		<pre>
 			<code>
 player.mass.sign = 1; //正の数
-player.mass.mag = 8; //x = 8
+player.mass.mag = 16; //x = 8
 player.mass.layer = 2; //10^10^x
+			</code>
+		</pre>
+		<p>E(通常の数値)またはE('巨大数')を使って設定もできる。(クオーテーションありなしに注意)</p>
+		<p>コード例2(massをee16(10^10^16)にする)</p>
+		<pre>
+			<code>
+player.mass = E('ee16');
 			</code>
 		</pre>
 		<h2>変数例</h2>
