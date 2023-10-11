@@ -10,6 +10,11 @@ var rand = 0;
 var playing = false;
 function Ans(){
 	if(qs[rand].ans == document.getElementById("ans").value){
+		if(qs[rand].genre = "Songs"){
+			Get_Star(3);
+		}else{
+			Get_Star(1);
+		}
 		alert("正解!");
 		Change(rd());
 	}
@@ -58,3 +63,18 @@ function Start(){
 }
 document.getElementById("ques_val").innerText = qs.length;
 document.getElementById("nol").innerText = Math.round(qs.length * 0.4);
+function Get_Star(x){
+	if (window.localStorage) {
+		let tmp = 0;
+		let data = localStorage.getItem('player_star');
+		if(data){
+			tmp = JSON.parse(data);
+			tmp += x;
+		}
+		else{
+			tmp = x;
+		}
+	let jtmp = JSON.stringify(tmp, undefined, 1);
+	localStorage.setItem('player_star', jtmp);
+	}
+}
