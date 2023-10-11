@@ -2,6 +2,7 @@ var rand = [0,0,0];
 var rang = [0,1,2,3,4,5];
 var debug = false;
 var dnum = [3,28];
+var hard_mode = false;
 var prg = [
 [0,0],
 [0,0],
@@ -33,8 +34,14 @@ for(var i = 0;i < 10;i++){
 	gx += cm[i][0];
 }
 	if(gx >= 5){
-		Get_Star((gx - 4) * 3);
+		if(hard_mode){
+			Get_Star((gx - 4) * 5);
+		}
+		else{
+			Get_Star((gx - 4) * 3);
+		}
 	}
+Save();
 }
 for(var i = 0;i < 6;i++){
 	tmp[0] += prg[i][0];
@@ -50,7 +57,6 @@ for(var i = 0;i < 6;i++){
 	}else{
 		document.getElementById("ga").innerHTML = tmp[0] + "/" + tmp[1] + "<br>(" + Math.round(100 * tmp[0] / tmp[1])+ "%)";
 	}
-	Save();
 }
 function Ans(x){
 	if(x == rand[1]){
@@ -111,6 +117,8 @@ function Save(){
 	if (window.localStorage) {
 		let jprg_hard = JSON.stringify(prg, undefined, 1);
 		localStorage.setItem('jprg_hard', jprg_hard);
+		let jbool_hard = JSON.stringify(hard_mode, undefined, 1);
+		localStorage.setItem('jbool_hard', jbool_hard);
 	}
 }
 function Load(){
@@ -133,6 +141,16 @@ function Load(){
 			}
 			for(i = 0;i < rang.length;i++){
 				document.getElementById("Cb" + rang[i]).checked = true;
+			}
+		}
+		data = localStorage.getItem('jbool_hard');
+		if(data){
+			hard_mode = JSON.parse(data);
+			if(hard_mode){
+				document.getElementById("onoff").innerText = "ON";
+				document.getElementById("s_mode").innerText = "(HARD)";
+				hard1();
+				Change();
 			}
 		}
 	}
@@ -174,8 +192,8 @@ function Cbox(){
 	Change();
 }
 function mes(event){
-		let jrang_hard = JSON.stringify(rang, undefined, 1);
-		localStorage.setItem('jrang_hard', jrang_hard);
+	let jrang_hard = JSON.stringify(rang, undefined, 1);
+	localStorage.setItem('jrang_hard', jrang_hard);
 }
 function Get_Star(x){
 	if (window.localStorage) {
@@ -194,15 +212,16 @@ function Get_Star(x){
 }
 window.onbeforeunload = mes;
 window.onload = Load;
-
 function Mode(){
 	var tmp = Reset();
 	if(tmp == 1){
 		if(document.getElementById("onoff").innerText == "OFF"){
+			hard_mode = true;
 			document.getElementById("onoff").innerText = "ON";
 			document.getElementById("s_mode").innerText = "(HARD)";
 			hard1();
 		}else{
+			hard_mode = false;
 			document.getElementById("onoff").innerText = "OFF";
 			document.getElementById("s_mode").innerText = "";
 			normal1();
