@@ -17,6 +17,25 @@
 			<h1 style="cursor:pointer;">▼Antimatter Dimensions</h1>
 		</div>
 		<div id="anti" style="display:none;clear:both;">
+		<h2>Dilationの強さ調整</h2>
+		<p>1以上にすると、通常時よりも稼げるようになるが、<br>大きすぎる数を入れるとゲームが崩壊する(1.25でも一瞬で1e9e15まで到達する可能性あり)</p>
+		<pre>
+			<code>
+var dilation_power = 0.75; //ペナルティーの強さを入力(小さいほどきつくなる)
+
+//Dilationを書き換え
+function dilatedValueOf(value) {
+  const log10 = value.log10();
+  const dilationPenalty = dilation_power * Effects.product(DilationUpgrade.dilationPenalty);
+  return Decimal.pow10(Math.sign(log10) * Math.pow(Math.abs(log10), dilationPenalty));
+}
+
+//常にDilation有効
+setInterval(function(){
+player.dilation.active = true;
+}, 50);
+			</code>
+		<pre>
 		<h2>装備している通常glyphを全て最強にする</h2>
 		<p>5つ装備した後に実行</p>
 		<pre>
