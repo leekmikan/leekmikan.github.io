@@ -23,6 +23,7 @@ text-align:center;
 .sel{
   width: 8vw;
 }
-tr{
-text-align:center;
+table{
+    margin-left: auto;
+    margin-right: auto;
 }
