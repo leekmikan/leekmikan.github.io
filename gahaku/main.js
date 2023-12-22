@@ -54,6 +54,18 @@ function Sel(){
 		document.getElementById("sel").value = n;
 	}
 }
+function Selp(n){
+    if(true){
+        n++;
+		if(n <= 0){
+			n = 1;
+		}else if(qs.length < n){
+			n = qs.length;
+		}
+		Change(n - 1);
+		document.getElementById("sel").value = n;
+	}
+}
 function Start(){
 	document.getElementById("start").style.display = "none";
 	document.getElementById("ytb").style.display = "none";
