@@ -1,4 +1,4 @@
-﻿body{
+body{
 color: #FFFFFF;
 background: #000000;
 }
@@ -20,10 +20,39 @@ text-align:center;
   background: #008000;
   color: white;
 }
+td{
+  text-align:center;
+}
 .sel{
   width: 10vw;
 }
+.sel:hover{
+  width: 11vw;
+}
 table{
-    margin-left: auto;
-    margin-right: auto;
+  margin: auto;
+}
+#pic{
+width: 45vw;
+}
+#pt{
+width: 30vw;
+}
+.abs{
+position: absolute; 
+top: 7vh;
+left: 44.5vw;
+}
+#ans{
+width: 300px;
+height: 50px; 
+font-size:30px;
+}
+.ch{
+width: 200px;
+height: 50px;
+}
+#mb{
+width: 200px;
+height: 50px;
 }
