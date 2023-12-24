@@ -21,10 +21,12 @@ text-align:center;
   color: white;
 }
 td{
+  width: 10vw;
   text-align:center;
 }
 .sel{
-  width: 10vw;
+  width: 9vw;
+ margin: 0.5vw auto;
 }
 .sel:hover{
   width: 11vw;

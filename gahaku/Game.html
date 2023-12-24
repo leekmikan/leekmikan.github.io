@@ -7,6 +7,8 @@
 	<title>画伯の展覧会　(下手な絵を当てるクイズ)</title>
 	<script src="qs.js"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
 	</head>
 		<body style="width :1500px; background-size:cover">
 		<h1 onclick="Start()"id="start" style="font-family: 'Pinyon Script', cursive;">Click to start</h1>
@@ -32,7 +34,7 @@
 		<div id="ex">
 		<h1>無理ゲークイズ1「画伯の展覧会」</h1>
 		<h2>下手な絵をみて、何の絵か当てよう！</h2>
-		<h2>答えはひらがなで作品名のところに入力</h2>
+		<h2>答えはひらがなで作品名のところに入力し、ダブルクリックで判定</h2>
 		<h2>ジャンル「Child (年)」は、幼稚園～小学生の間に描いた絵</h2>
 		<h2>ジャンル「Songs」は、絵から曲名を推測する問題</h2>
 		<h2>適当に作ったページなのでバグがあるかも</h2>
@@ -40,6 +42,7 @@
 		<h2>目標:<span id="ques_val">0</span>問中<span id="nol">0</span>問正解する</h2>
 		<br>
 		<div  style="text-align:center">
+			<h2>正解数 <span id="cmp">0/0　(0%)</span></h2>
 			<h2>以下の画像をクリックすることで、任意の問題に切り替えられます</h2>
 		</div>
 <table id="tb"><tr id="tr0">
@@ -286,7 +289,7 @@
 			document.getElementById("start").innerText = "Tap to start";
 			}
 		</script>
-		<script src="f12.js"></script>
+		
 	</head>
 	<link rel="stylesheet" href="des.css">
 </html>
