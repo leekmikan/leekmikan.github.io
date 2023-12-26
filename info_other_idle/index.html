@@ -2,7 +2,7 @@
 <html lang="ja">
 	<head>
 	<meta charset="uft-8">
-	<title>放置ゲームのコードのメモ</title>
+	<title>放置ゲームのメモ</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
 	<meta name="description" content="Antimatter Dimensions,Incremental Mass Rewrittenのチートコードメモ">
 	<link rel="stylesheet" href="des.css">
@@ -12,11 +12,12 @@
 	</head>
 		<body>
 		<div class="title">
-			<h1>Antimatter Dimensions,Incremental Mass Rewrittenのチートコードメモ</h1>
-			<p>・普段使わないブラウザ(別セーブデータ)で実行を推奨</p>
+			<h1>放置ゲームのメモ</h1>
+			<p>・JavaScript中心</p>
+			<p>・JavaScriptは普段使わないブラウザ(別セーブデータ)で実行を推奨</p>
 		</div>
 		<div onclick="obj=document.getElementById('anti').style; obj.display=(obj.display=='none')?'block':'none';">
-			<h1 style="cursor:pointer;">▼Antimatter Dimensions</h1>
+			<h1 style="cursor:pointer;">▼Antimatter DimensionsのJavaScriptコード</h1>
 		</div>
 		<div id="anti" style="display:none;clear:both;">
 		<h2>Dilationの強さ調整</h2>
@@ -105,7 +106,7 @@ player.reality.imaginaryUpgradeBits = 67108800; //Imaginary Upgradesの購入
 		</pre>
 		</div>
 		<div onclick="obj=document.getElementById('inc').style; obj.display=(obj.display=='none')?'block':'none';">
-				<h1 style="cursor:pointer;">▼Incremental Mass Rewritten</h1>
+				<h1 style="cursor:pointer;">▼Incremental Mass RewrittenのJavaScriptコード</h1>
 			</div>
 			<div id="inc" style="display:none;clear:both;">
 			<p>※チャレンジのゴールなどの調査に使ってください</p>
@@ -156,6 +157,118 @@ player.mass = E('ee16');
 		"br":[8,9,11,1,2,3,4,5,6,7,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
 		</p>
 		</div>
+			<div onclick="obj=document.getElementById('cc').style; obj.display=(obj.display=='none')?'block':'none';">
+				<h1 style="cursor:pointer;">▼Cookie Clicker スマホ版(一時的)</h1>
+			</div>
+			<div id="cc" style="display:none;clear:both;">
+				<h2>スマホ版限定の隠し要素？</h2>
+				<p>・大クッキーを2点で掴むようにタップすると、持ち運べる</p>
+				<p>これを利用すると、実績Cookie-dunkerを解除+つかめないようにできる設定が追加</p>
+				<p>・SPECIAL/STATS/MISICが書かれているめん棒を回すと、確率？で一部のアップグレードを開放できる</p>
+				<p>季節限定のアップグレードやフォーチュンクッキーが4つくらい開放できる</p>
+				<h2>power clicks</h2>
+				<p>以下のアップグレードを開放すると、大クッキーの右下にpower clicksと書かれたボタンが現れる</p>
+				<p>一定時間放置すると数字が増え、ONにした状態で大クッキーをタップすると1つ使用できる</p>
+				<p>使った回数×決まった時間の間生産量が増加</p>
+				<table border="1">
+					</tr>
+						<td>名前</td>
+						<td>効果</td>
+						<td>価格</td>
+					</tr>
+					</tr>
+						<td>Twin Gates of Transcendence</td>
+						<td>power clicks開放<br>1回分溜まるのにかかる時間: 30分<br>貯められる回数:5回<br>効果1:タップ2回分のクッキー獲得<br>効果2:10秒間クッキーの生産量+5%</td>
+						<td>1</td>
+					</tr>
+				</table>
+				<h2>天使</h2>
+				<table border="1">
+					<tr>
+						<td>名前</td>
+						<td>効果</td>
+						<td>価格</td>
+					</tr>
+					<tr>
+						<td>Angels</td>
+						<td>1回分溜まるのにかかる時間: 28分<br>貯められる回数:10回</td>
+						<td>7</td>
+					</tr>
+					<tr>
+						<td>Archangels</td>
+						<td>1回分溜まるのにかかる時間: 26分<br>貯められる回数:15回</td>
+						<td>49</td>
+					</tr>
+					<tr>
+						<td>Virtues</td>
+						<td>1回分溜まるのにかかる時間: 24分<br>貯められる回数:20回</td>
+						<td>343</td>
+					</tr>
+					<tr>
+						<td>Dominions</td>
+						<td>1回分溜まるのにかかる時間: 22分<br>貯められる回数:25回</td>
+						<td>2401</td>
+					</tr>
+					<tr>
+						<td>Cherubim</td>
+						<td>1回分溜まるのにかかる時間: 20分<br>貯められる回数:30回</td>
+						<td>16807</td>
+					</tr>
+					<tr>
+						<td>Seraphim</td>
+						<td>1回分溜まるのにかかる時間: 18分<br>貯められる回数:35回</td>
+						<td>117649</td>
+					</tr>
+					<tr>
+						<td>God</td>
+						<td>1回分溜まるのにかかる時間: 16分<br>貯められる回数:40回</td>
+						<td>823543</td>
+					</tr>
+				</table>
+				<h2>悪魔</h2>
+				<table border="1">
+					<tr>
+						<td>名前</td>
+						<td>効果</td>
+						<td>価格</td>
+					</tr>
+					<tr>
+						<td>Belphegor</td>
+						<td>効果1:タップ3回分のクッキー獲得<br>効果2:15秒間クッキーの生産量+6%</td>
+						<td>7</td>
+					</tr>
+					<tr>
+						<td>Mammon</td>
+						<td>効果1:タップ4回分のクッキー獲得<br>効果2:20秒間クッキーの生産量+7%</td>
+						<td>49</td>
+					</tr>
+					<tr>
+						<td>Abaddon</td>
+						<td>効果1:タップ5回分のクッキー獲得<br>効果2:25秒間クッキーの生産量+8%</td>
+						<td>343</td>
+					</tr>
+					<tr>
+						<td>Satan</td>
+						<td>効果1:タップ6回分のクッキー獲得<br>効果2:30秒間クッキーの生産量+9%</td>
+						<td>2401</td>
+					</tr>
+					<tr>
+						<td>Asmodeus</td>
+						<td>効果1:タップ7回分のクッキー獲得<br>効果2:35秒間クッキーの生産量+10%</td>
+						<td>16807</td>
+					</tr>
+					<tr>
+						<td>Beelzebub</td>
+						<td>効果1:タップ8回分のクッキー獲得<br>効果2:40秒間クッキーの生産量+11%</td>
+						<td>117649</td>
+					</tr>
+					<tr>
+						<td>Lucifer</td>
+						<td>効果1:タップ9回分のクッキー獲得<br>効果2:45秒間クッキーの生産量+12%</td>
+						<td>823543</td>
+					</tr>
+				</table>
+			</div>
 		</body>
 	</head>
 </html>
