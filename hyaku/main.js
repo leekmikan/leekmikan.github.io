@@ -40,6 +40,7 @@ function sel(x){
     draw();
     time = 0;
     score = [0,0];
+    document.getElementById("score").innerText = score[0] + "-" + score[1];
     stat = "play";
 }
 setInterval(function(){
