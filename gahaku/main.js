@@ -1,4 +1,5 @@
 var ms = new Audio();
+var cmp = [];
 ms.preload = "auto";
 ms.src = "snd/TENRANKAI.mp3";
 ms.load();
@@ -14,6 +15,11 @@ function Ans(){
 			Get_Star(3);
 		}else{
 			Get_Star(1);
+		}
+		if(!cmp.includes(rand)){
+			cmp.push(rand);
+			document.getElementById("td" + rand).style.background = "#FF0000";
+			document.getElementById("cmp").innerText = cmp.length + "/" + qs.length + "　(" + Math.round(cmp.length / qs.length * 1000) / 10 + "%)";
 		}
 		alert("正解!");
 		Change(rd());
@@ -42,18 +48,6 @@ function Plps(){
 		document.getElementById("mb").innerText = "BGM: OFF";
 	}
 }
-function Sel(){
-	var n = document.getElementById("sel").value;
-	if(!isNaN(n)){
-		if(n <= 0){
-			n = 1;
-		}else if(qs.length < n){
-			n = qs.length;
-		}
-		Change(n - 1);
-		document.getElementById("sel").value = n;
-	}
-}
 function Selp(n){
     if(true){
         n++;
@@ -63,7 +57,6 @@ function Selp(n){
 			n = qs.length;
 		}
 		Change(n - 1);
-		document.getElementById("sel").value = n;
 	}
 }
 function Start(){
@@ -90,3 +83,19 @@ function Get_Star(x){
 	localStorage.setItem('player_star', jtmp);
 	}
 }
+window.addEventListener('beforeunload', (event) => {
+	if (window.localStorage) {
+		let tmp = JSON.stringify(cmp, undefined, 1);
+		localStorage.setItem('gahaku_cmp', tmp);
+	}
+});
+if (window.localStorage) {
+	let data = localStorage.getItem('gahaku_cmp');
+	if(data){
+		cmp = JSON.parse(data);
+	}
+}
+for(var i = 0;i < cmp.length;i++){
+	document.getElementById("td" + cmp[i]).style.background = "#FF0000";
+}
+document.getElementById("cmp").innerText = cmp.length + "/" + qs.length + "　(" + Math.round(cmp.length / qs.length * 1000) / 10 + "%)";
