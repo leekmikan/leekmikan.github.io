@@ -11,56 +11,51 @@
 		<body>
 			<div class="title">
 				<h1>音楽数学</h1>
+				<p>数学は得意だけど芸術科目が苦手な人向け</p>
 			</div><br>
-			<h2 class="text_frame">表記例</h2>
+			<h2 class="text_frame">理論関連</h2>
 			<div class="main">
-				<h2>\(f[n]\)...波形データ</h2>
-				<h2>\(d[n]\)...ファイル全体のデータ</h2>
-				<h2>\(F[f]\)...配列\(f\)のフーリエ変換</h2>
-				<h2>\(F^{-1}[f]\)...配列\(f\)の逆フーリエ変換</h2>
-				<h2>\(L,R\)...左,右チャンネル(添え字)</h2>
-				<h2>\(bit\)...ビットレート(ここでは\(16\)とする)</h2>
-				<h2>\(sample\)...サンプリング周波数</h2>
-				<h2>\(length\)...(何かしらの)サイズ</h2>
-				<h2>\(Re,Im\)...実部,虚部</h2>
-				<h2>\(ch\)...チャンネル数(ここでは\(2\)とする)</h2>
-				<h2>注意:\(n\)は\(0\)スタート,\(d[n]\)と\(f[n]\)の範囲は\(-32768～32767\)</h2>
+				<p>♯の個数を+、♭の個数を-とする。</p>
+				<h2>ピッチ変更と調号の数</h2>
+				<p>ピッチを\(n\)個上げたときの調号の個数の変化量は、</p>
+				<h2 style="text-align:center;">\(\left\{(7n+6)mod12\right\}-6\)</h2>
+				<h2>調</h2>
+				<p>調号が\(n\)個のときも同様で、調の名称は基準(後述)から半音</p>
+				<h2 style="text-align:center;">\(\left\{(7n+6)mod12\right\}-6\)</h2>
+				<p>個分ずらしたもの。ただし、オクターブは無視する。</p>
+				<p>基準(長調)：Cメジャー,ハ長調　(ドの音)　　黒鍵のとき、名称につくのは♯,嬰</p>
+				<p>基準(短調)：Aマイナー,イ短調　(ラの音)　　黒鍵のとき、名称につくのは♭,変</p>
 			</div>
-			<h2 class="text_frame">式</h2>
+			<h2 class="text_frame">wav関連</h2>
 			<div class="main">
-				<h2>ノーツ間隔</h2>
-				<p>BPMが\(bpm\)で、\(l\)分の\(m\)拍子での\(n\)分音符の間隔は</p>
-				<h2 style="text-align:center;">\(\frac{240m}{bpm・l・n}\)秒</h2>
-				<h2>midiファイルのデルタタイム</h2>
-				<p>時間\(T\)[s]と分解能\(t\)とデルタタイム\(d\)の関係は</p>
-				<h2 style="text-align:center;">\(d=2tT\)</h2>
-				<h2>ボイスキャンセラー</h2>
-				<p>ボーカルが中央にいる時、両チャンネルを</p>
-				<h2 style="text-align:center;">\(\frac{f_L[n]-f_R[n]}{2}\)または\(\frac{f_R[n]-f_L[n]}{2}\)にする</h2>
-				<h2>コンプレッサー</h2>
-				<p>波形の振幅を\(x\)乗にするには</p>
-				<h2 style="text-align:center;">\(f[n]・|f[n]|^{x-1}\)にする</h2>
-				<h2>サンプリング周波数変更</h2>
-				<p>サンプリング周波数を\(x\)倍した後、再生速度と周波数を\(\frac{1}{x}\)倍する</p>
-				<h2>フランジャー</h2>
-				<p>\(g[n]\)を周期関数として</p>
-				<h2 style="text-align:center;">\(\frac{f[n]+f[n+g[n]]}{2}\)</h2>
-				<h2>ケプストラム</h2>
-				<h2 style="text-align:center;">\(F^{-1}[\log_{}|F[f]|]\)</h2>
-				<h2>フォルマント</h2>
-				<h2 style="text-align:center;">\(F[\log_{}|F^{-1}[\log_{}|F[f]|]|]\)</h2>
 				<h2>再生時間</h2>
 				<p>データ部が\(N\)バイトのwavファイルの再生時間は</p>
 				<h2 style="text-align:center;">\(\frac{8N}{sample・bit}\)秒</h2>
-				<h2>音階</h2>
+				<h2>音階(平均律)</h2>
 				<p>A4のラ(\(440Hz\)とする)の半音\(x\)個上の音階の周波数は</p>
 				<h2 style="text-align:center;">\(440・2^{\frac{x}{12}}\)Hz</h2>
-				<p>逆関数(\(yHz\)の音はラより半音\(x\)個高い)は</p>
-				<h2 style="text-align:center;">\(12\log_{2}\frac{y}{440}\)</h2>
 				<h2>バイナリファイル計算</h2>
 				<p>\(l\)から\(m\)バイト目のリトルエンディアンでの値は</p>
 				<h2 style="text-align:center;">\(\displaystyle\sum_{k=l}^{m}{\left\{\array{d[k]・256^{k-l}(d[k]&gt;=0)\\(d[k]+65536)・256^{k-l}(d[k]&lt;0)}\right.}\)</h2>
 				<p>(例)wavファイルで\(l=24,m=27\)として計算するとサンプリング周波数が求まる(\(44100Hz,48000Hz\)など)</p>
+			</div>
+			<h2 class="text_frame">midi関連</h2>
+			<div class="main">
+				<h2>分解能とデルタタイム</h2>
+				<p>BPMが60の4分音符(1秒)を分解能\(N\)の値だけ分割するので、デルタタイム1つ分の時間\(T\)は</p>
+				<h2 style="text-align:center;">\(T=\frac{1}{N}\)</h2>
+				<p>一般的には\(n=960\) ?</p>
+				<h2>デルタタイム</h2>
+				<p>BPMが\(bpm\)、\(n\)分音符のデルタタイムは</p>
+				<h2 style="text-align:center;">\(\frac{240N}{bpm・n}\)</h2>
+				<p>付点は\(n\)を1.5倍</p>
+			</div>
+			<h2 class="text_frame">音ゲー関連</h2>
+			<div class="main">
+				<h2>ノーツ間隔</h2>
+				<p>BPMが\(bpm\)、\(n\)分音符の間隔は</p>
+				<h2 style="text-align:center;">\(\frac{240}{bpm・n}\)秒</h2>
+				<p>付点は\(n\)を1.5倍</p>
 			</div>
 			<p style="text-align:center;"><a href="https://leekmikan.github.io/">HOME(いろんなクイズやコードなどがあるよ!)<a></p>
 		</body>
