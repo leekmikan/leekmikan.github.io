@@ -8,11 +8,11 @@
 	<link rel="stylesheet" href="des.css">
 	<link rel="icon" type="image/jpg" href="../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
-	<script src="main.js"></script>
 	</head>
 		<body>
 		<div class="title">
 			<h1>下手な絵集</h1>
+			<p>・全 <span id="sum">0</span> 枚</p>
 			<p>・下手な絵を当てるクイズ「画伯の展覧会」で出していない絵の置き場</p>
 			<p>・おもしろい画像が数十枚ある</p>
 			<p>・問題ない範囲で使っていいよ</p>
@@ -435,23 +435,12 @@
 			</tr>
 		</table>
 		</div>
-		<div onclick="obj=document.getElementById('sec').style; obj.display=(obj.display=='none')?'block':'none';">
-			<h1 style="cursor:pointer;">▼セキュリティー</h1>
-		</div>
-		<div id="sec" style="display:none;clear:both;">
-			<h2>「任天堂のキャラクターを選択」</h2>
-			<img  src="img/not robot1.jpg" alt="下手な絵の「私はロボットではありません」　「任天堂のキャラクターを選択」">
-			<p>左上：「魔法使い」　ドラクエ１など</p>
-			<p>右上：「キャンディ」　スマイルプリキュア</p>
-			<p>左下：「スティッチ」　ディズニー</p>
-			<p>右下：「キャンディ」　マリオRPG　←正解</p>
-		</div>
 		<div onclick="obj=document.getElementById('ame').style; obj.display=(obj.display=='none')?'block':'none';">
-			<h1 style="cursor:pointer;">▼アメトーーク！のお題 (NEW)</h1>
+			<h1 style="cursor:pointer;">▼アメトーーク！のお題</h1>
 		</div>
-		<div id="ame" style="clear:both;">
+		<div id="ame"  style="display:none;clear:both;">
 			<p>スクリーンショット→Googleフォトで白塗→絵を描く　の関係上、ファイルの拡張子は.pngです。</p>
-			<h1>2024</h1>
+			<h2>2024</h2>
 			<h2>爪をとぐ猫</h2>
 			<img  class="gf" src="img/ame_cat.png" alt="下手な絵「爪をとぐ猫」">
 			<h2>ハイキック</h2>
@@ -467,6 +456,32 @@
 			<h2>ウエディングケーキを切る新郎新婦</h2>
 			<img  class="gf" src="img/ame_wed.png" alt="下手な絵「ウエディングケーキを切る新郎新婦」">
 		</div>	
+		<div onclick="obj=document.getElementById('sec').style; obj.display=(obj.display=='none')?'block':'none';">
+			<h1 style="cursor:pointer;">▼その他</h1>
+		</div>
+		<div id="sec" style="display:none;clear:both;">
+			<h2>「任天堂のキャラクターを選択」</h2>
+			<img  src="img/not robot1.jpg" alt="下手な絵の「私はロボットではありません」　「任天堂のキャラクターを選択」">
+			<p>左上：「魔法使い」　ドラクエ１など</p>
+			<p>右上：「キャンディ」　スマイルプリキュア</p>
+			<p>左下：「スティッチ」　ディズニー</p>
+			<p>右下：「キャンディ」　マリオRPG　←正解</p>
+			<h2>ibisPaintのテスト</h2>
+			<p>そのうち「PictBear」/「Googleフォト(マークアップ)」から「ibisPaint」へ変えるかも</p>
+			<table>
+				<tr>
+					<td>
+						<h2>ニンフィア</h2>
+						<img  src="img/ninf.png" alt="下手な絵の「ibisPaintのテスト」　「ニンフィア」">
+					</td>
+					<td>
+						<h2>キティちゃん</h2>
+						<img  src="img/kitty.png" alt="下手な絵の「ibisPaintのテスト」　「キティちゃん」">
+					</td>
+				</tr>
+			</table>
+		</div>
 		</body>
+		<script src="main.js"></script>
 	</head>
 </html>
