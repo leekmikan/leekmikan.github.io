@@ -2,24 +2,48 @@
 <html lang="ja">
 	<head>
 	<meta charset="uft-8">
+	<title>使えるかわからないプログラム置き場</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
-	<meta name="description" content="C#,C++,JavaScript中心に制作したコードをあつめたページだよ。">
-	<title>コード</title>
+	<meta name="description" content="使えるかわからないプログラム置き場、巨大数の計算、wavファイルの畳み込みなど">
 	<link rel="stylesheet" href="des.css">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
 	<script src="main.js"></script>
 	</head>
 		<body>
-		<div class="text_frame">
-			<h1>エフェクター</h1>
-		</div>
+			<div class="title">
+				<h1>使えるかわからないプログラム置き場</h1>
+				<p>・使えるかわからないプログラム置き場、巨大数の計算、wavファイルの畳み込みなど</p>
+				<p>・ほとんどのファイルが高校2年生辺りで作ったものなので、非効率、間違いがあるかも。</p>
+			<p style="text-align:center;">※このサイトのメインのページは以下の4つです。(下手絵を中心に宣伝)</p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/gahaku/Game.html">画伯の展開会(下手な絵を当てるクイズ)<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/picture">下手な絵集<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi/Game.html">歌詞クイズ<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi easy/Game.html">歌詞クイズ(簡単ver)<a></p>
+			</div>
+			<div class="text_frame">
+				<h1>エフェクター</h1>
+			</div>
 		<div class="main">
 			<a href="Music.h" download="Music.h">Music.h</a><br><br><br>
-			<a href="Music2.h" download="Music2.h">Music2.h (std省略ver 2を消してから使ってね)</a><br><br><br>
-			<p>例:</p>
-			<p>WaveData wd = WaveData("16bit2chのwavファイル");</p>
-			<p>wd.Quality(8000); //サンプリング周波数を8000Hzに</p>
-			<p>wd.Export(2); //チャンネル数</p>
-			<p>wd.Dispose();</p>
+			<a href="Music2.h" download="Music2.h">Music2.h (std省略ver　　2を消してから使ってね)</a><br><br><br>
+			<p>使用例１</p>
+			<pre><code>
+WaveData wd = WaveData("16bit2chのwavファイル");
+wd.Quality(8000); //サンプリング周波数を8000Hzに
+wd.Export(2); //チャンネル数
+wd.Dispose();
+			</code></pre>
+			<p>>>音質が下がったwavファイルを出力</p>
+			<p>使用例２</p>
+			<pre><code>
+WaveData wd = WaveData("16bit2chのwavファイル");
+wd.LRdel(1000); //左右で少しだけ音をずらす(広がったようにきこえる)
+wd.ConvolutionReverb("16bit2chの残響音(IR)を記録したwavファイル", 0.14,200);//原曲14%、200Hz以下切り捨て
+wd.Export(2); //チャンネル数
+wd.Dispose();
+			</code></pre>
+			<p>>>特定の空間内で再生したかのようなwavファイルを出力</p>
 			<p>畳み込み(IRファイルが必要)/フランジャー/イコライザー/コンプレッサー</p>
 			<p>エコー/再生速度変更/ピッチ変更/多重/サンプリング周波数変更など約25種類</p>
 		</div>
@@ -27,31 +51,88 @@
 			<h1>巨大数</h1>
 		</div>
 		<div class="main">
-			<a href="Exp.h" download="Exp.h">Exp.h</a><br><br><br>
-			<a href="Exp.cs" download="Exp.cs">Exp.cs</a><br><br><br>
 			<a href="Exp.js" download="Exp.js">Exp.js</a><br><br><br>
-			<p>例(C++):</p>
-			<p>Exp num = Exp(一番上の指数の値,10^10^10...10^xの10の個数-1);</p>
+			<a href="Num.js" download="Num.js">Num.js(↑とセット　万～無量大数,矜羯羅～不可説不可説転までの単位で表示)</a><br><br><br>
+			<p>使用例</p>
+			<pre><code>
+var exp = new Exp(100,1); //10^10^100 (1グーゴルプレックス)
+letter_type = 1; //表示形式 0...XeYの形式  1...日本語  2...∞(1.8e308)基準
+document.getElementById("exp").innerHTML = Text(exp);//表示
+			</code></pre>
+			<p>>><span id="exp"></span></p>
+			<p>(1グーゴルプレックスは、1不可説不可説転の268.68那由他乗に近い)</p>
 		</div>
 		<div class="text_frame">
 			<h1>開発者ツール禁止(試作)</h1>
 		</div>
 		<div class="main">
 			<a href="f12.js" download="f12.js">f12.js</a><br><br><br>
-			<p>ページの横幅とウインドウの横幅がほぼ一致していない場合に閉じる</p>
+			<p>ページの横幅とウインドウの横幅がほぼ一致していない場合、警告後にページを移動</p>
 			<p>Firefoxなどwindow.close()が使えないブラウザ非対応</p>
 			<p>パソコンの設定によってはページが開けなくなるかも</p>
-		</div>
+		</div><br>
+		<p>以下、最近のファイル(2024年4月)</p>
 		<div class="text_frame">
 			<h1>ウインドウ(試作)</h1>
 		</div>
 		<div class="main">
+			<p>まだForms,Label,Buttonクラスのみ　　重なり方法未設定</p>
 			<a href="Forms.js" download="Forms.js">Form.js</a><br><br><br>
 			<a href="Forms.css" download="Forms.css">Form.css  (jsとセット)</a><br><br><br>
-			<p>例:</p>
-			<p>var fm = new Form("タイトル","form1","form_title","button_close",x,y,w,h);</p>
-			<p>Makeform(fm);</p>
+<p>使用例</p>
+			<pre><code>
+class Form1 extends Forms{
+    constructor(){
+        super(); //絶対必要
+
+	//フォームの位置
+        this.Location.X = 100;
+        this.Location.Y = 200;
+
+	//テキスト
+        this.Text = "テストだよ";
+        this.t1 = new Label();
+        this.t1.Location.X = 170;
+        this.t1.Location.Y = 100;
+        this.t1.Text = "どっち";
+
+	//はいボタン
+        this.bt1 = new Button();
+        this.bt1.Location.X = 100;
+        this.bt1.Location.Y = 220;
+        this.bt1.Text = "はい";
+        this.bt1.onclick = "alert('はい');f1.Close();";
+
+	//いいえボタン
+        this.bt2 = new Button();
+        this.bt2.Location.X = 250;
+        this.bt2.Location.Y = 220;
+        this.bt2.Text = "いいえ";
+        this.bt2.onclick = "alert('いいえ');f1.Close();";
+    }
+    static init(){
+        this.id = Forms.ID;
+        Forms.ID++;
+    }
+}
+var f1 = new Form1();
+Form1.init(); //絶対必要
+f1.Show(); //表示
+
+//ラベル、ボタンを追加
+f1.Add_Object(f1.t1);
+f1.Add_Object(f1.bt1);
+f1.Add_Object(f1.bt2);
+</code></pre>
+<p>>>ダイアログボックス的なものが表示される</p>
 		</div>
 		</body>
+		<script src="Exp.js"></script>
+		<script src="Num.js"></script>
+		<script>
+			var exp = new Exp(100,1); //10^10^100
+			letter_type = 1; //表示形式 0~2.
+			document.getElementById("exp").innerHTML = Text(exp);
+		</script>
 	</head>
 </html>

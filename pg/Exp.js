@@ -1,5 +1,6 @@
-var dec = [0,3];
+var dec = [2,3];
 var cl = 6;
+var letter_type = 0;
 class Exp { 
     constructor(num,e) { 
         this.num = num;
@@ -151,15 +152,12 @@ function Up(X){
 function Ud(X){
 	if(X.num < -cl && X.e == 0){
 		X = new Exp(-Infinity,0);
-	}else if(X.num < 0 && X.e != 0){
+	}else if(X.num < 10 && X.e != 0){
 		X.e--;
 		X.num = Math.pow(10,X.num);
 	}else if(X.num > 10000000000){
 		X.e++;
 		X.num = Math.log10(X.num);
-	}else if(X.num < 10 && X.e != 0){
-		X.e--;
-		X.num = Math.pow(10,X.num);
 	}
 	return X;
 }
@@ -191,19 +189,25 @@ function Floor(X){
 	return X;
 }
 
-var letter = ["","K","M","B","T","Qa","Qt","Sx","Sp","Oc","No"];
+function Tow(X,Y){
+	return Ud(new Exp(X.num * Math.pow(10,10 * (Y % 1)),X.e + Math.floor(Y)));
+}
 function Text(X){
-	if(X.num == -Infinity){
+	switch(letter_type){
+		case 0: return Textf(X); break;
+		case 1: return Textj(X); break;
+		case 2: return Texti(X); break;
+	}
+}
+function Textf(X){
+    if(X.num == -Infinity){
 		return "0";
-    }else if(X.e == 0 && X.num < 6){
-        return Math.pow(10,X.num).toFixed(dec[0]);
-    }
-    else if(X.e == 0 && X.num < 33){
-        return Math.pow(10,X.num % 3).toFixed(dec[1]) + letter[Math.floor(X.num / 3)];
+    }else if(X.e == 0 && X.num < 10){
+        return Math.pow(10,X.num).toFixed(2);
     }else if(X.e == 0){
         return Math.pow(10,X.num % 1).toFixed(dec[1]) + "e" + Math.floor(X.num);
     }else if(X.e >= 8){
-    	return "10↑↑" + (X.e + 2);
+    	return "10↑↑" + (X.e + 2 + Math.log10(X.num) / 10).toFixed(dec[1]);
 	}else{
     var rt = "";
         for(var i = 0;i < X.e;i++){
@@ -211,4 +215,11 @@ function Text(X){
         }
         return rt + Math.pow(10,X.num % 1).toFixed(dec[1]) + "e" + Math.floor(X.num);
     }
+}
+var inf = new Exp(1024 * Math.log10(2),0);
+function Texti(X){
+	if(X.num == -Infinity){
+		return "0";
+	}
+	return "∞^" + Textf(Log(X,inf));
 }

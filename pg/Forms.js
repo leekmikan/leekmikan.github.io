@@ -1,109 +1,154 @@
-var forms = [];
-var idnum = 0;
-var hold = false;
-var dx = 0;
-var dy = 0;
-var px = 0;
-var py = 0;
-class Fdata{
-	constructor(id,hold){
-		this.id = id;
-		this.hold = hold;
-	}
+class Forms{
+    static ID = 0;
+    static active_ID = -1;
+    constructor() {
+        this.AllowDrop = false;
+        this.BackColor = "#FFFFFF";
+        this.BackgroundImage = "";
+        this.ControlBox = true;
+        this.font_family = "sans-serif";
+        this.font_size = 16;
+        this.ForeColor = "#000000";
+        this.Location = {X : 0, Y : 0};
+        this.Location_offset = {X : 0, Y : 0};
+        this.Size = {Width : 400, Height : 300};
+        this.Text = "Form";
+        this.TopMost = false;
+    }
+    Close(){
+        if(!!document.getElementById("FormID:" + this.id)){
+            document.getElementById("FormID:" + this.id).remove();
+        }
+    }
+    Show() {
+        this.Close();
+        var newElement = document.createElement("div");
+        newElement.setAttribute("id","FormID:" + this.id);
+        var tmp = "position:absolute;";
+        tmp += "top:" + this.Location.Y + "px;left:" + this.Location.X + "px;";
+        tmp += "width:" + this.Size.Width + "px;height:" + this.Size.Height + "px;";
+        tmp += "background:" + this.BackColor + ";";
+        tmp += "color:" + this.ForeColor + ";";
+        if(this.BackgroundImage != ""){
+            tmp += "background-image:url('" + this.BackgroundImage + "');background-size:cover;";
+        } 
+        newElement.setAttribute("style",tmp);
+        document.body.insertBefore(newElement, null);
+
+        newElement = document.createElement("p");
+        var newContent = document.createTextNode(this.Text);
+        newElement.appendChild(newContent);
+        newElement.addEventListener('mousedown', event => {
+            Forms.active_ID = this.id;
+            this.Location_offset.X = event.offsetX;
+            this.Location_offset.Y = event.offsetY;
+        });
+        newElement.addEventListener('mouseup', event => {
+            Forms.active_ID = -1;
+            this.Location_offset.X = event.offsetX;
+            this.Location_offset.Y = event.offsetY;
+            this.Location.X = event.pageX;
+            this.Location.Y = event.pageY;
+        });
+        newElement.addEventListener('mouseout', event => {
+            if(Forms.active_ID == this.id){
+                Forms.active_ID = -1;
+                document.getElementById("FormID:" + this.id).style.left = (event.pageX - this.Location_offset.X) + "px";
+                document.getElementById("FormID:" + this.id).style.top = (event.pageY - this.Location_offset.Y)+ "px";
+                this.Location_offset.X = event.offsetX;
+                this.Location_offset.Y = event.offsetY;
+                this.Location.X = event.pageX;
+                this.Location.Y = event.pageY;
+            }
+        });
+        newElement.addEventListener('mousemove', event => {
+            if(Forms.active_ID == this.id){
+                document.getElementById("FormID:" + this.id).style.left = (event.pageX - this.Location_offset.X) + "px";
+                document.getElementById("FormID:" + this.id).style.top = (event.pageY - this.Location_offset.Y)+ "px";
+            }
+        });
+        newElement.setAttribute("class","form_title");
+        var fm = document.getElementById("FormID:" + this.id);
+        fm.insertBefore(newElement, null);
+
+        newElement = document.createElement("button");
+        newContent = document.createTextNode("X");
+        newElement.appendChild(newContent);
+        newElement.setAttribute("class","form_exit");
+        newElement.addEventListener('click', event => {
+            this.Close();
+        });
+        fm.insertBefore(newElement, null);
+    }
+    Load(func){
+        document.getElementById("FormID:" + this.id).addEventListener('load',func);
+    }
+    Click(func){
+        document.getElementById("FormID:" + this.id).addEventListener('click',func);
+    }
+    MouseDown(func){
+        document.getElementById("FormID:" + this.id).addEventListener('mousedown',func);
+    }
+    MouseUp(func){
+        document.getElementById("FormID:" + this.id).addEventListener('mouseup',func);
+    }
+    MouseOver(func){
+        document.getElementById("FormID:" + this.id).addEventListener('mouseover',func);
+    }
+    MouseOut(func){
+        document.getElementById("FormID:" + this.id).addEventListener('mouseout',func);
+    }
+    KeyDown(func){
+        document.getElementById("FormID:" + this.id).addEventListener('keydown',func);
+    }
+    KeyUp(func){
+        document.getElementById("FormID:" + this.id).addEventListener('keyup',func);
+    }
+    KeyPress(func){
+        document.getElementById("FormID:" + this.id).addEventListener('keypress',func);
+    }
+    Add_Object(obj){
+        if(!(!!document.getElementById("FormID:" + this.id))){
+            this.Show();
+        }
+        var fm = document.getElementById("FormID:" + this.id);
+        var newElement = document.createElement(obj.tag);
+        var newContent = document.createTextNode(obj.Text);
+        newElement.appendChild(newContent);
+        var tmp = "position:absolute;";
+        tmp += "top:" + obj.Location.Y + "px;left:" + obj.Location.X + "px;";
+        if(obj.tag != "p" && obj.tag != "button"){
+            tmp += "width:" + obj.Size.Width + "px;height:" + obj.Size.Height + "px;";
+            tmp += "background:" + obj.BackColor + ";";
+        }
+        tmp += "color:" + obj.ForeColor + ";";
+        newElement.setAttribute("style",tmp);
+        if(obj.tag == "button"){
+            newElement.setAttribute("onclick",obj.onclick);
+        }
+        fm.insertBefore(newElement, null);
+    }
 }
-class Form{
-	constructor(title,classname,titleclass,buttonclass,x,y,w,h){
-		this.classname = classname;
-		this.buttonclass = buttonclass;
-		this.x = x;
-		this.y = y;
-		this.w = w;
-		this.h = h;
-		this.title = title;
-		this.titleclass = titleclass;
-	}
+class Label{
+    constructor(){
+        this.tag = "p";
+        this.Location = {X : 0,Y : 0};
+        this.font_family = "sans-serif";
+        this.font_size = 16;
+        this.ForeColor = "#000000";
+        this.BackColor = "#FFFFFF";
+        this.Text = "";
+    }
 }
-function MakeForm(form){
-	forms.push(new Fdata(idnum,false));
-	var elem = document.createElement('div');
-	elem.className = "form " + form.classname;
-	elem.id = idnum + "";
-	elem.value = idnum;
-	elem.style.width = form.w + "px";
-	elem.style.height = form.h + "px";	
-	elem.style.top = form.y + "px";
-	elem.style.left = form.x + "px";
-	document.getElementById("main").appendChild(elem);
-	var tt = document.createElement('a');
-	tt.style.top = "0px";
-	tt.style.width = form.w + "px";
-	tt.innerText = form.title;
-	tt.className = form.titleclass;
-	tt.addEventListener('mousedown', event => {
-		var x = document.getElementById(elem.id);
-		document.getElementById("main").insertBefore(x,document.getElementById("main").nextElementSibling);
-  		forms[elem.value].hold = true;
-	});
-	tt.addEventListener('mouseup', event => {
-  		forms[elem.value].hold = false;
-	});
-	document.getElementById(idnum + "").appendChild(tt);
-	var bt = document.createElement('button');
-	bt.innerText = "x";
-	bt.style.top = "0px";
-	bt.className = form.buttonclass;
-	bt.addEventListener('click', event => {
-  		for(var i = 0;i < forms.length;i++){
-			if(forms[i].id + "" == elem.id){
-				document.getElementById("main").removeChild(document.getElementById(elem.id + ""));
-			}
-		}
-	});
-	document.getElementById(idnum + "").appendChild(bt);
-	idnum++;
-}
-function mousedown(){
-  hold = true;
-}
-function gnum(x){
-	var rt = "";
-	for(var i = 0;i < x.length;i++){
-		if(x[i] == "p"){
-			break;
-		}
-		rt += x[i];
-	}
-	return Number(rt);
-}
-function mouseup(){
-  	hold = false;
-	for(var i = 0;i < forms.length;i++){
-		forms[i].hold = false;
-	}
-}
-function init()
-{
-      window.onmousemove = handleMouseMove;
-      function handleMouseMove(event) {
-        event = event || window.event;
-        target = document.getElementById("output_screen");
-        dx = event.screenX - px;	
-		dy = event.screenY - py;
-		px = event.screenX;
-		py = event.screenY;	
-		if(hold){
-		for(var i = 0;i < forms.length;i++){
-			if(forms[i].hold){
-				var tmp = document.getElementById(forms[i].id);
-				tmp.style.top = gnum(tmp.style.top) + dy + "px";
-				tmp.style.left = gnum(tmp.style.left) + dx + "px";
-				}
-			}
-		}
-      }
-}
-function Clear(){
-	for(var i = 0;i < forms.length;i++){
-		document.getElementById("main").removeChild(document.getElementById(forms[i].id + ""));
-	}
+class Button{
+    constructor(){
+        this.tag = "button";
+        this.Location = {X : 0,Y : 0};
+        this.font_family = "sans-serif";
+        this.font_size = 16;
+        this.ForeColor = "#000000";
+        this.BackColor = "#FFFFFF";
+        this.Text = "";
+        this.onclick = "";
+    }
 }
