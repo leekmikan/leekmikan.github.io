@@ -65,6 +65,13 @@ margin: auto;
 width: 80%;
 text-align:center;
 }
+#gif table{
+margin: auto;
+text-align:center;
+}
+#gif img{
+width: 60%;
+}
 #sec{
 text-align:center;
 }
