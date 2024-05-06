@@ -14,6 +14,7 @@ class Forms{
         this.Size = {Width : 400, Height : 300};
         this.Text = "Form";
         this.TopMost = false;
+        this.id = -1;
     }
     Close(){
         if(!!document.getElementById("FormID:" + this.id)){
@@ -22,6 +23,8 @@ class Forms{
     }
     Show() {
         this.Close();
+        this.id = Forms.ID;
+        Forms.ID++;
         var newElement = document.createElement("div");
         newElement.setAttribute("id","FormID:" + this.id);
         var tmp = "position:absolute;";
@@ -34,11 +37,12 @@ class Forms{
         } 
         newElement.setAttribute("style",tmp);
         document.body.insertBefore(newElement, null);
-
         newElement = document.createElement("p");
         var newContent = document.createTextNode(this.Text);
         newElement.appendChild(newContent);
         newElement.addEventListener('mousedown', event => {
+            var tmp_f = document.getElementById("FormID:" + this.id);
+            document.body.appendChild(tmp_f);
             Forms.active_ID = this.id;
             this.Location_offset.X = event.offsetX;
             this.Location_offset.Y = event.offsetY;

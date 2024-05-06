@@ -76,7 +76,7 @@ document.getElementById("exp").innerHTML = Text(exp);//表示
 			<h1>ウインドウ(試作)</h1>
 		</div>
 		<div class="main">
-			<p>まだForms,Label,Buttonクラスのみ　　重なり方法未設定</p>
+			<p>まだForms,Label,Buttonクラスのみ</p>
 			<a href="Forms.js" download="Forms.js">Form.js</a><br><br><br>
 			<a href="Forms.css" download="Forms.css">Form.css  (jsとセット)</a><br><br><br>
 <p>使用例</p>
@@ -110,19 +110,17 @@ class Form1 extends Forms{
         this.bt2.Text = "いいえ";
         this.bt2.onclick = "alert('いいえ');f1.Close();";
     }
-    static init(){
-        this.id = Forms.ID;
-        Forms.ID++;
+    init(){
+        this.Add_Object(this.t1); //3つとも内部でForms.Show();が実行され、フォームが出る.
+        this.Add_Object(this.bt1);
+        this.Add_Object(this.bt2);
     }
 }
 var f1 = new Form1();
-Form1.init(); //絶対必要
-f1.Show(); //表示
-
-//ラベル、ボタンを追加
-f1.Add_Object(f1.t1);
-f1.Add_Object(f1.bt1);
-f1.Add_Object(f1.bt2);
+f1.init();
+//f1.Show(); //何も追加しない(init()をつくらない)とき.
+var f2 = new Form1();
+f2.init();
 </code></pre>
 <p>>>ダイアログボックス的なものが表示される</p>
 		</div>

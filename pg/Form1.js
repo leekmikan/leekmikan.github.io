@@ -21,14 +21,14 @@ class Form1 extends Forms{
         this.bt2.Text = "いいえ";
         this.bt2.onclick = "alert('いいえ');f1.Close();";
     }
-    static init(){
-        this.id = Forms.ID;
-        Forms.ID++;
+    init(){
+        this.Add_Object(this.t1); //3つともForms.Show();が実行される.
+        this.Add_Object(this.bt1);
+        this.Add_Object(this.bt2);
     }
 }
 var f1 = new Form1();
-Form1.init();
-f1.Show();
-f1.Add_Object(f1.t1);
-f1.Add_Object(f1.bt1);
-f1.Add_Object(f1.bt2);
+f1.init();
+//f1.Show(); //何も追加しない(init()をつくらない)とき.
+var f2 = new Form1();
+f2.init();
