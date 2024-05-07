@@ -82,45 +82,45 @@ document.getElementById("exp").innerHTML = Text(exp);//表示
 <p>使用例</p>
 			<pre><code>
 class Form1 extends Forms{
-    constructor(){
+    constructor(args){ //好きな型で引数を設定
         super(); //絶対必要
-
-	//フォームの位置
         this.Location.X = 100;
         this.Location.Y = 200;
-
-	//テキスト
-        this.Text = "テストだよ";
-        this.t1 = new Label();
-        this.t1.Location.X = 170;
+        this.ControlBox = false; //×ボタン削除
+        this.Text = "ウイルスだぞっ";
+	
+	this.p1 = new Image(); //画像
+	this.p1.Size.Width = 40;
+	this.p1.Size.Height = 40;
+	this.p1.Location.X = 100;
+        this.p1.Location.Y = 105;
+	this.p1.BackgroundImage = "img/err.png"; //任意の画像を用意する(エラー時のマークなど)
+				
+        this.t1 = new Label(); //ラベル
+        this.t1.Location.X = 150;
         this.t1.Location.Y = 100;
-        this.t1.Text = "どっち";
+        this.t1.Text = "じゃましてやるっ！";
 
-	//はいボタン
-        this.bt1 = new Button();
-        this.bt1.Location.X = 100;
+        this.bt1 = new Button(); //ボタン
+        this.bt1.Location.X = 160;
         this.bt1.Location.Y = 220;
-        this.bt1.Text = "はい";
-        this.bt1.onclick = "alert('はい');f1.Close();";
-
-	//いいえボタン
-        this.bt2 = new Button();
-        this.bt2.Location.X = 250;
-        this.bt2.Location.Y = 220;
-        this.bt2.Text = "いいえ";
-        this.bt2.onclick = "alert('いいえ');f1.Close();";
+        this.bt1.Text = "　やだ　";
+        this.bt1.onclick = args + ".Close();"; //ここで引数をつかう(閉じるため)
     }
     init(){
-        this.Add_Object(this.t1); //3つとも内部でForms.Show();が実行され、フォームが出る.
+        this.Add_Object(this.t1); //初回だけForms.Show();が実行される.
         this.Add_Object(this.bt1);
-        this.Add_Object(this.bt2);
+        this.Add_Object(this.p1);
     }
 }
-var f1 = new Form1();
-f1.init();
-//f1.Show(); //何も追加しない(init()をつくらない)とき.
-var f2 = new Form1();
-f2.init();
+var fs = Array(100);
+//100個ランダムに配置
+for(var i = 0;i < 100;i++){
+	fs[i] = new Form1("fs[" + i + "]");
+	fs[i].Location.X = Math.floor(Math.random() * (window.innerWidth - 400));
+	fs[i].Location.Y = Math.floor(Math.random() * window.innerHeight);
+	fs[i].init(); //配置 (空のフォームであれば fs[i].Show())
+}
 </code></pre>
 <p>>>ダイアログボックス的なものが表示される</p>
 		</div>
