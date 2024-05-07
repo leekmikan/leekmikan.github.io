@@ -13,7 +13,6 @@ class Forms{
         this.Location_offset = {X : 0, Y : 0};
         this.Size = {Width : 400, Height : 300};
         this.Text = "Form";
-        this.TopMost = false;
         this.id = -1;
     }
     Close(){
@@ -36,6 +35,7 @@ class Forms{
             tmp += "background-image:url('" + this.BackgroundImage + "');background-size:cover;";
         } 
         newElement.setAttribute("style",tmp);
+				newElement.setAttribute("class","forms");
         document.body.insertBefore(newElement, null);
         newElement = document.createElement("p");
         var newContent = document.createTextNode(this.Text);
@@ -74,15 +74,16 @@ class Forms{
         newElement.setAttribute("class","form_title");
         var fm = document.getElementById("FormID:" + this.id);
         fm.insertBefore(newElement, null);
-
-        newElement = document.createElement("button");
-        newContent = document.createTextNode("X");
-        newElement.appendChild(newContent);
-        newElement.setAttribute("class","form_exit");
-        newElement.addEventListener('click', event => {
-            this.Close();
-        });
-        fm.insertBefore(newElement, null);
+				if(this.ControlBox){
+        		newElement = document.createElement("button");
+        		newContent = document.createTextNode("X");
+        		newElement.appendChild(newContent);
+        		newElement.setAttribute("class","form_exit");
+        		newElement.addEventListener('click', event => {
+           		 this.Close();
+        		});
+        		fm.insertBefore(newElement, null);
+				}
     }
     Load(func){
         document.getElementById("FormID:" + this.id).addEventListener('load',func);
@@ -122,11 +123,16 @@ class Forms{
         var tmp = "position:absolute;";
         tmp += "top:" + obj.Location.Y + "px;left:" + obj.Location.X + "px;";
         if(obj.tag != "p" && obj.tag != "button"){
-            tmp += "width:" + obj.Size.Width + "px;height:" + obj.Size.Height + "px;";
-            tmp += "background:" + obj.BackColor + ";";
+			if(obj.tag = "img"){
+					tmp += "width:" + obj.Size.Width + "px;height:" + obj.Size.Height + "px;";
+			}
+			//tmp += "background:" + obj.BackColor + ";";
         }
         tmp += "color:" + obj.ForeColor + ";";
         newElement.setAttribute("style",tmp);
+	if(obj.tag == "img"){
+		newElement.setAttribute("src",obj.BackgroundImage);
+	}
         if(obj.tag == "button"){
             newElement.setAttribute("onclick",obj.onclick);
         }
@@ -154,5 +160,14 @@ class Button{
         this.BackColor = "#FFFFFF";
         this.Text = "";
         this.onclick = "";
+    }
+}
+class Image{
+    constructor(){
+        this.tag = "img";
+        this.Location = {X : 0,Y : 0};
+        this.Size = {Width : 100, Height : 100};
+        this.onclick = "";
+        this.BackgroundImage = "";
     }
 }
