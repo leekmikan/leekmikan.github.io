@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
    <url>
+       <loc>https://leekmikan.github.io/pg/index.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/picture/index.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/kashi/Game.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/kashi%20easy/Game.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/music_math/index.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/esiritori/Game.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/info_IMR/index.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/info_game/index.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/info_other_idle/index.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/pic_kaisetu/index.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/index.html</loc>
+   </url>
+   <url>
        <loc>https://leekmikan.github.io/picture/index.html</loc>
        <image:image>
            <image:loc>https://leekmikan.github.io/picture/img/AtoZ.jpg</image:loc>
