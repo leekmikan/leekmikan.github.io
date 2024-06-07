@@ -38,27 +38,37 @@
        <image:image>
            <image:loc>https://leekmikan.github.io/picture/img/AtoZ.jpg</image:loc>
            <image:title>下手な絵の英語教育用画像(通常)</image:title>
-           <image:caption>お風呂に貼ってあるようなアルファベット表</image:caption>
+           <image:caption>下手な絵のお風呂に貼ってあるようなアルファベット表</image:caption>
        </image:image>
        <image:image>
            <image:loc>https://leekmikan.github.io/picture/img/AtoZ2.jpg</image:loc>
            <image:title>下手な絵の英語教育用画像(解答付き)</image:title>
-           <image:caption>お風呂に貼ってあるようなアルファベット表の解答付き</image:caption>
+           <image:caption>下手な絵のお風呂に貼ってあるようなアルファベット表の解答付き</image:caption>
        </image:image>
        <image:image>
            <image:loc>https://leekmikan.github.io/picture/img/dance.gif</image:loc>
            <image:title>下手な絵のgif画像　「踊っている人」</image:title>
-           <image:caption>腕をとにかく動かして踊っている人</image:caption>
+           <image:caption>下手な絵の腕をとにかく動かして踊っている人</image:caption>
        </image:image>
        <image:image>
            <image:loc>https://leekmikan.github.io/picture/img/eating.gif</image:loc>
            <image:title>下手な絵のgif画像　「モグモグ」</image:title>
-           <image:caption>草をモグモグ食べてげっぷをする牛</image:caption>
+           <image:caption>下手な絵の草をモグモグ食べてげっぷをする牛</image:caption>
        </image:image>
        <image:image>
            <image:loc>https://leekmikan.github.io/picture/img/moving.gif</image:loc>
            <image:title>下手な絵のgif画像　「移動中」</image:title>
-           <image:caption>自転車で目的地に移動中の人</image:caption>
+           <image:caption>下手な絵の自転車で目的地に移動中の人</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/dash.gif</image:loc>
+           <image:title>下手な絵のgif画像　「ダッシュ」</image:title>
+           <image:caption>下手な絵のダッシュしているブルドッグ</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/moshi.gif</image:loc>
+           <image:title>下手な絵のgif画像　「もしもし」</image:title>
+           <image:caption>下手な絵の電話をかけながら後ろに倒れる人</image:caption>
        </image:image>
        <image:image>
            <image:loc>https://leekmikan.github.io/picture/img/ake.jpg</image:loc>
@@ -539,6 +549,36 @@
            <image:loc>https://leekmikan.github.io/picture/img/senri.jpg</image:loc>
            <image:title>下手な絵のLINEスタンプ用画像　「千里の道も一歩から」</image:title>
            <image:caption>下手な絵の千里の距離を歩く人</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/decide.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「決めポーズ」</image:title>
+           <image:caption>下手な絵のスケートで体を反っている人</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/destroy.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「縺ゅ°縺輔◆縺ｪ」</image:title>
+           <image:caption>下手な絵の発狂してキーボードを叩いている人</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/face_ch.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「見ちがえた」</image:title>
+           <image:caption>下手な絵の自撮りをしている人</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/poor.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「金欠」</image:title>
+           <image:caption>下手な絵の金欠な人</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/rich.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「金持ち」</image:title>
+           <image:caption>下手な絵の千里の金持ちな人</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/aho.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「アホ」</image:title>
+           <image:caption>下手な絵の数字を数えながらアホになっている人</image:caption>
        </image:image>
        <image:image>
            <image:loc>https://leekmikan.github.io/picture/img/ame_cat.png</image:loc>
