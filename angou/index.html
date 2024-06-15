@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>ファイル暗号化テスト</title>
+	<meta charset="uft-8">
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="大学生が作ったパスワード付きファイル暗号化のテスト　設定次第で総当たり不可能">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+	<link rel="stylesheet" href="des.css">
+	</head>
+		<body>
+			<h1>ファイル暗号化テスト(C#からの移植)</h1>
+			<input type="file" id="file"><br>
+			<br><br><br>
+			<h2>ーーー暗号化ーーー</h2>
+			<a>パスワード長さ(1...短い　4...長い　0だとパスワード無し)</a>
+			<input id="pl" type="number" min="0" max="4" step="1" value="4"><br><br>
+			<button onclick="ango()">暗号化</button>
+			<p>・計算自体はとても単純だけど中身をできる限りぐちゃぐちゃにする暗号化 (2byte程度なら人力でも可能?)</p>
+			<p>・おぼえておくもの：「パスワード」「もとの拡張子」</p>
+			<p>・多重で暗号化可能(暗号化回数分のパスワードをおぼえておく必要あり)</p>
+			<h2>パスワード：<span id="pass">(「暗号化」ボタンを押すとここに出力)</span></h2>
+			<br><br><br>
+			<h2>ーーー復号化ーーー</h2>
+			<p>拡張子</p>
+			<a class="ex">.</a><input class="ex" id="ex" type="text" placeholder="txt"><br><br>
+			<p>パスワード(ない場合は0)</p>
+			<input id="dpass" type="password" min="0" max="4294967295" step="1" value=""><br><br>
+			<button onclick="fuku()">復号化</button>
+			<p>・ファイルを変換し終わるまで復号化できたか分からない(パスワードを間違えるとファイルが壊れる)</p>
+			<br><p>・総当たりで特定するのに必要な計算量の最大値(計算するbyte配列数)例</p>
+			<table border="1">
+				<tr>
+					<td>サイズ</td><td>パスワード長さ</td><td>暗号化回数</td><td>計算量(約)</td>
+				</tr>
+				<tr>
+					<td>1MB</td><td>0</td><td>1</td><td>10MB</td>
+				</tr>
+				<tr>
+					<td>1MB</td><td>4</td><td>1</td><td>10PB</td>
+				</tr>
+				<tr>
+					<td>100B</td><td>4</td><td>2</td><td>10ZB</td>
+				</tr>
+				<tr>
+					<td>1MB</td><td>4</td><td>2</td><td>100YB</td>
+				</tr>
+				<tr>
+					<td>1MB</td><td>4</td><td>10</td><td>2.24×10<sup>73</sup>QB</td>
+				</tr>
+			</table>
+		</body>
+<script src="main.js"></script>
+	</head>
+</html>
