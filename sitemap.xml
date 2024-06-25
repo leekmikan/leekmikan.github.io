@@ -698,6 +698,27 @@
            <image:title>下手な絵のAIによる画風変換「八方美人+卑弥呼(肖像画)」</image:title>
            <image:caption>下手な絵をAIによる画風変換で「八方美人」を「卑弥呼(肖像画)」風にしてみた</image:caption>
        </image:image>
+       <video:video>
+            <video:thumbnail_loc>https://leekmikan.github.io/picture/img/gannba.jpg</video:thumbnail_loc> 
+            <video:title>がんばれ</video:title>
+            <video:description>Luma Dream Machineによる下手な絵の変換「がんばれ」</video:description>
+            <video:content_loc>https://leekmikan.github.io/picture/mov/Cheerleader_girl.mp4</video:content_loc>
+            <video:duration>5</video:duration>
+        </video:video> 
+        <video:video>
+            <video:thumbnail_loc>https://leekmikan.github.io/picture/img/wash.jpg</video:thumbnail_loc> 
+            <video:title>手洗いうがい</video:title>
+            <video:description>Luma Dream Machineによる下手な絵の変換「手洗いうがい」</video:description>
+            <video:content_loc>https://leekmikan.github.io/picture/mov/raccoon_washing_hands_and_gargling.mp4</video:content_loc>
+            <video:duration>5</video:duration>
+        </video:video>
+        <video:video>
+            <video:thumbnail_loc>https://leekmikan.github.io/picture/img/kakenuke.jpg</video:thumbnail_loc> 
+            <video:title>駆け抜けろ！</video:title>
+            <video:description>Luma Dream Machineによる下手な絵の変換「駆け抜けろ！」</video:description>
+            <video:content_loc>https://leekmikan.github.io/picture/mov/soldier_riding_unicorn,_running.mp4</video:content_loc>
+            <video:duration>5</video:duration>
+        </video:video> 
    </url>
    <url>
        <loc>https://leekmikan.github.io/gahaku/Game.html</loc>
