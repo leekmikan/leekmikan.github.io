@@ -66,10 +66,19 @@ width: 80%;
 text-align:center;
 }
 #ai img{
-width: 80%;
+width: 60%;
 }
 
 #ai table{
+margin: auto;
+width: 80%;
+text-align:center;
+}
+#ldm video{
+width: 80%;
+}
+
+#ldm table{
 margin: auto;
 width: 80%;
 text-align:center;
