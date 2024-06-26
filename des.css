@@ -2,6 +2,9 @@ body{
 color: #000000;
 background: #A0FFFF;
 }
+span{
+font-size: 32px;
+}
 div{
 text-align:center;
 }
