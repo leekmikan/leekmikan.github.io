@@ -22,7 +22,7 @@
 			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi easy/Game.html">歌詞クイズ(簡単ver)<a></p>
 			</div>
 			<div class="text_frame">
-				<h1>エフェクター</h1>
+				<h1>エフェクター(C++)</h1>
 			</div>
 		<div class="main">
 			<a href="Music.h" download="Music.h">Music.h</a><br><br><br>
@@ -39,7 +39,7 @@ wd.Dispose();
 			<pre><code>
 WaveData wd = WaveData("16bit2chのwavファイル");
 wd.LRdel(1000); //左右で少しだけ音をずらす(広がったようにきこえる)
-wd.ConvolutionReverb("16bit2chの残響音(IR)を記録したwavファイル", 0.14,200);//原曲14%、200Hz以下切り捨て
+wd.ConvolutionReverb("16bit2chの残響音(IR)を記録したwavファイル", 0.14,200);//原曲14%、200Hz以下切り捨て　※30秒程度かかる
 wd.Export(2); //チャンネル数
 wd.Dispose();
 			</code></pre>
@@ -48,7 +48,7 @@ wd.Dispose();
 			<p>エコー/再生速度変更/ピッチ変更/多重/サンプリング周波数変更など約25種類</p>
 		</div>
 		<div class="text_frame">
-			<h1>巨大数</h1>
+			<h1>巨大数(JavaScript)</h1>
 		</div>
 		<div class="main">
 			<a href="Exp.js" download="Exp.js">Exp.js</a><br><br><br>
@@ -63,7 +63,7 @@ document.getElementById("exp").innerHTML = Text(exp);//表示
 			<p>(1グーゴルプレックスは、1不可説不可説転の268.68那由他乗に近い)</p>
 		</div>
 		<div class="text_frame">
-			<h1>開発者ツール禁止(試作)</h1>
+			<h1>開発者ツール禁止(JavaScript)(試作)</h1>
 		</div>
 		<div class="main">
 			<a href="f12.js" download="f12.js">f12.js</a><br><br><br>
@@ -73,7 +73,7 @@ document.getElementById("exp").innerHTML = Text(exp);//表示
 		</div><br>
 		<p>以下、最近のファイル(2024年4月)</p>
 		<div class="text_frame">
-			<h1>ウインドウ(試作)</h1>
+			<h1>ウインドウ(JavaScript)(試作)</h1>
 		</div>
 		<div class="main">
 			<p>まだForms,Label,Buttonクラスのみ</p>
@@ -82,7 +82,7 @@ document.getElementById("exp").innerHTML = Text(exp);//表示
 <p>使用例</p>
 			<pre><code>
 class Form1 extends Forms{
-    constructor(args){ //好きな型で引数を設定
+    constructor(args){
         super(); //絶対必要
         this.Location.X = 100;
         this.Location.Y = 200;
@@ -125,29 +125,33 @@ for(var i = 0;i < 100;i++){
 <p>>>ダイアログボックス的なものが表示される</p>
 		</div>
 	<div class="text_frame">
-			<h1>テキストからMIDI作成(exeファイル)(試作)</h1>
+			<h1>テキストファイルからMIDI作成(exeファイル)(試作)</h1>
 		</div>
 		<div class="main">
 			<a href="Mid.zip" download="Mid.zip">Mid.zip</a><br><br>
 			<p>命令を組み合わせてmidiファイルが作れる　命令は太鼓さん次郎に近い形式</p>
 			<h2>命令　(命令.txt)</h2>
-			<p>音階はカンマ、命令はセミコロンまたは改行区切りで入力　　　例)　#HU 4;C4,E2,F5,-,<p><br>
+			<p>音階はカンマ、命令はセミコロンまたは改行区切りで入力　　　<p>
+			<p>例:</p>
+			<p>#HU 4;C4,E2,F5,-,</p><br>
 			<p>音階例</p>
 			<p>ド...C4　ファ♯...FS4　(低い)シ♭...BF3　ミのダブルシャープ...EDS4　ソ♭♭...GDF4　休符...-</p><br>
-			<p>↓#がつくシリーズ  x=整数</p>
+			<p>↓#がつくシリーズ　x=自然数</p>
 			<p>#BPM x     　　BPM</p>
-			<p>#CH x     　　トラック(0～15  9はドラム専用)</p>
+			<p>#CH x     　　トラック(0～15　9はドラム専用)</p>
 			<p>#NUMERATOR x    　　 分子(テスト)</p>
 			<p>#DENOMINATOR x  　　  分母(テスト)</p>
 			<p>#HU x  　　  n分音符</p>
 			<p>#SF x  　　  調号 (-7～7)</p>
 			<p>#POWER x  　　  音量 (～127) </p>
 			<p>#TONE x   　　 音色 (～127) 楽器番号.txt参照</p>
-			<p>#X x    　　 長さx倍  例)付点8分音符のラ  #HU 16;#X 3;A4,#X 1;   '#X 1で閉じる</p><br>
+			<p>#X x    　　 長さx倍  例)付点8分音符のラ  #HU 16;#X 3;A4,#X 1;   '#X 1で閉じる</p>
+			<p>#DELAY x    　　 x[ms]遅らせる</p><br>
 			<p>↓その他</p>
 			<p>　'...コメント</p>
-			<p>　|...和音  　　  例) Cメジャー  　　 C4|E4|G4</p>
-			
+			<p>　|...和音</p>
+			<p>　例) Cメジャー</p>
+			<p>　C4|E4|G4,</p><br>
 			<h2>コマンドプロンプトで設定する値　(入力.txt)</h2>
 			<p>音色指定...0でそのまま　それ以外を入力で全パートの楽器を指定(1～128)</p><br>
 
@@ -158,6 +162,13 @@ for(var i = 0;i < 100;i++){
 
 			<p>パート選択...使いたいパート(チャンネル番号)を選ぶ。</p>
 			<p>書かれていない番号を選ぶと選択終了　未入力で全パート出力</p>
+			
+			<h2>config.txt</h2>
+			<p>[整数][音階][整数][音階]...[整数][音階][特殊な命令]のようにつなげて書く。</p>
+			<p>例:(シを半音下げ、ファを半音上げる)</p>
+			<p>-1B+1F<p>
+			<p>例:(ファを半音上げるが、もともと付いていた臨時記号は無視(特殊な命令[XA]))</p>
+			<p>+1FXA<p>
 		</div>
 		</body>
 		<script src="Exp.js"></script>
