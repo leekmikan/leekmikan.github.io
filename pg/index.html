@@ -25,6 +25,7 @@
 				<h1>エフェクター(C++)</h1>
 			</div>
 		<div class="main">
+		<p>(2024/6/27)Music.hのみアップデートしました。(再生速度変更時の波形補間で、最小二乗法を使用。ノイズが軽減される)</p>
 			<a href="Music.h" download="Music.h">Music.h</a><br><br><br>
 			<a href="Music2.h" download="Music2.h">Music2.h (std省略ver　　2を消してから使ってね)</a><br><br><br>
 			<p>使用例１</p>
@@ -44,6 +45,14 @@ wd.Export(2); //チャンネル数
 wd.Dispose();
 			</code></pre>
 			<p>>>特定の空間内で再生したかのようなwavファイルを出力</p>
+			<p>使用例３</p>
+			<pre><code>
+WaveData wd = WaveData("16bit2chのwavファイル");
+wd.Speed(1.7,4.0); //1.7倍速,ピッチ+4
+wd.Export(2); //チャンネル数
+wd.Dispose();
+			</code></pre>
+			<p>>>再生速度1.7倍、ピッチを半音4つ上げたwavファイルを出力</p>
 			<p>畳み込み(IRファイルが必要)/フランジャー/イコライザー/コンプレッサー</p>
 			<p>エコー/再生速度変更/ピッチ変更/多重/サンプリング周波数変更など約25種類</p>
 		</div>

@@ -7,9 +7,13 @@
 #define PT(x) std::cout << x << std::endl
 #define PITCH(x) pow(2, x / 12.0)
 #define TOCH(x) x + (int)(x) % ch
+
+//イコライザー用
 #define POP new double[10]{ -2, 2, 4, 6, 4, -3, -5, -5, -5, -5 }
 #define ROCK new double[10]{ 4, 2, -2, -5, -2, 2, 5, 6, 6, 6 }
 #define PERFECT new double[10]{ 3, 3, 6, 5, 2, 0, 4, 2, 9, 6 }
+
+//複素数クラス
 class Complex {
 public:
     double Re;
@@ -64,6 +68,7 @@ public:
     Complex operator /(double X) {
         return Complex(this->Re / X, this->Im / X);
     }
+    //ド・モアブルの定理
     Complex Pow(double X) {
         if (this->Re == 0 && this->Im == 0) {
             return *this;
@@ -73,14 +78,14 @@ public:
         if (this->Im < 0) theta *= -1;
         return Complex(cos(theta * X), sin(theta * X)) * pow(cmp_abs, X);
     }
-    Complex AbsPow(double X) {
-        if (this->Re == 0 && this->Im == 0) {
-            return *this;
-        }
-        double cmp_abs = this->ComplexAbs();
-        return *this * pow(cmp_abs, X - 1);
-    }
 };
+/// <summary>
+/// 低周波,高周波フィルタ
+/// </summary>
+/// <param name="len">要素数(2^n)</param>
+/// <param name="cmp">複素数の配列</param>
+/// <param name="hz">区切り[Hz]</param>
+/// <param name="hight">0...hzより大きければ消す,1...hzより小さいければ消す</param>
 Complex* LHfilter(int len,Complex* cmp, int hz, int hight) {
     for (int i = 0; i < len / 2; ++i)
     {
@@ -92,6 +97,13 @@ Complex* LHfilter(int len,Complex* cmp, int hz, int hight) {
     }
     return cmp;
 }
+/// <summary>
+/// ボイスキャンセラー(テスト)
+/// </summary>
+/// <param name="len">要素数(2^n)</param>
+/// <param name="cmp">複素数の配列</param>
+/// <param name="null1">(関係なし)</param>
+/// <param name="null2">(関係なし)</param>
 Complex* Voicecanceller(int len, Complex* cmp, int null, int null2) {
     int maxi = 0;
     double max = 0;
@@ -131,6 +143,13 @@ Complex* Voicecanceller(int len, Complex* cmp, int null, int null2) {
     }
     return cmp;
 }
+/// <summary>
+/// ボイスセーバー(テスト)
+/// </summary>
+/// <param name="len">要素数(2^n)</param>
+/// <param name="cmp">複素数の配列</param>
+/// <param name="null1">(関係なし)</param>
+/// <param name="null2">(関係なし)</param>
 Complex* Voicesaver(int len, Complex* cmp, int null, int null2) {
     int maxi = 0;
     double max = 0;
@@ -174,6 +193,13 @@ Complex* Voicesaver(int len, Complex* cmp, int null, int null2) {
     delete[] tmp;
     return cmp;
 }
+/// <summary>
+/// 絶対値の大きい順に複素数を残す
+/// </summary>
+/// <param name="len">要素数(2^n)</param>
+/// <param name="cmp">複素数の配列</param>
+/// <param name="top">上位n個数残す</param>
+/// <param name="null2">(関係なし)</param>
 Complex* Orgel(int len, Complex* cmp, int top, int null2) {
     top = std::min(top, 48);
     int* index = new int[48];
@@ -233,6 +259,7 @@ Complex* Orgel(int len, Complex* cmp, int top, int null2) {
     delete[] avr;
     return ncmp;
 }
+///絶対値の対数を表示 (未使用)
 Complex* Log(int len, Complex* cmp, int base, int max) {
     max = (len / 2 < max) ? len / 2 : max;
     long long int sum = 0;
@@ -246,6 +273,10 @@ Complex* Log(int len, Complex* cmp, int base, int max) {
     std::cin >> x;
     return cmp;
 }
+/// <summary>
+/// 波形編集クラス
+/// wav,16bit,2chのみ対応
+/// </summary>
 class WaveData
     {
     public:
@@ -255,6 +286,10 @@ class WaveData
         double vol = 1;
         double maxv = 0;
         WaveData() {}
+        /// <summary>
+        /// ファイル読み込み
+        /// </summary>
+        /// <param name="fname">ファイル名</param>
         WaveData(std::string fname)
         {
             this->fname = fname;
@@ -297,7 +332,7 @@ class WaveData
             }
             delete[] buf;
         }
-        WaveData(int* wd, int msize2,WaveData *source) {
+        WaveData(int *wd, int msize2,WaveData *source) {
             this->wave = new int[msize2];
             for (int i = 0;i < msize2;++i) {
                 this->wave[i] = wd[i];
@@ -316,6 +351,9 @@ class WaveData
             this->fsize = 50;
             this->sample = source->sample;
         }
+        /// <summary>
+        /// モノラル( newL = newR = (L+R)/2 )
+        /// </summary>
         void Mono() {
             for (int i = 0;i < msize / 2;i+=ch) {
                 int tmp = 0;
@@ -328,6 +366,10 @@ class WaveData
                 }
             }
         }
+        /// <summary>
+        /// サンプリング周波数書き換え
+        /// </summary>
+        /// <param name="sp">書き換え後のサンプリング周波数[Hz]</param>
         void Rate(double sp)
         {
             if (abs(sp) < 0.01)
@@ -342,6 +384,12 @@ class WaveData
             sample = (int)(sample * sp);
             WriteN(sample, 24, 27);
         }
+        /// <summary>
+        /// 畳み込みリバーブ(全チャンネル一括)
+        /// </summary>
+        /// <param name="rname">対応可能なIRデータ</param>
+        /// <param name="mix">原曲の比率[0~1]</param>
+        /// <param name="disable">低周波削除[Hz]</param>
         void ConvolutionReverb(std::string rname, double mix, int disable)
         {
             int len = 65536;
@@ -355,7 +403,7 @@ class WaveData
             ifs.seekg(0);
             char* bf2 = new char[fileSize2];
             ifs.read(bf2, fileSize2);
-            len = 1 << (int)(log(fileSize2) / log(2));
+            len = 1 << (int)(log(fileSize2) / log(2) + 1);
             Complex* cmp2 = new Complex[len * 2];
             Complex* cmp3 = new Complex[len * 2];
             int* tmp = new int[0];
@@ -441,6 +489,12 @@ class WaveData
             }
             delete[] rt;
         }
+        /// <summary>
+        /// 畳み込みリバーブ(チャンネル別 通常と変わらない)
+        /// </summary>
+        /// <param name="rname">対応可能なIRデータ</param>
+        /// <param name="mix">原曲の比率[0~1]</param>
+        /// <param name="disable">低周波削除[Hz]</param>
         void ConvolutionReverb2(std::string rname, double mix, int disable)
         {
             int len = 65536;
@@ -550,6 +604,11 @@ class WaveData
             }
             delete[] rt;
         }
+        /// <summary>
+        /// 切り取り
+        /// </summary>
+        /// <param name="t0">始点[s]</param>
+        /// <param name="t1">終点[s]</param>
         void Cut(double t0, double t1) {
             int bt0 = t0 * sample * ch;
             int bt1 = t1 * sample * ch;
@@ -569,6 +628,10 @@ class WaveData
             WriteN(fileSize - 8, 4, 7);
             WriteN(fileSize - 126, fsize - 4, fsize - 1);
         }
+        /// <summary>
+        /// wav生成 (プログラムの場所に X+ファイル名)
+        /// </summary>
+        /// <param name="cch">チャンネル数[1,2,4]</param>
         void Export(int cch) {
             std::string name;
             int path_i = fname.find_last_of("\\") + 1;
@@ -582,6 +645,10 @@ class WaveData
             name = "X" + name;
             Export(cch, name);
         }
+        /// <summary>
+        /// 名前を答え指定してwav生成
+        /// </summary>
+        /// <param name="cch">チャンネル数[1,2,4]</param>
         void Export(int cch, std::string name)
         {
             int* rt;
@@ -630,6 +697,11 @@ class WaveData
             ifs.write(bf, msize);
             delete[] bf;
         }
+        /// <summary>
+        /// 再生速度変更
+        /// </summary>
+        /// <param name="sp">スピード[倍]</param>
+        /// <param name="cch">ピッチ[半音X個上げ(下げ)]</param>
         void Speed(double sp, double pitch)
         {
             int len = 65536;
@@ -642,7 +714,7 @@ class WaveData
                     Reverse();
                 }
                 sp = round(sp * 1000) / 1000;
-                double ovr = 0.5;
+                double ovr = 0.8;
                 maxv = 1;
                 int ts = (long)TOCH(msize / 2 / sp);
                 len = (int)TOCH(std::min(6000 / sp / ovr,6000 / ovr));
@@ -651,7 +723,8 @@ class WaveData
                     rt[i] = 0;
                 }
                 int k = 0;
-                for (long i = 0; i < msize / 2; i += (long)TOCH(len * sp * ovr))
+                long dt = (long)TOCH(len * sp * ovr);
+                for (long i = 0; i < msize / 2; i += dt)
                 {
                     int* tmp = new int[len];
                     for (int j = 0; j < len; j++)
@@ -664,11 +737,22 @@ class WaveData
                             tmp[j] = 0;
                         }
                     }
-                    for (int j = 0; j < len; j++)
+                    int dx = 0;
+                    double dy = 100000;
+                    for (int j = 0; j < len / 2; j += 2)
                     {
-                        if (k + j < ts)
-                        {
-                            rt[k + j] += tmp[j];
+                        if (rt[k + j] == 0) break;
+                        double tdy = std::sqrt((rt[k + j] - tmp[j]) * (rt[k + j] - tmp[j]));
+                        tdy += std::sqrt((rt[k + j + 1] - tmp[j + 1]) * (rt[k + j + 1] - tmp[j + 1]));
+                        if (tdy < dy) {
+                            dy = tdy;
+                            dx = j;
+                        }
+                    }
+                    for (int j = dx; j < len; j++)
+                    {
+                        if (k + j < ts) {
+                            rt[k + j] = tmp[j];
                             maxv = std::max(maxv, abs(rt[k + j] * 1.0));
                         }
                     }
@@ -691,6 +775,7 @@ class WaveData
                 WriteN(fileSize - 126, fsize - 4, fsize - 1);
             }
         }
+        //ばねっぽい (未使用)
         void Spring(double sp, double mdel)
         {
             int* rt = new int[msize / 2];
@@ -712,6 +797,12 @@ class WaveData
             }
             delete[] rt;
         }
+        /// <summary>
+        /// FIRフィルタ
+        /// </summary>
+        /// <param name="len">1ブロックの長さ</param>
+        /// <param name="step">変化量</param>
+        /// <param name="weight">重みあり</param>
         void FIR(int len, int step, bool weight) {
             int* rt = new int[msize / 2];
             for (int i = 0; i < len * 2 * step; i++) {
@@ -739,6 +830,12 @@ class WaveData
             }
             delete[] rt;
         }
+        /// <summary>
+        /// エコー
+        /// </summary>
+        /// <param name="ms">遅延[ms]</param>
+        /// <param name="pw">倍率</param>
+        /// <param name="rp">反響回数</param>
         void Echo(int ms,double pw, int rp) {
             int* rt = new int[msize / 2];
             ms = ms * sample * ch / 1000;
@@ -755,8 +852,14 @@ class WaveData
             }
             delete[] rt;
         }
+        /// <summary>
+        /// アルゴリズムリバーブ
+        /// </summary>
+        /// <param name="ms">遅延[ms]</param>
+        /// <param name="pw">倍率</param>
+        /// <param name="wet">残響の割合[0~1]</param>
         void AlgorithmicReverb(int ms, double pw,double wet) {
-            int del[] = { 29,31,37,41 };
+            int del[] = { 29,31,37,41 }; //素数
             const int dels = 4;
             ms = ms * sample * ch / 1000 / del[0];
             ms >>= 1;
@@ -771,16 +874,29 @@ class WaveData
                 maxv = std::max(maxv, abs(wave[i]) + 0.0);
             }
         }
+        /// <summary>
+        /// 1チャンネルだけ遅延
+        /// </summary>
+        /// <param name="del">遅延[個分の配列]</param>
         void LRdel(int del) {
             for (int i = del;i < msize / 2;i+=ch) {
                 wave[i - del] = wave[i];
             }
         }
+        /// <summary>
+        /// 音質変化
+        /// </summary>
+        /// <param name="rate">サンプリング周波数[Hz]</param>
         void Quality(int rate)
         {
             Speed(sample * 1.0 / rate, 12 * log(sample * 1.0 / rate) / log(2));
             Rate(rate * 1.0 / sample);
         }
+        /// <summary>
+        /// フランジャー
+        /// </summary>
+        /// <param name="sp">速度[倍]</param>
+        /// <param name="pw">強さ[0.5が最大]</param>
         void Flanger(double sp,double pw)
         {
             int* rt = new int[msize / 2];
@@ -810,6 +926,10 @@ class WaveData
             }
             delete[] rt;
         }
+        /// <summary>
+        /// イコライザー
+        /// </summary>
+        /// <param name="mult">長さ10の動的配列か,マクロ[POP,ROCK,PERFECT]</param>
         void Equalizer(double* mult)
         {
             int len = 65536;
@@ -868,8 +988,14 @@ class WaveData
             }
             delete[] rt;
         }
-        void Edit(Complex* (*func)(int,Complex*, int, int),int param1,int param2,int l) {
-            int len = l;
+        /// <summary>
+        /// フーリエ変換を用いたエフェクター
+        /// </summary>
+        /// <param name="func">エフェクター関数</param>
+        /// <param name="param1">関数の引数</param>
+        /// <param name="param2">関数の引数2</param>
+        /// <param name="len">1ブロックの長さ[個]</param>
+        void Edit(Complex* (*func)(int,Complex*, int, int),int param1,int param2,int len) {
             int* rt = new int[msize / 2];
             for (int i = 0; i < msize / 2; i += len / 2)
             {
@@ -900,6 +1026,11 @@ class WaveData
             }
             delete[] rt;
         }
+        /// <summary>
+        /// <para>ボイスキャンセラー(通常)</para>
+        /// <para>中央の音源が干渉によって消える</para>
+        /// <para>(newL = newR = (R-L)/2)</para>
+        /// </summary>
         void Voicecanseller() {
             for (int i = 0;i < msize / 2 - 1;i+=2) {
                 wave[i] -= wave[i + 1];
@@ -911,6 +1042,14 @@ class WaveData
                 maxv = std::max(maxv, abs(wave[i] + 0.0));
             }
         }
+        /// <summary>
+        /// <para>時間で速度変化</para>
+        /// </summary>
+        /// <param name="block">1ブロックの長さ[個]</param>
+        /// <param name="mult">速度の増加量[増加倍率/block]</param>
+        /// <param name="min">最小速度[倍]</param>
+        /// <param name="max">最大速度[倍]</param>
+        /// <param name="start">開始速度[倍]</param>
         void Alien(int block, double mult, double min, double max, double start) {
             int* tmpw = new int[block];
             maxv = 0.5;
@@ -979,6 +1118,11 @@ class WaveData
             delete[] tmpw;
             delete[] rt;
         }
+        /// <summary>
+        /// <para>合唱</para>
+        /// </summary>
+        /// <param name="code">音程の動的配列</param>
+        /// <param name="csize">codeのサイズ</param>
         void Harmony(double* code,int csize) {
             maxv = 1;
             for (int i = 0;i < msize / 2;i++) {
@@ -997,6 +1141,12 @@ class WaveData
                 maxv = std::max(maxv, wave[i] * 1.0);
             }
         }
+        /// <summary>
+        /// 正弦波の作成 (未使用)
+        /// </summary>
+        /// <param name="base">基本振動数</param>
+        /// <param name="ps">n倍音の割合[和が0~1](静的)</param>
+        /// <param name="pl">psのサイズ</param>
         void MakeWave(int base, double ps[], int pl) {
             for (int i = 0;i < pl;i++) {
                 for (int j = 0;j < msize / 2;j += 2) {
@@ -1005,6 +1155,9 @@ class WaveData
                 }
             }
         }
+        /// <summary>
+        /// 逆再生
+        /// </summary>
         void Reverse()
         {
             int tmp;
@@ -1015,10 +1168,18 @@ class WaveData
                 wave[msize / 2 - i - 1] = tmp;
             }
         }
+        /// <summary>
+        /// 早期のクラス破棄
+        /// </summary>
         void Dispose() {
             delete[] fmt;
             delete[] wave;
         }
+        /// <summary>
+        /// トレモロ
+        /// </summary>
+        /// <param name="amp">振幅(最大値は1固定)</param>
+        /// <param name="time">周期[s]</param>
         void Tremolo(double amp, double time) {
             for (int i = 0;i < msize / 2 - 1;i+=2) {
                 double tmp = amp * sin(PI * i / sample / time) + (1 - amp);
@@ -1026,6 +1187,11 @@ class WaveData
                 wave[i + 1] *= amp * sin(PI * i / sample / time) + (1 - amp);
             }
         }
+        /// <summary>
+        /// 多重
+        /// </summary>
+        /// <param name="x">重なる時間[s]</param>
+        /// <param name="mul">速度の差[%]</param>
         void Multiple(double x,double mul) {
             double btime = x * sample * ch;
             maxv = 1;
@@ -1054,71 +1220,22 @@ class WaveData
             delete[] tmpw;
             delete[] mulx;
         }
+        /// <summary>
+        /// 粗い
+        /// </summary>
+        /// <param name="x">音の解像度を1/x倍にする</param>
         void Rough(int x) {
             for (int i = 0; i < msize / 2 - 1; i++) {
                 wave[i] = round(wave[i] / x) * x;
             }
         }
-        void Compressor(double power) {
-            double _maxv = 1;
-            for (int i = 0; i < msize / 2; i++) {
-                if(wave[i] != 0) wave[i] = (int)(wave[i] * pow(abs(wave[i] * 1.0), power - 1));
-                _maxv = std::max(wave[i] * 1.0, _maxv);
-            }
-            for (int i = 0; i < msize / 2; i++) {
-                wave[i] = (int)(wave[i] * maxv / _maxv);
-            }
-        }
-        void Wah(int len,int dhz,int pm,int pad) {
-            int range[2] = { 800,3000 };
-            int hz = 0;
-            int sign = 1;
-            int* rt = new int[msize / 2];
-            for (int i = 0; i < msize / 2; i += len / 2)
-            {
-                Complex* cmp = new Complex[len];
-                for (int j = 0; j < len; j++)
-                {
-                    if (i + j < msize / 2)
-                    {
-                        cmp[j] = Complex(wave[i + j] * 0.5, 0);
-                    }
-                }
-                FT ft = FT();
-                cmp = ft.FFT(cmp, len);
-                for (int j = hz - pm; j < hz + pm; j++)
-                {
-                    if (j >= 0 && j < len / 2) {
-                        cmp[j] *= 5;
-                        cmp[len - j - 1] = cmp[j];
-                    }
-                }
-                cmp = ft.IFFT(cmp, len);
-                for (int j = 0; j < len; j++)
-                {
-                    if (i + j < msize / 2)
-                    {
-                        rt[i + j] += (int)cmp[j].Re;
-                    }
-                }
-                hz += sign * dhz;
-                if (hz < range[0] - pad) {
-                    hz = range[0];
-                    sign *= -1;
-                }
-                else if (hz > range[1]) {
-                    hz = range[1];
-                    sign *= -1;
-                }
-                delete[] cmp;
-            }
-            for (int i = 0; i < msize / 2; i++) {
-                wave[i] = rt[i];
-                maxv = std::max(maxv, abs(rt[i] * 1.0));
-            }
-            delete[] rt;
-        }
-        void Wah2(int len, double dhz, double pm) {
+        /// <summary>
+        /// 定期的にワウペダルの効果発生
+        /// </summary>
+        /// <param name="len">1ブロックの長さ(2^n)</param>
+        /// <param name="dhz">中心の周波数の変化量</param>
+        /// <param name="pm">周波数が強調される範囲</param>
+        void Wah(int len, double dhz, double pm) {
             int range[2] = { 500,8000 };
             int hz = 0;
             int sign = 1;
@@ -1150,7 +1267,7 @@ class WaveData
                         rt[i + j] += (int)cmp[j].Re;
                     }
                 }
-                hz = (int)(1.0 * hz * pow(dhz,sign * 1.0));
+                hz = (int)(1.0 * hz * pow(dhz, sign * 1.0));
                 if (hz < range[0]) {
                     hz = range[0];
                     sign *= -1;
@@ -1167,13 +1284,19 @@ class WaveData
             }
             delete[] rt;
         }
-        void Test(double delta) {
-            maxv = 1;
+        /// <summary>
+        /// <para>コンプレッサー</para>
+        /// <para>f(t) = f(t) * |f(t)|^(power - 1)</para>
+        /// </summary>
+        /// <param name="power">振幅のべき乗</param>
+        void Compressor(double power) {
+            double _maxv = 1;
             for (int i = 0; i < msize / 2; i++) {
-                wave[i] = (int)(wave[i] * (1 - delta + 2.0 * rand() / RAND_MAX));
+                if(wave[i] != 0) wave[i] = (int)(wave[i] * pow(abs(wave[i] * 1.0), power - 1));
+                _maxv = std::max(wave[i] * 1.0, _maxv);
             }
             for (int i = 0; i < msize / 2; i++) {
-                maxv = std::max(maxv, abs(wave[i] * 1.0));
+                wave[i] = (int)(wave[i] * maxv / _maxv);
             }
         }
         double Time() {
@@ -1208,7 +1331,6 @@ class WaveData
                         arraySizeHarf >>= 1;
                     }
                     Complex* ot = new Complex[len];
-                    // バタフライ演算のための置き換え
                     for (int i = 0; i < len; ++i)
                     {
                         ot[i] = ip[reBitArray[i]];
@@ -1223,7 +1345,6 @@ class WaveData
                     Complex w;
                     Complex u;
                     int rz = (int)(log(len) / log(2));
-                    // バタフライ演算
                     for (int stage = 1; stage <= rz; ++stage)
                     {
                         butterflyDistance = 1 << stage;
