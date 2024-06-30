@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>File Encryption</title>
+	<meta charset="uft-8">
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="The site is so small scale that it would be difficult for others to decrypt files encrypted here.">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+	<link rel="stylesheet" href="des.css">
+	</head>
+		<body>
+			<h1>File Encryption</h1>
+			<input type="file" id="file"><br>
+			<br><br><br>
+			<h2>ーーーEncryptionーーー</h2>
+			<a>Password length(1...short　4...long　0...no password)</a>
+			<input id="pl" type="number" min="0" max="4" step="1" value="4"><br><br>
+			<button onclick="enc()">ENCRYPTION</button>
+			<p>・The same file can be encrypted over and over.</p>
+			<p>・Things to remember：「Password」「Original extension」</p>
+			<h2>Password：<span id="pass">(The password will be displayed here)</span></h2>
+			<br><br><br>
+			<h2>ーーーdecryptionーーー</h2>
+			<p>Extension</p>
+			<a class="ex">.</a><input class="ex" id="ex" type="text" placeholder="txt"><br><br>
+			<p>Password</p>
+			<input id="dpass" type="password" min="0" max="4294967295" step="1" value=""><br><br>
+			<button onclick="denc()">DECRYPTION</button>
+			<p>・The site is so small scale that it would be difficult for others to decrypt files encrypted here.</p>
+			<p>・Please note that we do not take any responsibility or liability for any damage or loss caused through our service.</p>
+		</body>
+<script src="main.js"></script>
+	</head>
+</html>
