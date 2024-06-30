@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+	<meta charset="uft-8">
+	<title>Шифрование файлов</title>
+	<meta charset="uft-8">
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="Сайт настолько мал, что другим будет сложно расшифровать зашифрованные здесь файлы.">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+	<link rel="stylesheet" href="des.css">
+	</head>
+		<body>
+			<h1>Шифрование файлов</h1>
+			<input type="file" id="file"><br>
+			<br><br><br>
+			<h2>ーーーШифрованиеーーー</h2>
+			<a>Длина пароля(1...короткие　4...длинный　0...нет пароля)</a>
+			<input id="pl" type="number" min="0" max="4" step="1" value="4"><br><br>
+			<button onclick="enc()">ЭНКИПИРОВКА</button>
+			<p>・Один и тот же файл может быть зашифрован снова и снова.</p>
+			<p>・О чем следует помнить：「Пароль」「Оригинальное расширение」</p>
+			<h2>Пароль：<span id="pass">(Пароль будет отображаться здесь)</span></h2>
+			<br><br><br>
+			<h2>ーーーрасшифровкаーーー</h2>
+			<p>Удлинитель</p>
+			<a class="ex">.</a><input class="ex" id="ex" type="text" placeholder="txt"><br><br>
+			<p>Пароль</p>
+			<input id="dpass" type="password" min="0" max="4294967295" step="1" value=""><br><br>
+			<button onclick="denc()">ДЕКРИПЦИЯ</button>
+			<p>・Сайт настолько мал, что другим будет сложно расшифровать зашифрованные здесь файлы.</p>
+			<p>・Пожалуйста, обратите внимание, что мы не несем никакой ответственности за любой ущерб или убытки, причиненные с помощью нашего сервиса.</p>
+			<p>(Using DeepL translation)</p>
+		</body>
+<script src="main.js"></script>
+	</head>
+</html>
