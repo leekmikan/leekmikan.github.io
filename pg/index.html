@@ -15,6 +15,7 @@
 				<h1>使えるかわからないプログラム置き場</h1>
 				<p>・使えるかわからないプログラム置き場、巨大数の計算、wavファイルの畳み込みなど</p>
 				<p>・ほとんどのファイルが高校2年生辺りで作ったものなので、非効率、間違いがあるかも。</p>
+				<p>※※※これらプログラムを実行した際に発生した不利益に関しては、責任は負いかねます。※※※</p>
 			<p style="text-align:center;">※このサイトのメインのページは以下の4つです。(下手絵を中心に宣伝)</p>
 			<p style="text-align:center;"><a href="https://leekmikan.github.io/gahaku/Game.html">画伯の展開会(下手な絵を当てるクイズ)<a></p>
 			<p style="text-align:center;"><a href="https://leekmikan.github.io/picture">下手な絵集<a></p>
@@ -25,7 +26,7 @@
 				<h1>エフェクター(C++)</h1>
 			</div>
 		<div class="main">
-		<p>(2024/6/27)Music.hのみアップデートしました。(再生速度変更時の波形補間で、最小二乗法を使用。ノイズが軽減される)</p>
+		<p>(2024/6/27,7/3)Music.hのみアップデートしました。(再生速度変更時の波形補間で、最小二乗法を使用。畳み込みの式の見直し)</p>
 			<a href="Music.h" download="Music.h">Music.h</a><br><br><br>
 			<a href="Music2.h" download="Music2.h">Music2.h (std省略ver　　2を消してから使ってね)</a><br><br><br>
 			<p>使用例１</p>
@@ -40,7 +41,7 @@ wd.Dispose();
 			<pre><code>
 WaveData wd = WaveData("16bit2chのwavファイル");
 wd.LRdel(1000); //左右で少しだけ音をずらす(広がったようにきこえる)
-wd.ConvolutionReverb("16bit2chの残響音(IR)を記録したwavファイル", 0.14,200);//原曲14%、200Hz以下切り捨て　※30秒程度かかる
+wd.ConvolutionReverb("16bit2chの残響音(IR)を記録したwavファイル", 0.3,100);//原曲30%、100Hz以下切り捨て　※30秒程度かかる
 wd.Export(2); //チャンネル数
 wd.Dispose();
 			</code></pre>
@@ -81,6 +82,25 @@ document.getElementById("exp").innerHTML = Text(exp);//表示
 			<p>パソコンの設定によってはページが開けなくなるかも</p>
 		</div><br>
 		<p>以下、最近のファイル(2024年4月)</p>
+		<div class="text_frame">
+			<h1>シンプルドッキリプログラム1</h1>
+		</div>
+		<div class="main">
+			<a href="DK1.zip" download="DK1.zip">DK1.zip</a><br><br><br>
+			<p>高校1年生位で作ったプログラムのリメイク版</p>
+			<p>全画面解除不可のエラーメッセージっぽいものを表示</p>
+			<p>頑張ればアプリケーションを閉じることができる</p>
+		</div><br>
+		<div class="text_frame">
+			<h1>シンプルドッキリプログラム2</h1>
+		</div>
+		<div class="main">
+			<a href="DK2.zip" download="DK2.zip">DK2.zip</a><br><br><br>
+			<p>高校1年生位で作ったプログラムのリメイク版</p>
+			<p>キー入力がかなり不便になる</p>
+			<p>使用者には大事な入力をさせないように注意！</p>
+			<p>タスクマネージャーで削除できる</p>
+		</div><br>
 		<div class="text_frame">
 			<h1>ウインドウ(JavaScript)(試作)</h1>
 		</div>

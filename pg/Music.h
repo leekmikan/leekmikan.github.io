@@ -26,6 +26,10 @@ public:
         this->Re = Re;
         this->Im = Im;
     }
+    Complex(double X) {
+        this->Re = X;
+        this->Im = 0;
+    }
     double ComplexAbs() {
         return sqrt(this->Re * this->Re + this->Im * this->Im);
     }
@@ -385,11 +389,13 @@ class WaveData
             WriteN(sample, 24, 27);
         }
         /// <summary>
-        /// 畳み込みリバーブ(全チャンネル一括)
+        /// 畳み込みリバーブ
         /// </summary>
         /// <param name="rname">対応可能なIRデータ</param>
         /// <param name="mix">原曲の比率[0~1]</param>
         /// <param name="disable">低周波削除[Hz]</param>
+        /*
+        //復元用
         void ConvolutionReverb(std::string rname, double mix, int disable)
         {
             int len = 65536;
@@ -489,121 +495,120 @@ class WaveData
             }
             delete[] rt;
         }
-        /// <summary>
-        /// 畳み込みリバーブ(チャンネル別 通常と変わらない)
-        /// </summary>
-        /// <param name="rname">対応可能なIRデータ</param>
-        /// <param name="mix">原曲の比率[0~1]</param>
-        /// <param name="disable">低周波削除[Hz]</param>
-        void ConvolutionReverb2(std::string rname, double mix, int disable)
+        */
+void ConvolutionReverb(std::string rname, double mix, int disable)
+{
+    int len = 65536;
+    PT(maxv);
+    maxv = 1;
+    int fileSize2;
+    std::ifstream ifs(rname, std::ios::binary);
+    ifs.seekg(0, std::ios::end);
+    fileSize2 = ifs.tellg();
+    ifs.seekg(0);
+    char* bf2 = new char[fileSize2];
+    ifs.read(bf2, fileSize2);
+    int* tmp = new int[0];
+    int tmplen;
+    for (int i = 0; i < fileSize2; ++i)
+    {
+        if (i < fileSize2 - 4)
         {
-            int len = 65536;
-            maxv = 1;
-            disable *= 2;
-            int fileSize2;
-            int max = 0;
-            std::ifstream ifs(rname, std::ios::binary);
-            ifs.seekg(0, std::ios::end);
-            fileSize2 = ifs.tellg();
-            ifs.seekg(0);
-            char* bf2 = new char[fileSize2];
-            ifs.read(bf2, fileSize2);
-            len = 1 << (int)(log(fileSize2) / log(2)) - 1;
-            Complex** cmp = new Complex * [2];
-            Complex** cmp2 = new Complex * [2];
-            Complex** cmp3 = new Complex * [2];
-            for (int i = 0; i < 2; ++i) {
-                cmp[i] = new Complex[len * 2];
-                cmp2[i] = new Complex[len * 2];
-                cmp3[i] = new Complex[len * 2];
-            }
-            int* tmp = new int[0];
-            int tmplen;
-            for (int i = 0; i < fileSize2; ++i)
+            if (bf2[i] == 100 && bf2[i + 1] == 97 && bf2[i + 2] == 116 && bf2[i + 3] == 97)
             {
-                if (i < fileSize2 - 4)
-                {
-                    if (bf2[i] == 100 && bf2[i + 1] == 97 && bf2[i + 2] == 116 && bf2[i + 3] == 97)
-                    {
-                        tmp = BtoI(bf2, i + 8, fileSize2);
-                        tmplen = fileSize2 - i - 8;
-                        break;
-                    }
-                }
+                tmp = BtoI(bf2, i + 8, fileSize2);
+                tmplen = fileSize2 - i - 8;
+                break;
             }
-            delete[] bf2;
-            for (int i = len * 2; i < len * 4; ++i)
-            {
-                if (i - len < tmplen / 2)
-                {
-                    cmp2[i % 2][i / 2].Re = tmp[i - len * 2];
-                }
-            }
-            delete[] tmp;
-            FT ft = FT();
-            cmp2[0] = ft.FFT(cmp2[0], len * 2);
-            cmp2[1] = ft.FFT(cmp2[1], len * 2);
-            for (int i = 0; i < len; ++i)
-            {
-                for (int j = 0; j < 2; ++j) {
-                    max = (int)std::max(sqrt(cmp2[j][i].Re * cmp2[j][i].Re + cmp2[j][i].Im * cmp2[j][i].Im), max + 0.0);
-                }
-            }
-            int* rt = new int[msize / 2 + len * 2];
-            msize += len * 2;
-            fileSize += len * 2;
-            WriteN(fileSize - 8, 4, 7);
-            WriteN(fileSize - 126, fsize - 4, fsize - 1);
-            for (int k = 0; k < 2; ++k) {
-                for (int i = -len * 2; i + k < msize / 2 + len; i += len * 2)
-                {
-                    for (int j = 0; j < len * 2; j++)
-                    {
-                        if (i + j * 2 + k < msize / 2 - len && i + j * 2 + k >= 0)
-                        {
-                            cmp[k][j].Re = wave[i + j * 2 + k];
-                        }
-                        else
-                        {
-                            cmp[k][j] = Complex(0, 0);
-                        }
-                    }
-                    cmp[k] = ft.FFT(cmp[k], len * 2);
-                    for (int j = 0; j < disable; ++j)
-                    {
-                        cmp[k][j] *= mix;
-                    }
-                    for (int j = len * 2 - disable; j < len * 2; ++j)
-                    {
-                        cmp[k][j] *= mix;
-                    }
-                    for (int j = disable; j < len * 2 - disable - 1; ++j)
-                    {
-                        Complex ctmp = cmp[k][j];
-                        cmp[k][j] = cmp[k][j] * mix + cmp2[k][j] * (1.0 - mix) / max * cmp3[k][j];
-                        cmp3[k][j] = ctmp;
-                    }
-                    cmp[k] = ft.IFFT(cmp[k], len * 2);
-                    for (int j = 0; j < len * 2; ++j)
-                    {
-                        if (i + j * 2 + k < msize / 2 + len && i + j * 2 + k >= 0)
-                        {
-                            maxv = std::max(maxv, abs(cmp[k][j].Re));
-                            rt[i + j * 2 + k] = (int)cmp[k][j].Re;
-                        }
-                    }
-                }
-            }
-            delete[] cmp;
-            delete[] cmp2;
-            delete[] cmp3;
-            delete[] wave;
-            wave = new int[msize / 2];
-            for (int i = 0; i < msize / 2; i++) {
-                wave[i] = rt[i];
-            }
-            delete[] rt;
         }
+    }
+    delete[] bf2;
+    len = 1 << (int)(log(tmplen) / log(2));
+    disable *= len * 4 / sample;
+    Complex* cmp2 = new Complex[len * 2];
+    Complex* cmp3 = new Complex[len * 2];
+    double tmp_max = 1;
+    for (int i = 0; i < tmplen / 2; ++i) {
+        tmp_max = std::max(tmp_max, 1.0 * tmp[i]);
+    }
+    for (int i = 0; i < len * 2; ++i)
+    {
+        if (i < len) {
+            cmp2[i] = 0;
+        }
+        else if (i - len < tmplen / 2)
+        {
+            cmp2[i] = tmp[i - len] / tmp_max / 2;
+        }
+        else {
+            cmp2[i] = 0;
+        }
+        cmp3[i] = 0;
+    }
+    delete[] tmp;
+    FT ft = FT();
+    cmp2 = ft.FFT(cmp2, len * 2);
+    int* rt = new int[msize / 2 + len];
+    msize += len * 2;
+    fileSize += len * 2;
+    WriteN(fileSize - 8, 4, 7);
+    WriteN(fileSize - 126, fsize - 4, fsize - 1);
+    Complex* cmp = new Complex[len * 2];
+    int n = 2 + msize / 2 / len;
+    for (int i = -len; i < msize / 2; i += len)
+    {
+        for (int j = 0; j < len * 2; ++j)
+        {
+            if (i + j < msize / 2 - len && i + j >= 0)
+            {
+                cmp[j] = wave[i + j] / 65536.0;
+            }
+            else
+            {
+                cmp[j] = 0;
+            }
+        }
+        cmp = ft.FFT(cmp, len * 2);
+        for (int j = 0; j < disable; ++j)
+        {
+            cmp[j] = 0;
+        }
+        for (int j = len * 2 - disable; j < len * 2; ++j)
+        {
+            cmp[j] = 0;
+        }
+        for (int j = disable; j < len * 2 - disable - 1; ++j)
+        {
+            Complex ctmp = cmp[j];
+            cmp[j] = cmp2[j] * cmp3[j] / sqrt(1.0 * n);
+            cmp3[j] = ctmp;
+        }
+        cmp = ft.IFFT(cmp, len * 2);
+        for (int j = 0; j < len; ++j)
+        {
+            if (i + j >= 0)
+            {
+                if (i + j < msize / 2 - len) {
+                    maxv = std::max(maxv, abs(cmp[j].Re * 32768.0 * (1.0 - mix) + wave[i + j] * mix));
+                    rt[i + j] = (int)(cmp[j].Re * 32768.0 * (1.0 - mix) + wave[i + j] * mix);
+                }
+                else if (i + j < msize / 2) {
+                    maxv = std::max(maxv, abs(cmp[j].Re * 32768.0));
+                    rt[i + j] = (int)(cmp[j].Re * 32768.0 * (1.0 - mix));
+                }
+            }
+        }
+    }
+    delete[] cmp;
+    delete[] cmp2;
+    delete[] cmp3;
+    delete[] wave;
+    wave = new int[msize / 2];
+    for (int i = 0; i < msize / 2; i++) {
+        wave[i] = rt[i];
+    }
+    delete[] rt;
+}
         /// <summary>
         /// 切り取り
         /// </summary>
