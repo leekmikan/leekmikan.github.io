@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+	<meta charset="uft-8">
+	<title>文件加密</title>
+	<meta charset="uft-8">
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="该网站规模很小，其他人很难解密这里加密的文件。">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+	<link rel="stylesheet" href="des.css">
+	</head>
+		<body>
+			<!--
+			
+			-------------------Program(s)---------------------
+			
+			-->
+			<a style="display:none" href="ENCRIPTION.exe"></a>
+			<!--
+			
+			-------------------Program(s)---------------------
+			
+			-->
+			<h1>文件加密</h1>
+			<input type="file" id="file"><br>
+			<br><br><br>
+			<h2>ーーー加密ーーー</h2>
+			<a>密码长度(1...短　4...长　0...无密码)</a>
+			<input id="pl" type="number" min="0" max="4" step="1" value="4"><br><br>
+			<button onclick="enc()">加密</button>
+			<p>・同一个文件可以重复加密。</p>
+			<p>・需要记住的事项：「密码」「原始扩展」</p>
+			<h2>密码：<span id="pass">(密码将显示在此处)</span></h2>
+			<br><br><br>
+			<h2>ーーー解密ーーー</h2>
+			<p>扩展</p>
+			<a class="ex">.</a><input class="ex" id="ex" type="text" placeholder="txt"><br><br>
+			<p>密码</p>
+			<input id="dpass" type="password" min="0" max="4294967295" step="1" value=""><br><br>
+			<button onclick="denc()">解密</button>
+			<p>・该网站规模很小，其他人很难解密这里加密的文件。</p>
+			<p>・请注意，对于通过我们的服务造成的任何损害或损失，我们不承担任何责任或义务。</p>
+			<p>(Using DeepL translation)</p>
+		</body>
+<script src="main.js"></script>
+	</head>
+</html>
