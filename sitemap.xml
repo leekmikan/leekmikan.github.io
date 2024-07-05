@@ -4,6 +4,15 @@
        <loc>https://leekmikan.github.io/pg/index.html</loc>
    </url>
    <url>
+       <loc>https://leekmikan.github.io/encryption/index_cn.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/encryption/index_ru.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/encryption/index_en.html</loc>
+   </url>
+   <url>
        <loc>https://leekmikan.github.io/picture/index.html</loc>
    </url>
    <url>
@@ -584,16 +593,6 @@
            <image:caption>下手な絵の数字を数えながらアホになっている人</image:caption>
        </image:image>
        <image:image>
-           <image:loc>https://leekmikan.github.io/picture/img/kakenuke.jpg</image:loc>
-           <image:title>下手な絵のLINEスタンプ用画像　「駆け抜けろ！」</image:title>
-           <image:caption>下手な絵のペガサスに乗って駆け抜けている騎士</image:caption>
-       </image:image>
-       <image:image>
-           <image:loc>https://leekmikan.github.io/picture/img/bike.jpg</image:loc>
-           <image:title>下手な絵のLINEスタンプ用画像　「大型バイク」</image:title>
-           <image:caption>下手な絵の緑色の大型バイク</image:caption>
-       </image:image>
-       <image:image>
            <image:loc>https://leekmikan.github.io/picture/img/ame_cat.png</image:loc>
            <image:title>下手な絵(アメトーーク！のお題)「爪をとぐ猫」</image:title>
            <image:caption>アメトーーク！でのお題「爪をとぐ猫」を描いてみた</image:caption>
@@ -658,67 +657,6 @@
            <image:title>下手な絵の「ibisPaintのテスト」　「竈門炭治郎」</image:title>
            <image:caption>下手な絵の人がibisPaintで「竈門炭治郎」を描いてみた</image:caption>
        </image:image>
-       <image:image>
-           <image:loc>https://leekmikan.github.io/picture/img/thinking+munch.jpg</image:loc>
-           <image:title>下手な絵のAIによる画風変換「思考中...+エドヴァルド・ムンク」</image:title>
-           <image:caption>下手な絵をAIによる画風変換で「思考中...」を「エドヴァルド・ムンク」風にしてみた</image:caption>
-       </image:image>
-       <image:image>
-           <image:loc>https://leekmikan.github.io/picture/img/safe+da%20Vinci.jpg</image:loc>
-           <image:title>下手な絵のAIによる画風変換「安全第一+レオナルド・ダヴィンチ」</image:title>
-           <image:caption>下手な絵をAIによる画風変換で「安全第一」を「レオナルド・ダヴィンチ」風にしてみた</image:caption>
-       </image:image>
-       <image:image>
-           <image:loc>https://leekmikan.github.io/picture/img/sami+hokusai.jpg</image:loc>
-           <image:title>下手な絵のAIによる画風変換「さみしい+葛飾北斎」</image:title>
-           <image:caption>下手な絵をAIによる画風変換で「さみしい」を「葛飾北斎」風にしてみた</image:caption>
-       </image:image>
-       <image:image>
-           <image:loc>https://leekmikan.github.io/picture/img/kawayo+picasso.jpg</image:loc>
-           <image:title>下手な絵のAIによる画風変換「かわよ+パブロ・ピカソ」</image:title>
-           <image:caption>下手な絵をAIによる画風変換で「かわよ」を「パブロ・ピカソ」風にしてみた</image:caption>
-       </image:image>
-       <image:image>
-           <image:loc>https://leekmikan.github.io/picture/img/dance+Kandinsky.jpg</image:loc>
-           <image:title>下手な絵のAIによる画風変換「喜びの舞+ワシリー・カンディンスキー」</image:title>
-           <image:caption>下手な絵をAIによる画風変換で「喜びの舞」を「ワシリー・カンディンスキー」風にしてみた</image:caption>
-       </image:image>
-       <image:image>
-           <image:loc>https://leekmikan.github.io/picture/img/kakenuke+egypt.jpg</image:loc>
-           <image:title>下手な絵のAIによる画風変換「駆け抜けろ!+エジプトの壁画」</image:title>
-           <image:caption>下手な絵をAIによる画風変換で「駆け抜けろ」を「エジプトの壁画」風にしてみた</image:caption>
-       </image:image>
-       <image:image>
-           <image:loc>https://leekmikan.github.io/picture/img/tekken+anime.jpg</image:loc>
-           <image:title>下手な絵のAIによる画風変換「うっそぴょーん+KerasCV」</image:title>
-           <image:caption>下手な絵をAIによる画風変換で「うっそぴょーん」を「KerasCVの出力画像」風にしてみた</image:caption>
-       </image:image>
-       <image:image>
-           <image:loc>https://leekmikan.github.io/picture/img/happou+himiko.jpg</image:loc>
-           <image:title>下手な絵のAIによる画風変換「八方美人+卑弥呼(肖像画)」</image:title>
-           <image:caption>下手な絵をAIによる画風変換で「八方美人」を「卑弥呼(肖像画)」風にしてみた</image:caption>
-       </image:image>
-       <video:video>
-            <video:thumbnail_loc>https://leekmikan.github.io/picture/img/gannba.jpg</video:thumbnail_loc> 
-            <video:title>がんばれ</video:title>
-            <video:description>Luma Dream Machineによる下手な絵の変換「がんばれ」</video:description>
-            <video:content_loc>https://leekmikan.github.io/picture/mov/Cheerleader_girl.mp4</video:content_loc>
-            <video:duration>5</video:duration>
-        </video:video> 
-        <video:video>
-            <video:thumbnail_loc>https://leekmikan.github.io/picture/img/wash.jpg</video:thumbnail_loc> 
-            <video:title>手洗いうがい</video:title>
-            <video:description>Luma Dream Machineによる下手な絵の変換「手洗いうがい」</video:description>
-            <video:content_loc>https://leekmikan.github.io/picture/mov/raccoon_washing_hands_and_gargling.mp4</video:content_loc>
-            <video:duration>5</video:duration>
-        </video:video>
-        <video:video>
-            <video:thumbnail_loc>https://leekmikan.github.io/picture/img/kakenuke.jpg</video:thumbnail_loc> 
-            <video:title>駆け抜けろ！</video:title>
-            <video:description>Luma Dream Machineによる下手な絵の変換「駆け抜けろ！」</video:description>
-            <video:content_loc>https://leekmikan.github.io/picture/mov/soldier_riding_unicorn,_running.mp4</video:content_loc>
-            <video:duration>5</video:duration>
-        </video:video> 
    </url>
    <url>
        <loc>https://leekmikan.github.io/gahaku/Game.html</loc>
