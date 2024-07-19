@@ -280,21 +280,21 @@ player.mass = E('ee16');
 			<h1 style="cursor:pointer;">▼NG-4 Respecced v2</h1>
 			</div>
 			<div id="ng-4" style="display:none;clear:both;">
-				<p>※作成途中...</p>
+				<p>※作成途中...(2024/7/19)</p>
 				<h2>Galaxy</h2>
 				<p>2行目以降の文字列が崩れて読めないので、一旦放置</p>
 				<p>崩れていない部分だけ記入</p>
 				<table border="1">
 					<tr>
-						<td>ADとTDの<br>反物質での価格が99%減少<br>価格:1GP</td>
-						<td>ADとTDの倍率が<br>Galactic Sacrificeからの時間経過<br>に応じて増加<br>価格:3GP</td>
-						<td>TDの倍率が<br>Galaxyポイントに応じて増加<br>価格:20GP</td>
-						<td>TDの倍率が<br>tickspeedに応じて増加<br>価格:1e3GP</td>
-						<td>ADとTDの倍率が<br>現在のEterinity周回内の<br>Infinity回数に応じて増加<br>価格:1GP</td>
+						<td>ADとTDの反物質での価格が99%減少<br>価格:1GP</td>
+						<td>ADとTDの倍率がGalactic Sacrificeからの時間経過<br>に応じて増加<br>価格:3GP</td>
+						<td>TDの倍率がGalaxyポイントに応じて増加<br>価格:20GP</td>
+						<td>TDの倍率がtickspeedに応じて増加<br>価格:1e3GP</td>
+						<td>ADとTDの倍率が現在のEterinity周回内のInfinity回数に応じて増加<br>価格:1GP</td>
 					</tr>
 					<tr>
 						<td>Time Dimension Boostの価格-10<br>価格:1GP</td>
-						<td>Galaxyの強さ2倍,<br>2つ目以降のGalaxyの価格-30,<br>Galaxyの価格のスケーリング-50<br>価格:5GP</td>
+						<td>Galaxyの強さ2倍,2つ目以降のGalaxyの価格-30,Galaxyの価格のスケーリング-50<br>価格:5GP</td>
 						<td>ADがGalaxyに応じて強化<br>価格:100GP</td>
 						<td>---<br>価格:1e3GP</td>
 						<td>---<br>価格:1e3GP</td>
@@ -330,12 +330,12 @@ player.mass = E('ee16');
 					<tr>
 						<td>---<br>価格:1e4500GP</td>
 						<td>---<br>価格:1e5200GP</td>
-						<td>上のアップグレードを強化<br>価格:1e6400GP</td>
-						<td>上のアップグレードの効果が10乗<br>IP獲得量も強化するようになる<br>価格:1e7200GP</td>
-						<td>GPがTimeless Shardsの獲得量を増加<br>価格:1e12000GP</td>
+						<td>上のアップグレードを強化価格:1e6400GP</td>
+						<td>上のアップグレードの効果が10乗IP獲得量も強化するようになる<br>価格:1e7200GP</td>
+						<td>GPがTimeless Shardsの獲得量を増加価格:1e12000GP</td>
 					</tr>
 					<tr>
-						<td>左上のアップグレードの効果を<br>「dilation後のADの倍率が<br>Infinity周回数に応じて増加」<br>に変化し、ハードキャップ削除し、<br>Dimension Boostの価格の増加が<br>平方根をとるようになり、<br>Galactic Sacrificeも強化する。<br>価格:1e15000GP</td>
+						<td>左上のアップグレードの効果を「dilation後のADの倍率がInfinity周回数に応じて増加」に変化し、ハードキャップ削除し、Dimension Boostの価格の増加が平方根をとるようになり、Galactic Sacrificeも強化する。<br>価格:1e15000GP</td>
 						<td>---<br>価格:1e25000GP</td>
 						<td>---<br>価格:1e170000GP</td>
 						<td>上のアップグレードを強化<br>価格:1e90000GP</td>
@@ -347,14 +347,17 @@ player.mass = E('ee16');
 					<tr>
 						<td>No.</td>
 						<td>内容</td>
+						<td>報酬</td>
 					</tr>
 					<tr>
 						<td>C13</td>
 						<td>10個購入時の強化倍率が1倍になる代わりに、購入時にすべての次元を強化する</td>
+						<td>Dimensional Sacrifice自動化</td>
 					</tr>
 					<tr>
 						<td>C14</td>
 						<td>tickspeedを308回しか購入できない。リセット(Dimension Boostなど)をしても、カウントは戻らない</td>
+						<td>Galactic Sacrifice自動化</td>
 					</tr>
 				</table>
 				<h3>Infinity</h3>
@@ -363,96 +366,115 @@ player.mass = E('ee16');
 						<td>No.</td>
 						<td>内容</td>
 						<td>ゴール(Antimatter)</td>
+						<td>報酬</td>
 					</tr>
 					<tr>
-						<td>IC1</td>
+						<td>IC1(NG-3-1)</td>
 						<td>10個購入時の強化倍率が1倍になる代わりに、Dimension Boostの効果がなくなり、TDの反物質での価格が増加、スケーリング増加のDistance tickspeedが最初から有効</td>
 						<td>1e590</td>
+						<td>Distant tickspeedがtickspeed10個分遅れる</td>
 					</tr>
 					<tr>
-						<td>IC2</td>
+						<td>IC2(NG-3-2)</td>
 						<td>ADの倍率がInfinity Powerを除き無効。Galaxyとtickspeed boostがInfinity Powerを強化</td>
 						<td>1e500</td>
+						<td>Galaxyとtickspeed boostがInfinity Powerを強化</td>
 					</tr>
 					<tr>
-						<td>IC3</td>
+						<td>IC3(NG-3-3)</td>
 						<td>C12とC13が有効化、tickspeed upgredeが購入不可、Time Dimensions Boostが無効化</td>
 						<td>1e1500</td>
+						<td>購入回数によるADの強化がすべての次元に適応,GPがTickspeedとTDを強化</td>
 					</tr>
 					<tr>
-						<td>IC4</td>
-						<td>Galaxy Point基準で強化されるGalaxy Upgradeが無効</td>
+						<td>IC4(NG-3-4)</td>
+						<td>GP基準で強化されるGalaxy Upgradeが無効</td>
 						<td>1e7500</td>
+						<td>GalaxyがGPの獲得量を増加</td>
 					</tr>
 					<tr>
-						<td>IC5</td>
-						<td></td>
-						<td></td>
+						<td>IC5(NG-4R-1)</td>
+						<td>C12とC13が有効化、偶数次元のAD,TDが無効</td>
+						<td>1e1200</td>
+						<td>奇数次元のAD,TDが(GP+1)^10に応じて強化</td>
 					</tr>
 					<tr>
-						<td>IC6</td>
-						<td></td>
-						<td></td>
+						<td>IC6(NG-4R-2)</td>
+						<td>購入回数によるADの強化が15乗になる代わり、それ以外の倍率増加無効</td>
+						<td>1e7500</td>
+						<td>購入回数によるADの強化が15乗,35番目のGalaxy Upgradeの効果が100乗</td>
 					</tr>
 					<tr>
-						<td>IC7</td>
-						<td></td>
-						<td></td>
+						<td>IC7(NG-4R-3)</td>
+						<td>Replicantiが増加しない(1のまま)。RGもなし</td>
+						<td>1e19500</td>
+						<td>{log10(replicanti+1)}^5だけIPの獲得量増加</td>
 					</tr>
 					<tr>
-						<td>IC8</td>
-						<td></td>
-						<td></td>
+						<td>IC8(NG-4R-4)</td>
+						<td>スケーリング増加に関わるDistant, Further, Remote, Dark Matter Galaxyが最初から有効</td>
+						<td>1e30000</td>
+						<td>Remote Galaxyが10%弱体化</td>
 					</tr>
 					<tr>
 						<td>IC9</td>
-						<td></td>
-						<td></td>
+						<td>GalaxyとDimboostの価格減少がなくなる代わりに、Infinityからの時間で強化されるInfinity upgradeがDilation計算後に適応</td>
+						<td>1e650</td>
+						<td>Infinityからの時間で強化されるInfinity upgradeがDilation計算後に適応,GPの計算式が強化,新しいGalaxy upgradeの列が追加</td>
 					</tr>
 					<tr>
 						<td>IC10</td>
-						<td></td>
-						<td></td>
+						<td>DimensionとTickspeedのコスト増加が最初から適応されるが、増加量は平方根をとる</td>
+						<td>1e650</td>
+						<td>コスト増加量が0.9乗,Galaxy数に応じてtickspeedの価格増加が弱くなる</td>
 					</tr>
 					<tr>
 						<td>IC11</td>
-						<td></td>
-						<td></td>
+						<td>Tickspeedの倍率が常に1倍になる代わりに、Galaxy数に応じて、Tickspeedの購入時にTickspeedを早める</td>
+						<td>1e610</td>
+						<td>Galaxy数に応じて、Tickspeedの購入時にTickspeedを早める</td>
 					</tr>
 					<tr>
 						<td>IC12</td>
-						<td></td>
-						<td></td>
+						<td>C9,C12,C14以外のすべてのチャレンジが有効化,C2が最初のDilationの閾値に強化された状態で適応</td>
+						<td>2e308</td>
+						<td>全ID,最初のDilationの閾値が2^(ICクリア数)倍</td>
 					</tr>
 					<tr>
 						<td>IC13</td>
-						<td></td>
-						<td></td>
+						<td>8tickごとにSacrifice実行 ヒント:通常状態で1e3000AMいかない場合は、このチャレンジを実行しないこと</td>
+						<td>1e3000</td>
+						<td>Sacrificeがもっと強化</td>
 					</tr>
 					<tr>
 						<td>IC14</td>
-						<td></td>
-						<td></td>
+						<td>全ADの倍率が平方根をとる(Dilation後の倍率に適応)</td>
+						<td>1e2300</td>
+						<td>全ADの倍率が1.05乗(Dilation前の倍率に適応)</td>
 					</tr>
 					<tr>
 						<td>IC15</td>
-						<td></td>
-						<td></td>
+						<td>Tickspeed,Galaxyが購入不可</td>
+						<td>1e2200</td>
+						<td>Galaxyが15%強化,Dimansional Boostの価格が-11,Tickspeedの強さが2乗,Futuher Tickspeedのスケーリングの開始が10個遅れる,Distant Antimatter Galaxyの開始が5個遅れる</td>
 					</tr>
 					<tr>
 						<td>IC16</td>
-						<td></td>
-						<td></td>
+						<td>matterが指数関数的に増加し、AMの生産量を除算する。2番目のDilationの閾値にも影響</td>
+						<td>1e5000</td>
+						<td>TickspeedがIDにも効果を与える。2番目のDilationの閾値にも少し効果を与える</td>
 					</tr>
 					<tr>
 						<td>IC17</td>
-						<td></td>
-						<td></td>
+						<td>Antimatter Galaxyを購入不可になる代わり、Dimansional Boostの効果が3乗</td>
+						<td>1e3200</td>
+						<td>Dimansional Boostの効果が3乗,Dimansional Boostの価格が-1</td>
 					</tr>
 					<tr>
 						<td>IC18</td>
 						<td>生産量が時間経過で激減する　何か購入すると生産量が復活</td>
 						<td>1e7500</td>
+						<td>1stADと8thADの倍率が2~7thADの倍率を強化。2番目のDilationの閾値が1e10倍</td>
 					</tr>
 				</table>
 				<h2>Break Infinity</h2>
