@@ -424,9 +424,9 @@ player.mass = E('ee16');
 					</tr>
 					<tr>
 						<td>IC10</td>
-						<td>DimensionとTickspeedのコスト増加が最初から適応されるが、増加量は平方根をとる</td>
+						<td>DimensionとTickspeedの価格増加が最初から適応されるが、増加量は平方根をとる</td>
 						<td>1e650</td>
-						<td>コスト増加量が0.9乗,Galaxy数に応じてtickspeedの価格増加が弱くなる</td>
+						<td>価格増加量が0.9乗,Galaxy数に応じてtickspeedの価格増加が弱くなる</td>
 					</tr>
 					<tr>
 						<td>IC11</td>
@@ -479,35 +479,30 @@ player.mass = E('ee16');
 				</table>
 				<h2>Break Infinity</h2>
 				<p>4行目から</p>
-				<p>こちらも崩れていない部分だけ記入</p>
 				<table border="1">
 					<tr>
-						<td>g31によるADの倍率が増加(Max x^2.05)<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
+						<td>g31によるADの倍率が増加(複数回購入可)<br>価格:1e13×10^nIP</td>
+						<td>Tickspeedの価格増加量減少(複数回購入可)<br>価格:3e6×5^nIP</td>
+						<td>次元の価格増加量減少(複数回購入可)<br>価格:1e8×5000^nIP</td>
+						<td>オフライン時にInfinity回数を自動で稼ぐ<br>価格:1e7×10^nIP</td>
 					</tr>
 					<tr>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
+						<td>Dimension boostの価格-1<br>価格:1e22IP</td>
+						<td>Galaxyが40%強化<br>価格:1e26IP</td>
+						<td>Galaxyの価格増加量-3<br>価格:1e22IP</td>
+						<td>IDの価格増加量1/50倍<br>価格:1e32IP</td>
 					</tr>
 					<tr>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
+						<td>GalaxyがIP獲得量を増加(2^galaxy倍)<br>価格:1e50IP</td>
+						<td>最初のGalaxy upgradeを強化<br>価格:1e69IP</td>
+						<td>Dimension boostが3番目のGalaxy upgradeを強化<br>価格:1e170IP</td>
+						<td>新しいGalaxy upgradeの行を開放<br>価格:1e80IP</td>
 					</tr>
 					<tr>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
-						<td>---<br>価格:IP</td>
-						<td>Dimensional Sacrificeが強化、<br>膨張後の倍率に乗算されるようになる、<br>倍率の一部が2番目のDilationの閾値に影響を与える<br>価格:1e215IP</td>
+						<td>上のアップグレードを強化(2.8^galaxy倍)<br>価格:1e160IP</td>
+						<td>GPが自身の獲得量を増加<br>価格:1e180IP</td>
+						<td>ID購入時に増加する倍率が1.8e308倍になる<br>価格:1e200IP</td>
+						<td>Dimensional Sacrificeが強化、膨張後の倍率に乗算されるようになる、倍率の一部が2番目のDilationの閾値に影響を与える<br>価格:1e215IP</td>
 					</tr>
 				</table>
 				<h2>Timeless</h2>
@@ -562,7 +557,7 @@ player.mass = E('ee16');
 						<td>---<br>価格:Timeless Points</td>
 						<td>---<br>価格:Timeless Points</td>
 						<td>---<br>価格:Timeless Points</td>
-						<td>「Gain a Time Theorem」のコスト増加率が平方根をとる(4^n→2^n)<br>価格:1e55Timeless Points</td>
+						<td>「Gain a Time Theorem」の価格増加率が平方根をとる(4^n→2^n)<br>価格:1e55Timeless Points</td>
 					</tr>
 				</table>
 				<h2>Interreality</h2>
