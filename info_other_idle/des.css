@@ -80,3 +80,19 @@ color: #000000;
 background: #ff00ff;
 color: #000000;
 }
+.gx{
+background: #0051ff;
+}
+.am{
+	background: #00a73d;
+}
+.ic{
+	background: #000000;
+	color: #ffffff;
+}
+.inf{
+	background: #e59900;
+}
+.timeless{
+	background: radial-gradient(circle, #7f7f7f, #808080 25%, transparent 50%), linear-gradient(#ffffff, transparent 33%, transparent 67%, #ffffff 100%), linear-gradient(90deg, #e59900 0%, #b341e0 100%);
+}
