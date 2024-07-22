@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>Processingでリズムゲーム</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="Processingでリズムゲーム　授業で作ったもの">
+	<link rel="stylesheet" href="des.css">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+	<script type="text/javascript"src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+	<script src="main.js"></script>
+	</head>
+		<body>
+			<div class="title">
+				<h1>Processingでリズムゲーム</h1>
+				<p>・Processingでリズムゲーム　授業で作った作品の仕組みを非常に軽く解説</p>
+				<p>・「メディアプログラミング２Ａ」という科目名に心当たりある人は、<br>このプログラムを書き換えたものであっても提出しないでください。(ここのサイトのURLが入っています)(参考程度にする)</p>
+				<p>・評価順位1/105位をとった記念に公開しています。</p>
+				<p>・UIは下手くそなので、自分で変えてください。</p>
+				<p>・ほかのページの書き込みもあるので、ページの完成に数日かかります(気分次第　2024年8月上旬くらいまで?)</p>
+				<p>※※※このプログラムを実行/提出した際に発生した不利益に関しては、責任は負いかねます。※※※</p>
+			<p style="text-align:center;">※このサイトのメインのページは以下の4つです。(下手絵を中心に宣伝)</p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/gahaku/Game.html">画伯の展開会(下手な絵を当てるクイズ)<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/picture">下手な絵集<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi/Game.html">歌詞クイズ<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi easy/Game.html">歌詞クイズ(簡単ver)<a></p>
+			</div>
+			<div class="text_frame">
+				<h1>前提知識</h1>
+			</div>
+			<div class="main">
+			<p>ビット演算、高校レベルの数学、バイナリーデータの読み書きを理解しておくこと</p>
+			</div><br>
+			<div class="text_frame">
+				<h1>プログラム(zip)</h1>
+			</div>
+		<div class="main">
+			<a href="Music.zip" download="Music.zip">Music.zip</a><br><br><br>
+			<p>上からダウンロード</p>
+		</div><br>
+		<div class="text_frame">
+			<h1>Music(メイン部分)</h1>
+		</div>
+		<div class="main">
+			<h2>setup</h2>
+			<p>game_data\musicに入っているフォルダをすべて読み込む</p>
+			<p>.txt,.wavの両方が最低限揃っている曲をすべて取り込み、InfoReader側のInfoクラスのリストに追加する</p>
+			<p>画像ファイルがなければnoimage.jpgをジャケット画像として表示する</p>
+			<p>最後に、ゲーム全体で使う画像(PImageクラス)、効果音(Clipクラス)を読み込む</p>
+		</div><br>
+		<div class="text_frame">
+			<h1>InfoRader(曲情報読み込みなど)</h1>
+		</div>
+		<div class="main">
+			<h2>MakeWavFile</h2>
+			<p>ファイルをバイナリー形式で読み込み、サンプリングレートを抽出する。</p>
+			<p>サンプリングレートにgame_speedを掛けて整数にし、抽出したバイト配列を書き換える</p>
+			<p>最後にそのバイト配列で新しいwavファイルを作る。</p>
+			<p>サンプリングレートの計算式</p>
+			<p>バイト配列\(d\)において、\(l\)から\(m\)バイト目のリトルエンディアンでの値は</p>
+			<h3 style="text-align:center;">\(\displaystyle\sum_{k=l}^{m}{\left\{\array{d[k]・256^{k-l}(d[k]&gt;=0)\\(d[k]+256)・256^{k-l}(d[k]&lt;0)}\right.}\)</h3>
+			<p>wavファイルは、\(l=24,m=27\)として計算するとサンプリング周波数が求まる(\(44100Hz,48000Hz\)など　収録しているファイルは\(20000Hz\))</p>
+		</div><br>
+		<div class="text_frame">
+			<h1>NoteRader(譜面情報読み込み)</h1>
+			<h2>ReadNotes</h2>
+			<p>\(k\)分音符、BPMが\(BPM\)[BPM]のとき、ノーツの間隔\(\Delta t\)[s]は次の計算式をみたすことを利用する。</p>
+			<h3 style="text-align:center;">\(\Delta t=\frac{240}{k×BPM}\)</h3>
+		</div>
+		<div class="main">
+			<p></p>
+		</div><br>
+		<div class="text_frame">
+			<h1>Playing Pause(演奏中　ポーズ時の処理)</h1>
+		</div>
+		<div class="main">
+			<p></p>
+		</div><br>
+		<div class="text_frame">
+			<h1>Result Loading(リザルト　ロード画面(未使用))</h1>
+		</div>
+		<div class="main">
+			<p></p>
+		</div><br>
+		<div class="text_frame">
+			<h1>Select Opt(曲選択画面　オプション)</h1>
+		</div>
+		<div class="main">
+			<p></p>
+		</div><br>
+		<div class="text_frame">
+			<h1>Title Exp(タイトル　ゲーム説明)</h1>
+		</div>
+		<div class="main">
+			<p></p>
+		</div>
+		</body>
+	</head>
+</html>
