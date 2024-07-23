@@ -106,7 +106,7 @@
 			<h2>Infoクラス</h2>
 			<p>変数を上から　難易度、各難易度のハイスコア、各難易度のクリア状況、デモの再生時間、曲名、詳細、txtのファイルパス、wavのファイルパス、datのファイルパス、ジャケット画像　を、ゲーム起動時に取得</p>
 			<p>ReadHiScore関数(少し下にある)を使ってハイスコア+クリア状況を取得</p>
-			<p>ReadCommandD,ReadCommandS関数(少し下にある)を使ってその他情報を取得　ただし、文字列は、文字コードをISO-8859-1→SJISにする(ここ初見だと激ムズ　Processingで実行とexeファイルのエクスポートで挙動が変わるので</p>
+			<p>ReadCommandD,ReadCommandS関数(少し下にある)を使ってその他情報を取得　ただし、<b>文字列は、文字コードをISO-8859-1→SJISにする</b>(ここ初見だと激ムズ　Processingで実行とexeファイルのエクスポートで挙動が変わるので</p>
 			<p>コンストラクタは、datファイルのありなしで2つある</p>
 			<h2>ReadCommandS</h2>
 			<p>命令にくっついている文字列を取得</p>
@@ -134,38 +134,75 @@
 			<p>e...かんたんのクリア状況(0...未クリア　1...クリア　2...フルコンボ　3...パーフェクト)</p>
 			<p>これをビットシフトなどを活用し読み込む。クリア状況はInfoクラス内で読み取る(変数をまとめて返したいため)</p>
 			<p>戻り値は、長さ4のint配列　[むずかしいのスコア,ふつうのスコア,かんたんのスコア,クリア状況をそのままの値で]</p>
+			<h2>SetHiScore</h2>
+			<p>ReadHiScoreと逆の手順で、クリア状況を記録</p>
 		</div><br>
 		<div class="text_frame">
 			<h1>NoteRader(譜面情報読み込み)</h1>
 		</div>
 		<div class="main">
-			<h2>ReadNotes　作成中...</h2>
+			<h2>Noteクラス</h2>
+			<p>音符情報を保持</p>
+			<p>変数を上から、因数の値、流れるレーンの組み合わせの値(1~15)、押されるべきタイミング、スクロール倍率、判定済みか(初期値false)を格納</p>
+			<h2>Eventクラス</h2>
+			<p>素因数変化、曲の終了などを保持</p>
+			<p>変数を上から、イベント名、開始時間、値、実行されたか(初期値false)で格納</p>
+			<h2>ReadNotes</h2>
+			<p>ファイルを読み込み、for文で1文字1文字を<b>int</b>型でチェックする。(char/byte型ではない)</p>
+			<p>#から改行までの文字列は別で格納して、改行時にReadCommandS,ReadCommandD関数で何の命令、どんな値か確認</p>
+			<p>歌詞も別で格納して、改行時に<b>文字コードをISO-8859-1→SJIS</b>にしてからリストに追加する。</p>
+			<p>ノーツ情報、一部命令は、選択された難易度の命令文を読み込んだことを確認してから判定する。</p>
+			<p>,が入力されたら、小節の時間の記録し、,までの一時的なノーツリストの長さが0であれば、休符を1つ追加する。</p>
 			<p>\(k\)分音符、BPMが\(BPM\)[BPM]のとき、ノーツの間隔\(\Delta t\)[s]は次の計算式をみたすことを利用する。</p>
 			<h3 style="text-align:center;">\(\Delta t=\frac{240}{k×BPM}\)</h3>
+			<p>今までの\(\Delta t\)の合計を蓄積した値を押されるべきタイミングとして記録</p>
+			<p>文字がノート番号だった(default:)場合、選択された難易度内のものであれば、文字を16進数に変換する (int char_vの部分)</p>
+			<p>ランダムを有効にしている場合は、ランダムなビット2つを3回入れ替える</p>
+			<p>最後に一時的なノーツリストに格納する</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>Playing Pause(演奏中　ポーズ時の処理)</h1>
+			<h1>Playing Pause(演奏中　ポーズ時の処理)　準備中...</h1>
 		</div>
 		<div class="main">
-			<p></p>
+			<h2>GamePlaying</h2>
+			<h2>GamePause</h2>
+			<h2>GamePauseKey</h2>
+			<h2>JudgeNote</h2>
+			<h2>Reload</h2>
 		</div><br>
 		<div class="text_frame">
-			<h1>Result Loading(リザルト　ロード画面(未使用))</h1>
+			<h1>Result Loading(リザルト　ロード画面(未使用)) 　準備中...</h1>
 		</div>
 		<div class="main">
-			<p></p>
+			<h2>Result</h2>
+			<h2>Loading</h2>
+			<h2>ResultKey</h2>
+			<h2>Record</h2>
 		</div><br>
 		<div class="text_frame">
-			<h1>Select Opt(曲選択画面　オプション)</h1>
+			<h1>Select Opt(曲選択画面　オプション)　準備中...</h1>
 		</div>
 		<div class="main">
-			<p></p>
+			<h2>SelectMenu</h2>
+			<h2>SelectMenuBase</h2>
+			<h2>SelectDifficulty</h2>
+			<h2>SelectOptions</h2>
+			<h2>SelectKey</h2>
+			<h2>SelectDifficultyKey</h2>
+			<h2>SelectOptionsKey</h2>
 		</div><br>
 		<div class="text_frame">
 			<h1>Title Exp(タイトル　ゲーム説明)</h1>
 		</div>
 		<div class="main">
-			<p></p>
+			<h2>TitleMenu</h2>
+			<p>タイトルを表示</p>
+			<h2>TitleMenuKey</h2>
+			<p>タイトル画面操作用</p>
+			<h2>ExpGame</h2>
+			<p>説明表示(swich文でページ切り替え)</p>
+			<h2>ExpGameKey</h2>
+			<p>説明時のページ移動用</p>
 		</div>
 		</body>
 	</head>
