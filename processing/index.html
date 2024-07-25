@@ -39,6 +39,7 @@
 		<div class="main">
 			<a href="Music.zip" download="Music.zip">Music.zip</a><br><br><br>
 			<p>上からダウンロード</p>
+			<p><a href="https://leekmikan.github.io/pg/index.html">ほかのプログラムはこちらのページから<a></p>
 		</div><br>
 		<div class="text_frame">
 			<h1>命令一覧/譜面作成について</h1>
@@ -74,7 +75,9 @@
 			<p>と記入(小文字不可)</p>
 			<h2>得点計算</h2>
 			<p>得点獲得量はコンボ数により変わり、以下の式の通りになる　(\(c\)...今叩いたノーツを含むコンボ数　\(k\)...判定による倍率)</p>
-			<h3 style="text-align:center;">\(200k[\frac{floor\{\frac{min(c,1000)}{10}\}}{10}+1]\)</h3>
+			<h3 style="text-align:center;">\(200k(\frac{floor(\frac{min(c,1000)}{10})}{10}+1)\)</h3>
+			<p>\(k\)の値：　\(PERFECT...1\)　\(GOOD...0.5\)　\(OK...0.3\)　\(BAD,MISS...0\)　　(Playing Pause内のdouble[] judge_mult参照)</p>
+			<p>太鼓の達人でいう、初項200点、公比20点(ただし、1000コンボまで得点増加し、Max　1コンボ2200点)</p>
 		</div><br>
 		<div class="text_frame">
 			<h1>Music(メイン部分)</h1>
@@ -197,13 +200,18 @@
 			<p>一部変数のリセット、譜面の再読み込みなどしてから演奏中へ<p>
 		</div><br>
 		<div class="text_frame">
-			<h1>Result Loading(リザルト　ロード画面(未使用)) 　準備中...</h1>
+			<h1>Result Loading(リザルト　ロード画面(未使用))</h1>
 		</div>
 		<div class="main">
 			<h2>Result</h2>
+			<p>結果を描画　スコア、各判定のノーツ数、結果(クリア/フルコンボ/パーフェクト)、オート/低速プレイ(記録不可)かどうかを表示</p>
 			<h2>Loading</h2>
+			<p>ロード画面(実質未使用)</p>
 			<h2>ResultKey</h2>
+			<p>リザルト画面のキー入力</p>
 			<h2>Record</h2>
+			<p>ハイスコアかクリア状況が良くなった時にSetHiScore関数を用いてdatファイルを書き換える</p>
+			<p>オートと低速プレイ(再生速度1未満　誤差を考慮して0.99未満に設定)の場合は記録しない</p>
 		</div><br>
 		<div class="text_frame">
 			<h1>Select Opt(曲選択画面　オプション)　準備中...</h1>
