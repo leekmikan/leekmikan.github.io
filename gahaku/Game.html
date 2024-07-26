@@ -6,12 +6,14 @@
 	<meta name="description" content="下手な絵をみて何の絵か当てよう。5年間絵を練習しても画伯の芸能人レベルの大学生が描いた下手でおもしろい画像が260枚以上あるよ!">
 	<title>画伯の展覧会(クイズ)　「下手な絵置き場」と共に下手な絵界最大手を目指す！　現在約265枚</title>
 	<script src="qs.js"></script>
+	<link rel="stylesheet" href="des.css">
 	<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 	<link rel="icon" type="image/jpg" href="../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
 	</head>
 		<body style="width :1500px; background-size:cover">
-		<h1 onclick="Start()"id="start" style="font-family: 'Pinyon Script', cursive;">Click to start</h1>
+		<h1 id="loading">読み込み中...</h1>
+		<h1 onclick="Start()"id="start" style="display:none;font-family: 'Pinyon Script', cursive;">Click to start</h1>
 		<div id="main"style="display: none">
 			<button id="mb"class="ndb"onclick="Plps()" >BGM: OFF</button>
 			<div style="text-align:center;">
@@ -304,17 +306,17 @@
                  <td id="td253"><img src="img/Q253.jpg" class="sel" title="画伯の展覧会No.253" alt="画伯の展覧会No.253" onclick="Selp(253)"></td>
                  <td id="td254"><img src="img/Q254.jpg" class="sel" title="画伯の展覧会No.254" alt="画伯の展覧会No.254" onclick="Selp(254)"></td>
                  <td id="td255"><img src="img/Q255.jpg" class="sel" title="画伯の展覧会No.255" alt="画伯の展覧会No.255" onclick="Selp(255)"></td>
-                 <td id="td251"><img src="img/Q256.jpg" class="sel" title="画伯の展覧会No.256" alt="画伯の展覧会No.256" onclick="Selp(256)"></td>
-                 <td id="td252"><img src="img/Q257.jpg" class="sel" title="画伯の展覧会No.257" alt="画伯の展覧会No.257" onclick="Selp(257)"></td>
-                 <td id="td253"><img src="img/Q258.jpg" class="sel" title="画伯の展覧会No.258" alt="画伯の展覧会No.258" onclick="Selp(258)"></td>
-                 <td id="td254"><img src="img/Q259.jpg" class="sel" title="画伯の展覧会No.259" alt="画伯の展覧会No.259" onclick="Selp(259)"></td>
-</tr><tr id="tr26"><td id="td250"><img src="img/Q260.jpg" class="sel" title="画伯の展覧会No.260" alt="画伯の展覧会No.260" onclick="Selp(260)"></td>
-                 <td id="td251"><img src="img/Q261.jpg" class="sel" title="画伯の展覧会No.261" alt="画伯の展覧会No.261" onclick="Selp(261)"></td>
-                 <td id="td252"><img src="img/Q262.jpg" class="sel" title="画伯の展覧会No.262" alt="画伯の展覧会No.262" onclick="Selp(262)"></td>
-                 <td id="td253"><img src="img/Q263.jpg" class="sel" title="画伯の展覧会No.263" alt="画伯の展覧会No.263" onclick="Selp(263)"></td>
-                 <td id="td254"><img src="img/Q264.jpg" class="sel" title="画伯の展覧会No.264" alt="画伯の展覧会No.264" onclick="Selp(264)"></td>
-                 <td id="td255"><img src="img/Q265.jpg" class="sel" title="画伯の展覧会No.265" alt="画伯の展覧会No.265" onclick="Selp(265)"></td>
-                 <td id="td251"><img src="img/Q266.jpg" class="sel" title="画伯の展覧会No.266" alt="画伯の展覧会No.266" onclick="Selp(266)"></td>
+                 <td id="td256"><img src="img/Q256.jpg" class="sel" title="画伯の展覧会No.256" alt="画伯の展覧会No.256" onclick="Selp(256)"></td>
+                 <td id="td257"><img src="img/Q257.jpg" class="sel" title="画伯の展覧会No.257" alt="画伯の展覧会No.257" onclick="Selp(257)"></td>
+                 <td id="td258"><img src="img/Q258.jpg" class="sel" title="画伯の展覧会No.258" alt="画伯の展覧会No.258" onclick="Selp(258)"></td>
+                 <td id="td259"><img src="img/Q259.jpg" class="sel" title="画伯の展覧会No.259" alt="画伯の展覧会No.259" onclick="Selp(259)"></td>
+</tr><tr id="tr26"><td id="td260"><img src="img/Q260.jpg" class="sel" title="画伯の展覧会No.260" alt="画伯の展覧会No.260" onclick="Selp(260)"></td>
+                 <td id="td261"><img src="img/Q261.jpg" class="sel" title="画伯の展覧会No.261" alt="画伯の展覧会No.261" onclick="Selp(261)"></td>
+                 <td id="td262"><img src="img/Q262.jpg" class="sel" title="画伯の展覧会No.262" alt="画伯の展覧会No.262" onclick="Selp(262)"></td>
+                 <td id="td263"><img src="img/Q263.jpg" class="sel" title="画伯の展覧会No.263" alt="画伯の展覧会No.263" onclick="Selp(263)"></td>
+                 <td id="td264"><img src="img/Q264.jpg" class="sel" title="画伯の展覧会No.264" alt="画伯の展覧会No.264" onclick="Selp(264)"></td>
+                 <td id="td265"><img src="img/Q265.jpg" class="sel" title="画伯の展覧会No.265" alt="画伯の展覧会No.265" onclick="Selp(265)"></td>
+                 <td id="td266"><img src="img/Q266.jpg" class="sel" title="画伯の展覧会No.266" alt="画伯の展覧会No.266" onclick="Selp(266)"></td>
 </tr>
 </table>
 		<p>※title,altタグの番号は両方とも、一番上に表示されている問題番号と1つずれています。(title,altは0番から)</p><br>
@@ -365,5 +367,4 @@
 		</script>
 		
 	</head>
-	<link rel="stylesheet" href="des.css">
 </html>
