@@ -99,7 +99,7 @@ for(var i = 0;i < cmp.length;i++){
 	document.getElementById("td" + cmp[i]).style.background = "#FF0000";
 }
 document.getElementById("cmp").innerText = cmp.length + "/" + qs.length + "　(" + Math.round(cmp.length / qs.length * 1000) / 10 + "%)";
-document.addEventListener("DOMContentLoaded", function() {
+window.onload = function() {
    document.getElementById("loading").style.display = "none";
    document.getElementById("start").style.display = "block";
-});
+}
