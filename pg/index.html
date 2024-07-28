@@ -95,7 +95,9 @@ document.getElementById("exp").innerHTML = Text(exp);//表示
 			<p>DK1+は、再起動すれば閉じることができる(他にも方法がある?)</p>
 			<p>DK1++は、DK1+の機能に加え、OS起動時に自動で実行されるようになる</p>
 			<p>安全な解除方法(抜け道)を知りたい場合は、作成者と連絡がとれるところに連絡してください</p>
-			<p>(Twitter,Instagram,Threadsなどはやっていません　多分連絡取れるのはgithubか、同じ大学にいる人のみ?)</p>
+			<p>(Twitter,Instagram,Threadsなどはやっていません　多分連絡取れるのはgithubか、同じ大学にいる人のみ?)</p><br>
+			<p>(追記)今のところ多分大丈夫だが、もしかしたらMyHookクラス(別サイトから引用)部分で、<br>変数が勝手に開放されるエラーが出る場合があるかも(ほかのプログラムで使ったらエラーが起きた)</p>
+			<p>メンバ変数にdelegateHookCallback型の変数を追加すると回避できる(やってみた感じ)ので、そのうち直すかも</p>
 		</div><br>
 		<div class="text_frame">
 			<h1>シンプルドッキリプログラム2</h1>
