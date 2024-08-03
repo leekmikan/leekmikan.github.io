@@ -56,6 +56,9 @@ button.tab_button{
 	width: fit-content;
 	padding: 0em 1em;
 }
+div, h2{
+	margin-top: 40px;
+}
 .nml{
 background: #00a000;
 color: #000000;
@@ -83,4 +86,8 @@ color: #000000;
 .evo{
 background: #ff5a83;
 color: #000000;
+}
+.rip{
+background: #ff2121;
+color: #FFFFFF;	
 }
