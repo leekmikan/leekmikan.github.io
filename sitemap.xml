@@ -596,6 +596,51 @@
            <image:caption>下手な絵の数字を数えながらアホになっている人</image:caption>
        </image:image>
        <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/kakenuke.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「駆け抜けろ！」</image:title>
+           <image:caption>下手な絵のユニコーンと共に駆け抜けている人</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/bike.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「大型バイク」</image:title>
+           <image:caption>下手な絵の大型バイク</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/enjoy.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「たのしー」</image:title>
+           <image:caption>下手な絵の楽しんでいる人</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/turi.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「釣れたー」</image:title>
+           <image:caption>下手な絵の魚で釣れた画像</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/ikeb.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「池袋」</image:title>
+           <image:caption>下手な絵の黒板に池袋と書かれた画像</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/exp.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「爆発」</image:title>
+           <image:caption>下手な絵の機械と会社が爆発している画像</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/soft.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「柔軟に」</image:title>
+           <image:caption>下手な絵の柔軟体操をしている女性</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/light.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「落雷」</image:title>
+           <image:caption>下手な絵の雷に当たった人</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/recv.jpg</image:loc>
+           <image:title>下手な絵のLINEスタンプ用画像　「復活」</image:title>
+           <image:caption>下手な絵の復活して元気な人</image:caption>
+       </image:image>
+       <image:image>
            <image:loc>https://leekmikan.github.io/picture/img/ame_cat.png</image:loc>
            <image:title>下手な絵(アメトーーク！のお題)「爪をとぐ猫」</image:title>
            <image:caption>アメトーーク！でのお題「爪をとぐ猫」を描いてみた</image:caption>
@@ -659,6 +704,16 @@
            <image:loc>https://leekmikan.github.io/picture/img/kamado.png</image:loc>
            <image:title>下手な絵の「ibisPaintのテスト」　「竈門炭治郎」</image:title>
            <image:caption>下手な絵の人がibisPaintで「竈門炭治郎」を描いてみた</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/dora_b.png</image:loc>
+           <image:title>下手な絵を描く人が作るBrenderの「ドラえもん」</image:title>
+           <image:caption>下手な絵を描く人が作るBrenderの「ドラえもん」</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/picture/img/woman_b.png</image:loc>
+           <image:title>下手な絵を描く人が作るBrenderの「よく自分のスタンプに登場する女性」</image:title>
+           <image:caption>下手な絵を描く人が作るBrenderの「よく自分のスタンプに登場する女性」</image:caption>
        </image:image>
    </url>
    <url>
@@ -1942,6 +1997,56 @@
            <image:loc>https://leekmikan.github.io/gahaku/img/Q255.jpg</image:loc>
            <image:title>画伯の展覧会No.255</image:title>
            <image:caption>画伯の展覧会No.255</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/gahaku/img/Q256.jpg</image:loc>
+           <image:title>画伯の展覧会No.256</image:title>
+           <image:caption>画伯の展覧会No.256</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/gahaku/img/Q257.jpg</image:loc>
+           <image:title>画伯の展覧会No.257</image:title>
+           <image:caption>画伯の展覧会No.257</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/gahaku/img/Q258.jpg</image:loc>
+           <image:title>画伯の展覧会No.258</image:title>
+           <image:caption>画伯の展覧会No.258</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/gahaku/img/Q259.jpg</image:loc>
+           <image:title>画伯の展覧会No.259</image:title>
+           <image:caption>画伯の展覧会No.259</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/gahaku/img/Q260.jpg</image:loc>
+           <image:title>画伯の展覧会No.260</image:title>
+           <image:caption>画伯の展覧会No.260</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/gahaku/img/Q261.jpg</image:loc>
+           <image:title>画伯の展覧会No.261</image:title>
+           <image:caption>画伯の展覧会No.261</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/gahaku/img/Q262.jpg</image:loc>
+           <image:title>画伯の展覧会No.262</image:title>
+           <image:caption>画伯の展覧会No.262</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/gahaku/img/Q263.jpg</image:loc>
+           <image:title>画伯の展覧会No.263</image:title>
+           <image:caption>画伯の展覧会No.263</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/gahaku/img/Q264.jpg</image:loc>
+           <image:title>画伯の展覧会No.264</image:title>
+           <image:caption>画伯の展覧会No.264</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/gahaku/img/Q265.jpg</image:loc>
+           <image:title>画伯の展覧会No.266</image:title>
+           <image:caption>画伯の展覧会No.266</image:caption>
        </image:image>
    </url>
 </urlset>
