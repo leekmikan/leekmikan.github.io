@@ -196,6 +196,11 @@
 			<p>wsで上下移動(sel_pauseを増減)</p>
 			<p>ポーズから一定時間以上経過かつ、sel_pauseが0(再開)のとき演奏中へ、1なら曲Loading(一瞬　実質未使用)から選択画面へ</p>
 			<h2>JudgeNote</h2>
+			<p>num_light[ind] = 3;でノーツを光るように設定</p>
+			<p>\(\Delta t=|\)ノーツの押される時間\(-\)現在時刻\(|\)が最小になるノーツを探す。</p>
+			<p>\(\Delta t\)がjudge_range[3](BAD判定)以下(未満)かつ、押したキーに対応するビットが1であれば、そのノーツを判定する。</p>
+			<p>ここでfor文を使い、ノーツを判定、判定に応じた倍率の得点を与える。\(i\lt2\)(GOOD判定まで)なら、コンボ数を増加。でなければ0にする。</p>
+			<p>判定したら、キーに対応するビットを0にし、すべてのビットが0ならそのノーツを判定済みにする。(notes.get(near[0]).judged = true;)</p>
 			<h2>Reload</h2>
 			<p>一部変数のリセット、譜面の再読み込みなどしてから演奏中へ<p>
 		</div><br>
@@ -218,12 +223,22 @@
 		</div>
 		<div class="main">
 			<h2>SelectMenu</h2>
+			<p>曲選択画面の描画</p>
 			<h2>SelectMenuBase</h2>
+			<p>曲選択画面関連すべてのベース(背景など)の描画</p>
 			<h2>SelectDifficulty</h2>
+			<p>難易度の描画</p>
 			<h2>SelectOptions</h2>
+			<p>オプションの描画</p>
 			<h2>SelectKey</h2>
+			<p>曲選択画面のキー入力</p>
+			<p>sel_music = (sel_music - 1 \(\pm\) info.size()) % info.size();のように、選択肢の個数の倍数を足すことで、正負を気にせず選択番号の0と最終番号をループさせることができる。</p>
+			<p>再生させる曲と時間を、譜面ファイル内で指定した時間(#DEMO)に応じて変える</p>
 			<h2>SelectDifficultyKey</h2>
+			<p>難易度選択と開始</p>
 			<h2>SelectOptionsKey</h2>
+			<p>オプション選択</p>
+			<p>bool値は、random_note = !random_note;のようにすると簡単に切り替えられる</p>
 		</div><br>
 		<div class="text_frame">
 			<h1>Title Exp(タイトル　ゲーム説明)</h1>
