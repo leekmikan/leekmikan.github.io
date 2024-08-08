@@ -3,6 +3,9 @@
 #include <fstream>
 #include <stdio.h>
 #include <iostream>
+#include <string>
+#include <locale>
+#include <codecvt>
 #define PI 3.1415926535
 #define PT(x) std::cout << x << std::endl
 #define PITCH(x) pow(2, x / 12.0)
@@ -336,6 +339,48 @@ class WaveData
             }
             delete[] buf;
         }
+        WaveData(std::wstring fname) {
+            std::wstring_convert<std::codecvt_utf8<wchar_t> > converter;
+            this->wfname = fname;
+            std::ifstream ifs(fname, std::ios::binary);
+            ifs.seekg(0, std::ios::end);
+            fileSize = ifs.tellg();
+            ifs.seekg(0);
+            char* buf = new char[fileSize];
+            ifs.read(buf, fileSize);
+            bit8 = buf[34] / 8;
+            for (int i = 0; i < fileSize; ++i)
+            {
+                if (i < fileSize - 4)
+                {
+                    if (buf[i] == 0x64 && buf[i + 1] == 0x61 && buf[i + 2] == 0x74 && buf[i + 3] == 0x61)
+                    {
+                        fmt = new char[i + 8];
+                        fsize = i + 8;
+                        for (int j = 0; j < i + 8; j++)
+                        {
+                            fmt[j] = buf[j];
+                        }
+                        wave = BtoI(buf, i + 8, fileSize);
+                        msize = fileSize - i - 8;
+                        break;
+                    }
+                }
+            }
+            for (int i = 0; i < msize / 2; i++)
+            {
+                maxv = std::max(maxv, abs(wave[i]) + 0.0);
+            }
+            ch = ReadN(buf, 22, 23);
+            sample = ReadN(buf, 24, 27);
+            vol_min = -pow(256, bit8) / 2;
+            vol_max = pow(256, bit8) / 2 - 1;
+            ifs.close();
+            if (ch != 2 && bit8 != 2) {
+                this->Dispose();
+            }
+            delete[] buf;
+        }
         WaveData(int *wd, int msize2,WaveData *source) {
             this->wave = new int[msize2];
             for (int i = 0;i < msize2;++i) {
@@ -638,23 +683,86 @@ void ConvolutionReverb(std::string rname, double mix, int disable)
         /// </summary>
         /// <param name="cch">チャンネル数[1,2,4]</param>
         void Export(int cch) {
-            std::string name;
-            int path_i = fname.find_last_of("\\") + 1;
-            int ext_i = fname.find_last_of(".");
-            if (path_i != 0) {
-                name = fname.substr(path_i, ext_i - path_i) + ".wav";
+            if (wfname != L"null") {
+                std::wstring name;
+                int path_i = wfname.find_last_of(L"\\") + 1;
+                int ext_i = wfname.find_last_of(L".");
+                if (path_i != 0) {
+                    name = wfname.substr(path_i, ext_i - path_i) + L".wav";
+                }
+                else {
+                    name = wfname;
+                }
+                name = L"X" + name;
+                Export(cch, name);
             }
             else {
-                name = fname;
+                std::string name;
+                int path_i = fname.find_last_of("\\") + 1;
+                int ext_i = fname.find_last_of(".");
+                if (path_i != 0) {
+                    name = fname.substr(path_i, ext_i - path_i) + ".wav";
+                }
+                else {
+                    name = fname;
+                }
+                name = "X" + name;
+                Export(cch, name);
             }
-            name = "X" + name;
-            Export(cch, name);
         }
         /// <summary>
         /// 名前を答え指定してwav生成
         /// </summary>
         /// <param name="cch">チャンネル数[1,2,4]</param>
         void Export(int cch, std::string name)
+        {
+            int* rt;
+            int alpha = 750;
+            switch (cch)
+            {
+            case 1:
+                rt = new int[msize / 4];
+                for (int i = 0; i < msize / 2 - 1; i += 2)
+                {
+                    rt[i / 2] = wave[i] / 2 + wave[i + 1] / 2;
+                }
+                wave = rt;
+                WriteN(1, 22, 22);
+                WriteN(fileSize - msize / 2 - 8, 4, 7);
+                WriteN(fileSize - msize / 2 - 126, fsize - 4, fsize - 1);
+                msize >>= 1;
+                break;
+            case 4:
+                rt = new int[msize];
+                for (int i = 0; i < msize / 2 - 3; i += 2)
+                {
+                    rt[i * 2] = wave[i];
+                    rt[i * 2 + 1] = wave[i + 1];
+                    if (i >= alpha) {
+                        rt[i * 2 + 2] = wave[i - alpha];
+                        rt[i * 2 + 3] = wave[i + 1 - alpha];
+                    }
+                    else {
+                        rt[i * 2 + 2] = 0;
+                        rt[i * 2 + 3] = 0;
+                    }
+                }
+                wave = rt;
+                WriteN(4, 22, 22);
+                WriteN(fileSize + msize - 8, 4, 7);
+                WriteN(fileSize + msize - 126, fsize - 4, fsize - 1);
+                msize <<= 1;
+                break;
+            default:
+                break;
+            }
+            char* bf = ItoB(wave, vol * vol_max / maxv, msize / 2);
+            std::ofstream ifs(name, std::ios::binary);
+            ifs.write(fmt, fsize);
+            ifs.write(bf, msize);
+            delete[] bf;
+        }
+        void Export(int cch, std::wstring name)
         {
             int* rt;
             int alpha = 750;
@@ -1179,6 +1287,7 @@ void ConvolutionReverb(std::string rname, double mix, int disable)
         void Dispose() {
             delete[] fmt;
             delete[] wave;
+            wfname = L"null";
         }
         /// <summary>
         /// トレモロ
@@ -1315,6 +1424,7 @@ void ConvolutionReverb(std::string rname, double mix, int disable)
         }
         private:
             std::string fname;
+            std::wstring wfname = L"null";
             int sample;
             int ch;
             int bit8;
