@@ -1413,6 +1413,40 @@ void ConvolutionReverb(std::string rname, double mix, int disable)
                 wave[i] = (int)(wave[i] * maxv / _maxv);
             }
         }
+        /// <summary>
+        /// <para>拍子入れ替え</para>
+        /// </summary>
+        /// <param name="num[]">拍子の順番(0~3が入った長さ4のint配列)</param>
+        /// <param name="bpm">BPM</param>
+        /// <param name="delta">開始時間[s]</param>
+        void Swap(int num[], double bpm, double delta) {
+            int delta_i = (int)(delta * sample * ch * bit8 / 2);
+            int haku_len = (int)(60.0 / bpm * sample * ch * bit8);
+            haku_len -= haku_len % (4 * ch);
+            int** syousetsu = new int* [4];
+            for (int i = 0; i < 4; i++) {
+                syousetsu[i] = new int[haku_len];
+            }
+            for (int i = delta_i; i < msize / 2; i += haku_len * 4) {
+                for (int j = 0; j < 4; j++) {
+                    for (int k = 0; k < haku_len; k++) {
+                        if (i + haku_len * 3 + k < msize / 2) {
+                            syousetsu[j][k] = wave[i + haku_len * j + k];
+                        }
+                        else {
+                            syousetsu[j][k] = 0;
+                        }
+                    }
+                }
+                for (int j = 0; j < 4; j++) {
+                    for (int k = 0; k < haku_len; k++) {
+                        if (i + haku_len * 3 + k < msize / 2) {
+                            wave[i + haku_len * num[j] + k] = syousetsu[j][k];
+                        }
+                    }
+                }
+            }
+        }
         double Time() {
             return msize / sample / ch / bit8;
         }
