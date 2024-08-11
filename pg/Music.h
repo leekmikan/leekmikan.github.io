@@ -1209,8 +1209,8 @@ class WaveData
             delete[] rt;
         }
         void Swap(int num[],double bpm, double delta) {
-            int delta_i = (int)(delta * sample * ch * bit8 / 2);
-            int haku_len = (int)(60.0 / bpm * sample * ch * bit8 / 2);
+            int delta_i = (int)(delta * sample * ch);
+            int haku_len = (int)(60.0 / bpm * sample * ch);
             haku_len -= haku_len % (4 * ch);
             int** syousetsu = new int*[4];
             for (int i = 0; i < 4; i++) {
