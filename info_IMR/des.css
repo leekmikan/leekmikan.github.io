@@ -95,3 +95,6 @@ color: #FFFFFF;
 	background: #0053e2;
 	color: #FFFFFF;	
 }
+input[type="number"]{
+	font-size: 24px;
+}

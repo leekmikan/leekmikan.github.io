@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="des.css">
 	<link rel="icon" type="image/jpg" href="../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
-	<script src="main.js"></script>
 	</head>
 		<body>
 		<div class="title">
@@ -1872,7 +1871,15 @@
 				<td>---</td>
 			</tr>
 		</table>
+		<div class="text_frame">
+			<h1>おまけ(拡張周期表における元素名)</h1>
+		</div>
+		<p>すべての仮説上の元素には、国際純正・応用化学連合(IUPAC)の体系的な元素名が与えられる。(引用：Wikipedia 拡張周期表)</p>
+		<p>化学はあまり詳しくないけど、多分あってる</p>
+		元素番号：<input id="enum" type="number" min="1" max="999" onchange="show_ename()" value="119">
+		<h2 id="ename">...</h2>
 		</body>
+		<script src="main.js"></script>
 		<script type="text/javascript"src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 	</head>
 </html>
