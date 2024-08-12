@@ -124,6 +124,12 @@
 			<p>バイト配列\(d\)において、\(l\)から\(m\)バイト目のリトルエンディアンでの値は</p>
 			<h3 style="text-align:center;">\(\displaystyle\sum_{k=l}^{m}{\left\{\array{d[k]・256^{k-l}(d[k]&gt;=0)\\(d[k]+256)・256^{k-l}(d[k]&lt;0)}\right.}\)</h3>
 			<p>wavファイルは、\(l=24,m=27\)として計算するとサンプリング周波数が求まる(\(44100Hz,48000Hz\)など　収録しているファイルは\(20000Hz\))</p>
+			<h3>例：</h3>
+			<div style="text-align:center;"><img src="eg1.png"></div>
+			<p>この場合は、\(00　00　4E　20_{(16)}\)と読み、10進数に直すと値は\(20000_{(10)}\)[Hz]である。</p>
+			<div style="text-align:center;"><img src="eg2.png"></div>
+			<p>こちらは1.5倍速でプレイする際に出力される再生用ファイルで、\(00　00　75　30_{(16)}=30000_{(10)}\)[Hz]である。</p>
+			<p>2つのファイルを比較すると、赤枠の4Byteしか変わっていないことがわかる。(つまり、ここをいじれば再生速度を変えられる)</p>
 			<h2>createClip</h2>
 			<p>Clipクラスの変数を作る用　コピペ</p>
 			<h2>ReadHiScore</h2>
@@ -166,7 +172,7 @@
 			<p>最後に一時的なノーツリストに格納する</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>Playing Pause(演奏中　ポーズ時の処理)　準備中...</h1>
+			<h1>Playing Pause(演奏中　ポーズ時の処理)</h1>
 		</div>
 		<div class="main">
 			<h2>GamePlaying</h2>
@@ -219,7 +225,7 @@
 			<p>オートと低速プレイ(再生速度1未満　誤差を考慮して0.99未満に設定)の場合は記録しない</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>Select Opt(曲選択画面　オプション)　準備中...</h1>
+			<h1>Select Opt(曲選択画面　オプション)</h1>
 		</div>
 		<div class="main">
 			<h2>SelectMenu</h2>
