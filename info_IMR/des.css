@@ -98,3 +98,17 @@ color: #FFFFFF;
 input[type="number"]{
 	font-size: 24px;
 }
+ol {
+  counter-reset: counter;
+  list-style-type: none;
+}
+li::before {
+  counter-increment: counter;
+  content: counters(counter, '.') ' ';
+}
+.index{
+	width: 50%;
+	color: #000000;
+	background: #FFFF80;
+	border: double 5px #4ec4d3;
+}
