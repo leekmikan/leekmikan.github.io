@@ -1,0 +1,47 @@
+body{
+color: #FFFFFF;
+background: #000000;
+font-family: "UD デジタル 教科書体 NK-B";
+}
+button{
+text-align:center;
+}
+.ct{
+text-align:center;
+}
+#money{
+    font-size: 48px;
+}
+img{
+    width: 60%;
+}
+.r {
+    width: 20%;
+    display: inline-block;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    background: #000000;
+    color: #ff0000;
+    border: solid 2px #ff0000;
+    border-radius: 3px;
+    transition: .4s;
+  } 
+.r:hover {
+  background: #800000;
+  color: white;
+}
+.g {
+    width: 20%;
+    display: inline-block;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    background: #000000;
+    color: #00ff00;
+    border: solid 2px #00ff00;
+    border-radius: 3px;
+    transition: .4s;
+  } 
+.g:hover {
+  background: #008000;
+  color: white;
+}

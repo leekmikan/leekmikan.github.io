@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="utf-8">
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="ドラえもんのひみつ道具「バイバイン」で栗まんじゅうを増やしたときの数を計算するシミュレーター。クヌースの矢印表記まで表せる">
+	<title>バイバインシミュレーター</title>
+	<link rel="stylesheet" href="des.css">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+	<link rel="stylesheet" href="des.css">
+	<script src="Exp.js"></script>
+	<script src="Num.js"></script>
+	</head>
+		<body>
+			<div class="ct">
+				<h1>現在の栗まんじゅうの数：　<span id="money">1</span>　個</h1>
+				<p>栗まんじゅうの重さの合計：　<span id="gram">50グラム</span></p>
+			</div>
+			<table class="ct">
+				<tr>
+					<td><img src="img/kuri.jpg"></td>
+					<td>←</td>
+					<td><img src="img/bai.jpg"></td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td></td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td><button class="r" onclick="Mchange(0,-1)">-1x</button><span>　　×2　　</span><button class="g" onclick="Mchange(0,1)">+1x</button></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td><button class="r" onclick="Tchange(0,-1)">-1s</button><span>　300/300　</span><button class="g" onclick="Tchange(0,1)">+1s</button></td>
+				</tr>
+			</table><br>
+			<button onclick="if(confirm('データ削除しますか')){Wipe()}" class="r">データ削除</button><br><br>
+			<input type="radio" name="letter" onchange="letter_type = Number(this.value)" value="0">指数表記<br>
+			<input type="radio" name="letter" onchange="letter_type = Number(this.value)" value="1" checked>日本語表記+指数表記　(次の単位までの値が2乗になるため、矜羯羅から先は指数表記を組み合わせる。)<br>
+			<input type="radio" name="letter" onchange="letter_type = Number(this.value)" value="2">無限(1.8×10^308)のx乗表記<br>
+			<p>ドラえもんのひみつ道具「バイバイン」で栗まんじゅうを増やしたときの数を計算するシミュレーター</p>
+			<p>バイバインにバイバインをつけたときの個数変化の計算を追加予定</p>
+			<p>一応、ここで使っているJavaScriptは、巨大数であるクヌースの矢印表記(10↑↑n　　nはJavaScriptで扱える値)まで表せるようになっている</p>
+			<p>栗まんじゅうの重さは1個50gで計算</p>
+			<p>重さの単位は、放置ゲーム「Incremental Mass Rewritten」を参考にした。</p>
+			<p>オフラインでは進行しません</p>
+			<p><a href="https://leekmikan.github.io/pg/index.html">巨大数用のプログラムはこちら</a></p>
+		</body>
+		<script src="main.js"></script>
+	</head>
+</html>
