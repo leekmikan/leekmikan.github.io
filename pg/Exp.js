@@ -1,6 +1,6 @@
 var dec = [2,3];
 var cl = 6;
-var letter_type = 0;
+var letter_type = 1;
 class Exp { 
     constructor(num,e) { 
         this.num = num;
@@ -197,13 +197,14 @@ function Text(X){
 		case 0: return Textf(X); break;
 		case 1: return Textj(X); break;
 		case 2: return Texti(X); break;
+		case 3: return Textg(X); break;
 	}
 }
 function Textf(X){
     if(X.num == -Infinity){
 		return "0";
     }else if(X.e == 0 && X.num < 10){
-        return Math.pow(10,X.num).toFixed(2);
+        return Math.pow(10,X.num).toFixed(dec[0]);
     }else if(X.e == 0){
         return Math.pow(10,X.num % 1).toFixed(dec[1]) + "e" + Math.floor(X.num);
     }else if(X.e >= 8){
@@ -216,10 +217,10 @@ function Textf(X){
         return rt + Math.pow(10,X.num % 1).toFixed(dec[1]) + "e" + Math.floor(X.num);
     }
 }
-var inf = new Exp(1024 * Math.log10(2),0);
+const INF = new Exp(1024 * Math.log10(2),0);
 function Texti(X){
 	if(X.num == -Infinity){
 		return "0";
 	}
-	return "∞^" + Textf(Log(X,inf));
+	return "∞^" + Textf(Log(X,INF));
 }
