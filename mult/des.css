@@ -45,3 +45,10 @@ img{
   background: #008000;
   color: white;
 }
+p{
+  padding: 10px;
+}
+ol{
+  font-size: 24px;
+  padding-left: 70px;
+}

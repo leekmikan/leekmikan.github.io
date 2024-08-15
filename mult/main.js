@@ -11,8 +11,9 @@ var player = {
 }
 const M_MIN = 1;
 const T_MIN = 1;
-const KURI = new Exp(Math.log10(50),0);
-
+const KURI_G = new Exp(Math.log10(50),0);
+const KURI_V = new Exp(Math.log10(0.06),0);
+var letter_typeg = 1;
 function Pdt(){
     for(var i = player.mult.length - 1;i >= 0;i--){
         player.mult[i].time[0]--;
@@ -21,8 +22,14 @@ function Pdt(){
             if(i == 0){
                 player.money = Mul(player.money,Pow(mexp,player.mult[i].amount));
                 document.getElementById("money").innerHTML = Text(player.money);
-                document.getElementById("gram").innerHTML = Textg(Mul(KURI,player.money));
+                document.getElementById("gram").innerHTML = (letter_typeg == 1) ? Textg(Mul(KURI_G,player.money)) : Text(Mul(KURI_G,player.money)) + "グラム";
                 document.getElementsByTagName("tr")[1].getElementsByTagName("td")[2 * i].innerHTML = Text(player.money);
+                var v = Mul(KURI_V,player.money);
+                var s = Sqr(Div(v,new Exp(Math.log10(4 * Math.PI),0)),new Exp(Math.log10(2),0));
+                var r = Sqr(Div(v,new Exp(Math.log10(4 * Math.PI / 3),0)),new Exp(Math.log10(3),0));
+                document.getElementById("v").innerHTML = Text(v);
+                document.getElementById("s").innerHTML = Text(s);
+                document.getElementById("r").innerHTML = Text(r);
             }else{
                 player.mult[i - 1].amount = Mul(player.mult[i - 1].amount,Pow(mexp,player.mult[i].amount));
                 document.getElementsByTagName("tr")[1].getElementsByTagName("td")[2 * i].innerHTML = Text(player.mult[i - 1].amount);
@@ -79,16 +86,25 @@ function Wipe(){
     }
     document.location.reload();
 }
-for(var i = player.mult.length - 1;i >= 0;i--){
-    if(i == 0){
-        document.getElementById("money").innerHTML = Text(player.money);
-        document.getElementById("gram").innerHTML = Textg(Mul(KURI,player.money));
-        document.getElementsByTagName("tr")[1].getElementsByTagName("td")[2 * i].innerHTML = Text(player.money);
-    }else{
-        document.getElementsByTagName("tr")[1].getElementsByTagName("td")[2 * i].innerHTML = Text(player.mult[i - 1].amount);
+function Update(){
+    for(var i = player.mult.length - 1;i >= 0;i--){
+        if(i == 0){
+            document.getElementById("money").innerHTML = Text(player.money);
+            document.getElementById("gram").innerHTML = (letter_typeg == 1) ? Textg(Mul(KURI_G,player.money)) : Text(Mul(KURI_G,player.money)) + "グラム";
+            document.getElementsByTagName("tr")[1].getElementsByTagName("td")[2 * i].innerHTML = Text(player.money);
+            var v = Mul(KURI_V,player.money);
+            var s = Sqr(Div(v,new Exp(Math.log10(4 * Math.PI),0)),new Exp(Math.log10(2),0));
+            var r = Sqr(Div(v,new Exp(Math.log10(4 * Math.PI / 3),0)),new Exp(Math.log10(3),0));
+            document.getElementById("v").innerHTML = Text(v);
+            document.getElementById("s").innerHTML = Text(s);
+            document.getElementById("r").innerHTML = Text(r);
+        }else{
+            document.getElementsByTagName("tr")[1].getElementsByTagName("td")[2 * i].innerHTML = Text(player.mult[i - 1].amount);
+        }
+        Mchange(i,0);
+        Tchange(i,0)
+        player.mult[i].time[0] = player.mult[i].time[1];
+        document.getElementsByTagName("tr")[3].getElementsByTagName("span")[i].innerHTML = "　" + player.mult[i].time[0] + "/" + player.mult[i].time[1] + "　";
     }
-    Mchange(i,0);
-    Tchange(i,0)
-    player.mult[i].time[0] = player.mult[i].time[1];
-    document.getElementsByTagName("tr")[3].getElementsByTagName("span")[i].innerHTML = "　" + player.mult[i].time[0] + "/" + player.mult[i].time[1] + "　";
 }
+Update();
