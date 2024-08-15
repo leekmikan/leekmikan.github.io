@@ -81,7 +81,7 @@ function Pow(X,Y){
 function Sqr(X,Y){
 	var Z;
 	if(X.e == 0){
-		if(X.e <= 0){
+		if(X.num <= 0){
 			if(Y.e == 0){
 				return Ud(new Exp(X.num / Math.pow(10,Y.num),0)); 
 			}else{
@@ -98,7 +98,7 @@ function Sqr(X,Y){
 function Log(X,Y){
 	var Z;
 	if(X.e == 0){
-		if(X.e <= 0){
+		if(X.num <= 0){
 			return new Exp(-Infinity,0); 
 		}
 		Z = new Exp(Math.log10(X.num),0);
