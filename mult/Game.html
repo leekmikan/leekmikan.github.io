@@ -43,7 +43,10 @@
 					<td></td>
 					<td><button class="r" onclick="Tchange(0,-1)">-1s</button><span>　300/300　</span><button class="g" onclick="Tchange(0,1)">+1s</button></td>
 				</tr>
-			</table><br>
+			</table><br><br>
+			<button onclick="Add_baibain()" class="g">末尾のバイバインにバイバインを塗る(最大5個)</button><br><br>
+			<button onclick="Remove_baibain()" class="r">バイバインを減らす(最小1個)</button><br><br><br><br>
+			<button onclick="Save();alert('セーブ完了');" class="g">手動セーブ(30秒毎に自動セーブされる)</button><br><br>
 			<button onclick="if(confirm('データ削除しますか')){Wipe()}" class="r">データ削除</button><br><br>
 			<input type="radio" name="letter" onchange="letter_type = Number(this.value); Update();" value="0">指数表記<br>
 			<input type="radio" name="letter" onchange="letter_type = Number(this.value); Update();" value="1" checked>日本語表記+指数表記　(次の単位までの値が2乗になるため、矜羯羅から先は指数表記を組み合わせる。)<br>
@@ -54,10 +57,13 @@
 			<p>ドラえもんのひみつ道具「バイバイン」で栗まんじゅうを増やしたときの数を計算するシミュレーター</p>
 			<p>-1x、+1xボタンで、増殖倍率の変更(初期値：2倍)</p>
 			<p>-1s、+1sボタンで、増殖までの時間を変更(初期値：300秒=5分)</p>
-			<p>バイバインにバイバインをつけたときの個数変化の計算を追加予定</p>
+			<p>バイバインにバイバインを塗ることもできる　(今のところ最大5個でテスト)</p>
+			<p>バイバインの個数だけ増殖を実行する(2倍の効果のバイバインが8個なら2^8=256倍)</p>
 			<p>一応、ここで使っているJavaScriptは、巨大数であるクヌースの矢印表記(10↑↑n　　nはJavaScriptで扱える値)まで表せるようになっている</p>
+			<p>数が大きくなると、どの単位でも値がほぼほぼ等しくなる。</p>
 			<p>栗まんじゅうの重さは1個50g、0.06㎥で計算</p>
-			<p>重さの単位は、放置ゲーム「Incremental Mass Rewritten」を参考にした。</p>
+			<p>※栗まんじゅうの個数計算をする際の物理法則は無視(ブラックホールなど)</p>
+			<p>重さの単位は、放置ゲーム「Incremental Mass Rewritten」を参考にした</p>
 			<p style="font-size: 24px;">
 				1キログラム=1000グラム<br>
 				1トン=1000キログラム<br>
