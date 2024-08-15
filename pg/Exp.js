@@ -98,6 +98,9 @@ function Sqr(X,Y){
 function Log(X,Y){
 	var Z;
 	if(X.e == 0){
+		if(X.e <= 0){
+			return new Exp(-Infinity,0); 
+		}
 		Z = new Exp(Math.log10(X.num),0);
 	}else{
 		Z = new Exp(X.num,X.e - 1);
