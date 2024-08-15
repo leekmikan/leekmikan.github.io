@@ -9,6 +9,17 @@ var player = {
         }
     ]
 }
+var num_wiki = [
+    new Exp(Math.log10(9.46) + 15,0),
+    new Exp(Math.log10(6.022) + 24,0),
+    new Exp(Math.log10(1.416) + 32,0),
+    new Exp(Math.log10(2) * 128,0),
+    new Exp(Math.log10(2) * 256 + Math.log10(136),0),
+    new Exp(Math.log10(1.6) + 81,0),
+    new Exp(1500,0),
+    new Exp(122,2),
+    Ud(new Exp(1.1,4)),
+]
 const M_MIN = 1;
 const T_MIN = 1;
 const BAI_MAX = 5;
@@ -98,6 +109,9 @@ function Update(){
         Mchange(i,0);
         Tchange(i,0);
         document.getElementsByTagName("tr")[1].getElementsByTagName("td")[2 * (i + 1)].innerHTML = Text(player.mult[i].amount);
+    }
+    for(var i = 0;i < num_wiki.length;i++){
+        document.getElementById("num").getElementsByTagName("span")[i].innerHTML = Text(num_wiki[i]);
     }
 }
 function Add_baibain(ig){
