@@ -3,109 +3,48 @@
 	<head>
 	<meta charset="utf-8">
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
-	<meta name="description" content="ドラえもんのひみつ道具「バイバイン」で栗まんじゅうを増やしたときの数を計算するシミュレーター。クヌースの矢印表記まで表せる">
-	<title>バイバインシミュレーター</title>
+	<meta name="description" content="Wavファイルにエフェクトを付けられるよ。現在C++から移植中...">
+	<title>エフェクター</title>
 	<link rel="stylesheet" href="des.css">
+	<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 	<link rel="icon" type="image/jpg" href="../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
-	<link rel="stylesheet" href="des.css">
-	<script src="Exp.js"></script>
-	<script src="Num.js"></script>
 	</head>
 		<body>
+			<p>16bit 2chのwavファイルを選択</p>
+			<input type="file" id="file"><br><br><br>
 			<div class="ct">
-				<h1>現在の栗まんじゅうの数：　<span id="money">1</span>　個</h1>
-				<p>
-					栗まんじゅうの総重量：　<span id="gram">50グラム</span><br>
-					栗まんじゅうの総体積：　<span id="v">50</span>㎥<br>
-					栗まんじゅうを球にした時の表面積：　<span id="s">50</span>㎡<br>
-					栗まんじゅうを球にした時の半径：　<span id="r">50</span>m<br>
-				</p>
+				<p>ここに生成される</p>
+				<audio id="pre" controls src=""></audio>
 			</div>
-			<table class="ct">
-				<tr>
-					<td><img src="img/kuri.jpg"></td>
-					<td>←</td>
-					<td><img src="img/bai.jpg"></td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td></td>
-					<td>1</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td><button class="r" onclick="Mchange(0,-1)">-1x</button><span>　　×2　　</span><button class="g" onclick="Mchange(0,1)">+1x</button></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td><button class="r" onclick="Tchange(0,-1)">-1s</button><span>　300/300　</span><button class="g" onclick="Tchange(0,1)">+1s</button></td>
-				</tr>
-			</table><br><br>
-			<button onclick="Add_baibain()" class="g">末尾のバイバインにバイバインを塗る(最大10個)</button><br><br>
-			<button onclick="Remove_baibain()" class="r">バイバインを減らす(最小1個)</button><br><br><br><br>
-			<button onclick="Save();alert('セーブ完了');" class="g">手動セーブ(30秒毎に自動セーブされる)</button><br><br>
-			<button onclick="if(confirm('データ削除しますか')){Wipe()}" class="r">データ削除</button><br><br>
-			<input type="radio" name="letter" onchange="letter_type = Number(this.value); Update();" value="0">指数表記(あまりにも大きい場合は、クヌースの矢印表記を使用)<br>
-			<input type="radio" name="letter" onchange="letter_type = Number(this.value); Update();" value="1" checked>日本語表記+指数表記　(次の単位までの値が2乗になるため、矜羯羅から先は指数表記を組み合わせる。)<br>
-			<input type="radio" name="letter" onchange="letter_type = Number(this.value); Update();" value="2">無限(1.8×10^308)のx乗表記<br>
-			<br>
-			<input type="radio" name="letterg" onchange="letter_typeg = Number(this.value); Update();" value="0">他と表記を合わせる<br>
-			<input type="radio" name="letterg" onchange="letter_typeg = Number(this.value); Update();" value="1" checked>グラム表記(Incremental Mass Rewrittenに近い形式)<br>
-			<p><a href="https://leekmikan.github.io/pg/index.html">ここで使ったJavaScriptコードはこちら</a></p>
-			<p>ドラえもんのひみつ道具「バイバイン」で栗まんじゅうを増やしたときの数を計算するシミュレーター</p>
-			<p>-1x、+1xボタンで、増殖倍率の変更(初期値：2倍)</p>
-			<p>-1s、+1sボタンで、増殖までの時間を変更(初期値：300秒=5分)</p>
-			<p>バイバインにバイバインを塗ることもできる　(最大10個)</p>
-			<p>バイバインの個数だけ増殖を実行する(2倍の効果のバイバインが8個なら2^8=256倍)</p>
-			<p>一応、ここで使っているJavaScriptは、巨大数であるクヌースの矢印表記(10↑↑n　　nはJavaScriptで扱える値)まで表せるようになっている</p>
-			<p>数が大きくなると、どの単位でも値がほぼほぼ等しくなる。</p>
-			<p>栗まんじゅうの重さは1個50g、0.06㎥で計算</p>
-			<p>※栗まんじゅうの個数計算をする際の物理法則は無視(ブラックホールなど)</p>
-			<p>重さの単位は、放置ゲーム「Incremental Mass Rewritten」を参考にした</p>
-			<p><a href="https://mrredshark77.github.io/incremental-mass-rewritten/">こちら</a></p>
-			<p style="font-size: 18px;">
-				1キログラム=1000グラム<br>
-				1トン=1000キログラム<br>
-				1エベレスト=1.619<sup>14</sup>トン<br>
-				1地球=36,886,967エベレスト<br>
-				1太陽=333,054地球<br>
-				1天の川銀河=1.5<sup>12</sup>太陽<br>
-				1宇宙=50,276,520,864天の川銀河<br>
-				1マルチバース=10<sup>10<sup>9</sup></sup>宇宙<br>
-				1ギガバース=10<sup>10<sup>9</sup></sup>マルチバース<br>
-				多次元宇宙^n=10<sup>10<sup>9</sup></sup>多次元宇宙^(n-1)<br>
-				...<br>
-				<p>このページ内では一部を除き、10<sup>X</sup>を1eX、10<sup>10<sup>X</sup></sup>を1e1eX(eeX)のように表す</p>
-			</p>
-			<p>オフラインでは進行しません</p>
-			<p><a href="https://leekmikan.github.io/pg/index.html">巨大数用のプログラムはこちら</a></p>
-			<h2>いろいろな数一覧(引用：Wikipedia 「巨大数」)</h2>
-			<p><a href="https://ja.wikipedia.org/wiki/%E5%B7%A8%E5%A4%A7%E6%95%B0">こちら</a></p>
-			<p id="num" style="font-size: 18px;">
-				1光年...<span></span>m<br>
-				アボガドロ定数 ...<span></span>mol<sup>-1</sup><br>
-				プランク温度...<span></span>K<br>
-				IPv6のIPアドレスの数...<span></span>通り<br>
-				エディントン数...<span></span><br>
-				観測可能な宇宙の体積...<span></span>㎥<br>
-				全ての物質が鉄56に変換するまでにかかる時間...<span></span><br>
-				インフレーション後の宇宙の大きさとして出された物理学者レオナルド・サスキンドによる解の一つ...<span></span><br>
-				複数の宇宙の全質量を1個のブラックホールに圧縮しそれが蒸発した後に、ポアンカレの回帰定理に従い再びブラックホールができる時間の近似値（宇宙論で使われた最大の数）...<span></span><br>
-			</p><br>
-			<h2>日本語の単位一覧(無量大数まで塵劫記(万進法)　それ以降は八十華厳から引用)</h2>
-			<p>こちらもWikipediaから引用</p>
-			<p>※阿僧祇は、塵劫記と八十華厳で1回ずつ(計2回)出る</p>
-			<p>※矜羯羅以降は、前の単位の2乗の数になる。(1阿伽羅=10<sup>112</sup>矜羯羅　　1摩婆羅=10<sup>224</sup>阿伽羅...)</p>
+			<input id="sp" type="checkbox">再生速度<br>
+			速度：<input type="range" id="speed" min="0.5" max="4" value="1.0" step="0.01" onchange="document.getElementById('speed_v').innerHTML = this.value"><span id="speed_v">1.00</span>倍速<br>
+			ピッチ：<input type="range" id="pitch" min="-12" max="24" value="0.0" step="0.1" onchange="document.getElementById('pitch_v').innerHTML = this.value"><span id="pitch_v">0.00</span><br>
+			<button onclick="var x = 12 * Math.log2(Number(document.getElementById('speed').value));document.getElementById('pitch').value = x; document.getElementById('pitch_v').innerText = '' + x;">速度に合わせる</button>
+			<button onclick="var x = Math.pow(2,Number(document.getElementById('pitch').value) / 12);document.getElementById('speed').value = x; document.getElementById('speed_v').innerText = '' + x;">音程に合わせる</button>
+			<div class="ct">
+				<button onclick="Wexport();">生成</button>
+			</div>
+			<p>高校2年生の頃に作って、ちょくちょくアップデートしているC++のコードのJavaScript移植版</p>
+			<h2>今後移植予定(2024/8/16)</h2>
 			<ol>
-				<li>万</li><li>億</li><li>兆</li><li>京</li><li>垓</li><li>秭</li><li>穣</li><li>溝</li><li>澗</li><li>正</li><li>載</li><li>極</li><li>恒河沙</li><li>阿僧祇</li><li>那由他</li><li>不可思議</li><li>無量大数　(10<sup>68</sup>)</li><li>矜羯羅　(10<sup>112</sup>)</li><li>阿伽羅</li><li>摩婆羅</li><li>阿婆羅</li><li>多婆羅</li><li>界分</li><li>普摩</li><li>禰摩</li><li>阿婆鈐</li><li>弥伽婆</li><li>毘攞伽</li><li>毘伽婆</li><li>僧羯邏摩</li><li>毘薩羅</li><li>毘贍婆</li><li>毘盛伽</li><li>毘素陀</li><li>毘婆訶</li><li>毘薄底</li><li>毘佉擔</li><li>称量</li><li>一持</li><li>異路</li><li>顛倒</li><li>三末耶</li>
-				<li>毘睹羅</li><li>奚婆羅</li><li>伺察</li><li>周広</li><li>高出</li><li>最妙</li><li>泥羅婆</li><li>訶理婆</li><li>一動</li><li>訶理蒲</li><li>訶理三</li><li>奚魯伽</li><li>達攞歩陀</li><li>訶魯那</li><li>摩魯陀</li><li>懺慕陀</li><li>瑿攞陀</li><li>摩魯摩</li><li>調伏</li><li>離憍慢</li><li>不動</li><li>極量</li><li>阿麼怛羅</li><li>勃麼怛羅</li><li>伽麼怛羅</li><li>那麼怛羅</li><li>奚麼怛羅</li><li>鞞麼怛羅</li><li>鉢羅麼怛羅</li><li>尸婆麼怛羅</li><li>翳羅</li><li>薜羅</li><li>諦羅</li><li>偈羅</li><li>窣歩羅</li><li>泥羅</li><li>計羅</li><li>細羅</li>
-				<li>睥羅</li><li>謎羅</li><li>娑攞荼</li><li>謎魯陀</li><li>契魯陀</li><li>摩睹羅</li><li>娑母羅</li><li>阿野娑</li><li>迦麼羅</li><li>摩伽婆</li><li>阿怛羅</li><li>醯魯耶</li><li>薜魯婆</li><li>羯羅波</li><li>訶婆婆</li><li>毘婆羅</li><li>那婆羅</li><li>摩攞羅</li><li>娑婆羅</li><li>迷攞普</li><li>者麼羅</li><li>駄麼羅</li><li>鉢攞麼陀</li><li>毘迦摩</li><li>烏波跋多</li><li>演説</li><li>無尽</li><li>出生</li><li>無我</li><li>阿畔多</li><li>青蓮華</li><li>鉢頭摩</li><li>僧祇</li><li>趣</li><li>至</li><li>阿僧祇</li><li>阿僧祇転</li><li>無量</li><li>無量転</li>
-				<li>無辺</li><li>無辺転</li><li>無等</li><li>無等転</li><li>不可数</li><li>不可数転</li><li>不可称</li><li>不可称転</li><li>不可思</li><li>不可思転</li><li>不可量</li><li>不可量転</li><li>不可説</li><li>不可説転</li><li>不可説不可説</li><li>不可説不可説転　(10<sup>13292279957849158729038070602803445760</sup>)</li>
+				<li>フランジャー</li>
+				<li>拍子入れ替え</li>
+				<li>ボーカルキャンセラー(左右のチャンネルの差/2)</li>
+				<li>畳み込みリバーブ(フーリエ変換の関係で重くなるから後になるかも)</li>
+				<li>オルゴール(フーリエ変換の関係で重くなるから後になるかも)</li>
+				<li>逆再生</li>
+				<li>サンプリングレート変更</li>
+				<li>モノラル(2chのまま)</li>
+				<li>区間で切り抜き</li>
+				<li>左右で数十ms遅延させる関数</li>
+				<li>コンプレッサー</li>
+				<li>...</li>
 			</ol>
+			<p><a href="https://leekmikan.github.io/pg/index.html">元のコード(C++)はこちら</a></p>
+			<p><a href="Music.js">JavaScriptコードはこちら</a></p>
 		</body>
+		<script src="Music.js"></script>
 		<script src="main.js"></script>
 	</head>
 </html>
