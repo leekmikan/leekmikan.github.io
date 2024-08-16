@@ -4,7 +4,25 @@ function TOCH(x) {return Math.floor(x + (Math.floor(x) % 2))}
 class Complex{
     constructor(Re,Im){
         this.Re = Re;
-        this.Im = (Im === null) ? 0 : Im;
+        this.Im = (Im === undefined) ? 0 : Im;
+    }
+    ComplexAbs() {
+        return Math.sqrt(this.Re * this.Re + this.Im * this.Im);
+    }
+    PC(X) {
+        return new Complex(this.Re + X.Re, this.Im + X.Im);
+    }
+    SC(X) {
+        return new Complex(this.Re - X.Re, this.Im - X.Im);
+    }
+    MS(X) {
+        return new Complex(this.Re * X, this.Im * X);
+    }
+    MC(X) {
+        return new Complex(this.Re * X.Re - this.Im * X.Im, this.Re * X.Im + this.Im * X.Re);
+    }
+    DS(X) {
+        return new Complex(this.Re / X, this.Im / X);
     }
 }
 class WaveData{
@@ -333,6 +351,94 @@ class WaveData{
             this.wave[i] = rt[i];
         }
     }
+    ConvolutionReverb(rev, mix, disable)
+    {
+        let len = 65536;
+        this.maxv = 1;
+        let tmp = new Array(0);
+        let tmplen;
+        len = 1 << Math.floor(Math.log2(rev.msize));
+        disable = Math.floor(disable * len * 4 / this.sample);
+        let cmp2 = new Array(len * 2);
+        let cmp3 = new Array(len * 2);
+        for (let i = 0; i < len * 2; ++i)
+        {
+            if (i < len) {
+                cmp2[i] = new Complex(0);
+            }
+            else if (i - len < rev.msize / 2)
+            {
+                cmp2[i] = new Complex(rev.wave[i - len] / rev.maxv / 2);
+            }
+            else {
+                cmp2[i] = new Complex(0);
+            }
+            cmp3[i] = new Complex(0);
+        }
+        cmp2 = this.FFT(cmp2);
+        console.log("IR_FFT");
+        let rt = new Array(this.msize / 2 + len);
+        this.msize += len * 2;
+        this.fileSize += len * 2;
+        this.WriteN(this.fileSize - 8, 4, 7);
+        this.WriteN(this.fileSize - 126, this.fsize - 4, this.fsize - 1);
+        let cmp = new Array(len * 2);
+        let n = Math.floor(2 + this.msize / 2 / len);
+        let progress = [0,Math.floor(this.msize / 2 / len + 1)];
+        console.log("ConvSTART");
+        for (let i = -len; i < this.msize / 2; i += len)
+        {
+            console.log(progress[0] + "/" + progress[1]); //Progress.
+            for (let j = 0; j < len * 2; ++j)
+            {
+                if (i + j < this.msize / 2 - len && i + j >= 0)
+                {
+                    cmp[j] = new Complex(this.wave[i + j] / 65536.0);
+                }
+                else
+                {
+                    cmp[j] = new Complex(0);
+                }
+            }
+            cmp = this.FFT(cmp);
+            console.log("FFT" + progress[0]);
+            for (let j = 0; j < disable; ++j)
+            {
+                cmp[j] = new Complex(0);
+            }
+            for (let j = len * 2 - disable; j < len * 2; ++j)
+            {
+                cmp[j] = new Complex(0);
+            }
+            for (let j = disable; j < len * 2 - disable - 1; ++j)
+            {
+                let ctmp = cmp[j];
+                cmp[j] = cmp2[j].MC(cmp3[j].DS(Math.sqrt(1.0 * n)));
+                cmp3[j] = ctmp;
+            }
+            cmp = this.IFFT(cmp);
+            console.log("IFFT" + progress[0]);
+            for (let j = 0; j < len; ++j)
+            {
+                if (i + j >= 0)
+                {
+                    if (i + j < this.msize / 2 - len) {
+                        this.maxv = Math.max(this.maxv, Math.abs(cmp[j].Re * 32768.0 * (1.0 - mix) + this.wave[i + j] * mix));
+                        rt[i + j] = Math.floor(cmp[j].Re * 32768.0 * (1.0 - mix) + this.wave[i + j] * mix);
+                    }
+                    else if (i + j < this.msize / 2) {
+                        this.maxv = Math.max(this.maxv, Math.abs(cmp[j].Re * 32768.0));
+                        rt[i + j] = Math.floor(cmp[j].Re * 32768.0 * (1.0 - mix));
+                    }
+                }
+            }
+            progress[0]++;
+        }
+        this.wave = new Array(this.msize / 2);
+        for (let i = 0; i < this.msize / 2; i++) {
+            this.wave[i] = rt[i];
+        }
+    }
     ReadN(bf, start, end)
     {
         let rt = 0;
@@ -344,5 +450,66 @@ class WaveData{
     }
     Time(){
         return this.msize / this.sample / this.ch / this.bit8;
+    }
+    FFT(ip)
+    {
+        let len = ip.length;
+        let reBitArray = new Array(len);
+        let arraySizeHarf = len >> 1;
+        reBitArray[0] = 0;
+        for (let i = 1; i < len; i <<= 1)
+        {
+            for (let j = 0; j < i; ++j)
+                reBitArray[j + i] = reBitArray[j] + arraySizeHarf;
+            arraySizeHarf >>= 1;
+        }
+        let ot = new Array(len);
+        for (let i = 0; i < len; ++i)
+        {
+            ot[i] = ip[reBitArray[i]];
+        }
+        let tmp;
+        let jp;
+        let butterflyDistance;
+        let numType;
+        let butterflySize;
+        let w;
+        let u;
+        let rz = Math.floor(Math.log2(len));
+        for (let stage = 1; stage <= rz; ++stage)
+        {
+            butterflyDistance = 1 << stage;
+            numType = butterflyDistance >> 1;
+            butterflySize = butterflyDistance >> 1;
+            w = new Complex(1);
+            u = new Complex(Math.cos(Math.PI / butterflySize),Math.sin(Math.PI / butterflySize))
+            for (let type = 0; type < numType; ++type)
+            {
+                for (let j = type; j < len; j += butterflyDistance)
+                {
+                    jp = j + butterflySize;
+                    tmp = ot[jp].MC(w);
+                    ot[jp] = ot[j].SC(tmp);
+                    ot[j] = ot[j].PC(tmp);
+                }
+                w = w.MC(u);
+            }
+        }
+        return ot;
+    }
+    IFFT(ip)
+    {
+        let len = ip.length;
+        for (let i = 0; i < len; ++i)
+        {
+            ip[i].Im = -ip[i].Im;
+        }
+        ip = this.FFT(ip, len);
+        for (let i = 0; i < len; ++i)
+        {
+            ip[i].Re /= len;
+            ip[i].Im /= -len;
+        }
+        return ip;
     }
 }

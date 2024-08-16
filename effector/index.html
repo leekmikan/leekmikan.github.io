@@ -13,9 +13,14 @@
 		<body>
 			<div class="ct">
 				<h1>簡易エフェクター</h1>
+				<p>※※※JavaScriptで実行できるようにC++から移植しているので、処理が非常に遅いです※※※</p>
 			</div>
 			<p>16bit 2chのwavファイルを選択</p>
 			<input type="file" id="file"><br><br><br>
+			<p>畳み込みリバーブをする際は、こっちにIRファイルを入れる(16bit 2ch wavファイル)</p>
+			<p>IR...インパルス応答/インパルスレスポンス/Impulse Responseの略　任意の空間での破裂音みたいな音が記録されたファイル</p>
+			<p>ヨーク大学のOpenAirなどで配布されているので、そこからダウンロードする(ファイル形式が24bit 2chのwavファイルだった気がするので、事前に16bit 2chに変換しておく)</p>
+			<input type="file" id="file2"><br><br><br>
 			<div class="ct">
 				<p>ここに生成される</p>
 				<audio id="pre" controls src=""></audio>
@@ -39,20 +44,24 @@
 			<br><br><input id="e7" type="checkbox">フランジャー<br>
 			速度：<input type="range" id="e7speed" min="0.5" max="4" value="1.0" step="0.01" onchange="document.getElementById('e7speed_v').innerHTML = this.value"><span id="e7speed_v">1.00</span>倍速<br>
 			割合：<input type="range" id="e7ps" min="0" max="0.5" value="0.5" step="0.01" onchange="document.getElementById('e7ps_v').innerHTML = this.value"><span id="e7ps_v">0.5</span><br>
+			<br><br><input id="e8" type="checkbox">畳み込みリバーブ(時間かかる　1曲2分～5分くらい)<br>
+			<p>※パソコン推奨　F12でコンソール画面をひらいておくこと(応答なしのポップアップが出るのを防ぐ　ここで進捗が見れる)</p>
+			割合：<input type="range" id="e8pw" min="0.0" max="1.0" value="0.25" step="0.01" onchange="document.getElementById('e8pw_v').innerHTML = this.value"><span id="e8pw_v">0.25</span><br>
+			無効周波数(x未満)：<input type="range" id="e8ds" min="0" max="800" value="200" step="1" onchange="document.getElementById('e8ds_v').innerHTML = this.value"><span id="e8ds_v">200</span><br>
 			<div class="ct">
-				<button onclick="Wexport();">生成</button>
+				<button id="exp" onclick="Wexport();">生成</button><br>
+				出力音量(1より大きいと音割れする可能性あり)：<input type="range" id="vol" min="0.0" max="100" value="1.0" step="0.1" onchange="document.getElementById('vol_v').innerHTML = this.value"><span id="vol_v">1.00</span>倍<br>
 				<br><input id="mn" type="checkbox">モノラル化(※audioタグのプレイヤーだとシークバーがバグる)
 			</div>
 			<p>高校2年生の頃に作って、ちょくちょくアップデートしているC++のコードのJavaScript移植版</p>
 			<h2>今後移植予定(2024/8/16)</h2>
 			<ol>
-				<li>畳み込みリバーブ(フーリエ変換の関係で重くなるから後になるかも)</li>
 				<li>オルゴール(フーリエ変換の関係で重くなるから後になるかも)</li>
 				<li>区間で切り抜き</li>
 				<li>コンプレッサー</li>
 				<li>...</li>
 			</ol>
-			<p><a href="https://leekmikan.github.io/pg/index.html">元のコード(C++)はこちら</a></p>
+			<p><a href="https://leekmikan.github.io/pg/index.html">元のコード(C++)はこちら　(こっちだと畳み込みは大体1分以内におわる)</a></p>
 			<p><a href="Music.js">JavaScriptコードはこちら</a></p>
 		</body>
 		<script src="Music.js"></script>
