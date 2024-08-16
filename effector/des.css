@@ -11,3 +11,8 @@ text-align:center;
 input[type="range"]{
 width: 30%;
 }
+#exp{
+	font-size: 36px;
+	width: 200px;
+	height: 100px;
+}
