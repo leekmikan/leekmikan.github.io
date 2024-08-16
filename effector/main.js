@@ -24,7 +24,7 @@ fileReader2.onload = () =>{
         read_f2 = true;
     }
 }
-const E_LEN = 2;
+const E_LEN = 8;
 const MAX_COST = 3;
 function Wexport(){
     let true_x = 0;
@@ -47,12 +47,6 @@ function Wexport(){
         return;
     }
     //順番かえるかも
-    if(document.getElementById("e0").checked){
-        console.log("SpeedChange");
-        let arg1 = Rg(0.5,Number(document.getElementById("speed").value),4);
-        let arg2 = Rg(-12,Number(document.getElementById("pitch").value),24);
-        wd.Speed(arg1,arg2);
-    }
     if(document.getElementById("e1").checked){
         console.log("Beatswap");
         let arg1 = Rg(60,Number(document.getElementById("e1bpm").value),360);
@@ -74,6 +68,12 @@ function Wexport(){
         let arg1 = Rg(0,Number(document.getElementById("e8pw").value),1);
         let arg2 = Rg(0,Number(document.getElementById("e8ds").value),800);
         wd.ConvolutionReverb(wd2,arg1,arg2);
+    }
+    if(document.getElementById("e0").checked){
+        console.log("SpeedChange");
+        let arg1 = Rg(0.5,Number(document.getElementById("speed").value),4);
+        let arg2 = Rg(-12,Number(document.getElementById("pitch").value),24);
+        wd.Speed(arg1,arg2);
     }
     if(document.getElementById("e2").checked){
         console.log("LRdel");
