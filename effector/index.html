@@ -33,8 +33,8 @@
 			<button onclick="var x = 12 * Math.log2(Number(document.getElementById('speed').value));document.getElementById('pitch').value = x; document.getElementById('pitch_v').innerText = '' + x;">速度に合わせる</button>
 			<button onclick="var x = Math.pow(2,Number(document.getElementById('pitch').value) / 12);document.getElementById('speed').value = x; document.getElementById('speed_v').innerText = '' + x;">音程に合わせる</button>
 			<br><br><br><br><input id="e1" type="checkbox">拍子入れ替え<br>
-			BPM：<input type="number" id="e1bpm" min="40" max="1600" value="120">
-			　開始時間：<input type="number" id="e1del" min="0" max="100" value="0">
+			BPM：　　　　<input type="number" id="e1bpm" min="40" max="1600" value="120">
+			<br>開始時間[秒]：<input type="number" id="e1del" min="0" max="100" value="0">
 			<br><br><br><br><input id="e2" type="checkbox">微小遅延
 			<br><br><br><br><input id="e3" type="checkbox">ボーカルキャンセラー(左右のチャンネルの差/2)
 			<br><br><br><br><input id="e4" type="checkbox">2chのままモノラル化
