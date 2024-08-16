@@ -103,5 +103,5 @@ function Wexport(){
     md = true;
 }
 function Rg(mn,x,mx){
-    return (isNaN(x)) ? mn : ((mn < x) ? ((x < mx) ? x : mx) : mx);
+    return (isNaN(x)) ? mn : ((mn <= x) ? ((x <= mx) ? x : mx) : mn);
 }
