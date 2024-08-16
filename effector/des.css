@@ -8,3 +8,6 @@ text-align:center;
 .ct{
     text-align: center;
 }
+input[type="range"]{
+width: 30%;
+}

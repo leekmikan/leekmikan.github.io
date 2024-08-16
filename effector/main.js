@@ -11,7 +11,7 @@ fileInput.onchange = () => {
 };
 fileReader.onload = () =>{
     wd = new WaveData(fileReader);
-    if(wd.sample !== null){
+    if(wd.sample !== undefined){
         read_f = true;
     }
 }
@@ -20,14 +20,18 @@ fileInput2.onchange = () => {
 };
 fileReader2.onload = () =>{
     wd2 = new WaveData(fileReader2);
-    if(wd2.sample !== null){
+    if(wd2.sample !== undefined){
         read_f2 = true;
     }
 }
 const E_LEN = 2;
 const MAX_COST = 3;
 function Wexport(){
-    if(!confirm("開始しますか")) return;
+    let true_x = 0;
+    for(let i = 0;i < E_LEN;i++){
+        true_x = (document.getElementById("e" + i).checked) ? true_x + 1 : true_x;
+    }
+    if(!confirm("開始しますか　実行エフェクト数：" + true_x + "個")) return;
     if(!read_f) {
         alert("ファイルを入れてください");
         return;
@@ -38,10 +42,6 @@ function Wexport(){
     else if(md){
         wd = new WaveData(fileReader);
     }
-    let true_x = 0;
-    for(let i = 0;i < E_LEN;i++){
-        true_x = (document.getElementById("e" + i).checked) ? true_x + 1 : true_x;
-    }
     if(true_x > MAX_COST){
         alert("エフェクトが多すぎます(現在、テストのため3つに制限)");
         return;
@@ -49,7 +49,7 @@ function Wexport(){
     //順番かえるかも
     if(document.getElementById("e0").checked){
         console.log("SpeedChange");
-        let arg1 = Rg(0.5,umber(document.getElementById("speed").value),4);
+        let arg1 = Rg(0.5,Number(document.getElementById("speed").value),4);
         let arg2 = Rg(-12,Number(document.getElementById("pitch").value),24);
         wd.Speed(arg1,arg2);
     }
@@ -93,7 +93,7 @@ function Wexport(){
         wd.Reverse();
     }
     console.log("Export");
-    wd.vol = Rg(0,Number(document.getElementById("vol").value),100);
+    wd.vol = Rg(0,Number(document.getElementById("vol").value),10);
     if(document.getElementById("mn").checked){
         wd.Export(1,fileInput);
     }else{
