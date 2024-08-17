@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="utf-8">
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="テキストからMIDI作成できるよ。C#からの移植">
+	<title>テキストからMIDI作成</title>
+	<script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.4.0"></script>
+	<link rel="stylesheet" href="des.css">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+	</head>
+	<div style="text-align:center">
+		<h1>テキストからMIDI作成(C#からの移植)</h1>
+	</div>
+		<body style="width :1500px; background-size:cover">
+			<div id="pl" style="text-align:center;">
+				<p>ここに生成</p>
+				<midi-player id="audio"
+					src=""
+					sound-font visualizer="#myVisualizer">
+				</midi-player>
+				<midi-visualizer type="piano-roll" id="myVisualizer"></midi-visualizer>
+				<p><a href="" id="dl">ダウンロードはこちら</a></p>
+			</div>
+			<div style="text-align:center">
+				<p>再生するパート(未選択の場合は、0番のみ再生)</p>
+				0<input type="checkbox" id="p0" checked>
+				　1<input type="checkbox" id="p1" checked>
+				　2<input type="checkbox" id="p2" checked>
+				　3<input type="checkbox" id="p3" checked>
+				　4<input type="checkbox" id="p4" checked>
+				　5<input type="checkbox" id="p5" checked>
+				　6<input type="checkbox" id="p6" checked>
+				　7<input type="checkbox" id="p7" checked>
+				　8<input type="checkbox" id="p8" checked>
+				　9(ドラム)<input type="checkbox" id="p9" checked><br>
+				　10<input type="checkbox" id="p10" checked>
+				　11<input type="checkbox" id="p11" checked>
+				　12<input type="checkbox" id="p12" checked>
+				　13<input type="checkbox" id="p13" checked>
+				　14<input type="checkbox" id="p14" checked>
+				　15<input type="checkbox" id="p15" checked><br>
+				<br>音程変更<input type="range" id="pitch" min="-12" max="12" value="0" step="1" onchange="document.getElementById('pitch_v').innerHTML = this.value"><span id="pitch_v">0</span><br>
+				<br>調号数変化<input type="range" id="scale" min="-7" max="7" value="0" step="1" onchange="document.getElementById('scale_v').innerHTML = this.value"><span id="scale_v">0</span><br>
+				<p>(長調の曲で-3に設定すると、短調になる。短調の曲で+3に設定すると、長調になる。</p>
+				<h2>テンプレート</h2>
+				<button onclick="egshow(0)">ドレミファソラシド</button>
+				<button onclick="egshow(1)">カノン(リコーダー)</button><br><br>
+				<button onclick="Mexport()" id="exp">生成</button>
+				<br><br><textarea id="code" wrap="off"></textarea>
+			</div>
+			<p>C#で作ったテキストファイルからMIDIファイルを作成するプログラムの移植版</p>
+			<p><a href="https://leekmikan.github.io/pg/index.html">元のプログラム(exeファイル　C#)はこちら</a></p>
+			<p><a href="Mid.js">JavaScriptコードはこちら</a></p>
+			<h1>命令一覧</h1>
+			<div>
+				<p>命令は太鼓さん次郎に近い形式</p>
+				<p>音階はカンマ、命令はセミコロンまたは改行区切りで入力　　　<p>
+				<p>例:</p>
+				<p>#HU 4;C4,E2,F5,-,</p><br>
+				<p>音階例</p>
+				<p>ド...C4　ファ♯...FS4　(低い)シ♭...BF3　ミのダブルシャープ...EDS4　ソ♭♭...GDF4　休符...-</p><br>
+				<p>↓#がつくシリーズ　x=自然数</p>
+				<h2>#BPM x     　　BPM</h2>
+				<h2>#CH x     　　トラック(0～15　9はドラム専用)</h2>
+				<h2>#NUMERATOR x    　　 分子(テスト)</h2>
+				<h2>#DENOMINATOR x  　　  分母(テスト)</h2>
+				<h2>#HU x  　　  n分音符</h2>
+				<h2>#SF x  　　  調号 (-7～7)</h2>
+				<h2>#POWER x  　　  音量 (～127) </h2>
+				<h2>#TONE x   　　 音色 (～127) 楽器番号.txt参照</h2>
+				<h2>#X x    　　 長さx倍  例)付点8分音符のラ  #HU 16;#X 3;A4,#X 1;   '#X 1で閉じる</h2>
+				<h2>#DELAY x    　　 x[ms]遅らせる</h2><br>
+				<p>↓その他</p>
+				<p>　'...コメント</p>
+				<p>　|...和音</p>
+				<p>　例) Cメジャー</p>
+				<p>　C4|E4|G4,</p><br>
+			</div>
+		</body>
+		<script src="eg.js"></script>
+		<script src="Mid.js"></script>
+		<script src="main.js"></script>
+	</head>
+</html>
