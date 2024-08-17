@@ -59,6 +59,7 @@ width: 200px;
 height: 50px;
 }
 textarea{
+  font-size: 24px;
   overflow:scroll;
   width: 1200px;
   height: 500px;
