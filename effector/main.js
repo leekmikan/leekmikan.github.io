@@ -7,6 +7,10 @@ let md = false;
 let read_f = false;
 let read_f2 = false;
 fileInput.onchange = () => {
+    if(fileInput.files[0] === undefined){
+        read_f = false;
+        return;
+    }
     fileReader.readAsArrayBuffer(fileInput.files[0]);
 };
 fileReader.onload = () =>{
@@ -16,6 +20,10 @@ fileReader.onload = () =>{
     }
 }
 fileInput2.onchange = () => {
+    if(fileInput2.files[0] === undefined){
+        read_f2 = false;
+        return;
+    }
     fileReader2.readAsArrayBuffer(fileInput2.files[0]);
 };
 fileReader2.onload = () =>{
@@ -24,7 +32,7 @@ fileReader2.onload = () =>{
         read_f2 = true;
     }
 }
-const E_LEN = 8;
+const E_LEN = 10;
 const MAX_COST = 3;
 function Wexport(){
     let true_x = 0;
@@ -91,6 +99,11 @@ function Wexport(){
     if(document.getElementById("e6").checked){
         console.log("Reverse");
         wd.Reverse();
+    }
+    if(document.getElementById("e9").checked){
+        let arg = Rg(0,Number(document.getElementById("e9t").value),2);
+        console.log("Compressor");
+        wd.Compressor(arg);
     }
     console.log("Export");
     wd.vol = Rg(0,Number(document.getElementById("vol").value),10);

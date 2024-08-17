@@ -71,7 +71,7 @@ class WaveData{
     {
         if(cch == 1){
 
-            let rt = new Array(this.msize / 4);
+            let rt = new Int16Array(this.msize / 4);
             for (let i = 0; i < this.msize / 2 - 1; i += 2)
             {
                 rt[i / 2] = this.wave[i] / 2 + this.wave[i + 1] / 2;
@@ -101,7 +101,7 @@ class WaveData{
     }
     BtoI(x, start, len)
     {
-        let rt = new Array((len - start) / 2);
+        let rt = new Int16Array((len - start) / 2);
         for (let i = start; i < len; i += 2)
         {
             if (x.getUint8(i + 1) < 0x80)
@@ -179,7 +179,7 @@ class WaveData{
             this.maxv = 1;
             let ts = TOCH(this.msize / 2 / sp);
             len = TOCH(Math.min(6000 / sp / ovr,6000 / ovr));
-            let rt = new Array(ts);
+            let rt = new Int16Array(ts);
             for (let i = 0;i < ts;i++) {
                 rt[i] = 0;
             }
@@ -187,7 +187,7 @@ class WaveData{
             let dt = TOCH(len * sp * ovr);
             for (let i = 0; i < this.msize / 2; i += dt)
             {
-                let tmp = new Array(len);
+                let tmp = new Int16Array(len);
                 for (let j = 0; j < len; j++)
                 {
                     if (i + j < this.msize / 2)
@@ -223,7 +223,7 @@ class WaveData{
             let tmp = ts * 2;
             this.fileSize += tmp - this.msize;
             this.msize = tmp;
-            this.wave = new Array(ts);
+            this.wave = new Int16Array(ts);
             for (let i = 0;i < ts;i++) {
                 this.wave[i] = rt[i];
             }
@@ -239,7 +239,7 @@ class WaveData{
         let sp = PITCH(pitch);
         this.maxv = 1;
         let ts = TOCH(this.msize / 2 / sp);
-        let rt = new Array(ts);
+        let rt = new Int16Array(ts);
         for (let i = 0;i < ts;i++) {
             rt[i] = 0;
         }
@@ -250,7 +250,7 @@ class WaveData{
             rt[i] = this.wave[tmp];
             rt[i + 1] = this.wave[tmp + 1];
         }
-        this.wave = new Array(ts);
+        this.wave = new Int16Array(ts);
         for (let i = 0;i < ts;i++) {
             this.wave[i] = rt[i];
             this.maxv = Math.max(this.maxv, Math.abs(1.0 * rt[i]));
@@ -263,7 +263,7 @@ class WaveData{
         haku_len -= haku_len % (4 * this.ch);
         let syousetsu = new Array(4);
         for (let i = 0; i < 4; i++) {
-            syousetsu[i] = new Array(haku_len);
+            syousetsu[i] = new Int16Array(haku_len);
         }
         for (let i = delta_i; i < this.msize / 2; i += haku_len * 4) {
             for (let j = 0; j < 4; j++) {
@@ -325,7 +325,7 @@ class WaveData{
     }
     Flanger(sp,pw)
     {
-        let rt = new Array(this.msize / 2);
+        let rt = new Int16Array(this.msize / 2);
         sp = -sp;
         const max = 100;
         let del = max;
@@ -355,8 +355,6 @@ class WaveData{
     {
         let len = 65536;
         this.maxv = 1;
-        let tmp = new Array(0);
-        let tmplen;
         len = 1 << Math.floor(Math.log2(rev.msize));
         disable = Math.floor(disable * len * 4 / this.sample);
         let cmp2 = new Array(len * 2);
@@ -377,7 +375,7 @@ class WaveData{
         }
         cmp2 = this.FFT(cmp2);
         console.log("IR_FFT");
-        let rt = new Array(this.msize / 2 + len);
+        let rt = new Int16Array(this.msize / 2 + len);
         this.msize += len * 2;
         this.fileSize += len * 2;
         this.WriteN(this.fileSize - 8, 4, 7);
@@ -434,9 +432,19 @@ class WaveData{
             }
             progress[0]++;
         }
-        this.wave = new Array(this.msize / 2);
+        this.wave = new Int16Array(this.msize / 2);
         for (let i = 0; i < this.msize / 2; i++) {
             this.wave[i] = rt[i];
+        }
+    }
+    Compressor(power) {
+        let _maxv = 1;
+        for (let i = 0; i < this.msize / 2; i++) {
+            if(this.wave[i] != 0) this.wave[i] = Math.floor(this.wave[i] * Math.pow(Math.abs(this.wave[i] * 1.0), power - 1));
+            _maxv = Math.max(this.wave[i] * 1.0, _maxv);
+        }
+        for (let i = 0; i < this.msize / 2; i++) {
+            this.wave[i] = Math.floor(this.wave[i] * this.maxv / _maxv);
         }
     }
     ReadN(bf, start, end)
@@ -454,7 +462,7 @@ class WaveData{
     FFT(ip)
     {
         let len = ip.length;
-        let reBitArray = new Array(len);
+        let reBitArray = new Uint32Array(len);
         let arraySizeHarf = len >> 1;
         reBitArray[0] = 0;
         for (let i = 1; i < len; i <<= 1)

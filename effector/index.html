@@ -48,6 +48,8 @@
 			<p>※パソコン推奨　F12でコンソール画面をひらいておくこと(応答なしのポップアップが出るのを防ぐ　ここで進捗が見れる)</p>
 			割合：　　　　　　 <input type="range" id="e8pw" min="0.0" max="1.0" value="0.25" step="0.01" onchange="document.getElementById('e8pw_v').innerHTML = this.value"><span id="e8pw_v">0.25</span><br>
 			無効周波数(x未満)：<input type="range" id="e8ds" min="0" max="800" value="200" step="1" onchange="document.getElementById('e8ds_v').innerHTML = this.value"><span id="e8ds_v">200</span><br>
+			<br><br><br><br><input id="e9" type="checkbox">コンプレッサー　g(x)=f(x)*|f(x)|^(t-1)<br>
+			t=<input type="range" id="e9t" min="0.0" max="2" value="1.0" step="0.01" onchange="document.getElementById('e9t_v').innerHTML = this.value"><span id="e9t_v">1.00</span><br>
 			<br><br><br><br><div class="ct">
 				<button id="exp" onclick="Wexport();">生成</button><br>
 				出力音量(1より大きいと音割れする可能性あり)：<input type="range" id="vol" min="0.0" max="10" value="1.0" step="0.1" onchange="document.getElementById('vol_v').innerHTML = this.value"><span id="vol_v">1.00</span>倍<br>
@@ -59,7 +61,7 @@
 				<li>#defineをfunctionにする</li>
 				<li>型名をletにする/定数は型名を消す</li>
 				<li>関数の型名を消す</li>
-				<li>ポインターなどの配列をnew Array()にする</li>
+				<li>ポインターなどの配列をnew Array()　new Int16Array()などにする</li>
 				<li>クラス演算子を関数にし、それに合わせて四則演算も関数にする</li>
 				<li>メンバ変数/メソッドすべてにthis.をつける　this->もthis.になおす</li>
 				<li>引数に入れる配列の長さの情報を消す(lengthがつかえるので)</li>
@@ -70,7 +72,6 @@
 			<ol>
 				<li>オルゴール</li>
 				<li>区間で切り抜き</li>
-				<li>コンプレッサー</li>
 				<li>スケール測定(メジャー/マイナー)</li>
 				<li>...</li>
 			</ol>
