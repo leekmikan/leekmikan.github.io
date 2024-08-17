@@ -45,7 +45,12 @@
 				</tr>
 			</table><br><br>
 			<button onclick="Add_baibain()" class="g">末尾のバイバインにバイバインを塗る(最大10個)</button><br><br>
-			<button onclick="Remove_baibain()" class="r">バイバインを減らす(最小1個)</button><br><br><br><br>
+			<button onclick="Remove_baibain()" class="r">バイバインを減らす(最小1個)</button><br><br><br>
+			<div class="ct">
+				<button onclick="for(let i = 0;i < player.mult.length;i++){player.mult[i].time[1] = 1;Tchange(i,0);}" class="g">全バイバインの反応速度を1秒に設定</button>
+				<button onclick="for(let i = 0;i < player.mult.length;i++){player.mult[i].time[1] = 300;Tchange(i,0);}" class="r">全バイバインの反応速度を300秒に設定</button>
+			</div>
+			<br><br><br>
 			<button onclick="Save();alert('セーブ完了');" class="g">手動セーブ(30秒毎に自動セーブされる)</button><br><br>
 			<button onclick="if(confirm('データ削除しますか')){Wipe()}" class="r">データ削除</button><br><br>
 			<input type="radio" name="letter" onchange="letter_type = Number(this.value); Update();" value="0">指数表記(あまりにも大きい場合は、クヌースの矢印表記を使用)<br>
