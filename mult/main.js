@@ -22,7 +22,7 @@ var num_wiki = [
 ]
 const M_MIN = 1;
 const T_MIN = 1;
-const BAI_MAX = 5;
+const BAI_MAX = 10;
 const BAI_MIN = 1;
 const KURI_G = new Exp(Math.log10(50),0);
 const KURI_V = new Exp(Math.log10(0.06),0);
@@ -38,8 +38,8 @@ function Pdt(){
                 document.getElementById("gram").innerHTML = (letter_typeg == 1) ? Textg(Mul(KURI_G,player.money)) : Text(Mul(KURI_G,player.money)) + "グラム";
                 document.getElementsByTagName("tr")[1].getElementsByTagName("td")[0].innerHTML = Text(player.money);
                 var v = Mul(KURI_V,player.money);
-                var s = Sqr(Div(v,new Exp(Math.log10(4 * Math.PI),0)),new Exp(Math.log10(2),0));
                 var r = Sqr(Div(v,new Exp(Math.log10(4 * Math.PI / 3),0)),new Exp(Math.log10(3),0));
+                var s = Mul(Pow(r,new Exp(Math.log10(2),0)),new Exp(Math.log10(4 * Math.PI),0));
                 document.getElementById("v").innerHTML = Text(v);
                 document.getElementById("s").innerHTML = Text(s);
                 document.getElementById("r").innerHTML = Text(r);
@@ -100,8 +100,8 @@ function Update(){
             document.getElementById("gram").innerHTML = (letter_typeg == 1) ? Textg(Mul(KURI_G,player.money)) : Text(Mul(KURI_G,player.money)) + "グラム";
             document.getElementsByTagName("tr")[1].getElementsByTagName("td")[0].innerHTML = Text(player.money);
             var v = Mul(KURI_V,player.money);
-            var s = Sqr(Div(v,new Exp(Math.log10(4 * Math.PI),0)),new Exp(Math.log10(2),0));
             var r = Sqr(Div(v,new Exp(Math.log10(4 * Math.PI / 3),0)),new Exp(Math.log10(3),0));
+            var s = Mul(Pow(r,new Exp(Math.log10(2))),new Exp(Math.log10(4 * Math.PI)));
             document.getElementById("v").innerHTML = Text(v);
             document.getElementById("s").innerHTML = Text(s);
             document.getElementById("r").innerHTML = Text(r);
