@@ -101,7 +101,7 @@ function Update(){
             document.getElementsByTagName("tr")[1].getElementsByTagName("td")[0].innerHTML = Text(player.money);
             var v = Mul(KURI_V,player.money);
             var r = Sqr(Div(v,new Exp(Math.log10(4 * Math.PI / 3),0)),new Exp(Math.log10(3),0));
-            var s = Mul(Pow(r,new Exp(Math.log10(2))),new Exp(Math.log10(4 * Math.PI)));
+            var s = Mul(Pow(r,new Exp(Math.log10(2),0)),new Exp(Math.log10(4 * Math.PI),0));
             document.getElementById("v").innerHTML = Text(v);
             document.getElementById("s").innerHTML = Text(s);
             document.getElementById("r").innerHTML = Text(r);
