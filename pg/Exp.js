@@ -71,6 +71,13 @@ function Mul(X,Y){
 function Pow(X,Y){
 	var Z;
 	if(X.e == 0){
+		if(X.num <= 0){
+			if(Y.e == 0){
+				return Ud(new Exp(X.num * Math.pow(10,Y.num),0)); 
+			}else{
+				return new Exp(-Infinity,0); 
+			}
+		}
 		Z = new Exp(Math.log10(X.num),0);
 	}else{
 		Z = new Exp(X.num,X.e - 1);
