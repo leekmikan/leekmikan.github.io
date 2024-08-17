@@ -12,6 +12,7 @@
 	</head>
 	<div style="text-align:center">
 		<h1>テキストからMIDI作成(C#からの移植)</h1>
+		<p>数学は得意だけど音楽にあまり詳しくないので、音楽理論的な間違えがあるかも</p>
 	</div>
 		<body style="width :1500px; background-size:cover">
 			<div id="pl" style="text-align:center;">
@@ -20,8 +21,8 @@
 					src=""
 					sound-font visualizer="#myVisualizer">
 				</midi-player>
-				<midi-visualizer type="piano-roll" id="myVisualizer"></midi-visualizer>
 				<p><a href="" id="dl">ダウンロードはこちら</a></p>
+				<midi-visualizer type="piano-roll" id="myVisualizer"></midi-visualizer>
 			</div>
 			<div style="text-align:center">
 				<p>再生するパート(未選択の場合は、0番のみ再生)</p>
@@ -41,14 +42,56 @@
 				　13<input type="checkbox" id="p13" checked>
 				　14<input type="checkbox" id="p14" checked>
 				　15<input type="checkbox" id="p15" checked><br>
+				<br>楽器一括変更<input type="range" id="ins" min="-1" max="127" value="-1" step="1" onchange="document.getElementById('ins_v').innerHTML = this.value;document.getElementById('ins_name').innerText = ins_name[Number(this.value) + 1]"><span id="ins_v">-1</span><br>
+				<p>現在の楽器：<span id="ins_name">指定なし</span></p>
+				<p>変更しない場合は-1を指定</p><br>
 				<br>音程変更<input type="range" id="pitch" min="-12" max="12" value="0" step="1" onchange="document.getElementById('pitch_v').innerHTML = this.value"><span id="pitch_v">0</span><br>
 				<br>調号数変化<input type="range" id="scale" min="-7" max="7" value="0" step="1" onchange="document.getElementById('scale_v').innerHTML = this.value"><span id="scale_v">0</span><br>
 				<p>(長調の曲で-3に設定すると、短調になる。短調の曲で+3に設定すると、長調になる。</p>
+				<h2>その他スケール指定</h2>
+				<p>※5音しかないものは、近くの音階とくっつけています</p>
+				<h3>現在のスケール：<span id="sc">通常</span></h3>
+				<div id="scb">
+					<button onclick="change_s(0)">通常</button>
+					<button onclick="change_s(1)">全音階</button>
+					<button onclick="change_s(2)">ヨナ抜き長音階</button>
+					<button onclick="change_s(3)">ヨナ抜き短音階</button>
+					<button onclick="change_s(4)">ニロ抜き長音階</button>
+					<button onclick="change_s(5)">ニロ抜き短音階</button>
+					<button onclick="change_s(6)">岩戸音階</button>
+					<button onclick="change_s(7)">アラビア音階</button>
+					<button onclick="change_s(8)">ハーモニックメジャースケール</button>
+					<button onclick="change_s(9)">メロディックメジャースケール</button>
+					<button onclick="change_s(10)">ナチュラルマイナースケール</button>
+					<button onclick="change_s(11)">ハーモニックマイナースケール</button>
+					<button onclick="change_s(12)">メロディックマイナースケール</button>
+					<button onclick="change_s(13)">メジャーペンタトニックスケール</button>
+					<button onclick="change_s(14)">マイナーペンタトニックスケール</button>
+					<button onclick="change_s(15)">ドリアンスケール</button>
+					<button onclick="change_s(16)">フリジアンスケール</button>
+					<button onclick="change_s(17)">リディアンスケール</button>
+					<button onclick="change_s(18)">ミクソリディアンスケール</button>
+					<button onclick="change_s(19)">ロクリアンスケール</button>
+					<button onclick="change_s(20)">ロクリアンナチュラルスケール</button>
+					<button onclick="change_s(21)">アイオニアン#5スケール</button>
+					<button onclick="change_s(22)">ドリアン#4スケール</button>
+					<button onclick="change_s(23)">ミクソリディアン♭9, ♭13スケール</button>
+					<button onclick="change_s(24)">リディアン#2スケール</button>
+					<button onclick="change_s(25)">スーパーロクリアン♭♭7スケール</button>
+					<button onclick="change_s(26)">ドリアン♭2スケール</button>
+					<button onclick="change_s(27)">リディアン#5スケール</button>
+					<button onclick="change_s(28)">リディアン♭7スケール</button>
+					<button onclick="change_s(29)">エオリアン♭5スケール</button>
+					<button onclick="change_s(30)">オルタードスケール</button>
+					<button onclick="change_s(31)">メジャー・ブルース・スケール</button>
+					<button onclick="change_s(32)">ハンガリアン・メジャー・スケール</button><br><br>
+				</div>
 				<h2>テンプレート</h2>
 				<button onclick="egshow(0)">ドレミファソラシド</button>
-				<button onclick="egshow(1)">カノン(リコーダー)</button><br><br>
+				<button onclick="egshow(1)">カノン(リコーダー)</button>
+				<button onclick="egshow(2)">蛍の光(リコーダー+ピアノ)</button><br><br>
 				<button onclick="Mexport()" id="exp">生成</button>
-				<br><br><textarea id="code" wrap="off"></textarea>
+				<br><br><textarea id="code" wrap="off" spellcheck="false"></textarea>
 			</div>
 			<p>C#で作ったテキストファイルからMIDIファイルを作成するプログラムの移植版</p>
 			<p><a href="https://leekmikan.github.io/pg/index.html">元のプログラム(exeファイル　C#)はこちら</a></p>
@@ -69,7 +112,7 @@
 				<h2>#HU x  　　  n分音符</h2>
 				<h2>#SF x  　　  調号 (-7～7)</h2>
 				<h2>#POWER x  　　  音量 (～127) </h2>
-				<h2>#TONE x   　　 音色 (～127) 楽器番号.txt参照</h2>
+				<h2>#TONE x   　　 音色 (～127) </h2>
 				<h2>#X x    　　 長さx倍  例)付点8分音符のラ  #HU 16;#X 3;A4,#X 1;   '#X 1で閉じる</h2>
 				<h2>#DELAY x    　　 x[ms]遅らせる</h2><br>
 				<p>↓その他</p>

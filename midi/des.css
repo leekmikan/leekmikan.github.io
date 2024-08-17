@@ -64,3 +64,11 @@ textarea{
   width: 1200px;
   height: 500px;
 }
+#audio{
+  color: #000000;
+}
+#exp{
+	font-size: 36px;
+	width: 200px;
+	height: 100px;
+}
