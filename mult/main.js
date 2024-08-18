@@ -7,7 +7,8 @@ var player = {
         mult: 2,
         time: [300,300]
         }
-    ]
+    ],
+    tw: 0,
 }
 var num_wiki = [
     new Exp(Math.log10(9.46) + 15,0),
@@ -33,7 +34,7 @@ function Pdt(){
         if(player.mult[i].time[0] <= 0){
             var mexp = new Exp(Math.log10(player.mult[i].mult),0);
             if(i == 0){
-                player.money = Mul(player.money,Pow(mexp,player.mult[i].amount));
+                player.money = Tow(Mul(player.money,Pow(mexp,player.mult[i].amount)),player.tw);
                 document.getElementById("money").innerHTML = Text(player.money);
                 document.getElementById("gram").innerHTML = (letter_typeg == 1) ? Textg(Mul(KURI_G,player.money)) : Text(Mul(KURI_G,player.money)) + "グラム";
                 document.getElementsByTagName("tr")[1].getElementsByTagName("td")[0].innerHTML = Text(player.money);
@@ -44,7 +45,7 @@ function Pdt(){
                 document.getElementById("s").innerHTML = Text(s);
                 document.getElementById("r").innerHTML = Text(r);
             }else{
-                player.mult[i - 1].amount = Mul(player.mult[i - 1].amount,Pow(mexp,player.mult[i].amount));
+                player.mult[i - 1].amount = Tow(Mul(player.mult[i - 1].amount,Pow(mexp,player.mult[i].amount)),player.tw);
                 document.getElementsByTagName("tr")[1].getElementsByTagName("td")[2 * i].innerHTML = Text(player.mult[i - 1].amount);
             }
             player.mult[i].time[0] = player.mult[i].time[1];
@@ -78,6 +79,7 @@ if (window.localStorage) {
 	if(data){
 		player = JSON.parse(data);
 	}
+    if(player.tw === undefined) player.tw = 0;
 }
 function Wipe(){
     player = {
@@ -89,7 +91,8 @@ function Wipe(){
             mult: 2,
             time: [300,300]
             }
-        ]
+        ],
+        tw: 0,
     }
     document.location.reload();
 }
@@ -113,6 +116,7 @@ function Update(){
     for(var i = 0;i < num_wiki.length;i++){
         document.getElementById("num").getElementsByTagName("span")[i].innerHTML = Text(num_wiki[i]);
     }
+    document.getElementById('twv').innerText = player.tw.toFixed(4);
 }
 function Add_baibain(ig){
     if(ig === null) ig = -1;
@@ -146,6 +150,10 @@ function Save(){
 		let tmp = JSON.stringify(player, undefined, 1);
 		localStorage.setItem('kuri_mult', tmp);
 	}
+}
+function Twchange(x){
+    player.tw = Math.max(player.tw + x,0);
+    document.getElementById('twv').innerText = player.tw.toFixed(4)
 }
 for(var i = 1;i < player.mult.length;i++){
     Add_baibain(i);

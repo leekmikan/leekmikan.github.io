@@ -3,6 +3,9 @@ color: #FFFFFF;
 background: #000000;
 font-family: "UD デジタル 教科書体 NK-B";
 }
+body > :not(button){
+  White-space: nowrap;
+}
 button{
 text-align:center;
 }
@@ -13,7 +16,7 @@ text-align:center;
     font-size: 48px;
 }
 img{
-    width: 60%;
+    width: 300px;
 }
 .r {
     width: 20%;
@@ -51,6 +54,12 @@ p{
 ol{
   font-size: 24px;
   padding-left: 70px;
+}
+table{
+  max-width: 1000%;
+}
+#pw > img{
+  width:100px;
 }
 @media only screen and (max-width: 979px) {
   body{
