@@ -45,6 +45,7 @@
 				<br>楽器一括変更<input type="range" id="ins" min="-1" max="127" value="-1" step="1" onchange="document.getElementById('ins_v').innerHTML = this.value;document.getElementById('ins_name').innerText = ins_name[Number(this.value) + 1]"><span id="ins_v">-1</span><br>
 				<p>現在の楽器：<span id="ins_name">指定なし</span></p>
 				<p>変更しない場合は-1を指定</p><br>
+				<br>音量<input type="range" id="vol" min="1" max="127" value="127" step="1" onchange="document.getElementById('vol_v').innerHTML = this.value"><span id="vol_v">127</span><br>
 				<br>音程変更<input type="range" id="pitch" min="-12" max="12" value="0" step="1" onchange="document.getElementById('pitch_v').innerHTML = this.value"><span id="pitch_v">0</span><br>
 				<br>調号数変化<input type="range" id="scale" min="-7" max="7" value="0" step="1" onchange="document.getElementById('scale_v').innerHTML = this.value"><span id="scale_v">0</span><br>
 				<p>(長調の曲で-3に設定すると、短調になる。短調の曲で+3に設定すると、長調になる。</p>
@@ -107,8 +108,6 @@
 				<p>↓#がつくシリーズ　x=自然数</p>
 				<h2>#BPM x     　　BPM</h2>
 				<h2>#CH x     　　トラック(0～15　9はドラム専用)</h2>
-				<h2>#NUMERATOR x    　　 分子(テスト)</h2>
-				<h2>#DENOMINATOR x  　　  分母(テスト)</h2>
 				<h2>#HU x  　　  n分音符</h2>
 				<h2>#SF x  　　  調号 (-7～7)</h2>
 				<h2>#POWER x  　　  音量 (～127) </h2>
