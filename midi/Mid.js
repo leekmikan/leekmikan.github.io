@@ -29,24 +29,29 @@ let ig_bsf = false;
 let is_move = true;
 let is_bn = false;
 let sp = 1.0;
+let b_vol = 127;
+let decimal_adj = 0;
 conf_tones = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
 class Note{
     constructor(pitch, channel, power, name, bpm, hu, measure)
     {
         this.pitch = pitch;
         this.channel = channel;
-        this.power = power;
+        this.power = Math.floor(b_vol * power / 127);
         this.name = name;
         if(hu === undefined && measure === undefined){
             this.delta = bpm; //delta代わり.
         }else{
             if (hu == 0)
             {
-                this.delta = 0;
+                this.delta = Math.floor(decimal_adj);
+                decimal_adj -= this.delta;
             }
             else
             {
-                this.delta = Math.floor(480 * 480 * measure / bpm / hu / sp);
+                decimal_adj += 480 * 480 * measure / bpm / hu / sp;
+                this.delta = Math.floor(decimal_adj);
+                decimal_adj -= this.delta;
             }
         }
     }
@@ -132,6 +137,7 @@ function Export(only_ch)
                 if (notes[i].name == 0xfe)
                 {
                     Change_Size(data.length - len - track.length + track_end.length, len);
+                    decimal_adj = 0;
                     data = data.concat(track_end);
                     len = data.length;
                     data = data.concat(track);
@@ -181,6 +187,8 @@ function Export(only_ch)
             measure = [ 4, 4 ];
             chs = [0];
             ch = 0;
+            mult = 1;
+            decimal_adj = 0;
         }
 function Change_Size(size, len)
 {

@@ -7,8 +7,10 @@ function Mexport(){
 	}
 	pt_adj = Number(document.getElementById("pitch").value);
 	sf_adj = Number(document.getElementById("scale").value);
+	b_vol = Number(document.getElementById("vol").value);
 	all_tone = Number(document.getElementById("ins").value) + 1;
 	all_tone = (all_tone == 0) ? -1 : all_tone;
+	sp = Number(document.getElementById("speed").value);
 	Read();
 	if(acv.length == 0){
 		acv = null;
