@@ -596,7 +596,6 @@ player.mass = E('ee16');
 			<div id="mnd" style="display:none;clear:both;">
 			<p>このMODの更新が進んだら記入</p>
 			</div><br>
-			<p>以下記入中...</p>
 			<div onclick="obj=document.getElementById('cnd').style; obj.display=(obj.display=='none')?'block':'none';">
 			<h1 style="cursor:pointer;">▼NG+++ Condensed</h1>
 			</div>
@@ -844,7 +843,176 @@ player.mass = E('ee16');
 						<td>CRがBosonic Wattの獲得量増加,GhPの獲得量増加</td>
 					</tr>
 				</table>
-			</div>
+			</div><br>
+			<div onclick="obj=document.getElementById('spd').style; obj.display=(obj.display=='none')?'block':'none';">
+				<h1 style="cursor:pointer;">▼Nitamadder Timesions(Space Mod)</h1>
+				</div>
+				<div id="spd" style="display:none;clear:both;">
+				<h2>全体の変更点</h2>
+				<p>IDは16回までしか購入できない</p>
+				<h2>Space Research</h2>
+				<p>このMODでは、Antimatterの量に比例して自身の獲得量が増加しにくくなる代わりに、選んだゲージを貯めることができる</p>
+				<p>ゲージが100%まで溜まるとレベルアップし、さまざまな効果を得られる</p>
+				<p>T1以降は、特定のリセットをするまでレベルアップせずにゲージが溜まり続ける。リセットすると、溜まっていた分レベルアップする</p>
+				<p>T1,T2のゲージのいずれかが溜まった状態で一番下のボタンを押すと、Dimboost,Antimatter Galaxyリセットができ、レベルをあげられる</p>
+				<h3>Antimatter T0(リセットなし)</h3>
+				<table border="1">
+					<tr>
+						<td>名前</td>
+						<td>効果</td>
+					</tr>
+					<tr>
+						<td>Antimatter Research</td>
+						<td>AMの獲得量2倍</td>
+					</tr>
+					<tr>
+						<td>Cheaper AD</td>
+						<td>Antimatter Dimensionの価格1/10倍</td>
+					</tr>
+					<tr>
+						<td>Time Amplifer</td>
+						<td>Tickspeedを2個獲得</td>
+					</tr>
+				</table>
+				<h3>Dimension Boost T1(Dimension Boostリセットが必要)</h3>
+				<table border="1">
+					<tr>
+						<td>名前</td>
+						<td>効果</td>
+					</tr>
+					<tr>
+						<td>Dimensional Discovery</td>
+						<td>追加のDimension Boost獲得+Research速度増加</td>
+					</tr>
+					<tr>
+						<td>Space Reduction</td>
+						<td>spaceが減少(Antimatterの獲得速度低下が緩和)</td>
+					</tr>
+				</table>
+				<h3>Galaxy T2(Antimatter Galaxyリセットが必要)</h3>
+				<table border="1">
+					<tr>
+						<td>名前</td>
+						<td>効果</td>
+					</tr>
+					<tr>
+						<td>Efficiency Improvement</td>
+						<td>ADを10個購入時の増加倍率とべき乗が増加</td>
+					</tr>
+				</table>
+				<h3>Infinity T3(Infinityリセットが必要)</h3>
+				<table border="1">
+					<tr>
+						<td>名前</td>
+						<td>効果</td>
+					</tr>
+					<tr>
+						<td>Infinity IP</td>
+						<td>IPの獲得量2倍</td>
+					</tr>
+					<tr>
+						<td>Efficiency Research</td>
+						<td>Researchの計算に使用するSpaceの倍率が増加</td>
+					</tr>
+					<tr>
+						<td>Infinity Infinities</td>
+						<td>Infinity回数の倍率増加</td>
+					</tr>
+					<tr>
+						<td>Continuous Dimensions(Space Challenge1-2クリア)</td>
+						<td>Continuumの獲得量が1%増加</td>
+					</tr>
+					<tr>
+						<td>Powerd Power(Infinity Dimension購入)</td>
+						<td>Infinity Powerの変換倍率が7乗から増加</td>
+					</tr>
+				</table>
+				<h2>Space Challenges</h2>
+				<p>ここの記述は、覚えている部分以外後まわし(クリアすると内容と報酬が見えなくなるため)</p>
+				<p>特定の制約下で、Big Crunchをするとクリア</p>
+				<p>チャレンジの回数で若干内容が変わる(難しくなる)</p>
+				<table border="1">
+					<tr>
+						<td>No</td>
+						<td>内容</td>
+						<td>報酬</td>
+					</tr>
+					<tr>
+						<td>1-1</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>1-2</td>
+						<td>T0,1,2のResarchが無効</td>
+						<td>Continuumに切りかえらるようになる</td>
+					</tr>
+					<tr>
+						<td>2-1</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>2-2</td>
+						<td>4次元までしか購入できない。Galaxy購入不可</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>3-1</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>3-2</td>
+						<td>Research速度がT0は0.1倍,T1は0.3倍,T2は0.6倍になる。Galaxy購入不可。T4 Researchと最初6つのBreak Infinity Upgradeが無効</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>4-1</td>
+						<td>AD以外の倍率が無効</td>
+						<td></td>
+					</tr>
+				</table>
+				<h2>Mirror</h2>
+				<p>RGB値を増加させることにより、制約を追加し、指定された量のAntimatterを稼ぐと報酬獲得</p>
+				<p>Mirror実行中以外は、Mirrorクリア時に設定したRGB値の合計を、現在指定しているRGB値の比率に応じて振り分ける</p>
+				<p>RGB値のシークバーを動かすと強制的にInfinityリセットされる</p>
+				<p>赤,緑,青以外は、その色を作るための色(加法混色)が必要</p>
+				<table border="1">
+					<tr>
+						<td>色</td>
+						<td>効果(Mirror中は効果が反転する)</td>
+					</tr>
+					<tr>
+						<td>赤</td>
+						<td>AMの倍率が増加</td>
+					</tr>
+					<tr>
+						<td>緑</td>
+						<td>Dimension Boostの倍率が増加</td>
+					</tr>
+					<tr>
+						<td>青</td>
+						<td>T2までのResearchの速度が増加</td>
+					</tr>
+					<tr>
+						<td>黄</td>
+						<td>IDの倍率が増加</td>
+					</tr>
+					<tr>
+						<td>紫</td>
+						<td>TickSpeedを獲得</td>
+					</tr>
+					<tr>
+						<td>シアン</td>
+						<td>Researchの計算に使用するSpaceの倍率が増加</td>
+					</tr>
+					<tr>
+						<td>白</td>
+						<td>Space増加</td>
+					</tr>
+				</table>
+			</div><br>
 		</body>
 	</head>
 </html>
