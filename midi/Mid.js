@@ -151,6 +151,7 @@ function Export(only_ch)
                     //data = data.concat(notes[i].Export());
                     if (i == 0)
                     {
+                        if (all_tone != -1) data = data.concat((new Note((all_tone - 1), 0, 0, TONE_COLOR, 0)).Export());
                         data = data.concat(notes[i].Export(null));
                     }
                     else
@@ -314,6 +315,7 @@ function Read()
                     }
                     time = 0;
                     notes.push(new Note(0, ch, 0, 0xfe, 0));
+                    if (all_tone != -1) notes.push(new Note((all_tone - 1), ch, 0, TONE_COLOR, 0));
                     break;
                 case 'N':
                     measure[0] = Rval("#NUMERATOR ", tmp);
@@ -361,10 +363,6 @@ function Read()
                     {
                         let t = Math.floor(Rval("#TONE ", tmp));
                         notes.push(new Note(t, ch, 0, TONE_COLOR, 0));
-                    }
-                    else
-                    {
-                        notes.push(new Note((all_tone - 1), ch, 0, TONE_COLOR, 0));
                     }
                     break;
                 case 'V':
