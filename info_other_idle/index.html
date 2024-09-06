@@ -21,7 +21,9 @@
 		<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi/Game.html">歌詞クイズ<a></p>
 		<p style="text-align:center;"><a href="https://leekmikan.github.io/mult/Game.html">バイバインシミュレーター(指数タワーの計算テスト)<a></p>
 		</div>
-		<h1>(8/10ここに追加)　追加で宣伝　(欲しいものリスト)</h1>
+		<h1>(太字は9/6更新)　追加で宣伝　(欲しいものリスト)</h1>
+		<h2>バイト先の都合により、ここに記載した物の(テスト)買い取りが難しくなる可能性が出てきました。</h2>
+		<h2>(4月にはほとんど準備は終わっており、どんな形でもいいので、可能な限り実行はしたい)</h2>
 		<p>以下の品を持っていて、売る予定の人がいましたら、この宣伝が消えるまで(1～2か月)保管をよろしくお願いいたします。</p>
 		<p>ここと同じメッセージが表示されるページで買い取りたいです。(自分のガクチカに影響するかもしれないのでお願いいたします。)</p>
 		<p>買い取り価格は、ブックオフの販売価格プラスαです。</p>
@@ -1013,6 +1015,92 @@ player.mass = E('ee16');
 					</tr>
 				</table>
 			</div><br>
+			<div onclick="obj=document.getElementById('msc').style; obj.display=(obj.display=='none')?'block':'none';">
+				<h1 style="cursor:pointer;">▼ADMusicPlayer(Automationの使用例)</h1>
+				</div>
+				<div id="msc" style="display:none;clear:both;">
+				<h2>Automation</h2>
+				<p>※情報がないので、JavaScriptのコードから推測</p>
+				<p>※int...(負でない)整数　double...(負でない)数</p>
+				<p>Automationで音をならすことができる</p>
+				<p>BPM [int]...BPM変更</p>
+				<p>INS [PIANO/BASS]...楽器をピアノかバスに変更(音の変化はない)</p>
+				<p>PLAY [音階] [時間]...音階を指定した時間鳴らす</p>
+				<p>音階例...C4  #F4  bG4  mute(消音)</p>
+				<p>PLAY [音階1] [音階2] ... [音階n] [時間]で和音をならすことができる</p>
+				<p>[double]beat...指定した拍だけの時間に変換(4分音符[double]個)</p>
+				<h3>使用例(音楽苦手なので間違いがあるかも　何の曲かわかったらすごい)</h3>
+				<pre><code>
+BPM 135
+INS PIANO 
+PLAY #C4 0.5beat
+PLAY #D4 0.25beat
+PLAY E4 1.25beat
+PLAY #C4 0.5beat
+PLAY #D4 0.25beat
+PLAY E4 1beat
+PLAY E4 0.5beat
+PLAY #D4 0.75beat
+PLAY #C4 0.75beat
+PLAY B3 0.66beat
+PLAY A4 0.75beat
+PLAY #G4 0.33beat
+PLAY #G4 1beat
+
+PLAY A4 0.5beat
+PLAY #G4 0.5beat
+PLAY #G4 0.5beat
+PLAY #F4 0.5beat
+PLAY #F4 0.5beat
+PLAY E4 0.5beat
+PLAY #D4 0.5beat
+PLAY #F4 0.5beat
+PLAY #D4 0.5beat
+PLAY E4 0.5beat
+PLAY #D4 0.5beat
+PLAY E4 0.5beat
+PLAY #D4 0.5beat
+PLAY E4 0.25beat
+PLAY #D4 0.5beat
+PLAY E4 0.25beat
+PLAY #D4 0.5beat
+
+PLAY E4 0.5beat
+PLAY #F4 0.25beat
+PLAY G4 0.75beat
+PLAY E4 0.5beat
+PLAY E4 0.5beat
+PLAY #F4 0.25beat
+PLAY G4 0.75beat
+PLAY G4 0.5beat
+PLAY #F4 0.75beat
+PLAY E4 0.75beat
+PLAY D4 0.66beat
+PLAY C5 0.75beat
+PLAY B4 0.33beat
+PLAY B4 1beat
+  
+PLAY C5 0.5beat
+PLAY B4 0.25beat
+PLAY A4 0.75beat
+PLAY A4 0.5beat
+PLAY A4 0.5beat
+PLAY A4 0.5beat
+PLAY G4 0.5beat
+PLAY A4 0.5beat
+PLAY #F4 1beat
+  
+PLAY D4 1beat
+PLAY A4 0.75beat
+PLAY G4 0.75beat
+PLAY #F4 0.5beat
+PLAY #F4 1beat
+PLAY #F4 1beat
+PLAY G4 1beat
+PLAY #F4 1beat
+PLAY E4 4beat
+				</code></pre>
+			</div>
 		</body>
 	</head>
 </html>
