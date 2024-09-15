@@ -60,10 +60,13 @@ var scale = [
 	[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
 ];
 function change_s(i){
+	sel = i;
 	conf_tones = scale[i];
 	document.getElementById("sc").innerText = document.getElementById("scb").getElementsByTagName("button")[i].innerText;
+	Cname();
 }
-var ins_name =[
+let sel = 0;
+const ins_name =[
 "指定なし",
 "Acoustic Grand Piano	アコースティック・グランド・ピアノ",
 "Bright Acoustic Piano	ブライト・アコースティック・ピアノ",
@@ -194,3 +197,46 @@ var ins_name =[
 "Applause	拍手喝采",
 "Gunshot	ガン・ショット",
 ];
+const mj_pname = ["G♭","D♭","A♭","E♭","B♭","F","C","G","D","A","E","B","F#"];
+const mn_pname = ["E♭","B♭","F","C","G","D","A","E","B","F#","C#","G#","D#"];
+function Cname(){
+	let pt_adj = Number(document.getElementById("pitch").value);
+	let str = document.getElementById("code").value;
+	let idf = str.indexOf("#SF");
+	let tmp = "";
+	while(str[idf] != "\n" && idf < str.length){
+		tmp += str[idf];
+		idf++;
+	}
+	let sf_f = Rval("#SF ", tmp);
+	if(sf_f < -99 || sf_f > 99) sf_f = 0;
+	let sf_adj = Number(document.getElementById("scale").value);
+	let scale_name = document.getElementById("sc").innerText;
+	let base_p = (sf_f + 6 + 1200) % 12;
+	if(base_p == 0 && sf_f >= 0) base_p = 12;
+	let base_p_after = (7 * pt_adj + sf_adj + sf_f + 6 + 1200) % 12;
+	if(base_p_after == 0 && sf_adj + sf_f >= 0) base_p_after = 12;
+	let rt = "";
+	if(sel == 0){
+		switch(sf_adj){
+			case -3:
+				rt = mj_pname[base_p] + "メジャー　→　" + mn_pname[base_p_after] + "マイナー<br>" + mn_pname[base_p] + "マイナー　→　---";
+				break;
+			case 0:
+				rt = mj_pname[base_p] + "メジャー　→　" + mj_pname[base_p_after] + "メジャー<br>" + mn_pname[base_p] + "マイナー　→　" + mn_pname[base_p_after] + "マイナー";
+				break;
+			case 3:
+				rt = mj_pname[base_p] + "メジャー　→　---<br>" + mn_pname[base_p] + "マイナー　→　" + mj_pname[base_p_after] + "メジャー";
+				break;
+			default:
+				rt = mj_pname[base_p] + "メジャー　→　---<br>" + mn_pname[base_p] + "マイナー　→　---";
+				break;
+		}
+	}else if(sf_adj == 0){
+		rt = mj_pname[base_p] + "メジャー/" + mn_pname[base_p] + "マイナー　→　" + mj_pname[base_p_after] + scale_name;
+	}else{
+		rt = "---";
+	}
+	document.getElementById("cname").innerHTML = rt;
+}
+document.getElementById("code").addEventListener('input', Cname);

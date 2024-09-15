@@ -1,6 +1,7 @@
 function egshow(i){
     if(!confirm("テンプレートを読み込みますか")) return;
     document.getElementById("code").value = egs[i];
+    Cname();
 }
 var egs = [
     "#POWER 100\n#TONE 0\n#BPM 88\n#SF 0\n#HU 4\nC4,D4,E4,F4,G4,A4,B4,C5,",

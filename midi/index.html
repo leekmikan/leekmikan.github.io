@@ -47,8 +47,8 @@
 				<p>変更しない場合は-1を指定</p><br>
 				<br>音量<input type="range" id="vol" min="1" max="127" value="127" step="1" onchange="document.getElementById('vol_v').innerHTML = this.value"><span id="vol_v">127</span><br>
 				<br>再生速度<input type="range" id="speed" min="0.5" max="2" value="1" step="0.01" onchange="document.getElementById('speed_v').innerHTML = this.value">x<span id="speed_v">1</span><br>
-				<br>音程変更<input type="range" id="pitch" min="-12" max="12" value="0" step="1" onchange="document.getElementById('pitch_v').innerHTML = this.value"><span id="pitch_v">0</span><br>
-				<br>調号数変化<input type="range" id="scale" min="-7" max="7" value="0" step="1" onchange="document.getElementById('scale_v').innerHTML = this.value"><span id="scale_v">0</span><br>
+				<br>音程変更<input type="range" id="pitch" min="-12" max="12" value="0" step="1" onchange="document.getElementById('pitch_v').innerHTML = this.value;Cname();"><span id="pitch_v">0</span><br>
+				<br>調号数変化<input type="range" id="scale" min="-7" max="7" value="0" step="1" onchange="document.getElementById('scale_v').innerHTML = this.value;Cname();"><span id="scale_v">0</span><br>
 				<p>(長調の曲で-3に設定すると、短調になる。短調の曲で+3に設定すると、長調になる。</p>
 				<h2>その他スケール指定</h2>
 				<p>※5音しかないものは、近くの音階とくっつけています</p>
@@ -93,7 +93,9 @@
 				<button onclick="egshow(1)">カノン(リコーダー)</button>
 				<button onclick="egshow(2)">蛍の光(リコーダー+ピアノ)</button><br><br>
 				<button onclick="Mexport()" id="exp">生成</button>
-				<br><br><textarea id="code" wrap="off" spellcheck="false"></textarea>
+				<br><br><p>設定適用後の調の変化(曲開始時の調)</p>
+				<h3 id="cname">Cメジャー　→　Cメジャー<br>Aマイナー　→　Aマイナー</h3>
+				<textarea id="code" wrap="off" spellcheck="false"></textarea>
 			</div>
 			<p>C#で作ったテキストファイルからMIDIファイルを作成するプログラムの移植版</p>
 			<p><a href="https://leekmikan.github.io/pg/index.html">元のプログラム(exeファイル　C#)はこちら</a></p>
