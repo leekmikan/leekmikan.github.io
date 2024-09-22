@@ -1,0 +1,45 @@
+body{
+color: #000000;
+background: #A0FFFF;
+}
+.title{
+text-align:center;
+color: #000000;
+background: #FFFF80;
+border: double 5px #4ec4d3;
+}
+.hd{
+color: #00FF80;
+}
+.ct{
+text-align:center;
+}
+.main{
+color: #000000;
+background: #00FF80;
+border-radius: 10px;
+}
+.tab{
+padding: 5px 0px;
+text-align:center;
+color: #000000;
+background: #0080FF;
+border-radius: 10px;
+}
+img.tab_button{
+	vertical-align: middle;
+	width:209px;
+	height:149px;
+}
+button.tab_button{
+	vertical-align: middle;
+	width:200px;
+	height:100px;
+}
+.text_frame{
+    background: #B0FFD0;
+    border-left: double 10px #30C080;
+	width: fit-content;
+	padding: 0em 1em;
+	margin-top: 50px;
+}
