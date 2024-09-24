@@ -234,7 +234,11 @@ function Pitch(name)
             }
         }
     }
-    p = (is_move) ? (p + conf_tones[(p - sf * 7 + 60) % 12]) : (p + conf_tones[(p + 60) % 12]);
+    if(is_move) {
+        p = israndom[(p - sf * 7 + 60) % 12] ? p + Math.floor(Math.random() * 13 - 6) : p + conf_tones[(p - sf * 7 + 60) % 12];
+    }else{
+        p = israndom[(p + 60) % 12] ? p + Math.floor(Math.random() * 13 - 6) : p + conf_tones[(p + 60) % 12];
+    }
     if (is_bn)
     {
         let nn = p % 12;

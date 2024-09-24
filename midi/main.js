@@ -11,6 +11,12 @@ function Mexport(){
 	all_tone = Number(document.getElementById("ins").value) + 1;
 	all_tone = (all_tone == 0) ? -1 : all_tone;
 	sp = Number(document.getElementById("speed").value);
+	if(sel == scale.length - 1){
+		for(let i = 0;i < 12;i++){
+			israndom[i] = document.getElementById("mo" + i).checked ? true : false;
+			scale[sel][i] = Number(document.getElementById("num" + i).value);
+		}
+	}
 	Read();
 	if(acv.length == 0){
 		acv = null;
@@ -52,13 +58,8 @@ var scale = [
 	[ 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0 ],
 	[ 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, -1 ],
 	[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-	[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-	[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-	[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-	[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-	[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-	[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
 ];
+var israndom = [false,false,false,false,false,false,false,false,false,false,false,false];
 function change_s(i){
 	sel = i;
 	conf_tones = scale[i];
