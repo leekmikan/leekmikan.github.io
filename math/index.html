@@ -2,9 +2,9 @@
 <html lang="ja">
 	<head>
 	<meta charset="uft-8">
-	<title>数学の問題集(有名問題の応用か、自作問題など)</title>
+	<title>数学の問題集(有名問題の応用か、自作問題など　数学以外もある)</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
-	<meta name="description" content="数学の問題集(有名問題の応用か、自作問題など)">
+	<meta name="description" content="数学の問題集(有名問題の応用か、自作問題など　数学以外もある)">
 	<link rel="stylesheet" href="des.css">
 	<link rel="icon" type="image/jpg" href="../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
@@ -206,6 +206,82 @@
 			<p>ヒント1(方針)：<span class="hd">\(a=(7n+6)　mod　12,　　b=(-7n+6)　mod　12のときのa+bを考える\)</span></p>
 			<p>ヒント2(方針)：<span class="hd">場合分けあり</span></p>
 			<p>答え：<span class="hd">\(n=6k　(kは整数)のとき,  f(-n)=f(n)　それ以外のとき,  f(-n)=-f(n)\)</span></p>
+		</div>
+		<div class="text_frame">
+			<h1>Q16(数Ⅲ　プログラミング)</h1>
+		</div>
+		<div class="main">
+			<h2>C++のコード</h2>
+			<pre><code>
+#include <iostream>
+#include <math.h>
+double f(double x) {
+	return x * std::sqrt(x);
+}
+int main(void) {
+	const int N = 10;
+	const double x_range[] = { 0,4 };
+	double s = 0;
+	for (int i = (int)(N * x_range[0]); i < (int)(N * x_range[1]); i++) {
+		double x = 1.0 * i / N;
+		s += f(x) / N;
+	}
+	std::cout << s << std::endl;
+	return 0;
+}				
+			</code></pre>
+			<h2>において、定数Nの値を大きくしていくと出力される数値はある値に近づく。その値を求めよ</h2>
+			<p>ヒント1(単元)：<span class="hd">積分+極限</span></p>
+			<p>答え：<span class="hd">\(\frac{64}{5}(12.8)　　(区分求積法より\displaystyle\int_{0}^{4}x\sqrt{x}dx)\)</span></p>
+		</div>
+		<br><br><p>おまけ</p><p>以下数学(計算)以外</p>
+		<div class="text_frame">
+			<h1>Q1(国語)</h1>
+		</div>
+		<div class="main">
+			<h2>次のABCに入る漢字をそれぞれ答えよ</h2>
+			<h2>・一般的なパーティー系のゲームでは、(　AB　)用のミニゲームが中心に収録されている</h2>
+			<h2>・(　BC　)芝の校庭で遊ぶ</h2>
+			<h2>・演奏練習のため、練習曲の(　CCA　)を購入する</h2>
+			<p>ヒント1(各難易度)：<span class="hd">上から　普通　簡単　激ムズ</span></p>
+			<p>ヒント2(3つ目の括弧内の意味)：<span class="hd">沖縄の三線用の楽譜</span></p>
+			<p>答え：<span class="hd">ABC=四人工</span></p>
+		</div>
+		<div class="text_frame">
+			<h1>Q2(英語)</h1>
+		</div>
+		<div class="main">
+			<h2>次の下手な絵(画伯の絵)にあうように、括弧に同じ単語をうめよ。ただし、I以外はすべて小文字にしてある</h2>
+			<div class="ct"><img src="q2.jpg"></div>
+			<div class="ct"><h2>I (    ) secondhand (    ) on the (    )-off online store.</h2></div>
+			<p>ヒント1(注目するもの)：<span class="hd">青と黄色の物体は非常に重要</span></p>
+			<p>ヒント2(意味)：<span class="hd">括弧の内1つは「予約」という意味になる</span></p>
+			<p>答え：<span class="hd">book</span></p>
+		</div>
+		<div class="text_frame">
+			<h1>Q3(解析)</h1>
+		</div>
+		<div class="main">
+			<h2>次の画像内に隠れている文字列(7文字)を答えよ</h2>
+			<div class="ct"><img src="q3.jpg"></div>
+			<p>ヒント1(画像の特徴)：<span class="hd">よく見ると右下がおかしい</span></p>
+			<p>ヒント2(方針)：<span class="hd">多分ダウンロード必須</span></p>
+			<p>答え：<span class="hd">SHIFT-JIS　(バイナリエディタでキャラクターセットをSHIFT-JISにし、最後の方を見ると...)</span></p>
+		</div>
+		<div class="text_frame">
+			<h1>Q4(ひらめき問題+英語)</h1>
+		</div>
+		<div class="main">
+			<h2>次の文章の返答として、適切なものを選べ。</h2>
+			<div class="ct"><h2>Cooper oil wall ten shake?</h2></div>
+			<h2>A.	Love none tire cooper.<br>
+				B.	Fire stomach figure ten none.<br>
+				C.	Area seven seven.<br>
+				D.	House vinegar, love copper.<br>
+				</h2>
+			<p>ヒント1(方針)：<span class="hd">日本語訳してみる</span></p>
+			<p>ヒント2(分析)：<span class="hd">Love　Copperが頻出</span></p>
+			<p>答え：<span class="hd">D　(Do you hate ful.→Yes, I do.)</span></p>
 		</div>
 		</body>
 		<script type="text/javascript"src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
