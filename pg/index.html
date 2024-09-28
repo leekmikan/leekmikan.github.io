@@ -27,11 +27,10 @@
 				<h1>エフェクター(C++)</h1>
 			</div>
 		<div class="main">
-		<p>(2024/6/27,7/3)Music.hのみアップデートしました。　(再生速度変更時の波形補間で、最小二乗法を使用。畳み込みの式の見直し)</p>
-		<p>(8/8)追加でアップデート　(ファイル名にstd::stringだけでなく、std::wstringで指定できるように。　環境依存文字があるなどで文字化けする場合に使用)</p>
-		<p>+拍子入れ替え(Swap関数)追加</p>
+		<p>(2024/9/28)BPM,調の測定を追加(BPM()　Scale(int))</p>
+		<p>情報があまりなかった(関数の定義など)ので独自アルゴリズムで作成。精度不明</p>
+		<p>BPMは整数倍または1/整数倍で出力される場合がある　(80が160と出たり、200が100と出たりする)</p>
 			<a href="Music.h" download="Music.h">Music.h</a><br><br><br>
-			<a href="Music2.h" download="Music2.h">Music2.h (std省略ver　　2を消してから使ってね)</a><br><br><br>
 			<p>使用例１</p>
 			<pre><code>
 WaveData wd = WaveData("16bit2chのwavファイル");
@@ -57,6 +56,17 @@ wd.Export(2); //チャンネル数
 wd.Dispose();
 			</code></pre>
 			<p>>>再生速度1.7倍、ピッチを半音4つ上げたwavファイルを出力</p>
+			<p>畳み込み(IRファイルが必要)/フランジャー/イコライザー/コンプレッサー</p>
+			<p>エコー/再生速度変更/ピッチ変更/多重/サンプリング周波数変更など約25種類</p>
+			<p>使用例４</p>
+			<pre><code>
+WaveData wd = WaveData("16bit2chのwavファイル");
+int bpm = wd.BPM(); //BPMを測定
+std::string scale = wd.Scale(10000); //10秒飛ばした地点から調を測定する 
+//bpm　と　scaleの出力は省略
+wd.Dispose();
+			</code></pre>
+			<p>>>BPMと調(英語表記)で出力</p>
 			<p>畳み込み(IRファイルが必要)/フランジャー/イコライザー/コンプレッサー</p>
 			<p>エコー/再生速度変更/ピッチ変更/多重/サンプリング周波数変更など約25種類</p>
 			<p><a href="../effector/index.html">Web版(コンソール画面が開けるPC推奨　JavaScriptなので一部処理が非常に重い)</a></p>
