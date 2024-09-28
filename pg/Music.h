@@ -1422,11 +1422,11 @@ void ConvolutionReverb(std::string rname, double mix, int disable)
             return rt;
         }
         /// <summary>
-        /// BPMを調べる(独自アルゴリズムなので精度不明)
-        /// 本来のBPMの整数倍または1/整数倍になることがある
+        /// BPMを調べる(独自アルゴリズム　精度不明)
+        /// 本来のBPMの2^整数倍になることがある
         /// </summary>
         /// <param name="t">測定開始地点[ms]</param>
-        int BPM() {
+        double BPM() {
             int rs = 200;
             int len = 1024;
             int ovr = 1;
@@ -1444,14 +1444,14 @@ void ConvolutionReverb(std::string rname, double mix, int disable)
             db = ft.FFT(db, db_l);
             double max_v = 0;
             int max_i = 0;
-            for (int i = 100; i < 4000; i++) {
+            for (int i = 250; i < 4000; i++) {
                 double tmp_v = db[i].ComplexAbs();
                 if (tmp_v > max_v) {
                     max_v = tmp_v;
                     max_i = i;
                 }
             }
-            return (int)(max_i / 6.337);
+            return max_i * 145.0 / 919;
         }
         /// <summary>
         /// <para>コンプレッサー</para>
