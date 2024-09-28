@@ -1451,7 +1451,7 @@ void ConvolutionReverb(std::string rname, double mix, int disable)
                     max_i = i;
                 }
             }
-            return (int)(max_i / 6.32);
+            return (int)(max_i / 6.337);
         }
         /// <summary>
         /// <para>コンプレッサー</para>
