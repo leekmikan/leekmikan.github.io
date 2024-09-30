@@ -489,7 +489,7 @@ class WaveData{
             butterflyDistance = 1 << stage;
             numType = butterflyDistance >> 1;
             butterflySize = butterflyDistance >> 1;
-            w = new Complex(1);
+            w = new Complex(1,0);
             u = new Complex(Math.cos(Math.PI / butterflySize),Math.sin(Math.PI / butterflySize))
             for (let type = 0; type < numType; ++type)
             {
@@ -519,5 +519,107 @@ class WaveData{
             ip[i].Im /= -len;
         }
         return ip;
+    }
+    BPM(){
+        let len = 1024;
+        let db_l = 1 << Math.log2(1.0 * this.wave.length / len);
+        let db = new Array(db_l);
+        for (let i = 0; i < db_l; i++) {
+            db[i] = new Complex(0,0);
+        }
+        for (let i = 0; i < db_l; i++) {
+            for (let j = 0; j < len; j += 2) {
+                if(i * len + j < this.wave.length) db[i].Re += Math.abs(this.wave[i * len + j] / 32768.0);
+            }
+        }
+        db = this.FFT(db);
+        let max_v = 0;
+        let max_i = 0;
+        for (let i = 250; i < 4000; i++) {
+            let tmp_v = db[i].ComplexAbs();
+            if (tmp_v > max_v) {
+                max_v = tmp_v;
+                max_i = i;
+            }
+        }
+        return max_i * 145.0 / 919;
+    }
+    Scale(t) {
+        //公開用
+        const err = 5;
+        const N = 4; //n-1オクターブまでの周波数の振幅の相乗平均.
+        let note_n = ["A", "A#", "B" , "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#" ];
+        let note_nm = [ "A", "B♭", "B" , "C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭" ];
+        let res = [ 0,0,0,0,0,0,0,0,0,0,0,0 ];
+        let len = 16384;
+        let adj = [ 8, 3, 10, 5, 0, 7, 2 ];
+        let cmp = new Array(len);
+        for(let i = 0;i < len;i++){
+            cmp[i] = new Complex(0,0);
+        }
+        for (let i = this.TtoB(t); i < this.wave.length; i += len * 2)
+        {
+            for (let j = 0; j < len * 2; j += 2)
+            {
+                if (i + j + 1 < this.wave.length)
+                {
+                    cmp[j / 2] = new Complex(this.wave[i + j] + this.wave[i + j + 1], 0);
+                }
+                else {
+                    cmp[j / 2] = new Complex(0, 0);
+                }
+            }
+            cmp = this.FFT(cmp);
+            let max_v = [ 1,1 ];
+            let max_i = [ -1, -1 ];
+            for (let m = 0; m < 12; m++) {
+                let tmp_v = 1;
+                for (let k = 0; k < N; k++) {
+                    let j = Math.floor(220 * Math.pow(2, k + (m / 12.0)) * len / this.sample / 2);
+                    let avr_v = 0;
+                    for (let l = -err; l < err + 1; l++) {
+                        avr_v += cmp[j + l].ComplexAbs();
+                    }
+                    tmp_v *= Math.pow(avr_v / (2.0 * err + 1), 1.0 / N);
+                }
+                tmp_v = Math.log10(tmp_v);
+                if (tmp_v > max_v[0]) {
+                    max_v[1] = max_v[0];
+                    max_i[1] = max_i[0];
+                    max_v[0] = tmp_v;
+                    max_i[0] = m;
+                }
+                else if (tmp_v > max_v[1]) {
+                    max_v[1] = tmp_v;
+                    max_i[1] = m;
+                }
+            }
+            if (max_i[0] != -1) {
+                res[max_i[0]] += 2;
+                res[max_i[1]] += 1;
+            }
+        }
+        let pn = [ 0,0 ];
+        let r_max = [ 0,0 ];
+        for (let m = 0; m < 7; m++) {
+            r_max[0] += 1.0 * res[(adj[m] + 1) % 12] / (res[adj[m]] + 1);
+            if (res[(adj[m] + 1) % 12] < res[adj[m]]) break;
+            pn[0]++;
+        }
+        for (let m = 0; m < 7; m++) {
+            r_max[1] += 1.0 * res[(adj[6 - m] + 11) % 12] / (res[adj[6 - m]] + 1);
+            if (res[(adj[6 - m] + 11) % 12] < res[adj[6 - m]]) break;
+            pn[1]++;
+        }
+        r_max[0] /= (pn[0] + 1);
+        r_max[1] /= (pn[1] + 1);
+        let res_sf = (r_max[0] > r_max[1]) ? pn[0] : -pn[1];
+        let major = (res[(7 * res_sf + 120) % 12] >= res[(7 * res_sf + 123) % 12]) ? 0 : 3;
+        let rt = (res_sf < 0) ? note_nm[((7 * res_sf + 120 + major) % 12)] : note_n[((7 * res_sf + 120 + major) % 12)];
+        if (major == 0) rt += 'm';
+        return rt + "　(" + ((res_sf >= 0) ? "♯" : "♭") + "×" +  Math.abs(res_sf) + ")";
+    }
+    TtoB(ms){
+        return Math.floor(ms / 1000.0 * this.sample * this.ch);
     }
 }

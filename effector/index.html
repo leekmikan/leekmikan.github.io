@@ -3,7 +3,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
-	<meta name="description" content="Wavファイルにエフェクトを付けられるよ。現在C++から移植中...">
+	<meta name="description" content="WavファイルのBPM/スケール測定(テスト中)＋エフェクトを付けられるよ。現在C++から移植中...">
 	<title>エフェクター</title>
 	<link rel="stylesheet" href="des.css">
 	<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
@@ -26,8 +26,11 @@
 				<audio id="pre" controls src=""></audio>
 				<p><a id="dl" href="" download="null.wav">ダウンロードはここをクリック(X名前.wav)</a></p>
 			</div>
-			<p>※一応、一度に付けられるエフェクト(チェックボックスのチェック)は3つまでに制限</p>
-			<br><br><br><br><input id="e0" type="checkbox">再生速度<br>
+			参考BPM(不正確?):　<span id="bpm">???</span>　<button onclick="Mbpm()">測定</button>
+			<br>※数値補正:2^<input type="number" id="bpm_adj" min="-4" max="4" value="0" step="1" onchange="bpm_adj = Number(this.value); if(document.getElementById('bpm').innerText == '???') return; document.getElementById('bpm').innerText = Math.round(bpm * Math.pow(2,bpm_adj));">
+			<br><br>参考調(不正確?　時間かかる　PC+コンソール画面推奨):　<span id="scale">???</span>　<button onclick="Mscale()">測定</button><br>
+			<br><br><br><p>※一応、一度に付けられるエフェクト(チェックボックスのチェック)は3つまでに制限</p>
+			<br><input id="e0" type="checkbox">再生速度<br>
 			速度：　<input type="range" id="speed" min="0.5" max="4" value="1.0" step="0.01" onchange="document.getElementById('speed_v').innerHTML = this.value"><span id="speed_v">1.00</span>倍速<br>
 			ピッチ：<input type="range" id="pitch" min="-12" max="24" value="0.0" step="0.1" onchange="document.getElementById('pitch_v').innerHTML = this.value"><span id="pitch_v">0.00</span><br>
 			<button onclick="var x = 12 * Math.log2(Number(document.getElementById('speed').value));document.getElementById('pitch').value = x; document.getElementById('pitch_v').innerText = '' + x;">速度に合わせる</button>

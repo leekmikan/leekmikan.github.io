@@ -17,6 +17,8 @@ fileReader.onload = () =>{
     wd = new WaveData(fileReader);
     if(wd.sample !== undefined){
         read_f = true;
+        document.getElementById("bpm").innerText = "???";
+        document.getElementById("scale").innerText = "???";
     }
 }
 fileInput2.onchange = () => {
@@ -117,4 +119,17 @@ function Wexport(){
 }
 function Rg(mn,x,mx){
     return (isNaN(x)) ? mn : ((mn <= x) ? ((x <= mx) ? x : mx) : mn);
+}
+let bpm = 0;
+let bpm_adj = 0;
+function Mbpm(){
+    if(document.getElementById("bpm").innerText == "???" && read_f){
+        bpm = wd.BPM();
+        document.getElementById("bpm").innerText = Math.round(bpm * Math.pow(2,bpm_adj));
+    }
+}
+function Mscale(){
+    if(document.getElementById("scale").innerText == "???" && read_f){
+        document.getElementById("scale").innerText = wd.Scale(0);
+    }
 }
