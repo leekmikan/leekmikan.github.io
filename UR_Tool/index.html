@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>譜面製作説明</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="譜面製作方法、命令を紹介">
+	<link rel="stylesheet" href="des.css">
+	<script src="main.js"></script>
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+</script>
+	</head>
+		<body>
+			<div class="title">
+				<h1>譜面製作説明</h1>
+				<p>「(作成中)」の譜面製作方法、製作時に使用する命令を紹介</p>
+				<p>・形式は太鼓さん次郎に近い形になっています。</p>
+			<p style="text-align:center;">※このサイトのメインのページは以下の4つです。(下手絵を中心に宣伝)</p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/gahaku/Game.html">画伯の展開会(下手な絵を当てるクイズ)<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/picture">下手な絵集<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi/Game.html">歌詞クイズ<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi easy/Game.html">歌詞クイズ(簡単ver)<a></p>
+			</div>
+			<div class="text_frame">
+				<h1>必要なもの</h1>
+			</div>
+			<div class="main">
+			<p>以下のファイルが必要です。ファイル名はすべて任意の名前にしてください。</p>
+			<ul>
+				<li>楽曲ファイル(.wav)</li>
+				<li>ジャケット画像(.jpg)</li>
+				<li>譜面データ(.txt)</li>
+			</ul><br>
+			<p>以下のファイルは、ない場合自動生成されます。</p>
+			<ul>
+				<li>成績データ(.dat)</li>
+			</ul><br>
+			<p>これらを任意の名前のフォルダに入れた後、game_data/music内にそのフォルダを丸ごと入れてください。</p>
+			</div><br>
+			<div class="text_frame">
+				<h1>テンプレ</h1>
+			</div>
+			<div class="main">
+			<p>譜面データに以下のテンプレートをコピペしてください。</p>
+			<pre><code>
+#NAME 曲名
+#EXP 作曲者など
+#BPM 100
+#OFFSET 0
+#DEMO 0
+#LYRICS
+,
+#LYRICSEND
+
+#HARD 1
+00,
+#END
+
+#NORMAL 1
+00,
+#END
+
+#EASY 1
+00,
+#END
+			</code></pre>
+			</div><br>
+			<div class="text_frame">
+				<h1>(必須)命令一覧</h1>
+			</div>
+			<div class="main">
+			<h2>#NAME</h2>
+			<p>曲名として表示されるテキストを設定します</p><br>
+			<h2>#EXP</h2>
+			<p>曲の詳細として表示されるテキストを設定します</p><br>
+			<h2>#HARD x　/　#NORMAL x　/　#EASY x</h2>
+			<p>各難易度の譜面データの開始地点+難易度をxと表示します。</p><br>
+			<h2>#END</h2>
+			<p>各難易度の譜面データの終了地点を示します。</p><br>
+			</div><br>
+			<div class="text_frame">
+				<h1>(任意)命令一覧</h1>
+			</div>
+			<div class="main">
+			<h2>#OFFSET x</h2>
+			<p>曲が開始するまでの時間をx[秒]と設定します</p><br>
+			<h2>#BPM x</h2>
+			<p>曲のBPMを設定します。</p><br>
+			<h2>#LYRICS</h2>
+			<p>歌詞データの開始地点を示します。#LYRICSENDとセットになります</p><br>
+			<h2>#LYRICSEND</h2>
+			<p>歌詞データの終了地点を示します。</p><br>
+			<h2>#SCROLL x</h2>
+			<p>譜面のスクロール速度をx倍にします</p><br>
+			<h2>#DELAY x</h2>
+			<p>これ以降の譜面をx秒遅らせます</p><br>
+			<h2>#LONG x</h2>
+			<p>長押しノーツ内の小さいノーツの間隔を指定します(x分音符)　0にすると出現しなくなります</p><br>
+			<h2>'任意のテキスト</h2>
+			<p>「'」以降のテキストはコメントアウト(何かメモする場所)になります。　小節番号を定期的に入れる(5ごと/10ごと)に入れるのが一般的?</p><br>
+			</div><br>
+			<div class="text_frame">
+				<h1>譜面作成</h1>
+			</div>
+			<div class="main">
+			<p>譜面は16進数大文字2桁で入力します</p>
+			<p>各数値は半角スペースであけ、各小節の最後にカンマ「,」を付けます</p>
+			<p>例：<br>00 10 40 AA AA 00 00 00,</p>
+			<p>各小節に必要な数字の数は、その小節に出てくる音符の長さの最小公倍数です。</p>
+			<p>例：<br>4分音符と8分音符が出てくる→8個必要<br>3分音符と4分音符が出てくる→12個必要<br>4分音符と16分音符と24分音符が出てくる→48個必要</p>
+			<p>(この項目の最初の例では1,2,4,8分音符を表せる)</p>
+			<p>譜面は左から以下の構造になっています</p>
+			<table border="1" style="margin:auto">
+				<tr>
+					<td>　　　 1の位　　　 </td>
+					<td>　　　 4の位　　　 </td>
+					<td>16(16進数で10)の位</td>
+					<td>64(16進数で40)の位</td>
+				</tr>
+			</table>
+			<p>各位が<br>0...ノーツなし<br>1...通常ノーツ<br>2...長押しノーツ(2つで1セット)<br>3...(未定義)</p>
+			<p>各位に0~3を入れたものを16進数に直して入力します</p>
+			<p>例：<br>32 10(4) = E4(16)　つまり、E4を記入</p>
+			<p>計算がめんどくさい場合は、下のボタンから記入すべき16進数を出力できます</p>
+			<br><br>
+			<div class="ct">
+			<button class="df" onclick="Cg(0)">1</button><button class="df" onclick="Cg(1)">2</button><button class="df" onclick="Cg(2)">3</button><button class="df" onclick="Cg(3)">4</button>
+			<br><br>
+			<h1 id="answer">0</h1>
+			<br>
+			<button class="nm" onclick="Reset()">RESET</button>
+			</div>
+			<p>黒...なし<br>青...通常ノーツ<br>緑...長押しノーツ<br>黄色...(未定義)</p>
+			</div><br>
+			<div class="text_frame">
+				<h1>歌詞作成(任意)</h1>
+			</div>
+			<div class="main">
+			<p>1小節ごとの入力になります。</p>
+			<p>譜面と同様に、カンマ区切りで1小節になります。</p>
+			<p>2小節以上で同じ内容を表示する場合、それぞれの小節に同じ歌詞を入力してください。</p>
+			<p>例：<br>#LYRICS<br>かえるのうたが,<br>かえるのうたが,<br>聞こえてくるよ,<br>聞こえてくるよ,<br>#LYRICSEND</p>
+			</div><br>
+			<div class="text_frame">
+				<h1>完成例</h1>
+			</div>
+			<div class="main">
+			<p>最初から入っている「蛍の光」は、以下のような譜面データになっています。</p>
+			<pre><code>
+#NAME 蛍の光 
+#EXP 訳詞：稲垣千頴
+#BPM 92
+#OFFSET 4.5
+#DEMO 0
+#LYRICS
+蛍の光 窓の雪,
+蛍の光 窓の雪,
+蛍の光 窓の雪,
+書よむ月日 重ねつつ,
+書よむ月日 重ねつつ, '5
+書よむ月日 重ねつつ,
+書よむ月日 重ねつつ,
+いつしか年も すぎの戸を,
+いつしか年も すぎの戸を,
+いつしか年も すぎの戸を, '10
+いつしか年も すぎの戸を,
+明けてぞ けさは 別れゆく,
+明けてぞ けさは 別れゆく,
+明けてぞ けさは 別れゆく,
+明けてぞ けさは 別れゆく, '15
+#LYRICSEND
+
+#HARD 2
+#LONG 0
+#DELAY 0.62
+01 00 00 04 04 00 10 00,
+40 00 00 10 10 00 04 00,
+01 04 10 40,
+02 04 10 42,
+40 00 00 10 10 00 04 00, '5
+01 00 00 04 04 00 10 00,
+40 10 04 01,
+80 10 04 81,
+01 00 00 04 04 00 10 00,
+01 00 00 04 04 00 10 00, '10
+40 00 00 10 10 00 04 00,
+02 04 10 42,
+01 00 00 04 04 00 10 00,
+01 00 00 04 04 00 10 00,
+40 40 10 04, '15
+AA AA,
+#END
+
+#NORMAL 1
+#LONG 0
+#DELAY 0.62
+01 04,
+10 40,
+10 40,
+02 04 10 42,
+10 40, '5
+01 04,
+01 04,
+80 10 04 81,
+01 04,
+01 04, '10
+10 40,
+02 04 10 42,
+01 04,
+01 04,
+01 01, '15
+28 28,
+#END
+
+#EASY 1
+#LONG 0
+#DELAY 0.62
+01 04,
+10 40,
+10 40,
+20 20,
+10 40, '5
+01 04,
+01 04,
+02 02,
+01 04,
+01 04, '10
+10 40,
+20 20,
+01 04,
+01 04,
+01 01, '15
+28 28,
+#END
+			</code></pre>
+			</div><br>
+			<div class="text_frame">
+				<h1>(おまけ)成績データの構造</h1>
+			</div>
+			<div class="main">
+			<p>成績データの構造は以下の通りになっています。(バイナリエディタで開くと見れる)</p>
+			<div class="ct"><p>[かんたんの得点] [ふつうの得点] [むずかしいの得点] XXAABBCC</p></div>
+			<p>※[]内は16進数、リトルエンディアン、midiファイルのデルタタイムと同じ可変長数値表現</p>
+			<p>※X,A,Bはそれぞれ2進数(1bit×2=2bit)</p>
+			<p>X...未使用<br>A...むずかしいのクリア状況<br>B...ふつうのクリア状況<br>C...かんたんのクリア状況</p>
+			<p>ABCの各2bitが...</p>
+			<p>3(11)...パーフェクト<br>2(10)...フルコンボ<br>1(01)...ノルマクリア<br>0(00)...未クリア</p>
+			</div>
+		</body>
+	</head>
+</html>
