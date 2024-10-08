@@ -7,9 +7,6 @@
        <loc>https://leekmikan.github.io/math/index.html</loc>
    </url>
    <url>
-       <loc>https://leekmikan.github.io/pic_hr/index.html</loc>
-   </url>
-   <url>
        <loc>https://leekmikan.github.io/CD/index.html</loc>
    </url>
    <url>
@@ -65,6 +62,69 @@
    </url>
    <url>
        <loc>https://leekmikan.github.io/processing/index.html</loc>
+   </url>
+    <url>
+       <loc>https://leekmikan.github.io/pic_hr/index.html</loc>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/pic_hr/img/rokuro.jpg</image:loc>
+           <image:title>下手な絵(画伯)のイラスト　妖怪編　「ろくろ首」</image:title>
+           <image:caption>下手な絵(画伯)のイラスト　妖怪編　「ろくろ首」</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/pic_hr/img/kasa.jpg</image:loc>
+           <image:title>下手な絵(画伯)のイラスト　妖怪編　「からかさ小僧」</image:title>
+           <image:caption>下手な絵(画伯)のイラスト　妖怪編　「からかさ小僧」</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/pic_hr/img/ushi.jpg</image:loc>
+           <image:title>下手な絵(画伯)のイラスト　妖怪編　「牛鬼」</image:title>
+           <image:caption>下手な絵(画伯)のイラスト　妖怪編　「牛鬼」</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/pic_hr/img/ten.jpg</image:loc>
+           <image:title>下手な絵(画伯)のイラスト　妖怪編　「天狗」</image:title>
+           <image:caption>下手な絵(画伯)のイラスト　妖怪編　「天狗」</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/pic_hr/img/ittan.jpg</image:loc>
+           <image:title>下手な絵(画伯)のイラスト　妖怪編　「一反木綿」</image:title>
+           <image:caption>下手な絵(画伯)のイラスト　妖怪編　「一反木綿」</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/pic_hr/img/daidara.jpg</image:loc>
+           <image:title>下手な絵(画伯)のイラスト　妖怪編　「ダイダラボッチ」</image:title>
+           <image:caption>下手な絵(画伯)のイラスト　妖怪編　「ダイダラボッチ」</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/pic_hr/img/nura.jpg</image:loc>
+           <image:title>下手な絵(画伯)のイラスト　妖怪編　「ぬらりひょん」</image:title>
+           <image:caption>下手な絵(画伯)のイラスト　妖怪編　「ぬらりひょん」</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/pic_hr/img/forget0.jpg</image:loc>
+           <image:title>下手な絵(画伯)のイラスト　妖怪編　「不明0」</image:title>
+           <image:caption>下手な絵(画伯)のイラスト　妖怪編　「不明0」</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/pic_hr/img/otimusya.jpg</image:loc>
+           <image:title>下手な絵(画伯)のイラスト　妖怪編　「落武者」</image:title>
+           <image:caption>下手な絵(画伯)のイラスト　妖怪編　「落武者」</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/pic_hr/img/yamata.jpg</image:loc>
+           <image:title>下手な絵(画伯)のイラスト　妖怪編　「ヤマタノオロチ」</image:title>
+           <image:caption>下手な絵(画伯)のイラスト　妖怪編　「ヤマタノオロチ」</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/pic_hr/img/zindog.jpg</image:loc>
+           <image:title>下手な絵(画伯)のイラスト　妖怪編　「人面犬」</image:title>
+           <image:caption>下手な絵(画伯)のイラスト　妖怪編　「人面犬」</image:caption>
+       </image:image>
+       <image:image>
+           <image:loc>https://leekmikan.github.io/pic_hr/img/cho.jpg</image:loc>
+           <image:title>下手な絵(画伯)のイラスト　妖怪編　「ちょうちんおばけ」</image:title>
+           <image:caption>下手な絵(画伯)のイラスト　妖怪編　「ちょうちんおばけ」</image:caption>
+       </image:image>
    </url>
    <url>
        <loc>https://leekmikan.github.io/picture/index.html</loc>
