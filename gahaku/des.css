@@ -40,14 +40,9 @@ width: 45vw;
 #pt{
 width: 30vw;
 }
-.abs{
-position: absolute; 
-top: 7vh;
-left: 44.5vw;
-}
 #ans{
-width: 300px;
-height: 50px; 
+width: 90%;
+height: 50%; 
 font-size:30px;
 }
 .ch{
@@ -57,4 +52,20 @@ height: 50px;
 #mb{
 width: 200px;
 height: 50px;
+}
+.ians{
+  position: absolute; 
+  text-align: center;
+  left: 37.5%;
+  top: 40%
+}
+@media only screen and (max-width: 979px) {
+  #ans{
+    width: 40%;
+    font-size:17px;
+    }
+    .ians{
+      left: 42.5%;
+      top: 30%;
+    }
 }
