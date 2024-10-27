@@ -411,7 +411,7 @@ function Read()
         }
         else if (str[i] == '-')
         {
-            notes.push(new Note((last_note + 1) % 127, ch, 0x00, NOTE_ON, bpm, hu / mult, measure[0] / measure[1]));
+            notes.push(new Note((last_note + 16) % 127, ch, 0x00, NOTE_ON, bpm, hu / mult, measure[0] / measure[1]));
             time += notes[notes.length - 1].delta;
             i++;
         }
