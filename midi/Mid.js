@@ -31,6 +31,7 @@ let is_bn = false;
 let sp = 1.0;
 let b_vol = 127;
 let decimal_adj = 0;
+let last_note = 0;
 conf_tones = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
 class Note{
     constructor(pitch, channel, power, name, bpm, hu, measure)
@@ -397,18 +398,20 @@ function Read()
             }
             if (str[i + j] == '|')
             {
-                notes.push(new Note(Pitch(tmp), ch, pw, NOTE_ON, bpm, 0, measure[0] / measure[1]));
+                last_note = Pitch(tmp);
+                notes.push(new Note(last_note, ch, pw, NOTE_ON, bpm, 0, measure[0] / measure[1]));
             }
             else
             {
-                notes.push(new Note(Pitch(tmp), ch, pw, NOTE_ON, bpm, hu / mult, measure[0] / measure[1]));
+                last_note = Pitch(tmp);
+                notes.push(new Note(last_note, ch, pw, NOTE_ON, bpm, hu / mult, measure[0] / measure[1]));
                 time += notes[notes.length - 1].delta;
             }
             i += j;
         }
         else if (str[i] == '-')
         {
-            notes.push(new Note(0x30, ch, 0x00, NOTE_ON, bpm, hu / mult, measure[0] / measure[1]));
+            notes.push(new Note((last_note + 1) % 127, ch, 0x00, NOTE_ON, bpm, hu / mult, measure[0] / measure[1]));
             time += notes[notes.length - 1].delta;
             i++;
         }
