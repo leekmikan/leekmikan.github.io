@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="utf-8">
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="昔作ったクソページ３　アップグレードを購入しつつ「2048」(?)を目指そう">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<title>2048?</title>
+	<link rel="stylesheet" href="des.css">
+	<link rel="stylesheet" href="Forms.css">
+	</head>
+		<body onload="init()"onmousedown="mousedown();" onmouseup="mouseup();">
+			<div id="output_screen">
+				<div id="main"></div>
+			</div>
+			<div style="text-align:center;">
+				<canvas id="canvas" width="400" height="400"></canvas><br>
+				<div id="sm">
+					<button onclick="tap_b(0)" class="bbase_mini b">↑</button>
+					<button onclick="tap_b(2)" class="bbase_mini b">↓</button>
+					<button onclick="tap_b(3)" class="bbase_mini b">→</button>
+					<button onclick="tap_b(1)" class="bbase_mini b">←</button>
+				</div>
+				<h1>アップグレード<h1>
+				<h2>SCORE: <span id="sc">0</span><h2>
+				<button class="bbase b" onclick="buy(0)">最大ブロック<br><span id="u0">1</span><br>価格:<span id="c0">10</span></button>
+				<button class="bbase b" onclick="buy(1)">結合倍率<br>×<span id="u1">2</span><br>価格:<span id="c1">2048</span></button>
+			</div>
+			<h3>昔作ったクソページ３</h3>
+			<p>ゲームシステムは、通常の「2048」とほぼ同じはず</p>
+			<p>SCOREを稼いで、アップグレードを購入しよう</p>
+			<p>左のアップグレードは、出現するブロックの最大値　右のアップグレードは、結合した時の倍率が増加します</p>
+			<p>ただし、ゲームオーバーになるごとに獲得したスコアが0.8倍になります。</p>
+			<p>このゲームのゴールは「2048」ではないですが、ゴールの値に「2048」が関係します</p>
+			<p>(右のアップグレードを購入すると...)</p>
+			<p>ゲームクリア後もひたすら数字を増やすことができます</p>
+		</body>
+		<script src="Forms.js"></script>
+		<script src="big.js"></script>
+		<script src="main.js"></script>
+	</head>
+</html>
