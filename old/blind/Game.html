@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="utf-8">
+	<title>盲目ダンジョン</title>
+	<link rel="stylesheet" href="des.css">
+	<script src="class.js"></script>
+	</head>
+		<body>
+		<div class="main">
+			<div id="select">
+			<button class="tab"onclick="Pc(0)">メイン</button>
+			<button class="tab"onclick="Pc(1)">ショップ</button>
+			<button class="tab"onclick="Pc(2)">設定</button>
+			<div id="p0">
+				<h2>階を選択</h2>
+				<table>
+					<tr>
+						<td><button class="flb" onclick="Fs(0)">B1</button></td>
+						<td><button class="flb" onclick="Fs(1)">B2</button></td>
+						<td><button class="flb" onclick="Fs(2)">B3</button></td>
+						<td><button class="flb" onclick="Fs(3)">B4</button></td>
+						<td><button class="flb" onclick="Fs(4)">B5</button></td>
+					</tr>
+					<tr>
+						<td><button class="flb" onclick="Fs(5)">B6</button></td>
+						<td><button class="flb" onclick="Fs(6)">B7</button></td>
+						<td><button class="flb" onclick="Fs(7)">B8</button></td>
+						<td><button class="flb" onclick="Fs(8)">B9</button></td>
+						<td><button class="flb" onclick="Fs(9)">B10</button></td>
+					</tr>
+					<tr>
+						<td><button class="flb" onclick="Fs(10);">B11</button></td>
+						<td><button class="flb" onclick="Fs(11)">B12</button></td>
+						<td><button class="flb" onclick="Fs(12)">B13</button></td>
+						<td><button class="flb" onclick="Fs(13)">B14</button></td>
+						<td><button class="flb" onclick="Fs(14)">B15</button></td>
+					</tr>
+					<tr>
+						<td><button class="flb" onclick="Fs(15)">B16</button></td>
+						<td><button class="flb" onclick="Fs(16)">B17</button></td>
+						<td><button class="flb" onclick="Fs(17)">B18</button></td>
+						<td><button class="flb" onclick="Fs(18)">B19</button></td>
+						<td><button class="flb" onclick="Fs(19)">B20</button></td>
+					</tr>
+				</table>
+			</div>
+			<div id="p1">
+			<h2>所持金: <span id="money2">0</span>円</h2>
+				<button class="shop" onclick="Buy(0)">回復薬<br>価格:100円</button>
+				<button class="shop" onclick="Buy(1)">最大HP+10<br>価格:1000円</button>
+			</div>
+			<div id="p2">
+				<h2>敵の行動速度</h2>
+				<input type="range" id="esp" min="4" max="10" value="7"></input><h2 id="espv">7</h2>
+				<h2>縛り</h2>
+				<button class="cont"onclick="Hande(0)">色盲<br><span style="color:#FFFFFF"id="hande0">OFF</span></button>
+				<button class="cont"onclick="Hande(1)">徘徊者大移動<br><span style="color:#FFFFFF"id="hande1">OFF</span></button>
+				<button class="cont"onclick="Hande(2)">鈍感<br><span style="color:#FFFFFF"id="hande2">OFF</span></button>
+				<button class="cont"onclick="Hande(3)">ビビり<br><span style="color:#FFFFFF"id="hande3">OFF</span></button>
+				<p>操作方法 WASD:移動 Space:サイコロを振る</p>
+				<p>ダンジョンの構造を暗記して、階段を目指そう</p>
+				<p>[音量注意]</p>
+			</div>
+			</div>
+			<div id="playing"  style="display:none">
+				<h2>HP: <span id="hp">100/100</span></h2>
+				<h2>所持金: <span id="money">0</span>円</h2>
+				<h2>鍵: <span id="key"></span></h2>
+				<h2>現在位置: <span id="point">?</span></h2>
+				<h2>階段位置: <span id="goal">?</span></h2>
+				<h2>最寄りの敵までの距離^2: <span id="dis">10</span></h2>
+				<h2>回復薬: <span id="med">0</span>個</h2>
+				<button class="tab"onclick="Use()">使う</button>
+				<h2>状況:</h2>
+				<h2 id="msg">どこにいこうかな...</h2>
+				<h2 id="dice"></h2>
+				<div id="smart" style="display: none">
+					<button class="cont"onclick="Sbutton(4)">サイコロを止める</button><br>
+					<button class="cont"onclick="Sbutton(0)">左</button>
+					<button class="cont"onclick="Sbutton(1)">上</button>
+					<button class="cont"onclick="Sbutton(2)">下</button>
+					<button class="cont"onclick="Sbutton(3)">右</button>
+				</div>
+			</div>
+			<div id="cont"  style="display:none">
+				<h2>ゲームオーバー</h2>
+				<button class="cont"onclick="Cont()">やり直す</button>
+			</div>
+			<br>
+			</div>
+			<div class="other">
+			<h2>昔作ったクソページ２</h2>
+			<p>テキスト情報だけでダンジョン構造を把握、暗記し、次の階への階段を目指そう</p>
+			<p>移動は、自分と敵が交互にサイコロを振って移動します(敵の移動は完全ランダム)</p>
+			<p>敵に遭遇すると、ジャンプスケアが発生します</p>
+			<p>敵の位置までの距離の２乗を参考に敵から逃げよう</p>
+			<p>コンパスを取ると、階段の座標、地図を取ると自分の座標が表示されます</p>
+			<p>ダメージを受けてHPが0になってもゲームオーバーです</p>
+			<p>「ショップ」などからHPを回復しよう</p>
+			<p>縛りは、取得した鍵の色がわからなくなる「色盲」、敵のサイコロの目が大きくなる「徘徊者大移動」、<br>壁の接触がわからなくなる「鈍感」、たまに移動しなくなる「ビビり」があります</p>
+			<p>縛りとゲーム進行速度(敵の行動速度)は「設定」から変更できます</p>
+			<p>※B10までしか作成していません</p>
+			<p></p>
+			</div>
+			<p></p>
+		</body>
+		<script src="main.js"></script>
+		<script src="other.js"></script>
+	</head>
+</html>

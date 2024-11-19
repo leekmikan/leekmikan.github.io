@@ -1,0 +1,59 @@
+*{
+	font-family: "HG行書体";
+	color: #FF0000;
+}
+.main{
+	text-align:center;
+}
+body{
+	color: #FFFFFF;
+	background: #000000;
+}
+button{
+	text-align:center;
+}
+.flb{
+	margin: 10px 10px;
+	font-size: 20px;
+	width: 200px;
+	height: 100px;
+	background: linear-gradient(to top left, #000000, #600000);
+}
+.flb:hover{
+	background: #FF0000;
+}
+.shop{
+	color: #000000;
+	margin: 10px 10px;
+	font-size: 20px;
+	width: 200px;
+	height: 100px;
+	background: linear-gradient(to top left, #00FF00, #FFFFFF);
+}
+.shop:hover{
+	background: #FFFFFF;
+}
+.tab{
+	color: #000000;
+	margin: 10px 10px;
+	font-size: 20px;
+	width: 200px;
+	height: 40px;
+	background: linear-gradient(to top left, #00FFFF, #FFFFFF);
+}
+.tab:hover{
+	background: #FFFFFF;
+}
+.cont{
+	margin: 10px 10px;
+	font-size: 20px;
+	width: 200px;
+	height: 100px;
+	background: linear-gradient(to top left, #000000, #600000);
+}
+.cont:hover{
+	background: #FF0000;
+}
+.other{
+text-align: auto;
+}
