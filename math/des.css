@@ -43,3 +43,8 @@ button.tab_button{
 	padding: 0em 1em;
 	margin-top: 50px;
 }
+@media only screen and (max-width: 979px) {
+	body{
+		width: 1500px;
+	}
+}
