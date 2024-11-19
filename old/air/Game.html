@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>大気ガチャ</title>
+	<link rel="stylesheet" href="des.css">
+	</head>
+		<body>
+			<div class="ct">
+			<h2 style="color: #FF0000;" id="sp">　</h2>
+			<div style="display: flex; justify-content: center;">
+				<h1 id="name">なにが出るかな？</h1><h1 style="display: inline-block;"><sub id="sub"></sub></h1>
+			</div>
+			<br>
+			<button class="b1"onclick="Open()">引く</button>
+			<h2>手に入れた物質(<span id="sum">0</span>)</h2>
+			<h2 id="cmp">[???][???][???][???][???][???][???][???]</h2>
+			<h2>報酬</h2>
+			<div style="display: inline-block;">
+			<table>
+				<tr>
+						<td>
+							<button id="rd1" class="rdd" onclick="Reward(1);">１</button>
+						</td>
+						<td>
+							<button id="rd2"class="rdd" onclick="Reward(2);">２</button>
+						</td>
+						<td>
+							<button id="rd3"class="rdd" onclick="Reward(3);">３</button>
+						</td>
+						<td>
+							<button id="rd4"class="rdd" onclick="Reward(4);">４</button>
+						</td>
+						<td>
+							<button id="rd10"class="rde" onclick="Reward(10);">Ｄ</button>
+						</td>
+				</tr>
+				<tr>
+						<td>
+							<button id="rd5"class="rdd" onclick="Reward(5);">５</button>
+						</td>
+						<td>
+							<button id="rd6"class="rdd" onclick="Reward(6);">６</button>
+						</td>
+						<td>
+							<button id="rd7"class="rdd" onclick="Reward(7);">７</button>
+						</td>
+						<td>
+							<button id="rd8"class="rdd" onclick="Reward(8);">８</button>
+						</td>
+						<td>
+							<button id="rd9"class="rde" onclick="Reward(9);">Ｂ</button>
+						</td>
+				</tr>
+			</table>
+			</div>
+			</div>
+			<h2>昔作ったクソページ１</h2>
+			<p>ガチャを引いていろいろな物質を集めよう</p>
+			<p>D...データリセット　　B...背景リセット</p>
+			<p>ガチャを引いてるとたまに確変が来ます<br>確変が来ると、出現元素の割合が重量割合から体積割合に変化し、珍しい元素が若干当たりやすくなります</p>
+			<p>攻略のコツは、Enterを長押しして放置することです</p>
+			<p>元素を集めるごとに報酬ボタンが押せるようになり、押すとクソみたいな報酬が手に入ります</p>
+			<p>目標: ５種類集める</p>
+			<p>予想プレイ時間: 目標まで...1時間　完全制覇まで...数日</p>
+			<br>
+			<h3>元素の出現%　(上から順　左から通常時　確変時)</h3>
+			<ul>
+				<li>75.01　　　78.10</li>
+				<li>23.01　　　20.93</li>
+				<li>1.29 　　　0.93</li>
+				<li>0.04 　　　0.03</li>
+				<li>0.0012　　0.0018</li>
+				<li>0.00007 　0.0005</li>
+				<li>0.0003　　0.0001</li>
+				<li>0.00004 　0.000009</li>
+			</ul>
+		</body>
+	<script src="main.js"></script>
+	</head>
+</html>
