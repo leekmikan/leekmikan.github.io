@@ -2,6 +2,15 @@ body{
 color: #000000;
 background: #A0FFFF;
 }
+@font-face {
+  font-family: 'heta'; /* フォント名 */
+  /* フォーマットごとにパスを指定 */
+  src: url('heta.ttf') format('truetype');
+}
+.heta{
+font-family: "heta";
+font-size: 32px;
+}
 .title{
 text-align:center;
 color: #000000;
