@@ -16,6 +16,10 @@ function Mexport(){
 			israndom[i] = document.getElementById("mo" + i).checked ? true : false;
 			scale[sel][i] = Number(document.getElementById("num" + i).value);
 		}
+	}else{
+		for(let i = 0;i < 12;i++){
+			israndom[i] = false;
+		}
 	}
 	Read();
 	if(acv.length == 0){
