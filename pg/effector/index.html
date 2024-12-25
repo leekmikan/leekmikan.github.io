@@ -1,1 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>C++用　簡易音楽エフェクター</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="C++用簡易音楽エフェクターのヘッダーファイルです。20種類位のエフェクターをかけることができます。">
+	<link rel="stylesheet" href="des.css">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	</head>
+		<body>
+			<div class="title">
+				<h1>C++用　簡易音楽エフェクター</h1>
+				<p>・標準ライブラリだけで作りました</p>
+				<p>・C++用簡易音楽エフェクターのヘッダーファイルです</p>
+				<p>・20種類位のエフェクターをかけることができます</p>
+				<p>・高校２年生の頃に作成し、定期的に拡張したものなのでメモリーの面などで効率が悪いかも</p>
+				<p>・説明のミスがあるかも</p>
+			</div>
+			<div class="text_frame">
+				<h1></h1>
+			</div>
+			<div class="main">
 
+			</div><br>
+			<div class="text_frame">
+				<h1>対応ファイル</h1>
+			</div>
+			<div class="main">
+				<p>16bit　2ch　のwavファイル</p>
+			</div><br>
+			<div class="text_frame">
+				<h1>ダウンロード</h1>
+			</div>
+			<div class="main">
+				<a href="Music.h" download="Music.h">Music.h</a><br><br><br>
+				<p>↓Webで実行版</p>
+				<p><a href="../../effector/index.html">Web版(コンソール画面が開けるPC推奨　JavaScriptなので一部処理が非常に重い)</a></p>
+			</div><br>
+			<div class="text_frame">
+				<h1>使用音源</h1>
+			</div>
+			<div class="main">
+				<p>北朝鮮の音楽は著作権が無効らしいので使用</p>
+				<p>２．切りとり　でフルの音源を切り取ってある</p>
+				<audio controls src="1.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>１．そのまま出力</h1>
+			</div>
+			<div class="main">
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.Export(2); //チャンネル数　1でモノラル
+//wd.Export(2,"Example2.wav"); //のように名前指定可
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="1.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>２．切りとり</h1>
+			</div>
+			<div class="main">
+				<p>※ここだけフル音源を使用</p>
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.Cut(40.7, 43.8); //始点と終点を秒数で指定
+wd.Export(2); //チャンネル数
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="1.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>３．再生速度変更</h1>
+			</div>
+			<div class="main">
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.Speed(1.5,-6); //再生速度(倍率)　ピッチを指定　再生速度をピッチに合わせる場合は、PITCH(ピッチ)のマクロを推奨　倍率にマイナスを付けると逆再生
+wd.Export(2); //チャンネル数
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="2.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>４．リバーブ(低負荷)</h1>
+			</div>
+			<div class="main">
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.AlgorithmicReverb(300, 0.6, 0.6); //遅延ミリ秒　倍率　原曲に混ぜる割合
+wd.Export(2); //チャンネル数
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="3.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>５．リバーブ(高負荷)</h1>
+			</div>
+			<div class="main">
+				<p>畳み込みリバーブ</p>
+				<p>※別途IRデータをネットから探してダウンロードしてください (ここではOpenAIRのものを使用)</p>
+				<p>4~5分の曲で20~30秒かかります</p>
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.LRdel(1000); //片側をすこし遅延　これを付けると音が広がったように感じる?
+wd.ConvolutionReverb("IR.wav", 0.4,150);//IRファイル(16bit 2ch wav)　原曲に混ぜる割合　x以下の周波数無効
+wd.Export(2); //チャンネル数
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="4.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>６．調変更</h1>
+			</div>
+			<div class="main">
+				<p>この曲は短調(ハ短調　#,♭ともに0個)なので、長調(ハ長調　#×3)に変更した例を載せる</p>
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.Custom_Scale(MAJOR_SCALE,0); //ピッチ変更用配列(int[12])　調号数(#×1　♭×-1)
+wd.Export(2); //チャンネル数
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="5.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>７．フランジャー</h1>
+			</div>
+			<div class="main">
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.Flanger(1,0.5);//スピード　原曲に混ぜる割合
+wd.Export(2); //チャンネル数
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="6.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>８．コンプレッサー</h1>
+			</div>
+			<div class="main">
+				<p>音割れ注意</p>
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.Compressor(0.25);//波形の振幅を何乗するか
+wd.Export(2); //チャンネル数
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="7.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>９．ボイスキャンセラー</h1>
+			</div>
+			<div class="main">
+				<p>中央にボーカルがいれば削除できる</p>
+				<p>モノラル音源になる</p>
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.Voicecanseller();
+wd.LRdel(1000); //モノラルさを軽減する場合はこれを後に入れる
+wd.Export(2); //チャンネル数
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="8.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>１０．声を抽出</h1>
+			</div>
+			<div class="main">
+				<p>中央がボーカルのみならうまくいく</p>
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.CenterMultiplier(5); //引数が大きいほど音が残りにくい　1~10位がいい?
+wd.Export(2); //チャンネル数
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="9.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>１１．サンプリング周波数変更　(ダウンサンプリング)</h1>
+			</div>
+			<div class="main">
+				<p>ダウンサンプリングでしか使わないかも</p>
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.Quality(8000); //サンプリング周波数を指定
+wd.Export(2); //チャンネル数
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="10.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>１２．エイリアン風</h1>
+			</div>
+			<div class="main">
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.Alien(1024, 0.1, 0.5, 1.5,1); //1フレームの長さ　フレーム間の増加速度　最小速度　最大速度　開始速度
+wd.Export(2); //チャンネル数
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="11.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>１３．多重加速</h1>
+			</div>
+			<div class="main">
+				<p>Youtubeによくある多重加速シリーズみたいな音</p>
+				<p>長めの音源の方が面白いと思う</p>
+				<pre><code>
+#include "Music.h"
+WaveData wd = WaveData("Example.wav");
+wd.Multiple(3, 10); //重なる場所(秒)　速度の差(%)
+wd.Export(2); //チャンネル数
+wd.Dispose(); //破棄
+				</code></pre>
+				<audio controls src="12.wav"></audio>
+			</div><br>
+			<div class="text_frame">
+				<h1>その他</h1>
+			</div>
+			<div class="main">
+				<p>似た機能の紹介は省略</p>
+				<p>抜けあるかも</p>
+				<p>引数はソースコードを参照してください</p>
+				<h2>１４．サンプリングレートだけ変更 Rate</h2>
+				<h2>１５．異なるピッチを重ねる Harmony</h2>
+				<h2>１６．オルゴール風 Orgel　　　※wd.Edit(Orgel, 24, wd.Getsample(),8192); //の形でつかう</h2>
+				<h2>１７．粗くする　Rough</h2>
+				<h2>１８．拍子入れ替え　Swap</h2>
+				<p>Youtubeにあったので作ってみた</p><br>
+				<p>以下解析用</p>
+				<h2>１９．サンプリングレート抽出 int Getsample</h2>
+				<h2>２０．BPM検出 double BPM</h2>
+				<p>2^k(k...自然数)倍ずれることがある</p><br>
+				<h2>２１．調検出 std::string Scale</h2>
+				<p>結構不正確</p>
+			</div><br>
+		</div>
+	</head>
+</html>
