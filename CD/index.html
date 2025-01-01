@@ -32,7 +32,7 @@
 			<li>mp3タグの文字コードが異なる場合がある(タグを解析するライブラリを使うと文字化けする)</li>
 			<li>アーティスト名に別名が存在する人が多い(例:ラマーズPとゴジマジP)</li>
 			<li>アーティスト名の表記形式は主に、○○ Feat.△△　(だいたいこれ)　○○ loves △△(デッドボールPのアルバム)　が存在</li>
-			<li>名前の区切りは、　X,Y(だいたいこれ)　X+Y(デッドボールPのアルバム)　X・Y(一部のアルバム)　X&Y(一部のアルバム)</li>
+			<li>名前の区切りは、　X,Y(だいたいこれ)　X+Y(デッドボールPのアルバム)　X・Y　X&Y　X、Y(一部のアルバム)</li>
 		</ul>
 		<div class="text_frame">
 			<h1>変数の準備など</h1>
@@ -82,26 +82,25 @@ def add_file(path):
 		<p>なので、自力でバイナリーデータから取得し、文字コードの変換をする。</p>
 		<p>検索用のtarget　("TPE1")は、UTF-8でエンコードしておけば何とかなる</p>
 		<p>今のところ、文字コードは　UTF-8,Shift-JIS,UTF-16のいずれかで対応できたので、try-exceptを使いしらみつぶしに変換する</p>
-		<p>これでもエラーが出る場合は、さらに文字コードによるデコード+try-exceptを#add decode()先に追加する</p>
+		<p>ヌル文字はここで削除する(utf-16を除く)</p>
 		<pre><code>
 def get_tpe1(path):
-	target = "TPE1".encode("utf-8")
-	with open(path,"br") as f:
-		data = f.read()
-		i = data.find(target) + 7
-		tmp = data[i + 4:i + 3 + data[i]]
-		rt = ""
-		if not i == -1:
+target = "TPE1".encode("utf-8")
+with open(path,"br") as f:
+	data = f.read()
+	i = data.find(target) + 7
+	tmp = data[i + 4:i + 3 + data[i]]
+	rt = ""
+	if not i == -1:
+		try:
+			return tmp.replace(b"\x00",b"").decode("utf-8")
+		except Exception:
 			try:
-				return tmp.decode("utf-8")
+				return tmp.replace(b"\x00",b"").decode("shift-jis")
 			except Exception:
-				try:
-					return tmp.decode("shift-jis")
-				except Exception:
-					return tmp.decode("utf-16")
-					#add decode()
-		else:
-			return ""
+				return tmp.decode("utf-16")
+	else:
+		return ""
 		</code></pre>
 		<div class="text_frame">
 			<h1>最終仕上げ</h1>
@@ -125,12 +124,15 @@ for path in files:
 		if not l == 4:
 			artist = ats[:l - 6] if ats[l - 6] == " " else ats[:l - 5]
 			artist = artist.replace("ryo","supercell").replace("ゴジマジP","ラマーズP").replace("ピノキオP","ピノキオピー").replace("ちょむP","TakeponG (ちょむP)").replace("1640mP","40mP").replace("じん (自然の敵P)","じん").replace("wowaka (現実逃避P)","wowaka").replace("マチゲリータP","マチゲリータ")
-			feats = ats[l:].replace(" ","").replace("x",",").replace("&",",").replace("+",",").replace("・",",").split(",")
+			feats = ats[l:].replace(" ","").replace("x",",").replace("&",",").replace("+",",").replace("・",",").replace("、",",")
+			if ("鏡音リン" in feats) and (not ("鏡音レン" in feats)) and ("レン" in feats):
+				feats = feats.replace("レン","鏡音レン")
+			featsl = feats.split(",")
 			if artist in res2:
 				res2[artist] += 1
 			else:
 				res2[artist] = 1
-			for feat in feats:
+			for feat in featsl:
 				if feat in res:
 					res[feat] += 1
 				else:
@@ -151,7 +153,7 @@ print("歌手別ランキング")
 for result in res:
 	print(result,"  ",result[1] / sigma[0] * 100,"%")
 print("")
-print("アーティスト別ランキング")
+print("アーティスト名ランキング")
 for result2 in res2:
 	print(result2,"  ",result2[1] / sigma[1] * 100,"%")
 print("")
@@ -166,7 +168,7 @@ input()
 		<pre><code>
 import os
 # -*- coding: shift-jis -*-
-dir_path = r"ミュージックフォルダまでのパス"
+dir_path = r"C:\Users\森悟\Music"
 files = []
 res = {}
 res2 = {}
@@ -200,10 +202,10 @@ def get_tpe1(path):
 		rt = ""
 		if not i == -1:
 			try:
-				return tmp.decode("utf-8")
+				return tmp.replace(b"\x00",b"").decode("utf-8")
 			except Exception:
 				try:
-					return tmp.decode("shift-jis")
+					return tmp.replace(b"\x00",b"").decode("shift-jis")
 				except Exception:
 					return tmp.decode("utf-16")
 		else:
@@ -222,18 +224,22 @@ for path in files:
 		if not l == 4:
 			artist = ats[:l - 6] if ats[l - 6] == " " else ats[:l - 5]
 			artist = artist.replace("ryo","supercell").replace("ゴジマジP","ラマーズP").replace("ピノキオP","ピノキオピー").replace("ちょむP","TakeponG (ちょむP)").replace("1640mP","40mP").replace("じん (自然の敵P)","じん").replace("wowaka (現実逃避P)","wowaka").replace("マチゲリータP","マチゲリータ")
-			feats = ats[l:].replace(" ","").replace("x",",").replace("&",",").replace("+",",").replace("・","").split(",")
+			feats = ats[l:].replace(" ","").replace("x",",").replace("&",",").replace("+",",").replace("・",",").replace("、",",")
+			if ("鏡音リン" in feats) and (not ("鏡音レン" in feats)) and ("レン" in feats):
+				feats = feats.replace("レン","鏡音レン")
+			featsl = feats.split(",")
 			if artist in res2:
 				res2[artist] += 1
 			else:
 				res2[artist] = 1
-			for feat in feats:
+			for feat in featsl:
 				if feat in res:
 					res[feat] += 1
 				else:
 					res[feat] = 1
 		elif not len(ats) == 0:
 			artist = ats[:-1] if ats[-1] == " " else ats
+			artist = artist.replace("ryo","supercell").replace("ゴジマジP","ラマーズP").replace("ピノキオP","ピノキオピー").replace("ちょむP","TakeponG (ちょむP)").replace("1640mP","40mP").replace("じん (自然の敵P)","じん").replace("wowaka (現実逃避P)","wowaka").replace("マチゲリータP","マチゲリータ")
 			if artist in res2:
 				res2[artist] += 1
 			else:
@@ -247,7 +253,7 @@ print("歌手別ランキング")
 for result in res:
 	print(result,"  ",result[1] / sigma[0] * 100,"%")
 print("")
-print("アーティスト別ランキング")
+print("アーティスト名ランキング")
 for result2 in res2:
 	print(result2,"  ",result2[1] / sigma[1] * 100,"%")
 print("")
