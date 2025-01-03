@@ -1245,7 +1245,7 @@ void ConvolutionReverb(std::string rname, double mix, int disable)
                 WaveData tmp = WaveData(wave, msize / 2, this);
                 tmp.Speed(1, code[i]);
                 int mj = std::min(tmp.msize / 2, msize / 2);
-                for (int j = 0;j < msize / 2;j++) {
+                for (int j = 0;j < mj;j++) {
                     wave[j] += tmp.wave[j];
                 }
                 tmp.Dispose();
