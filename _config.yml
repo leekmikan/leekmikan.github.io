@@ -1,3 +1,4 @@
 plugins:
 - jekyll-sitemap
+theme: jekyll-theme-slate
 google_analytics: G-PN294DRX74
