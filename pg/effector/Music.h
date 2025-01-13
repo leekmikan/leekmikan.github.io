@@ -400,6 +400,68 @@ class WaveData
             this->fsize = 50;
             this->sample = source->sample;
         }
+        WaveData operator +(WaveData X) {
+            WaveData Y = WaveData();
+            Y.wave = new int[(this->msize + X.msize) / 2];
+            for (int i = 0; i < this->msize / 2;i++) {
+                Y.wave[i] = this->wave[i];
+            }
+            for (int i = 0; i < X.msize / 2; i++) {
+                Y.wave[this->msize / 2 + i] = X.wave[i];
+            }
+            Y.fmt = new char[this->fsize];
+            for (int i = 0; i < this->fsize; i++) {
+                Y.fmt[i] = this->fmt[i];
+            }
+            Y.bit8 = this->bit8;
+            Y.ch = this->ch;
+            Y.fsize = this->fsize;
+            Y.fname = this->fname;
+            Y.sample = this->sample;
+            Y.vol_max = this->vol_max;
+            Y.vol_min = this->vol_min;
+            Y.maxv = this->maxv;
+            Y.vol = this->vol;
+            Y.msize = this->msize + X.msize;
+            Y.fileSize = Y.msize + Y.fsize;
+            Y.WriteN(Y.fileSize - 8, 4, 7);
+            Y.WriteN(Y.fileSize - 126, Y.fsize - 4, Y.fsize - 1);
+            this->Dispose();
+            return Y;
+        }
+        WaveData CutCopy(double t0, double t1) {
+            int bt0 = t0 * sample * ch;
+            int bt1 = t1 * sample * ch;
+            bt1 += ch - (bt1 - bt0) % ch;
+            int* tmp = new int[bt1 - bt0];
+            for (int i = bt0; i < bt1; i++) {
+                tmp[i - bt0] = wave[i];
+            }
+            WaveData Y = WaveData();
+            Y.wave = new int[bt1 - bt0];
+            for (int i = 0; i < bt1 - bt0; i++) {
+                Y.wave[i] = tmp[i];
+            }
+            delete[] tmp;
+            Y.fmt = new char[this->fsize];
+            for (int i = 0; i < this->fsize; i++) {
+                Y.fmt[i] = this->fmt[i];
+            }
+            Y.bit8 = this->bit8;
+            Y.ch = this->ch;
+            Y.fsize = this->fsize;
+            Y.fname = this->fname;
+            Y.sample = this->sample;
+            Y.vol_max = this->vol_max;
+            Y.vol_min = this->vol_min;
+            Y.maxv = this->maxv;
+            Y.vol = this->vol;
+            Y.msize = (bt1 - bt0) * 2;
+            Y.fileSize = this->fsize + Y.msize;
+            Y.WriteN(Y.fileSize - 8, 4, 7);
+            Y.WriteN(Y.fileSize - 126, Y.fsize - 4, Y.fsize - 1);
+            return Y;
+        }
         /// <summary>
         /// モノラル( newL = newR = (L+R)/2 )
         /// </summary>
