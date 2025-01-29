@@ -207,7 +207,13 @@ function Floor(X){
 }
 
 function Tow(X,Y){
-	return Ud(new Exp(X.num * Math.pow(10,(9 * (Y % 1) + 1)),X.e + Math.floor(Y)));
+	if(Y < 1){
+		return Ud(new Exp(X.num * Math.pow(10,10 * (Y % 1)),X.e + Math.floor(Y)));
+	}else{
+		Y--;
+		let Z = Ud(new Exp(X.num, X.e + 1));
+		return Ud(new Exp(Z.num * Math.pow(10,10 * (Y % 1)),Z.e + Math.floor(Y)));
+	}
 }
 function Text(X){
 	switch(letter_type){
