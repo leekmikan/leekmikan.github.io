@@ -3,8 +3,8 @@ var cl = 6;
 var letter_type = 1;
 class Exp { 
     constructor(num,e) { 
-        this.num = num;
-        this.e = e;
+        this.num = (e === undefined) ? Math.log10(num) : num;
+        this.e = (e === undefined) ? 0 : e;
     }
 }
 function Sum(X,Y){
@@ -207,7 +207,7 @@ function Floor(X){
 }
 
 function Tow(X,Y){
-	return Ud(new Exp(X.num * Math.pow(10,10 * (Y % 1)),X.e + Math.floor(Y)));
+	return Ud(new Exp(X.num * Math.pow(10,(9 * (Y % 1) + 1)),X.e + Math.floor(Y)));
 }
 function Text(X){
 	switch(letter_type){
@@ -225,7 +225,7 @@ function Textf(X){
     }else if(X.e == 0){
         return Math.pow(10,X.num % 1).toFixed(dec[1]) + "e" + Math.floor(X.num);
     }else if(X.e >= 8){
-    	return "10↑↑" + (X.e + 2 + Math.log10(X.num) / 10).toFixed(dec[1]);
+    	return "10↑↑" + (X.e + 2 + (Math.log10(X.num) - 1) / 9).toFixed(dec[1]);
 	}else{
     var rt = "";
         for(var i = 0;i < X.e;i++){
@@ -240,4 +240,18 @@ function Texti(X){
 		return "0";
 	}
 	return "∞^" + Textf(Log(X,INF));
+}
+function Texte(X){
+	var rt = "";
+	if(X.e >= 8){
+    	return "10↑↑" + (X.e + 2 + (Math.log10(X.num) - 1) / 9).toFixed(dec[1]);
+	}
+    for(var i = 0;i < X.e;i++){
+        rt += "10<sup>";
+    }
+    rt += Math.pow(10,X.num % 1).toFixed(dec[1]) + "×10<sup>" + Math.floor(X.num) + "</sup>";
+	for(var i = 0;i < X.e;i++){
+        rt += "</sup>";
+    }
+	return rt;
 }
