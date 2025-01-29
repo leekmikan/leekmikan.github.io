@@ -345,7 +345,16 @@ public class Exp
     }
     public Exp Tow(double Y)
     {
-        return Ud(new Exp(this.num * Math.Pow(10, 10 * (Y % 1)), this.e + (int)Math.Floor(Y)));
+        if (Y < 1)
+        {
+            return Ud(new Exp(this.num * Math.Pow(10, 10 * (Y % 1)), this.e));
+        }
+        else
+        {
+            Y--;
+            Exp Z = Ud(new Exp(this.num, this.e + 1));
+            return Ud(new Exp(Z.num * Math.Pow(10, 10 * (Y % 1)), Z.e + (int)Math.Floor(Y)));
+        }
     }
     //階乗(スターリングの公式)
     public Exp Stirling()
@@ -354,7 +363,6 @@ public class Exp
     }
     /// <summary>
     /// 文字列変換
-    /// eg.123,12.4Qa,7.7e155,ee3.1e4,10↑↑192
     /// </summary>
     /// <returns>
     /// <para> 通常表記 (~1000) </para>
@@ -387,7 +395,6 @@ public class Exp
     }
     /// <summary>
     /// 文字列変換　通常表記のときは整数
-    /// eg.123,12.4Qa,7.7e155,ee3.1e4,10↑↑192
     /// </summary>
     /// <returns>
     /// <para> 通常表記 (~1000) </para>
@@ -416,6 +423,55 @@ public class Exp
                 rt += "e";
             }
             return rt + Math.Floor(Math.Pow(10.0, this.num - Math.Floor(this.num)) * Math.Pow(10, cl)) / Math.Pow(10, cl) + "e" + (int)Math.Floor(this.num);
+        }
+    }
+    string[] nname = {"","万","億","兆","京","垓","秭","穣","溝","澗","正","載","極","恒河沙","阿僧祇","那由他","不可思議","無量大数","矜羯羅","阿伽羅","最勝","摩婆羅","阿婆羅","多婆羅","界分","普摩","禰摩","阿婆鈐","弥伽婆","毘攞伽","毘伽婆","僧羯邏摩","毘薩羅","毘贍婆","毘盛伽","毘素陀","毘婆訶","毘薄底","毘佉擔","称量","一持","異路","顛倒","三末耶",
+"毘睹羅","奚婆羅","伺察","周広","高出","最妙","泥羅婆","訶理婆","一動","訶理蒲","訶理三","奚魯伽","達攞歩陀","訶魯那","摩魯陀","懺慕陀","瑿攞陀","摩魯摩","調伏","離憍慢","不動","極量","阿麼怛羅","勃麼怛羅","伽麼怛羅","那麼怛羅","奚麼怛羅","鞞麼怛羅","鉢羅麼怛羅","尸婆麼怛羅","翳羅","薜羅","諦羅","偈羅","窣歩羅","泥羅","計羅","細羅",
+"睥羅","謎羅","娑攞荼","謎魯陀","契魯陀","摩睹羅","娑母羅","阿野娑","迦麼羅","摩伽婆","阿怛羅","醯魯耶","薜魯婆","羯羅波","訶婆婆","毘婆羅","那婆羅","摩攞羅","娑婆羅","迷攞普","者麼羅","駄麼羅","鉢攞麼陀","毘迦摩","烏波跋多","演説","無尽","出生","無我","阿畔多","青蓮華","鉢頭摩","僧祇","趣","至","阿僧祇","阿僧祇転","無量","無量転",
+"無辺","無辺転","無等","無等転","不可数","不可数転","不可称","不可称転","不可思","不可思転","不可量","不可量転","不可説","不可説転","不可説不可説","不可説不可説転"};
+    int max_pow_l = 10;
+    public string Textj()
+    {
+        return Textj(this,0)
+    }
+    private string Textj(Exp X,int pow_l)
+    {
+        if (pow_l > max_pow_l)
+        {
+            return "...";
+        }
+        if (X.num <= EXP_ZERO)
+        {
+            return "0";
+        }
+        else if (X.num <= 0)
+        {
+            return X.Textf();
+        }
+        for (int i = nname.length - 1; i >= 0; i--)
+        {
+            if (i <= 17)
+            {
+                if (X.num >= i * 4 && X.e == 0)
+                {
+                    if ((X / Ud(new Exp(i * 4, 0)) > new Exp(4, 0))
+                    {
+                        return (X / Ud(new Exp(i * 4, 0)).Textj(pow_l + 1) + nname[i];
+                    }
+                    else
+                    {
+                        return (X / Ud(new Exp(i * 4, 0)).Textf() + nname[i];
+                    }
+                }
+            }
+            else
+            {
+                Exp tmp = Ud(new Exp(Math.Log10(112) + (i - 18) * Math.Log10(2), 1));
+                if (X > tmp)
+                {
+                    return "1" + nname[i] + "<sup>" + Log(X, tmp).Textj(pow_l + 1) + "</sup>";
+                }
+            }
         }
     }
 }
