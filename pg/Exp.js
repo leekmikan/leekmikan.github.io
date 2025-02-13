@@ -1,10 +1,10 @@
-var dec = [2,3];
+var dec = [3,3];
 var cl = 6;
 var letter_type = 1;
 class Exp { 
     constructor(num,e) { 
-        this.num = num;
-        this.e = e;
+        this.num = (e === undefined) ? Math.log10(num) : num;
+        this.e = (e === undefined) ? 0 : e;
     }
 }
 function Sum(X,Y){
@@ -71,7 +71,7 @@ function Mul(X,Y){
 function Pow(X,Y){
 	var Z;
 	if(X.e == 0){
-		if(X.num <= 0){
+		if(X.num < 1){
 			if(Y.e == 0){
 				return Ud(new Exp(X.num * Math.pow(10,Y.num),0)); 
 			}else{
@@ -88,7 +88,7 @@ function Pow(X,Y){
 function Sqr(X,Y){
 	var Z;
 	if(X.e == 0){
-		if(X.num <= 0){
+		if(X.num < 1){
 			if(Y.e == 0){
 				return Ud(new Exp(X.num / Math.pow(10,Y.num),0)); 
 			}else{
@@ -174,7 +174,7 @@ function Ud(X){
 		X.num = Math.pow(10,X.num);
 	}else if(X.num > 10000000000){
 		X.e++;
-		X.num = Math.log10(X.num);
+		X.num = (X.e == 1) ? X.num /= 1000000000.0 : Math.log10(X.num);
 	}
 	return X;
 }
@@ -207,7 +207,14 @@ function Floor(X){
 }
 
 function Tow(X,Y){
-	return Ud(new Exp(X.num * Math.pow(10,10 * (Y % 1)),X.e + Math.floor(Y)));
+	if (X.e == 0 && Y > 1)
+	{
+		return Ud(new Exp(10 * X.num * Math.pow(10, 10 * (Y % 1)), X.e + Math.floor(Y)));
+	}
+	else
+	{
+		return Ud(new Exp(X.num * Math.pow(10, 10 * (Y % 1)), X.e + Math.floor(Y)));
+	}
 }
 function Text(X){
 	switch(letter_type){
@@ -225,7 +232,7 @@ function Textf(X){
     }else if(X.e == 0){
         return Math.pow(10,X.num % 1).toFixed(dec[1]) + "e" + Math.floor(X.num);
     }else if(X.e >= 8){
-    	return "10↑↑" + (X.e + 2 + Math.log10(X.num) / 10).toFixed(dec[1]);
+    	return "10↑↑" + (X.e + 2 + (Math.log10(X.num) - 1) / 9).toFixed(dec[1]);
 	}else{
     var rt = "";
         for(var i = 0;i < X.e;i++){
@@ -240,4 +247,18 @@ function Texti(X){
 		return "0";
 	}
 	return "∞^" + Textf(Log(X,INF));
+}
+function Texte(X){
+	var rt = "";
+	if(X.e >= 8){
+    	return "10↑↑" + (X.e + 2 + (Math.log10(X.num) - 1) / 9).toFixed(dec[1]);
+	}
+    for(var i = 0;i < X.e;i++){
+        rt += "10<sup>";
+    }
+    rt += Math.pow(10,X.num % 1).toFixed(dec[1]) + "×10<sup>" + Math.floor(X.num) + "</sup>";
+	for(var i = 0;i < X.e;i++){
+        rt += "</sup>";
+    }
+	return rt;
 }
