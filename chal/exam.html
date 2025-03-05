@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>クイズ</title>
+	<link rel="stylesheet" href="des.css">
+	</head>
+		<body>
+			<div class="title">
+				<h1>適当に作ったクイズ</h1>
+				<p style="text-align:center;"><a href="https://x.com/leekmikan">Twitter(現X)<a></p>
+			</div>
+			<div id="quiz">
+			<div class="text_frame">
+				<h1>Q1</h1>
+			</div>
+			<div class="main">		
+				前ページの利用規約において、「当方」とは誰か。5文字で答えよ。<br><br>
+				<input type="text" id="q1">
+			</div>
+			<div class="text_frame">
+				<h1>Q2</h1>
+			</div>
+			<div class="main">		
+				前ページの利用規約において、個人情報を収集・利用する目的として間違えているものを選べ。<br><br>
+				<form id="q2">
+				<input type="radio" name="q2" value="1" checked> ユーザーからのお問い合わせに回答するため<br>
+      			<input type="radio" name="q2" value="2"> ユーザーが利用中のサービスの新機能，更新情報，キャンペーン等及び他社のサービスの案内のメールを送付するため<br>
+      			<input type="radio" name="q2" value="3"> 利用規約に違反したユーザーや，不正・不当な目的でサービスを利用しようとするユーザーの特定をし，ご利用をお断りするため<br>
+				</form>
+			</div>
+			<div class="text_frame">
+				<h1>Q3</h1>
+			</div>
+			<div class="main">		
+				前ページの利用規約において、利用目的の変更について正しいものを選べ。<br><br>
+				<form id="q3">
+					<input type="radio" name="q3" value="1" checked> ユーザーに影響がない範囲で個人情報の利用目的を変更する<br>
+					  <input type="radio" name="q3" value="2"> 個人情報の利用目的を変更する場合は, ユーザーに通知し，または本ウェブサイト上に公表する<br>
+					  <input type="radio" name="q3" value="3"> 個人情報の利用目的は変更できない<br>
+					</form>
+			</div>
+			<div class="text_frame">
+				<h1>Q4</h1>
+			</div>
+			<div class="main">		
+				前ページの利用規約において、プライバシーポリシーの変更について正しいものを選べ。<br><br>
+				<form id="q4">
+					<input type="radio" name="q4" value="1" checked> ユーザーに通知し，変更することができる<br>
+					  <input type="radio" name="q4" value="2"> 変更後のプライバシーポリシーは，ユーザーに通知したのち, 効力を生じる<br>
+					  <input type="radio" name="q4" value="3"> 上記2つ正解はない<br>
+					</form>
+			</div>
+			<div class="text_frame">
+				<h1>Q5</h1>
+			</div>
+			<div class="main">		
+				前ページの利用規約において、「会社の住所」はどこか。<br><br>
+				<input type="text" id="q5">
+			</div>
+			<button id="sb" onclick="res()">採点</button>
+			</div>
+			<div id="res" class="ct">
+				<h1>あなたの得点は　<span id="score">0/100</span>　点です</h1>
+			</div>
+		</body>
+		<script src="quiz.js"></script>
+	</head>
+</html>

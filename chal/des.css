@@ -1,0 +1,50 @@
+button{
+text-align:center;
+width: 200px;
+height: 80px;
+margin-top: 5px;
+}
+.box {
+    width: 500px;                /* 横幅を200pxに指定 */
+    height: 200px;               /* 横幅を200pxに指定 */
+    border: 1px solid #000;      /* わかりやすくボーダーを引く */
+    overflow-y: scroll;          /* 縦方向にスクロール可能にする */
+    background: #FFFFFF;
+  }
+.ct{
+    text-align:center;
+}
+body{
+    color: #000000;
+    background: #A0FFFF;
+    }
+    .title{
+    text-align:center;
+    color: #000000;
+    background: #FFFF80;
+    border: double 5px #4ec4d3;
+    }
+    .main{
+    color: #000000;
+    background: #00FF80;
+    border-radius: 10px;
+    margin-bottom: 50px;
+    }
+    .tab{
+    padding: 5px 0px;
+    text-align:center;
+    color: #000000;
+    background: #0080FF;
+    border-radius: 10px;
+    }
+    .text_frame{
+        background: #B0FFD0;
+        border-left: double 10px #30C080;
+        width: fit-content;
+        padding: 0em 1em;
+    }
+    input{
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+    
