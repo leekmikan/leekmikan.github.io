@@ -19,3 +19,4 @@ function loadq(x){
     document.getElementById("hint").innerText = hintb ? ans[qs - 1][1] : "---";
     document.getElementById("qn").value = qs;
 }
+document.getElementById("ql").innerText = ans.length;

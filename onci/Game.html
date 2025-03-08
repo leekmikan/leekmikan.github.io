@@ -7,15 +7,20 @@
 	</head>
 		<body>
 			<div class="ct">
-				<h1>音痴の音楽会</h1>
+				<div class="tbg"><h1>音痴の音楽会</h1></div>
 				<audio controls src="snd/Q1.mp3" type="audio/mp3" id="ms">クイズ用音源</audio>
 				<br><input type="text" id="ans" onclick="jd()">
-				<h2>ヒント：<span id="hint">---</span></h2>
-				<input type="image" src="img/off.jpg" id="hintb" onclick="hintc()" style="width: 30%;">
-				<br>問題変更(番号で指定)<input type="number" step="1" id="qn" value="1" min="1" onclick="loadq(this.value)">
+				<div class="tbg"><h2>ヒント：<span id="hint">---</span></h2></div>
+				<input type="image" src="img/off.jpg" id="hintb" onclick="hintc()" style="width: 20%;">
+				<div class="tbg"><br><br><h3>問題変更(番号で指定　1～<span id="ql"></span>)</h3></div><input type="number" step="1" id="qn" value="1" min="1" onclick="loadq(this.value)">
+			</div>
+			<div class="tbg">
+				<h3>音痴がある曲を聴きながら弾いたピアノの音から曲名を当てよう</h3>
+				<h3>すべてボカロ曲</h3>
+				<h3>ヒントをONにするとアーティスト名が表示される</h3>
 			</div>
 		</body>
-		<script src="main.js"></script>
 		<script src="obf.js"></script>
+		<script src="main.js"></script>
 	</head>
 </html>
