@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>音痴の音楽会</title>
+	<link rel="stylesheet" href="des.css">
+	</head>
+		<body>
+			<div class="ct">
+				<h1>音痴の音楽会</h1>
+				<audio controls src="snd/Q1.mp3" type="audio/mp3" id="ms">クイズ用音源</audio>
+				<br><input type="text" id="ans" onclick="jd()">
+				<h2>ヒント：<span id="hint">---</span></h2>
+				<input type="image" src="img/off.jpg" id="hintb" onclick="hintc()" style="width: 30%;">
+				<br>問題変更(番号で指定)<input type="number" step="1" id="qn" value="1" min="1" onclick="loadq(this.value)">
+			</div>
+		</body>
+		<script src="main.js"></script>
+		<script src="obf.js"></script>
+	</head>
+</html>

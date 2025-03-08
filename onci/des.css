@@ -1,0 +1,13 @@
+body{
+color: #FFFFFF;
+background: #000000;
+}
+button{
+text-align:center;
+}
+.ct{
+    text-align:center;
+}
+input[type="text"]{
+    font-size: 32px;
+}
