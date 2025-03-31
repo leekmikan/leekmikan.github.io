@@ -47,4 +47,11 @@ body{
         font-size: 18px;
         margin-bottom: 5px;
     }
-    
+    .req{
+        font-size: 12px;
+        color: #ff0000;
+    }
+    .nreq{
+        font-size: 12px;
+        color: #0000ff;
+    }
