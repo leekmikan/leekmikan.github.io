@@ -59,3 +59,9 @@ button.tab_button{
 div:not(.title) img{
 width: 50%;
 }
+.index{
+	width: 50%;
+	color: #000000;
+	background: #FFFF80;
+	border: double 5px #4ec4d3;
+}
