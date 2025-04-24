@@ -1,1 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>画像を組み合わせて画像を生成 (C#)</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="画像を組み合わせて画像を生成 (C#)">
+	<link rel="stylesheet" href="des.css">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<iframe src="../../google.html" style="display: none;"></iframe>
+	</head>
+		<body>
+			<div class="title">
+				<h1>画像を組み合わせて画像を生成 (C#)</h1>
+				<p>・大量の画像を組み合わせて大きな画像を作る</p>
+				<p>・結構時間がかかる</p>
+				<p>・Visual Studioで作成可</p>
+			<p style="text-align:center;">※このサイトのメインのページは以下の4つです。(下手絵を中心に宣伝)</p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/gahaku/Game.html">画伯の展開会(下手な絵を当てるクイズ)<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/picture">下手な絵集<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi/Game.html">歌詞クイズ<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi easy/Game.html">歌詞クイズ(簡単ver)<a></p>
+			</div><br>
+			<div class="text_frame">
+				<h1>ソースコード</h1>
+			</div>
+		<div class="main">
+			<p>C#の　コンソールアプリケーション(.NET Framework)　で作成</p>
+			<p>namespaceの部分はプロジェクト名に変える</p>
+			<pre><code>
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Printing;
+using System.IO;
+using System.Linq;
+using System.Runtime.ExceptionServices;
+using System.Security;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace (ここ変えて)
+{
+    internal class Program
+    {
+        public class ColorData
+        {
+            public string path;
+            public byte r;
+            public byte g;
+            public byte b;
+            public double sL = 0;
+            public double sa = 0;
+            public double sb = 0;
+            public int use = 0;
+            public ColorData(string path,byte r, byte g, byte b)
+            {
+                this.path = path;
+                this.r = r;
+                this.g = g;
+                this.b = b;
+            }
+            public ColorData(string path, double sL, double sa, double sb)
+            {
+                this.path = path;
+                this.sL = sL;
+                this.sa = sa;
+                this.sb = sb;
+            }
+        }
+        static List<ColorData> colors = new List<ColorData>();
+        static double Lin(double x)
+        {
+            return (x < 0.04045) ? x / 12.92 : Math.Pow((x + 0.055) / 1.055, 2.4);
+        }
+        static double[] XYZ(double r,double g,double b)
+        {
+            r = Lin(r / 255.0);
+            g = Lin(g / 255.0);
+            b = Lin(b / 255.0);
+            return new double[] {(0.4124 * r + 0.3576 * g + 0.1805 * b) / 0.9505,
+                               0.2126 * r + 0.7152 * g + 0.0722 * b,
+                               (0.0193 * r + 0.1192 * g + 0.9505 * b) / 1.089};
+        }
+        static double[] Lab(double x, double y, double z)
+        {
+            double[] rt = { 0, 0, 0 };
+            rt[0] = Labf(y);
+            rt[1] = 4.3103 * (Labf(x) - Labf(y));
+            rt[2] = 1.7241 * (Labf(y) - Labf(z));
+            return rt;
+        }
+        static double Labf(double x)
+        {
+            return (x > 0.008856) ? 116 * Math.Pow(x, 0.333) - 16 : 903.296 * x;
+        }
+
+        static void Main(string[] args)
+        {
+            //ここに後述するコードを挿入
+            Console.ReadLine();
+        }
+        static void MakeData(string name, string path, int mult_read_pixel)
+        {
+            DirectoryInfo di = new DirectoryInfo(path);
+            string[] ext = { "*.jpg", "*.jpeg", "*.png", "*.JPG", "*.JPEG", "*.PNG" };
+            foreach (string ex in ext)
+            {
+                FileInfo[] fiAlls = di.GetFiles(ex, SearchOption.AllDirectories);
+                for (int i = 0; i < fiAlls.Length; i++)
+                {
+                    Bitmap bitmap2 = new Bitmap(fiAlls[i].FullName);
+                    Bitmap bitmap = new Bitmap(bitmap2, new Size((int)(1.0 * bitmap2.Width / mult_read_pixel), (int)(1.0 * bitmap2.Height / mult_read_pixel)));
+                    bitmap2.Dispose();
+                    Rectangle rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+                    BitmapData bmpdata = bitmap.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+                    try
+                    {
+                        byte[] imgdata = new byte[bmpdata.Stride * bitmap.Height];
+                        System.Runtime.InteropServices.Marshal.Copy(bmpdata.Scan0, imgdata, 0, imgdata.Length);
+                        double[] _rgb = { 0, 0, 0 };
+                        for (int y = 0; y < bitmap.Height; ++y)
+                        {
+                            for (int x = 0; x < bitmap.Width; ++x)
+                            {
+                                int pos = y * bmpdata.Stride + x * 4;  //Format32bppArgbは1ピクセル4バイト
+                                _rgb[2] += 1.0 * imgdata[pos] / (bitmap.Height * bitmap.Width);
+                                _rgb[1] += 1.0 * imgdata[pos + 1] / (bitmap.Height * bitmap.Width);
+                                _rgb[0] += 1.0 * imgdata[pos + 2] / (bitmap.Height * bitmap.Width);
+                            }
+                        }
+                        colors.Add(new ColorData(fiAlls[i].FullName, (byte)_rgb[0], (byte)_rgb[1], (byte)_rgb[2]));
+                    }
+                    finally
+                    {
+                        bitmap.UnlockBits(bmpdata);
+                    }
+                    bitmap.Dispose();
+                    Console.WriteLine(ex + ": " + i + "/" + (fiAlls.Length - 1));
+                }
+            }
+            FileStream fs = new FileStream(name + ".dat", FileMode.Create);
+            BinaryWriter writer = new BinaryWriter(fs);
+            for (int i = 0; i < colors.Count; ++i)
+            {
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(colors[i].path);
+                byte[] rgb = { colors[i].r, colors[i].g, colors[i].b };
+                writer.Write((byte)data.Length);
+                writer.Write(data);
+                writer.Write(rgb);
+            }
+            writer.Close();
+            fs.Close();
+            colors.Clear();
+            Console.WriteLine("Finish");
+        }
+        static void MakePicture(string name,string pic_path,string data_path,int mult_base_p,int mult_use_p)
+        {
+            int[] wh = { -1, -1 };
+            int[] rwh = { -1, -1 };
+            Bitmap canvas = new Bitmap(1,1);
+            Graphics g = Graphics.FromImage(canvas);
+            using (var fs = File.OpenRead(data_path + ".dat"))
+            {
+                byte[] bytes = new byte[fs.Length];
+                fs.Read(bytes, 0, (int)fs.Length);
+                int k = 0;
+                while (k < fs.Length)
+                {
+                    byte[] pb = new byte[bytes[k]];
+                    k++;
+                    for(int j = 0; j < pb.Length; j++)
+                    {
+                        pb[j] = bytes[k + j];
+                    }
+                    string fn =  System.Text.Encoding.UTF8.GetString(pb);
+                    k += pb.Length;
+                    double[] xyz = XYZ(bytes[k], bytes[k + 1], bytes[k + 2]);
+                    double[] clab = Lab(xyz[0], xyz[1], xyz[2]);
+                    colors.Add(new ColorData(fn, clab[0], clab[1], clab[2]));
+                    k += 3;
+                }
+            }
+            Image img = Image.FromFile(pic_path);
+            Bitmap imgbitmap = new Bitmap(img);
+            Bitmap bitmap = new Bitmap(imgbitmap, new Size((int)(1.0 * img.Width / mult_base_p), (int)(1.0 * img.Height / mult_base_p)));
+            Rectangle rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+            BitmapData bmpdata = bitmap.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+            try
+            {
+                byte[] imgdata = new byte[bmpdata.Stride * bitmap.Height];
+                System.Runtime.InteropServices.Marshal.Copy(bmpdata.Scan0, imgdata, 0, imgdata.Length);
+                for (int y = 0; y < bitmap.Height; ++y)
+                {
+                    for (int x = 0; x < bitmap.Width; ++x)
+                    {
+                        int pos = y * bmpdata.Stride + x * 4;
+                        int[] select = { 0, 999 };
+                        double min_v = 9999999;
+                        for (int i = 0; i < colors.Count; i++)
+                        {
+                            double[] xyz = XYZ(imgdata[pos + 2], imgdata[pos + 1], imgdata[pos]);
+                            double[] lab = Lab(xyz[0], xyz[1], xyz[2]);
+                            double[] delta = { lab[0] - colors[i].sL, lab[1] - colors[i].sa, lab[2] - colors[i].sb };
+                            double tmp = delta[0] * delta[0] + delta[1] * delta[1] + delta[2] * delta[2];
+                            if(tmp < min_v && colors[i].use < select[1])
+                            {
+                                select[0] = i;
+                                min_v = tmp;
+                                select[1] = colors[i].use;
+                            }
+                        }
+                        Bitmap srcImage2 = new Bitmap(colors[select[0]].path);
+                        if (rwh[0] == -1)
+                        {
+                            rwh[0] = (int)(1.0 * srcImage2.Width / mult_use_p);
+                            rwh[1] = (int)(1.0 * srcImage2.Height / mult_use_p);
+                        }
+                        Bitmap srcImage3 = new Bitmap(srcImage2, new Size(rwh[0], rwh[1]));
+                        Rectangle urect = srcImage3.Width > srcImage3.Height ? new Rectangle((srcImage3.Width - srcImage3.Height) / 2, 0, srcImage3.Height, srcImage3.Height) : new Rectangle((srcImage3.Height - srcImage3.Width) / 2, 0, srcImage3.Width, srcImage3.Width);
+                        Bitmap srcImage = srcImage3.Clone(urect, srcImage3.PixelFormat);
+                        srcImage2.Dispose();
+                        srcImage3.Dispose();
+                        if (wh[0] == -1)
+                        {
+                            wh[0] = bitmap.Width * srcImage.Width;
+                            wh[1] = bitmap.Height * srcImage.Height;
+                            canvas = new Bitmap(wh[0], wh[1]);
+                            g = Graphics.FromImage(canvas);
+                        }
+                        g.DrawImage(srcImage, new Point(srcImage.Width * x,srcImage.Height * y));
+                        colors[select[0]].use++;
+                        srcImage.Dispose();
+                        
+                    }
+                    Console.WriteLine(y + "/" + (bitmap.Height - 1));
+                }
+            }
+            finally
+            {
+                bitmap.UnlockBits(bmpdata);
+            }
+            canvas.Save(AppDomain.CurrentDomain.BaseDirectory + name + ".png", System.Drawing.Imaging.ImageFormat.Png);
+            colors.Clear();
+            g.Dispose();
+            imgbitmap.Dispose();
+            bitmap.Dispose();
+            Console.WriteLine("Finish");
+        }
+    }
+}
+			</code></pre>
+		</div><br>
+		<div class="text_frame">
+			<h1>工程１：データベースの作成</h1>
+		</div>
+		<div class="main">
+			<p>毎回組み合わせに使う画像の平均色を求めるのが大変なので、以下の構造のバイナリ形式のデータベースを作る</p>
+			<p class="ct">(パスの長さ[1 byte] パス(UTF-8)[n byte] RGB[1×3 byte])×n</p><br>
+			<p>以下のコードを　//ここに後述するコードを挿入　のところに入れて実行</p>
+			<pre><code>
+MakeData("データベース名", @"フォルダーのパス", 縮小倍率);
+			</code></pre><br>
+			
+			<p>※縮小倍率が大きいほど作成速度が早い</p>
+			<p>例：</p>
+			<pre><code>
+MakeData("data", @"D:\data\BACKUP\Pic", 32);			
+			</code></pre><br>
+			<br><p>Finishが表示されるまで待ち、成功すれば、datファイルが作成される</p>
+		</div><br>
+		<div class="text_frame">
+			<h1>工程２：画像の生成</h1>
+		</div>
+		<div class="main">
+			<p>データベースの情報と、作成したい画像の各ピクセルのL*a*b*色表系上の距離を計算し、使われた回数が少ない画像の中で最も距離が小さいものを貼り付ける</p>
+			<p>変換順：　sRGB→リニアRGB→XYZ→L*a*b</p><br>
+			<p>以下のコードと工程１のコードを入れ替えて実行</p>
+			<pre><code>
+MakePicture("ファイル名(拡張子なし)", @"作成したい画像のパス", "データベース名(拡張子なし)", 完成画像の縮小倍率, 使用する画像の縮小倍率);		
+			</code></pre><br>
+			<p>※作成したい画像の解像度によりますが、完成画像の縮小倍率は4以上を推奨します。(エラーがでる場合がある)</p>
+			<p>※完成画像の縮小倍率　使用する画像の縮小倍率は共に大きい方が完成が速いですが、クオリティーは下がります　逆に、小さいとクオリティーは高いですが、ファイルサイズが大きくなり(100MB以上)、時間がかかります</p><br>
+			<p>例：</p>
+			<pre><code>
+MakePicture("Name", @"D:\data\img\xxx.png", "data", 4, 16);
+			</code></pre><br>
+			<br><p>Finishが表示されるまで待ち、成功すれば、datファイルが作成される　(引数によっては数分かかる)</p>
+		</div><br>
+		<div class="text_frame">
+			<h1>完成！</h1>
+		</div>
+		<div class="main">
+			<p>ファイルサイズがめちゃくちゃデカイのでスクショで</p>
+			<p>全体像</p>
+			<img src="スクリーンショット 2025-04-22 012004.png"><br>
+			<p>拡大すると...</p>
+			<img src="スクリーンショット 2025-04-22 012416.png"><br>
+			<p>元画像わかるかな？</p>
+		</div><br>
+		<div class="text_frame">
+			<h1>エラーが出る！</h1>
+		</div>
+		<div class="main">
+			<p>工程２：画像の生成　で完成画像の縮小倍率を小さくしすぎてませんか？<br>→Bitmapクラスで作れない程の大きさの画像を作成しようとすると失敗します</p>
+			<p>データベースで参照したファイルを削除していませんか？<br>→ファイルを元に戻すか、データベースを作り直してください</p>
+		</div>
+		</body>
+	</head>
+</html>
