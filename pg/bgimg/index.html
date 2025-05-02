@@ -1,1 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>[C#][初心者向け]プロセカのバツミクっぽく画像を表示させる</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="[C#][初心者向け]プロセカのバツミクっぽく画像を表示させる">
+	<link rel="stylesheet" href="des.css">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<iframe src="../../google.html" style="display: none;"></iframe>
+	</head>
+		<body>
+			<div class="title">
+				<h1>[C#][初心者向け]プロセカのバツミクっぽく画像を表示させる</h1>
+				<p>・画像を表示させ、かつ、アプリケーションを削除できないようにする</p>
+				<p>・Visual Studioで作成可</p>
+			<p style="text-align:center;">※このサイトのメインのページは以下の4つです。(下手絵を中心に宣伝)</p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/gahaku/Game.html">画伯の展開会(下手な絵を当てるクイズ)<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/picture">下手な絵集<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi/Game.html">歌詞クイズ<a></p>
+			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi easy/Game.html">歌詞クイズ(簡単ver)<a></p>
+			</div><br>
+			<div class="text_frame">
+				<h1>準備手順＋ソースコード</h1>
+			</div>
+		<div class="main">
+            <ol>
+                <p>※解除するには、アプリケーションがアクティブな状態で「112358」と入力</p>
+                <li>C#の　コンソールアプリケーション(.NET Framework)　で作成</li>
+                <li>デザイナーのプロパティを開く</li>
+                <li>KeyDownにF1_KDと入力</li>
+                <li>FormClosingにF1_CLと入力</li>
+                <li>PictureBoxを好きなところに置く</li>
+                <li>先にコードをコピペ</li>
+                <li>namespaceの部分をプロジェクト名に変える</li>
+                <li>コード内のuse_colorのRGB値を、画像に使われていない色にする<br>※Windowsの昔からのバグで、色によってクリックが効く効かないがあるので注意！</li>
+                <li>(PC起動後に自動実行する場合)コード内の/*と*/を削除</li>
+            </ol>
+			<pre><code>
+using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
+namespace Bgpic
+{
+    public partial class Form1 : Form
+    {
+        Keys[] password = { Keys.D1, Keys.D1, Keys.D2, Keys.D3, Keys.D5, Keys.D8 };
+        int pcount = 0;
+        Image img = Image.FromFile(@"X.png"); //任意の画像のパス.
+        MyHook myHook = new MyHook();
+        Color use_color = Color.FromArgb(1, 1, 1); //ここの色を変える.
+        public Form1()
+        {
+            InitializeComponent();
+            myHook.Hook();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
+            this.TopMost = true;
+            pictureBox1.Width = Screen.PrimaryScreen.Bounds.Width;
+            pictureBox1.Height = Screen.PrimaryScreen.Bounds.Height;
+            this.TransparencyKey = use_color;
+            this.BackColor = use_color;
+            pictureBox1.BackColor = use_color;
+            this.FormBorderStyle = FormBorderStyle.None;
+            /*
+            Microsoft.Win32.RegistryKey regkey =
+            Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
+            @"Software\Microsoft\Windows\CurrentVersion\Run", true);
+            //値の名前に製品名、値のデータに実行ファイルのパスを指定し、書き込む
+            regkey.SetValue(Application.ProductName, Application.ExecutablePath);
+            //閉じる
+            regkey.Close();
+            */
+            
+            Itv();
+        }
+        public async void Itv()
+        {
+            await Task.Delay(30);
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
+            this.TopMost = true;
+            pictureBox1.Width = Screen.PrimaryScreen.Bounds.Width;
+            pictureBox1.Height = Screen.PrimaryScreen.Bounds.Height;
+            Draw();
+            Itv2();
+        }
+        public void Draw()
+        {
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+            }
+            Bitmap canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            Graphics g = Graphics.FromImage(canvas);
+            //位置,  サイズは任意で.
+            g.DrawImage(img, (canvas.Width - img.Width) / 2, (canvas.Height - img.Height) / 2 + 800, img.Width, img.Height);
+            pictureBox1.Image = canvas;
+            g.Dispose();
+        }
+        public void Itv2()
+        {
+            Itv();
+        }
+        private void F1_KD(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == password[pcount])
+            {
+                pcount++;
+                if (pcount >= password.Length)
+                {
+                    /*
+                    Microsoft.Win32.RegistryKey regkey =
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
+                    @"Software\Microsoft\Windows\CurrentVersion\Run", true);
+                    regkey.DeleteValue(Application.ProductName);
+                    regkey.Close();
+                    */
+                    Application.Exit();
+                }
+            }
+            else
+            {
+                pcount = 0;
+            }
+        }
+        class MyHook
+        {
+            delegate int delegateHookCallback(int nCode, IntPtr wParam, IntPtr lParam);
+            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            static extern IntPtr SetWindowsHookEx(int idHook, delegateHookCallback lpfn, IntPtr hMod, uint dwThreadId);
+
+            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+            [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            static extern IntPtr GetModuleHandle(string lpModuleName);
+
+            IntPtr hookPtr = IntPtr.Zero;
+            delegateHookCallback callback;
+            public void Hook()
+            {
+                callback = HookCallback;
+                using (Process curProcess = Process.GetCurrentProcess())
+                using (ProcessModule curModule = curProcess.MainModule)
+                {
+                    // フックを行う
+                    // 第1引数   フックするイベントの種類
+                    //   13はキーボードフックを表す
+                    // 第2引数 フック時のメソッドのアドレス
+                    //   フックメソッドを登録する
+                    // 第3引数   インスタンスハンドル
+                    //   現在実行中のハンドルを渡す
+                    // 第4引数   スレッドID
+                    //   0を指定すると、すべてのスレッドでフックされる
+                    hookPtr = SetWindowsHookEx(
+                        13,
+                        callback,
+                        GetModuleHandle(curModule.ModuleName),
+                        0
+                    );
+                }
+            }
+
+            int HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
+            {
+                // フックしたキー
+                Keys k = (Keys)(short)Marshal.ReadInt32(lParam);
+                short sk = (short)k;
+                if (0x30 <= sk && sk <= 0x39)
+                {
+                    return 0;
+                }
+                // 1を戻すとフックしたキーが捨てられます
+                return 1;
+            }
+
+            public void HookEnd()
+            {
+                UnhookWindowsHookEx(hookPtr);
+                hookPtr = IntPtr.Zero;
+            }
+        }
+
+        private void F1_CL(object sender, FormClosingEventArgs e)
+        {
+            if (pcount < password.Length) e.Cancel = true;
+        }
+    }
+}
+
+			</code></pre>
+		</div><br>
+		<div class="text_frame">
+			<h1>完成！</h1>
+		</div>
+		<div class="main">
+			<img src="スクリーンショット 2025-05-02 163001.png"><br>
+		</div><br>
+        <div class="text_frame">
+			<h1>参考</h1>
+		</div>
+		<div class="main">
+			<p>覚えている範囲で後から追加</p>
+		</div><br>
+		</body>
+	</head>
+</html>
