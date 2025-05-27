@@ -5,21 +5,24 @@
 	<title>[C#][初心者向け]プロセカのバツミクっぽく画像を表示させる</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
 	<meta name="description" content="[C#][初心者向け]プロセカのバツミクっぽく画像を表示させる">
-	<link rel="stylesheet" href="des.css">
+	<link rel="stylesheet" href="../../des.css">
 	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+    <link rel="stylesheet" href="../../prism.css">
 	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
 	<iframe src="../../google.html" style="display: none;"></iframe>
 	</head>
 		<body>
+            <header>
+			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
 			<div class="title">
 				<h1>[C#][初心者向け]プロセカのバツミクっぽく画像を表示させる</h1>
 				<p>・画像を表示させ、かつ、アプリケーションを削除できないようにする</p>
 				<p>・Visual Studioで作成可</p>
-			<p style="text-align:center;">※このサイトのメインのページは以下の4つです。(下手絵を中心に宣伝)</p>
-			<p style="text-align:center;"><a href="https://leekmikan.github.io/gahaku/Game.html">画伯の展開会(下手な絵を当てるクイズ)<a></p>
-			<p style="text-align:center;"><a href="https://leekmikan.github.io/picture">下手な絵集<a></p>
-			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi/Game.html">歌詞クイズ<a></p>
-			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi easy/Game.html">歌詞クイズ(簡単ver)<a></p>
 			</div><br>
 			<div class="text_frame">
 				<h1>準備手順＋ソースコード</h1>
@@ -37,7 +40,7 @@
                 <li>コード内のuse_colorのRGB値を、画像に使われていない色にする<br>※Windowsの昔からのバグで、色によってクリックが効く効かないがあるので注意！</li>
                 <li>(PC起動後に自動実行する場合)コード内の/*と*/を削除</li>
             </ol>
-			<pre><code>
+			<pre><code class="language-cs">
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -210,5 +213,6 @@ namespace Bgpic
 			<p>覚えている範囲で後から追加</p>
 		</div><br>
 		</body>
+        <script src="../../prism.js"></script>
 	</head>
 </html>
