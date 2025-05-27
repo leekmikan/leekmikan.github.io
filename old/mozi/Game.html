@@ -1,1 +1,29 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>文字探し</title>
+	<link rel="stylesheet" href="des.css">
+	<script src="mozi.js"></script>
+	</head>
+		<body>
+			<div style="text-align:center;">
+				<h1 id="stage">ステージ: 1</h1>
+				<h2 id="time"></h2>
+				<canvas id="canvas" width="500" height="500"></canvas>
+				<br><button onclick="start()">開始 / リセット</button>
+				<br>
+				<input type="radio" name="level" checked>初級
+				<input type="radio" name="level" >中級
+				<input type="radio" name="level" >上級
+				<p>他と違う文字を探そう</p>
+				<p>20ステージごとに難易度があがるよ</p>
+				<p>当たり判定は、正解の文字が最優先</p>
+				<p>目標:上級でステージ50クリア</p>
+			</div>
+		</body>
+	</head>
+	<script src="class.js"></script>
+	<script src="f12.js"></script>
+	<script src="main.js"></script>
+</html>
