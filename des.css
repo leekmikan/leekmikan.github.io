@@ -1,4 +1,4 @@
-span header{
+#star{
 font-size: 32px;
 }
 img.tab_button{
@@ -130,4 +130,14 @@ header button:hover{
 }
 .ct{
 	text-align:center;
+}
+.trick{
+	width: 50%;
+	background: #FFFFFF;
+}
+@media (prefers-color-scheme: dark) {
+  	.trick{
+	width: 50%;
+	background: #000000;
+	}
 }
