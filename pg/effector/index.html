@@ -5,11 +5,19 @@
 	<title>C++用　簡易音楽エフェクター</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
 	<meta name="description" content="C++用簡易音楽エフェクターのヘッダーファイルです。20種類位のエフェクターをかけることができます。">
-	<link rel="stylesheet" href="des.css">
+	<link rel="stylesheet" href="../../des.css">
+	<link rel="stylesheet" href="../../prism.css">
 	<link rel="icon" type="image/jpg" href="../../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
 	</head>
 		<body>
+			    <header>
+			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
 			<div class="title">
 				<h1>C++用　簡易音楽エフェクター</h1>
 				<p>・標準ライブラリだけで作りました</p>
@@ -18,12 +26,6 @@
 				<p>・高校２年生の頃に作成し、定期的に拡張したものなのでメモリーの面などで効率が悪いかも</p>
 				<p>・説明のミスがあるかも</p>
 			</div>
-			<div class="text_frame">
-				<h1></h1>
-			</div>
-			<div class="main">
-
-			</div><br>
 			<div class="text_frame">
 				<h1>対応ファイル</h1>
 			</div>
@@ -51,7 +53,7 @@
 				<h1>１．そのまま出力</h1>
 			</div>
 			<div class="main">
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.Export(2); //チャンネル数　1でモノラル
@@ -65,7 +67,7 @@ wd.Dispose(); //破棄
 			</div>
 			<div class="main">
 				<p>※ここだけフル音源を使用</p>
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.Cut(40.7, 43.8); //始点と終点を秒数で指定
@@ -78,7 +80,7 @@ wd.Dispose(); //破棄
 				<h1>３．再生速度変更</h1>
 			</div>
 			<div class="main">
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.Speed(1.5,-6); //再生速度(倍率)　ピッチを指定　再生速度をピッチに合わせる場合は、PITCH(ピッチ)のマクロを推奨　倍率にマイナスを付けると逆再生
@@ -91,7 +93,7 @@ wd.Dispose(); //破棄
 				<h1>４．リバーブ(低負荷)</h1>
 			</div>
 			<div class="main">
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.AlgorithmicReverb(300, 0.6, 0.6); //遅延ミリ秒　倍率　原曲に混ぜる割合
@@ -107,7 +109,7 @@ wd.Dispose(); //破棄
 				<p>畳み込みリバーブ</p>
 				<p>※別途IRデータをネットから探してダウンロードしてください (ここではOpenAIRのものを使用)</p>
 				<p>4~5分の曲で20~30秒かかります</p>
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.LRdel(1000); //片側をすこし遅延　これを付けると音が広がったように感じる?
@@ -122,7 +124,7 @@ wd.Dispose(); //破棄
 			</div>
 			<div class="main">
 				<p>この曲は短調(ハ短調　#,♭ともに0個)なので、長調(ハ長調　#×3)に変更した例を載せる</p>
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.Custom_Scale(MAJOR_SCALE,0); //ピッチ変更用配列(int[12])　調号数(#×1　♭×-1)
@@ -135,7 +137,7 @@ wd.Dispose(); //破棄
 				<h1>７．フランジャー</h1>
 			</div>
 			<div class="main">
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.Flanger(1,0.5);//スピード　原曲に混ぜる割合
@@ -149,7 +151,7 @@ wd.Dispose(); //破棄
 			</div>
 			<div class="main">
 				<p>音割れ注意</p>
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.Compressor(0.25);//波形の振幅を何乗するか
@@ -164,7 +166,7 @@ wd.Dispose(); //破棄
 			<div class="main">
 				<p>中央にボーカルがいれば削除できる</p>
 				<p>モノラル音源になる</p>
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.Voicecanseller();
@@ -179,7 +181,7 @@ wd.Dispose(); //破棄
 			</div>
 			<div class="main">
 				<p>中央がボーカルのみならうまくいく</p>
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.CenterMultiplier(5); //引数が大きいほど音が残りにくい　1~10位がいい?
@@ -193,7 +195,7 @@ wd.Dispose(); //破棄
 			</div>
 			<div class="main">
 				<p>ダウンサンプリングでしか使わないかも</p>
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.Quality(8000); //サンプリング周波数を指定
@@ -206,7 +208,7 @@ wd.Dispose(); //破棄
 				<h1>１２．エイリアン風</h1>
 			</div>
 			<div class="main">
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.Alien(1024, 0.1, 0.5, 1.5,1); //1フレームの長さ　フレーム間の増加速度　最小速度　最大速度　開始速度
@@ -221,7 +223,7 @@ wd.Dispose(); //破棄
 			<div class="main">
 				<p>Youtubeによくある多重加速シリーズみたいな音</p>
 				<p>長めの音源の方が面白いと思う</p>
-				<pre><code>
+				<pre><code class="language-cpp">
 #include "Music.h"
 WaveData wd = WaveData("Example.wav");
 wd.Multiple(3, 10); //重なる場所(秒)　速度の差(%)
@@ -251,5 +253,6 @@ wd.Dispose(); //破棄
 				<p>結構不正確</p>
 			</div><br>
 		</div>
+		<script src="../../prism.js"></script>
 	</head>
 </html>
