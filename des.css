@@ -1,31 +1,5 @@
-body{
-color: #000000;
-background: #A0FFFF;
-}
-span{
+span header{
 font-size: 32px;
-}
-div{
-text-align:center;
-}
-.title{
-text-align:center;
-color: #000000;
-background: #FFFF80;
-border: double 5px #4ec4d3;
-}
-.main{
-color: #000000;
-background: #00FF80;
-border-radius: 10px;
-text-align:center;
-}
-.tab{
-padding: 5px 0px;
-text-align:center;
-color: #000000;
-background: #0080FF;
-border-radius: 10px;
 }
 img.tab_button{
 	vertical-align: middle;
@@ -61,12 +35,7 @@ button.tab_button{
 	border: solid 3px #FF0000;
 	background:radial-gradient(#FF0000, #FFA0C0);
 }
-.text_frame{
-    background: #B0FFD0;
-    border-left: double 10px #30C080;
-	width: fit-content;
-	padding: 0em 1em;
-}
+
 .qz>input{
     width:100px;
     text-align: center;
@@ -94,4 +63,71 @@ button.tab_button{
 }
 .r{
     background: #FF0000;
+}
+body{
+color: #000000;
+background: #E0E0E0;
+}
+.title{
+text-align:center;
+color: #FFFFFF;
+background: #202020;
+border-top: 1px solid #333;
+padding: 1em 0px;
+}
+.main{
+color: #000000;
+background: #FFFFFF;
+border-radius: 10px;
+padding: 1em 0px;
+margin: 1em 0px;
+}
+.tab{
+padding: 1em 0px;
+text-align:center;
+color: #000000;
+background: #0080FF;
+border-radius: 10px;
+padding: 1em 0px;
+}
+
+.text_frame{
+	padding:0 1em;
+	border-top: 1px solid #333;
+	margin:1em 0;
+}
+div:not(.title) img{
+width: 50%;
+}
+.index{
+	width: 50%;
+	color: #FFFFFF;
+	background: #202020;
+	padding: 1em 0px;
+	margin: 1em 0px;
+}
+a{
+	color:#B0B0FF;
+}
+.rd{
+	color: #ff0000;
+}
+header{
+	text-align:center;
+	color: #FFFFFF;
+	background: #101010;
+}
+header button{
+	width: 19%;
+	height: 50px;
+	background: #FFFFFF00;
+	color: #FFFFFF;
+	margin: 1em 0px;
+	vertical-align: middle;
+}
+header button:hover{
+	background: #FFFFFF50;
+}
+.ct{
+	text-align:center;
 }

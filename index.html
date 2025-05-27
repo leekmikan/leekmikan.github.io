@@ -12,16 +12,25 @@
     <link rel="stylesheet" href="des.css">
 </head>
 <body>
-    <div>
-    	<h1>メインページ</h1>
-    	<p>このサイト内で獲得したポイント:<span id="star">0</span> P</p>
-	<p>ミニゲームで遊んでいると、ポイントを獲得できるよ。</p>
-	<p>(今のところ使い道なし)</p><br>
-	<p>このページでは、大学生が　クイズ/プログラム/下手な絵を公開しています。</p>
-	<p>ページ全体のUIは適当です。</p>
-	<p>パソコン推奨</p>
-    </div>
-    <h1>Illustrations</h1>
+    <div class="ct">
+        <header>
+			<button onclick="location.href='https://leekmikan.github.io/gahaku/Game.html'">画伯の展覧会</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
+		<div class="title">
+			<h1>メインページ</h1>
+    	    <p>このサイト内で獲得したポイント:<span id="star">0</span> P</p>
+	        <p>ミニゲームで遊んでいると、ポイントを獲得できるよ。</p>
+	        <p>(今のところ使い道なし)</p><br>
+	        <p>このページでは、大学生が　クイズ/プログラム/下手な絵を公開しています。</p>
+	        <p>パソコン推奨</p>
+		</div>
+    <div class="text_frame" id="i1">
+			<h1>Illustrations</h1>
+		</div>
     <div>
         <h2>※ここのイラストはすべて画伯(下手な人)が描いたものです</h2>
     <button class="tab_button button_yellow"onclick="location.href='picture/index.html'">画伯の画像置き場</button>
@@ -31,7 +40,9 @@
 	<button class="tab_button button_green"onclick="location.href='esiritori/Game.html'">絵しりとり100</button>
     <br><br>
     </div>
-    <h1>Programs</h1>
+    <div class="text_frame" id="i1">
+			<h1>Programs</h1>
+		</div>
     <div>
     <button class="tab_button button_yellow"onclick="location.href='angou/index.html'">ファイル暗号化テスト</button>
 	<button class="tab_button button_green"onclick="location.href='pg/index.html'">プログラム集</button>
@@ -39,7 +50,10 @@
     <button class="tab_button button_red"onclick="location.href='processing/index.html'">Processingのプログラム「素因数分解リズムゲーム」置き場+解説</button>
     <br><br>
     </div>
-    <h1>Quizes/Games</h1>
+    <div class="text_frame" id="i1">
+			<h1>Quizes/Games</h1>
+		</div>
+    
     <div>
     <button class="tab_button button_yellow"onclick="location.href='gahaku/Game.html'"onmouseover="Show(0)">画伯の展覧会</button>
     <button class="tab_button button_green"onclick="location.href='kashi/Game.html'"onmouseover="Show(1)">歌詞クイズ</button>
@@ -51,7 +65,9 @@
     <h1 id="diff">　</h1>
     <h1 id="des">　</h1>
     </div>
-    <h1>Other (余り　マイナーなゲームの攻略情報/チートコードなど)</h1>
+    <div class="text_frame" id="i1">
+			<h1>Other (余り　マイナーなゲームの攻略情報/チートコードなど)</h1>
+		</div>
     <div>
         <button class="tab_button button_blue"onclick="location.href='math/index.html'">数学の問題集</button>
         <button class="tab_button button_green"onclick="location.href='info_IMR/index.html'">IMRの攻略情報</button>
