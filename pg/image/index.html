@@ -5,22 +5,25 @@
 	<title>画像を組み合わせて画像を生成 (C#)</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
 	<meta name="description" content="画像を組み合わせて画像を生成 (C#)">
-	<link rel="stylesheet" href="des.css">
+	<link rel="stylesheet" href="../../des.css">
+    <link rel="stylesheet" href="../../prism.css">
 	<link rel="icon" type="image/jpg" href="../../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
 	<iframe src="../../google.html" style="display: none;"></iframe>
 	</head>
 		<body>
+        <header>
+			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
 			<div class="title">
 				<h1>画像を組み合わせて画像を生成 (C#)</h1>
 				<p>・大量の画像を組み合わせて大きな画像を作る</p>
 				<p>・結構時間がかかる</p>
 				<p>・Visual Studioで作成可</p>
-			<p style="text-align:center;">※このサイトのメインのページは以下の4つです。(下手絵を中心に宣伝)</p>
-			<p style="text-align:center;"><a href="https://leekmikan.github.io/gahaku/Game.html">画伯の展開会(下手な絵を当てるクイズ)<a></p>
-			<p style="text-align:center;"><a href="https://leekmikan.github.io/picture">下手な絵集<a></p>
-			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi/Game.html">歌詞クイズ<a></p>
-			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi easy/Game.html">歌詞クイズ(簡単ver)<a></p>
 			</div><br>
 			<div class="text_frame">
 				<h1>ソースコード</h1>
@@ -28,7 +31,7 @@
 		<div class="main">
 			<p>C#の　コンソールアプリケーション(.NET Framework)　で作成</p>
 			<p>namespaceの部分はプロジェクト名に変える</p>
-			<pre><code>
+			<pre><code class="language-cs">
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -309,5 +312,6 @@ MakePicture("Name", @"D:\data\img\xxx.png", "data", 4, 16);
 			<p>データベースで参照したファイルを削除していませんか？<br>→ファイルを元に戻すか、データベースを作り直してください</p>
 		</div>
 		</body>
+        <script src="../../prism.js"></script>
 	</head>
 </html>
