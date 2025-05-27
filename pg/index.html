@@ -5,6 +5,8 @@
 	<title>いろいろなプログラム置き場</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
 	<meta name="description" content="プログラム置き場。巨大数の計算、wavファイルの畳み込み、ドッキリプログラムなど。他下手な字のフォントあり">
+	<link rel="stylesheet" href="../des.css">
+	<link rel="stylesheet" href="../prism.css">
 	<link rel="stylesheet" href="des.css">
 	<link rel="icon" type="image/jpg" href="../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
@@ -12,17 +14,19 @@
 	<script src="main.js"></script>
 	</head>
 		<body>
+				<header>
+			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
 			<div class="title">
 				<h1>いろいろなプログラム置き場</h1>
 				<p>・使えるかわからないプログラム置き場、巨大数の計算、wavファイルの畳み込み、ドッキリプログラムなど</p>
 				<p>・半数のファイルが高校2年生辺りで作ったものなので、非効率、間違いがあるかも。</p>
 				<p>・一部Web版(他言語からJavaScriptに書き換えたもの)あり　ただし、元の言語より処理が遅い</p>
 				<p>※※※これらプログラムを実行した際に発生した不利益に関しては、責任は負いかねます。※※※</p>
-			<p style="text-align:center;">※このサイトのメインのページは以下の4つです。(下手絵を中心に宣伝)</p>
-			<p style="text-align:center;"><a href="https://leekmikan.github.io/gahaku/Game.html">画伯の展開会(下手な絵を当てるクイズ)<a></p>
-			<p style="text-align:center;"><a href="https://leekmikan.github.io/picture">下手な絵集<a></p>
-			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi/Game.html">歌詞クイズ<a></p>
-			<p style="text-align:center;"><a href="https://leekmikan.github.io/kashi easy/Game.html">歌詞クイズ(簡単ver)<a></p>
 			</div>
 			<div class="text_frame">
 				<h1>エフェクター(C++)</h1>
@@ -34,7 +38,7 @@
 		<p>BPMは2^整数倍で出力される場合がある　(80が160と出たり、200が100と出たりする)</p>
 			<a href="Music.h" download="Music.h">Music.h</a><br><br><br>
 			<p>使用例１</p>
-			<pre><code>
+			<pre><code class="language-cpp">
 WaveData wd = WaveData("16bit2chのwavファイル");
 wd.Quality(8000); //サンプリング周波数を8000Hzに
 wd.Export(2); //チャンネル数
@@ -42,7 +46,7 @@ wd.Dispose();
 			</code></pre>
 			<p>>>音質が下がったwavファイルを出力</p>
 			<p>使用例２</p>
-			<pre><code>
+			<pre><code class="language-cpp">
 WaveData wd = WaveData("16bit2chのwavファイル");
 wd.LRdel(1000); //左右で少しだけ音をずらす(広がったようにきこえる)
 wd.ConvolutionReverb("16bit2chの残響音(IR)を記録したwavファイル", 0.3,100);//原曲30%、100Hz以下切り捨て　※30秒程度かかる
@@ -51,7 +55,7 @@ wd.Dispose();
 			</code></pre>
 			<p>>>特定の空間内で再生したかのようなwavファイルを出力</p>
 			<p>使用例３</p>
-			<pre><code>
+			<pre><code class="language-cpp">
 WaveData wd = WaveData("16bit2chのwavファイル");
 wd.Speed(1.7,4.0); //1.7倍速,ピッチ+4
 wd.Export(2); //チャンネル数
@@ -61,7 +65,7 @@ wd.Dispose();
 			<p>畳み込み(IRファイルが必要)/フランジャー/イコライザー/コンプレッサー</p>
 			<p>エコー/再生速度変更/ピッチ変更/多重/サンプリング周波数変更など約25種類</p>
 			<p>使用例４</p>
-			<pre><code>
+			<pre><code class="language-cpp">
 WaveData wd = WaveData("16bit2chのwavファイル");
 int bpm = wd.BPM(); //BPMを測定
 std::string scale = wd.Scale(10000); //10秒飛ばした地点から調を測定する 
@@ -80,7 +84,7 @@ wd.Dispose();
 			<a href="Exp.js" download="Exp.js">Exp.js</a><br><br><br>
 			<a href="Num.js" download="Num.js">Num.js(↑とセット　万～無量大数,矜羯羅～不可説不可説転までの単位で表示)</a><br><br><br>
 			<p>使用例</p>
-			<pre><code>
+			<pre><code class="language-js">
 var exp = new Exp(100,1); //10^10^100 (1グーゴルプレックス)
 letter_type = 1; //表示形式 0...XeYの形式  1...日本語  2...∞(1.8e308)基準
 document.getElementById("exp").innerHTML = Text(exp);//表示
@@ -145,7 +149,7 @@ document.getElementById("exp").innerHTML = Text(exp);//表示
 			<a href="Forms.js" download="Forms.js">Form.js</a><br><br><br>
 			<a href="Forms.css" download="Forms.css">Form.css  (jsとセット)</a><br><br><br>
 <p>使用例</p>
-			<pre><code>
+			<pre><code class="language-js">
 class Form1 extends Forms{
     constructor(args){
         super(); //絶対必要
@@ -272,6 +276,7 @@ for(var i = 0;i < 100;i++){
 		</body>
 		<script src="Exp.js"></script>
 		<script src="Num.js"></script>
+		<script src="../prism.js"></script>
 		<script>
 			var exp = new Exp(100,1); //10^10^100
 			letter_type = 1; //表示形式 0~2.
