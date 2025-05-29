@@ -1,1 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>[GO]サーバーのGET/POSTの送受信練習用</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="画像を組み合わせて画像を生成 (C#)">
+	<link rel="stylesheet" href="../../des.css">
+    <link rel="stylesheet" href="../../prism.css">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<iframe src="../../google.html" style="display: none;"></iframe>
+	</head>
+		<body>
+        <header>
+			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
+		<div class="title">
+			<h1>[GO]サーバーのGET/POSTの送受信練習用</h1>
+            <p>久しぶりにGOを触ったので、練習代わりに書いたやつ</p>
+            <p>複数のサイトからコピペし、不十分なところを適宜直した</p>
+            <p>そのうち、綺麗に直すかも</p>
+            <p>GO自体、paiza以来２年ぶり、GOのサーバーサイド触れて２日だからミスあるかも</p>
+		</div><br>
+		<div class="text_frame">
+			<h1>環境</h1>
+		</div>
+		<div class="main">
+            <ul>
+                <li>Windows11</li>
+                <li>VScode</li>
+                <li>GO 1.24.3</li>
+            </ul>
+        </div>
+        <div class="text_frame">
+			<h1>事前準備</h1>
+		</div>
+		<div class="main">
+            <ol>
+                <li>適当なフォルダを作って、そこにファイル「server.go」を作成</li>
+                <li>コマンドプロンプトで「go mod init Test」を入力→「go.mod」が生成</li>
+            </ol>
+        </div>
+        <div class="text_frame">
+			<h1>コード</h1>
+		</div>
+		<div class="main">
+            <pre><code class="language-go">
+package main
 
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"strings"
+)
+
+//名簿
+type Post struct {
+	User string
+	ID   int
+}
+
+var id_inc = 1
+var j_data = []Post{
+	{
+		User: "Taro", ID: 0,
+	},
+}
+
+// UserとIDをGETで取得(http://127.0.0.1:8080/get).
+func get(w http.ResponseWriter, r *http.Request) {
+	response, err := http.Get("http://127.0.0.1:8080/ip_ep")
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer response.Body.Close()
+
+	// レスポンスを読み取る
+	body, err := io.ReadAll(response.Body)
+	if err != nil {
+		fmt.Println("Error reading response:", err)
+		return
+	}
+	// レスポンスを表示
+	fmt.Println(strings.ReplaceAll(string(body), `\"`, ""))
+}
+
+// UserをPOSTで送信(http://127.0.0.1:8080/post?name=名前).
+func post(w http.ResponseWriter, r *http.Request) {
+	var data = r.FormValue("name")
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		fmt.Println("Error encoding JSON:", err)
+		return
+	}
+	// POSTリクエスト送信
+	response, err := http.Post("http://127.0.0.1:8080/ip_ep", "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer response.Body.Close()
+
+	// レスポンスを表示
+	fmt.Println("Status Code:", response.StatusCode)
+}
+
+// データ登録(POST)/データ返す(GET)用.
+func ip_ep(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodGet:
+		w.Header().Set("Content-Type", "application/json")
+		//名簿を持ってくる.
+		post := &j_data
+		json, _ := json.Marshal(post)
+		//JSONに変換したものを送り返す.
+		w.Write(json)
+	case http.MethodPost:
+		body, err := io.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, "Failed to read request body", http.StatusInternalServerError)
+			return
+		}
+		defer r.Body.Close()
+		//名簿に追加.
+		j_data = append(j_data, Post{User: string(body), ID: id_inc})
+		//INCRIMENT代わり.
+		id_inc++
+		//(人数確認用).
+		fmt.Println(id_inc)
+	default:
+		fmt.Println("...")
+	}
+}
+
+func main() {
+	http.HandleFunc("/get", get)
+	http.HandleFunc("/post", post)
+	http.HandleFunc("/ip_ep", ip_ep)
+	http.ListenAndServe(":8080", nil)
+}
+            </code></pre>
+        </div>
+        <div class="text_frame">
+			<h1>結果</h1>
+		</div>
+		<div class="main">
+            <p>ブラウザのURLに「http://localhost:8080/post?name=任意の名前」を入力すると、j_dataに名前、IDが追加される</p>
+            <p>ブラウザのURLに「http://127.0.0.1:8080/get」を入力すると、現在の名簿(j_data)の中身が表示される</p>
+        </div>
+		</body>
+        <script src="../../prism.js"></script>
+	</head>
+</html>
