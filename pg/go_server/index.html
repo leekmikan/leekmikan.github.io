@@ -49,6 +49,7 @@
 			<h1>コード</h1>
 		</div>
 		<div class="main">
+			<p>server.go</p>
             <pre><code class="language-go">
 package main
 
@@ -157,12 +158,13 @@ func main() {
             <p>ブラウザのURLに「http://127.0.0.1:8080/get」を入力すると、現在の名簿(j_data)の中身が表示される</p>
         </div>
 		<div class="text_frame">
-			<h1>(おまけ)JSONファイル読み込み、Webページで表示(GETのみ)</h1>
+			<h1>(おまけ)JSONファイル読み込み、Webページで表示</h1>
 		</div>
 		<div class="main">
 			<p><a href="data.json" download="data.json">使用ファイル</a></p>
             <p>Webページから曲情報を取得/検索</p>
 			<p>「server.go」と同じ階層に、「index.html」「main.js」を置く</p>
+			<p>注意：「server.go」を実行中に「index.html」の検索ボタンを押す</p>
 			<p style="font-size: 8px;">POSTも必要なネタが思いつかなかった...</p>
         </div>
 		<div class="main">
@@ -264,7 +266,8 @@ function get_data(){
 
 	  //検索件数.
       var hd = &quot;&lt;p&gt;検索結果：&quot; + data.length + &quot;件&lt;/p&gt;&quot;;
-      var res = &quot;&quot;;
+      
+	  var res = &quot;&quot;;
       if(data.length &gt; 100){
 		//件数が多すぎたら.
         res += &quot;&lt;p&gt;検索結果が100件を超えてます！&lt;/p&gt;&quot;;
@@ -282,7 +285,7 @@ function get_data(){
 		//検索件数0件だったら.
         res += &quot;&lt;p&gt;見つかりませんでした...&lt;/p&gt;&quot;;
       }
-	  
+
 	  //表示
       document.getElementById(&quot;result&quot;).innerHTML = hd + res;
     };
