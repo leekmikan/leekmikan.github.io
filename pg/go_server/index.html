@@ -263,27 +263,28 @@ function get_data(){
  
     request.onload = function () {
       var data = this.response;
-
-	  //検索件数.
-      var hd = &quot;&lt;p&gt;検索結果：&quot; + data.length + &quot;件&lt;/p&gt;&quot;;
-      
-	  var res = &quot;&quot;;
-      if(data.length &gt; 100){
-		//件数が多すぎたら.
-        res += &quot;&lt;p&gt;検索結果が100件を超えてます！&lt;/p&gt;&quot;;
-      }else{
-		//要素作成.
-        for(var i = 0;i &lt; data.length;i++){
-          res += &quot;&lt;br&gt;&lt;p&gt;&quot; + (i + 1) + &quot;&lt;/p&gt;&quot;;
-          res += &quot;&lt;ul&gt;&lt;li&gt;ID：&quot; + data[i].ID 
-          + &quot;&lt;/li&gt;&lt;li&gt;曲名：&quot; + data[i].Name 
-          + &quot;&lt;/li&gt;&lt;li&gt;アルバム名：&quot; 
-          + data[i].Album + &quot;&lt;/li&gt;&lt;/ul&gt;&quot;;
-        }
-      }
-      if(res == &quot;&quot;){
+      var hd;
+      var res = &quot;&quot;;
+      if(data === null){
 		//検索件数0件だったら.
+        hd = &quot;&lt;p&gt;検索結果：0件&lt;/p&gt;&quot;;
         res += &quot;&lt;p&gt;見つかりませんでした...&lt;/p&gt;&quot;;
+      }else{
+		//検索件数.
+        hd = &quot;&lt;p&gt;検索結果：&quot; + data.length + &quot;件&lt;/p&gt;&quot;;
+        if(data.length &gt; 100){
+		  //件数が多すぎたら.
+          res += &quot;&lt;p&gt;検索結果が100件を超えてます！&lt;/p&gt;&quot;;
+        }else{
+		  //要素作成.
+          for(var i = 0;i &lt; data.length;i++){
+            res += &quot;&lt;br&gt;&lt;p&gt;&quot; + (i + 1) + &quot;&lt;/p&gt;&quot;;
+            res += &quot;&lt;ul&gt;&lt;li&gt;ID：&quot; + data[i].ID 
+            + &quot;&lt;/li&gt;&lt;li&gt;曲名：&quot; + data[i].Name 
+            + &quot;&lt;/li&gt;&lt;li&gt;アルバム名：&quot; 
+            + data[i].Album + &quot;&lt;/li&gt;&lt;/ul&gt;&quot;;
+          }
+        }
       }
 
 	  //表示
