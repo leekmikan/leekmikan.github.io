@@ -157,15 +157,16 @@ func main() {
             <p>ブラウザのURLに「http://127.0.0.1:8080/get」を入力すると、現在の名簿(j_data)の中身が表示される</p>
         </div>
 		<div class="text_frame">
-			<h1>(おまけ)JSONファイル読み込み(GETのみ)</h1>
+			<h1>(おまけ)JSONファイル読み込み、Webページで表示(GETのみ)</h1>
 		</div>
 		<div class="main">
 			<p><a href="data.json" download="data.json">使用ファイル</a></p>
-			<p></p>
-            <p>ブラウザのURLに「http://127.0.0.1:8080/get」を入力すると、ランダムな曲情報が出力</p>
+            <p>Webページから曲情報を取得/検索</p>
+			<p>「server.go」と同じ階層に、「index.html」「main.js」を置く</p>
 			<p style="font-size: 8px;">POSTも必要なネタが思いつかなかった...</p>
         </div>
 		<div class="main">
+			<p>server.go</p>
 			<pre><code class="language-go">
 package main
 
@@ -173,10 +174,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
-	"math/rand"
 	"net/http"
 	"os"
+	"strings"
 )
 
 type Music struct {
@@ -187,30 +187,7 @@ type Music struct {
 
 // UserとIDをGETで取得(http://127.0.0.1:8080/get).
 func get(w http.ResponseWriter, r *http.Request) {
-	response, err := http.Get("http://127.0.0.1:8080/ip_ep")
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
-	defer response.Body.Close()
-
-	// レスポンスを読み取る
-	body, err := io.ReadAll(response.Body)
-	if err != nil {
-		fmt.Println("Error reading response:", err)
-		return
-	}
-	var ms Music
-	if err := json.Unmarshal(body, &ms); err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("ID：", ms.ID)
-	fmt.Println("名前：", ms.Name)
-	fmt.Println("アルバム名：", ms.Album)
-}
-
-// データ登録(POST)/データ返す(GET)用.
-func ip_ep(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*") //アクセス自由
 	switch r.Method {
 	case http.MethodGet:
 		w.Header().Set("Content-Type", "application/json")
@@ -227,7 +204,14 @@ func ip_ep(w http.ResponseWriter, r *http.Request) {
 		}
 		var ms []Music
 		json.Unmarshal(jsonData, &ms)
-		rt := ms[rand.Intn(len(ms))]
+		var rt []Music
+		name_req := r.FormValue("name")
+		album_req := r.FormValue("album")
+		for _, v := range ms {
+			if (strings.Contains(v.Name, name_req) || name_req == "") && (strings.Contains(v.Album, album_req) || album_req == "") {
+				rt = append(rt, v)
+			}
+		}
 		post := &rt
 		json, _ := json.Marshal(post)
 		w.Write(json)
@@ -238,32 +222,75 @@ func ip_ep(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/get", get)
-	http.HandleFunc("/ip_ep", ip_ep)
 	http.ListenAndServe(":8080", nil)
 }
+			</code></pre>
+			<br>
+			<p>index.html</p>
+			<pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Test&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  曲名：&lt;input id=&quot;music_name&quot;&gt;&lt;br&gt;
+  アルバム名：&lt;input id=&quot;album_name&quot;&gt;&lt;br&gt;
+  &lt;button onclick=&quot;get_data()&quot;&gt;検索&lt;/button&gt;
+  &lt;div id=&quot;result&quot;&gt;
 
-// http://localhost:8080/get データ表示.
+  &lt;/div&gt;
+  &lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+			</code></pre>
+			<br><p>main.js</p>
+			<pre><code class="language-js">
+function get_data(){
+    var request = new XMLHttpRequest();
 
+	//パラメーターを付けて検索.
+    var url = &quot;http://127.0.0.1:8080/get?name=&quot; 
+    + document.getElementById(&quot;music_name&quot;).value + &quot;&amp;album=&quot; 
+    + document.getElementById(&quot;album_name&quot;).value;
+    request.open(&#039;GET&#039;, url, true);
+
+	//JSON形式で取得.
+    request.responseType = &#039;json&#039;;
+ 
+    request.onload = function () {
+      var data = this.response;
+
+	  //検索件数.
+      var hd = &quot;&lt;p&gt;検索結果：&quot; + data.length + &quot;件&lt;/p&gt;&quot;;
+      var res = &quot;&quot;;
+      if(data.length &gt; 100){
+		//件数が多すぎたら.
+        res += &quot;&lt;p&gt;検索結果が100件を超えてます！&lt;/p&gt;&quot;;
+      }else{
+		//要素作成.
+        for(var i = 0;i &lt; data.length;i++){
+          res += &quot;&lt;br&gt;&lt;p&gt;&quot; + (i + 1) + &quot;&lt;/p&gt;&quot;;
+          res += &quot;&lt;ul&gt;&lt;li&gt;ID：&quot; + data[i].ID 
+          + &quot;&lt;/li&gt;&lt;li&gt;曲名：&quot; + data[i].Name 
+          + &quot;&lt;/li&gt;&lt;li&gt;アルバム名：&quot; 
+          + data[i].Album + &quot;&lt;/li&gt;&lt;/ul&gt;&quot;;
+        }
+      }
+      if(res == &quot;&quot;){
+		//検索件数0件だったら.
+        res += &quot;&lt;p&gt;見つかりませんでした...&lt;/p&gt;&quot;;
+      }
+	  
+	  //表示
+      document.getElementById(&quot;result&quot;).innerHTML = hd + res;
+    };
+ 
+    request.send();
+}
 			</code></pre>
 		</div>
-		<div class="text_frame">
-			<h1>結果</h1>
-		</div>
-		<div class="main">
-			<p>3回「http://127.0.0.1:8080/get」を入力した結果</p>
-			<p>ランダムなので、毎回実行結果は異なる</p>
-            <pre><code class="language-html">
-ID： 2140
-名前： ネトゲ廃人シュプレヒコール
-アルバム名： 初音ミク Project DIVA MEGA39's 10th アニバーサリーコレクション [Disc 3]
-ID： 427
-名前： ハッピーチューン
-アルバム名： セツナコード Feat. GUMI, 初音ミク
-ID： 2245
-名前： 妄想スケッチ
-アルバム名： 初音ミク Project mirai こんぷり～と [Disc 4]
-			</code></pre>
-        </div>
 		</body>
         <script src="../../prism.js"></script>
 	</head>
