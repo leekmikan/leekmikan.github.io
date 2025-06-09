@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="../des.css">
 	<link rel="stylesheet" href="../prism.css">
 	<link rel="stylesheet" href="des.css">
+	<link rel="stylesheet" href="Forms.css">
 	<link rel="icon" type="image/jpg" href="../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
 	<iframe src="../google.html" style="display: none;"></iframe>
@@ -25,64 +26,43 @@
 				<h1>いろいろなプログラム置き場</h1>
 				<p>・使えるかわからないプログラム置き場、巨大数の計算、wavファイルの畳み込み、ドッキリプログラムなど</p>
 				<p>・半数のファイルが高校2年生辺りで作ったものなので、非効率、間違いがあるかも。</p>
-				<p>・一部Web版(他言語からJavaScriptに書き換えたもの)あり　ただし、元の言語より処理が遅い</p>
+				<p>(「詳細はこちら」と書いてあるものは新しいことが多い)</p>
 				<p>※※※これらプログラムを実行した際に発生した不利益に関しては、責任は負いかねます。※※※</p>
 			</div>
 			<div class="text_frame">
 				<h1>エフェクター(C++)</h1>
 			</div>
 		<div class="main">
-		<p><a href="effector/index.html">詳細ページはこちら</a></p>
-		<p>(2024/9/28)BPM,調の測定を追加(double　BPM()　　　std::string　Scale(int))</p>
-		<p>情報があまりなかった(関数の定義など)ので独自アルゴリズムで作成。精度不明　BPMの範囲は40～631</p>
-		<p>BPMは2^整数倍で出力される場合がある　(80が160と出たり、200が100と出たりする)</p>
-			<a href="Music.h" download="Music.h">Music.h</a><br><br><br>
-			<p>使用例１</p>
-			<pre><code class="language-cpp">
-WaveData wd = WaveData("16bit2chのwavファイル");
-wd.Quality(8000); //サンプリング周波数を8000Hzに
-wd.Export(2); //チャンネル数
-wd.Dispose();
-			</code></pre>
-			<p>>>音質が下がったwavファイルを出力</p>
-			<p>使用例２</p>
-			<pre><code class="language-cpp">
-WaveData wd = WaveData("16bit2chのwavファイル");
-wd.LRdel(1000); //左右で少しだけ音をずらす(広がったようにきこえる)
-wd.ConvolutionReverb("16bit2chの残響音(IR)を記録したwavファイル", 0.3,100);//原曲30%、100Hz以下切り捨て　※30秒程度かかる
-wd.Export(2); //チャンネル数
-wd.Dispose();
-			</code></pre>
-			<p>>>特定の空間内で再生したかのようなwavファイルを出力</p>
-			<p>使用例３</p>
-			<pre><code class="language-cpp">
-WaveData wd = WaveData("16bit2chのwavファイル");
-wd.Speed(1.7,4.0); //1.7倍速,ピッチ+4
-wd.Export(2); //チャンネル数
-wd.Dispose();
-			</code></pre>
-			<p>>>再生速度1.7倍、ピッチを半音4つ上げたwavファイルを出力</p>
-			<p>畳み込み(IRファイルが必要)/フランジャー/イコライザー/コンプレッサー</p>
-			<p>エコー/再生速度変更/ピッチ変更/多重/サンプリング周波数変更など約25種類</p>
-			<p>使用例４</p>
-			<pre><code class="language-cpp">
-WaveData wd = WaveData("16bit2chのwavファイル");
-int bpm = wd.BPM(); //BPMを測定
-std::string scale = wd.Scale(10000); //10秒飛ばした地点から調を測定する 
-//bpm　と　scaleの出力は省略
-wd.Dispose();
-			</code></pre>
-			<p>>>BPMと調(英語表記)で出力</p>
-			<p>畳み込み(IRファイルが必要)/フランジャー/イコライザー/コンプレッサー</p>
-			<p>エコー/再生速度変更/ピッチ変更/多重/サンプリング周波数変更など約25種類</p>
-			<p><a href="../effector/index.html">Web版(コンソール画面が開けるPC推奨　JavaScriptなので一部処理が非常に重い)</a></p>
+		<p><a href="effector/index.html">詳細はこちら</a></p>
+		<p><a href="../effector/index.html">Web版(コンソール画面が開けるPC推奨　JavaScriptなので一部処理が非常に重い)</a></p>
+		</div>
+		<div class="text_frame">
+			<h1>巨大モザイク画像(C#)</h1>
+		</div>
+		<div class="main">
+		<p><a href="image/index.html">詳細はこちら</a></p>
+		<img src="image/スクリーンショット 2025-04-22 012004.png">
+		<img src="image/スクリーンショット 2025-04-22 012416.png">
+		</div>
+		<div class="text_frame">
+			<h1>バツミクっぽく画像を表示(コード　C#)</h1>
+		</div>
+		<div class="main">
+		<p><a href="bgimg/index.html">詳細はこちら</a></p>
+		<img src="bgimg/スクリーンショット 2025-05-02 163001.png">
+		</div>
+		<div class="text_frame">
+			<h1>サーバーのGET/POSTの送受信練習用(GO)</h1>
+		</div>
+		<div class="main">
+		<p><a href="go_server/index.html">詳細はこちら</a></p>
 		</div>
 		<div class="text_frame">
 			<h1>巨大数(JavaScript)</h1>
 		</div>
 		<div class="main">
-			<a href="Exp.js" download="Exp.js">Exp.js</a><br><br><br>
-			<a href="Num.js" download="Num.js">Num.js(↑とセット　万～無量大数,矜羯羅～不可説不可説転までの単位で表示)</a><br><br><br>
+			<a href="../mult/Exp.js" download="Exp.js">Exp.js</a><br><br><br>
+			<a href="../mult/Num.js" download="Num.js">Num.js(↑とセット　万～無量大数,矜羯羅～不可説不可説転までの単位で表示)</a><br><br><br>
 			<p>使用例</p>
 			<pre><code class="language-js">
 var exp = new Exp(100,1); //10^10^100 (1グーゴルプレックス)
@@ -102,7 +82,6 @@ document.getElementById("exp").innerHTML = Text(exp);//表示
 			<p>Firefoxなどwindow.close()が使えないブラウザ非対応</p>
 			<p>パソコンの設定によってはページが開けなくなるかも</p>
 		</div><br>
-		<p>以下、最近のファイル(2024年4月)</p>
 		<div class="text_frame">
 			<h1>シンプルドッキリプログラム1</h1>
 		</div>
@@ -114,11 +93,14 @@ document.getElementById("exp").innerHTML = Text(exp);//表示
 			<p>全画面解除不可のエラーメッセージっぽいものを表示、+以降は赤黒点滅の背景に「You Can't Escape」と表示</p>
 			<p>DK1は、頑張ればアプリケーションを閉じることができる</p>
 			<p>DK1+は、再起動すれば閉じることができる(他にも方法がある?)</p>
-			<p>DK1++は、DK1+の機能に加え、OS起動時に自動で実行されるようになる</p>
-			<p>安全な解除方法(抜け道)を知りたい場合は、作成者と連絡がとれるところに連絡してください</p>
-			<p>(Twitter,Instagram,Threadsなどはやっていません　多分連絡取れるのはgithubか、同じ大学にいる人のみ?)</p><br>
+			<p>DK1++は、DK1+の機能に加え、(正しく消さないと)OS起動時に自動で実行されるようになる</p>
+			<h2>★★★安全な解除方法は、アプリケーションがアクティブの状態で、「112358」(テンキー不可)と入力するだけです★★★</h2>
 			<p>(追記)今のところ多分大丈夫だが、もしかしたらMyHookクラス(別サイトから引用)部分で、<br>変数が勝手に開放されるエラーが出る場合があるかも(ほかのプログラムで使ったらエラーが起きた)</p>
 			<p>メンバ変数にdelegateHookCallback型の変数を追加すると回避できる(やってみた感じ)ので、そのうち直すかも</p>
+			<p>DK1↓</p>
+			<img src="スクリーンショット 2025-06-10 001933.png">
+			<p>DK1+,DK1++↓</p>
+			<img src="DSC_0507.JPG">
 		</div><br>
 		<div class="text_frame">
 			<h1>シンプルドッキリプログラム(初音ミクver)</h1>
@@ -128,8 +110,10 @@ document.getElementById("exp").innerHTML = Text(exp);//表示
 			<a href="DKMpp.zip" download="DKMpp.zip">DKM++.zip</a><br><br>
 			<p>2024/8/31</p>
 			<p>DK1pとDK1ppに初音ミクの画像、曲を使用しただけ</p>
-			<p>時間がなかったので2~3時間くらいで作成</p>
+			<p>時間がなかったので2~3時間くらいで作成(切り抜きが雑)</p>
 			<p>通常バージョンと同様、+の方はシャットダウンすれば消えるが、++の方は消す難易度が高いので注意</p>
+			<h2>★★★安全な解除方法は、アプリケーションがアクティブの状態で、「112358」(テンキー不可)と入力するだけです★★★</h2>
+			<img src="DSC_0508.JPG">
 		</div><br>
 		<div class="text_frame">
 			<h1>シンプルドッキリプログラム2</h1>
@@ -142,61 +126,58 @@ document.getElementById("exp").innerHTML = Text(exp);//表示
 			<p>タスクマネージャーで削除できる</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>ウインドウ(JavaScript)(試作)</h1>
+			<h1>簡易ウインドウ(JavaScript)</h1>
 		</div>
 		<div class="main">
-			<p>まだForms,Label,Buttonクラスのみ</p>
+			<p>Forms,Label,Buttonクラスのみ C#(NET.Framework)とできるだけ同じ書き方でできるように調整</p>
+			<p>Imageクラスを実装したファイルをなくしました...(今更上げ忘れにも気づく)　それに伴いコードを変えました</p>
+			<p>更新予定なし</p>
 			<a href="Forms.js" download="Forms.js">Form.js</a><br><br><br>
 			<a href="Forms.css" download="Forms.css">Form.css  (jsとセット)</a><br><br><br>
 <p>使用例</p>
-			<pre><code class="language-js">
+<pre><code class="language-js">
 class Form1 extends Forms{
-    constructor(args){
-        super(); //絶対必要
-        this.Location.X = 100;
-        this.Location.Y = 200;
-        this.ControlBox = false; //×ボタン削除
-        this.Text = "ウイルスだぞっ";
-	
-	this.p1 = new Image(); //画像
-	this.p1.Size.Width = 40;
-	this.p1.Size.Height = 40;
-	this.p1.Location.X = 100;
-        this.p1.Location.Y = 105;
-	this.p1.BackgroundImage = "img/err.png"; //任意の画像を用意する(エラー時のマークなど)
-				
-        this.t1 = new Label(); //ラベル
+    constructor(){
+        super();
+        this.Location.X = window.innerWidth / 2 - this.Size.Width / 2;
+        this.Location.Y = window.scrollY + window.innerHeight / 2 - this.Size.Height / 2;
+        this.Text = "確認";
+        this.t1 = new Label();
         this.t1.Location.X = 150;
         this.t1.Location.Y = 100;
-        this.t1.Text = "じゃましてやるっ！";
+        this.BackColor = "#E0FFE0";
+        this.t1.Text = "みえるかな？";
 
-        this.bt1 = new Button(); //ボタン
-        this.bt1.Location.X = 160;
+        this.bt1 = new Button();
+        this.bt1.Location.X = 100;
         this.bt1.Location.Y = 220;
-        this.bt1.Text = "　やだ　";
-        this.bt1.onclick = args + ".Close();"; //ここで引数をつかう(閉じるため)
+        this.bt1.Text = "はい";
+        this.bt1.onclick = "f1.Close();";
+
+        this.bt2 = new Button();
+        this.bt2.Location.X = 250;
+        this.bt2.Location.Y = 220;
+        this.bt2.Text = "いいえ";
+        this.bt2.onclick = "alert('嘘つき...');f1.Close();";
     }
     init(){
-        this.Add_Object(this.t1); //初回だけForms.Show();が実行される.
+        this.Add_Object(this.t1); //3つともForms.Show();が実行される.
         this.Add_Object(this.bt1);
-        this.Add_Object(this.p1);
+        this.Add_Object(this.bt2);
     }
 }
-var fs = Array(100);
-//100個ランダムに配置
-for(var i = 0;i < 100;i++){
-	fs[i] = new Form1("fs[" + i + "]");
-	fs[i].Location.X = Math.floor(Math.random() * (window.innerWidth - 400));
-	fs[i].Location.Y = Math.floor(Math.random() * window.innerHeight);
-	fs[i].init(); //配置 (空のフォームであれば fs[i].Show())
-}
+
+var f1 = new Form1();
+f1.init();
 </code></pre>
 <p>>>ダイアログボックス的なものが表示される</p>
+<button onclick="conf()">体験用</button>
 		</div>
 		<div class="text_frame">
-			<h1>テキストファイルからMIDI作成(exeファイル)(試作)</h1>
+			<h1>テキストファイルからMIDI作成</h1>
 		</div>
 		<div class="main">
+			<p><a href="../midi/index.html">Web版(こっちの方が新しいので推奨　GUIなので調の変更がしやすい)</a></p>
 			<a href="Mid.zip" download="Mid.zip">Mid.zip</a><br><br>
 			<p>命令を組み合わせてmidiファイルが作れる　命令は太鼓さん次郎に近い形式</p>
 			<h2>命令　(命令.txt)</h2>
@@ -236,7 +217,9 @@ for(var i = 0;i < 100;i++){
 			<p>-1B+1F<p>
 			<p>例:(ファを半音上げるが、もともと付いていた臨時記号は無視(特殊な命令[XA]))</p>
 			<p>+1FXA<p>
-			<p><a href="../midi/index.html">Web版</a></p>
+			<p>例(桜ノ雨(合唱版)の6パートを頑張って打ち込んだやつ　作成時間：６時間)</p>
+			<img src="スクリーンショット 2025-06-10 004030.png">
+			<img src="スクリーンショット 2025-06-10 004041.png">
 		</div>
 		<br><p>以下、プログラム以外</p>
 		<div class="text_frame">
@@ -272,11 +255,14 @@ for(var i = 0;i < 100;i++){
 			<p>更新しない理由1：pmd以外のファイルの構造についての情報が見つからなかった(sph,spaなど)</p>
 			<p>更新しない理由2：うまく隙間を埋める方法が思いつかなかった(ベクトルの存在範囲を利用)</p>
 			<p>更新しない理由3：8/31用の1発ネタだったから</p>
+			<img src="2023-08-30_18.41.19.png">
 		</div>
 		</body>
-		<script src="Exp.js"></script>
-		<script src="Num.js"></script>
+		<script src="../mult/Exp.js"></script>
+		<script src="../mult/Num.js"></script>
 		<script src="../prism.js"></script>
+		<script src="Forms.js"></script>
+		<script src="Form12.js"></script>
 		<script>
 			var exp = new Exp(100,1); //10^10^100
 			letter_type = 1; //表示形式 0~2.
