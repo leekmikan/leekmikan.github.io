@@ -1,1 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>メモ帳で画像を表示 (C#)</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="メモ帳で画像を表示 (C#)">
+	<link rel="stylesheet" href="../../des.css">
+    <link rel="stylesheet" href="../../prism.css">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<iframe src="../../google.html" style="display: none;"></iframe>
+	</head>
+		<body>
+        <header>
+			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
+			<div class="title">
+				<h1>メモ帳で画像を表示 (C#)</h1>
+				<p>・アスキーアート的な？</p>
+				<p>・メタリックっぽくなる</p>
+				<p>・Visual Studioで作成可</p>
+			</div><br>
+			<div class="text_frame">
+				<h1>ソースコード</h1>
+			</div>
+		<div class="main">
+			<p>C#の　コンソールアプリ(.NET Framework)　で作成</p>
+			<p>namespaceの部分はプロジェクト名に変える</p>
+            <p>途中の「ここに画像ファイルのパス」の部分で画像ファイルを指定する</p>
+			<pre><code class="language-cs">
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
 
+namespace (ここ変えて)
+{
+    public partial class Form1 : Form
+    {
+        //↓の配列内はお好みの文字で(ただし、全角１文字または半角２文字。　文字の密度が濃い順に並べる(なんとなくで可)).
+        string[] dchs = { "歌","姫","電", "音", "初", "子", "39", "YY", "01", "ね", "ギ", "♪", "み", "は", "ネ", "ミ", "ク", "く", "つ","３","９","０", "Ｙ", "１" ,"　" };
+        
+        //空白用.
+        string bg = "・";
+
+        //縮尺(1/SCALE倍　数字が小さいと、メモ帳の拡大率を最小にしても全体が映らなくなる　大きすぎると画像が粗くなる).
+        const int SCALE = 5;
+
+        //ガンマ補正(多分3.5くらいがちょうどいい？).
+        const double GAMMA = 3.5;
+
+        //白黒反転用(メモ帳の文字が白ならtrueを選択　黒ならfalse).
+        bool rev = true;
+
+        public Form1()
+        {
+            InitializeComponent();
+            Bitmap bitmap = new Bitmap(@"ここに画像ファイルのパス");
+            Bitmap bmp = new Bitmap(bitmap,new Size(bitmap.Width / SCALE,bitmap.Height / SCALE));
+            BitmapData data = bmp.LockBits(
+            new Rectangle(0, 0, bmp.Width, bmp.Height),
+            ImageLockMode.ReadWrite,
+            PixelFormat.Format32bppArgb);
+            byte[] buf = new byte[bmp.Width * bmp.Height * 4];
+            Marshal.Copy(data.Scan0, buf, 0, buf.Length);
+            Encoding enc = Encoding.GetEncoding("UTF-8");
+            StreamWriter writer = new StreamWriter(@"return.txt", false, enc);
+            // ファイルを閉じる
+            int avr = 0;
+            for (int i = 0; i < buf.Length; i += 4)
+            {
+                avr = 0;
+                for (int j = 0; j < 4; j++) avr += buf[i + j];
+                if (avr == 0)
+                {
+                    writer.Write(bg);
+                }
+                else
+                {
+                    avr = (int)(256 * 4 * Math.Pow(avr / 256.0 / 4, GAMMA));
+                    writer.Write(dchs[rev ? dchs.Length - 1 - avr * dchs.Length / 256 / 4 : avr * dchs.Length / 256 / 4]);
+                }
+                if(i > 0 && i % (bmp.Width * 4) == 0) writer.Write("\n");
+            }
+            writer.Close();
+            bmp.UnlockBits(data);
+        }
+    }
+}
+			</code></pre>
+		</div><br>
+		<div class="text_frame">
+			<h1>完成！</h1>
+		</div>
+		<div class="main">
+			<img src="スクリーンショット 2025-06-26 235644.png"><br>
+            <p>Windowsの場合、Ctrlを押しながらマウスホイールを回転させると拡大率を変えられます。</p>
+            <p><a href="return.txt" download="return.txt">実行例ダウンロード(1.97MB)</a></p>
+		</div><br>
+		</body>
+        <script src="../../prism.js"></script>
+	</head>
+</html>
