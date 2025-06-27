@@ -23,6 +23,8 @@
 				<h1>アットウィキから歌詞を取得 (Python)</h1>
                 <p>・ページ構造がめんどくさいので、コードもちょっと複雑</p>
 				<p>・曲が存在しない、曲名が重複する場合は取得不可(あいまい検索用のページが作られるため)</p>
+                <p>・(追記)作者のメッセージがある記事だと、余計に文が入る。また、特定のタグがない記事がたまにあり、それも取得不可(取得成功率７割くらい？)</p>
+                <p>→記事構成を統一してくれれば...</p>
 				<p>・そのうち、歌詞以外も含め取得が用意なデータベースを公開したい(完成したが、サーバーが用意できない...)</p>
                 <p>※実行しすぎないように注意</p>
 			</div><br>
@@ -58,7 +60,13 @@ def getl(name):
             if elem.text.find("曲名：") == 1:
                 eab = True
             #spanタグが含まれたdivタグ(荒れた場合の掲示板閉鎖などの警告)か、classがあるdivタグが来たら終了っぽい.
-            elif len(elem.find_all(["span"])) > 0 or elem.get("class") != None:
+            elif len(elem.find_all(["span"])) > 0:
+                #追記:たまに強調でspanを使ってることがあるっぽい(ブラウザ上からだと見えない).
+                if len(elem.find_all("span", style="font-weight:bold;color:#000000;background-color:#ffff66;")) == 0:
+                    eab = False
+                elif eab:
+                    lyc += elem.text.replace("\n\n\n","\n").replace("\n\n","\n") #ざっくり改行コードを減らす.
+            elif elem.get("class") != None:
                 eab = False
             elif eab:
                 lyc += elem.text.replace("\n\n\n","\n").replace("\n\n","\n") #ざっくり改行コードを減らす.
