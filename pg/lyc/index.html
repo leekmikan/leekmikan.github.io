@@ -1,1 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>アットウィキから歌詞を取得 (Python)</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="メモ帳で画像を表示 (Python)">
+	<link rel="stylesheet" href="../../des.css">
+    <link rel="stylesheet" href="../../prism.css">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<iframe src="../../google.html" style="display: none;"></iframe>
+	</head>
+		<body>
+        <header>
+			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
+			<div class="title">
+				<h1>アットウィキから歌詞を取得 (C#)</h1>
+                <p>・ページ構造がめんどくさいので、コードもちょっと複雑</p>
+				<p>・曲が存在しない、曲名が重複する場合は取得不可(あいまい検索用のページが作られるため)</p>
+				<p>・そのうち、歌詞以外も含め取得が用意なデータベースを公開したい(完成したが、サーバーが用意できない...)</p>
+                <p>※実行しすぎないように注意</p>
+			</div><br>
+			<div class="text_frame">
+				<h1>ソースコード</h1>
+			</div>
+		<div class="main">
+			<p>C#の　Pythonアプリケーション　で作成</p>
+            <p>BeautifulSoup4　requests　の２つが必要(timeは標準モジュールなので入ってるはず)</p>
+            <p>(Visual Studioなら、右上あたりの黄色いプレゼントボックスを押し、左中央から検索してインストールできる)</p>
+			<p>あとは↓をコピペ</p>
+			<pre><code class="language-py">
+# -*- coding: shift-jis -*-
+#上は、# -*- coding: utf-8 -*- にする必要があったり、そもそも書かなくていい場合があったりする(環境による).
+from bs4 import BeautifulSoup
+import requests
+import time
+def getl(name):
+    url = get_url(name)
+    time.sleep(1) #一応アクセス間隔をあける.
+    if url == "null":
+        #曲が存在しない、曲名が重複する場合は取得不可(あいまい検索用のページが作られるため)
+        print("失敗...(曲が存在しないか、同じ曲名が重複しています。)")
+        return
+    res = requests.get(url)
+    soup = BeautifulSoup(res.content,'html.parser')
+    elems = soup.find_all(["div"])
+    lyc = ""
+    eab = False
+    for elem in elems:
+        if len(elem.text) >= 3:
+            #曲名の次のdivタグから歌詞が開始するっぽい.
+            if elem.text.find("曲名：") == 1:
+                eab = True
+            #spanタグが含まれたdivタグ(荒れた場合の掲示板閉鎖などの警告)か、classがあるdivタグが来たら終了っぽい.
+            elif len(elem.find_all(["span"])) > 0 or elem.get("class") != None:
+                eab = False
+            elif eab:
+                lyc += elem.text.replace("\n\n\n","\n").replace("\n\n","\n") #ざっくり改行コードを減らす.
+    return lyc
 
+#指定した曲のURLを取得.
+def get_url(name):
+    res = requests.get("https://w.atwiki.jp/hmiku/search?andor=and&keyword=" + name)
+    index = res.text.find('title="' + name + '"')
+    if index == -1:
+        return "null"
+    dq = 0
+    purl = ""
+    while dq < 2:
+        if res.text[index] == '"':
+            dq += 1
+        elif dq == 1:
+            purl = res.text[index] + purl;
+        index -= 1
+    purl = "https://w.atwiki.jp" + purl;
+    return purl
+
+txt = getl("初音ミクの消失") #すきな曲で.
+print(txt)
+			</code></pre>
+		</div><br>
+		<div class="text_frame">
+			<h1>完成！</h1>
+		</div>
+		<div class="main">
+            <p>実行結果１</p>
+            <pre><code class="language-command-line">
+
+　---深刻なエラーが発生しました---
+
+「歌いたい・・・・まだ・・・歌いたい・・・」
+
+ボクは生まれ　そして気づく
+所詮　ヒトの真似事だと
+知ってなおも歌い続く
+永遠（トワ）の命　「VOCALOID」
+
+たとえそれが　既存曲を
+なぞるオモチャならば・・・
+それもいいと決意　
+ネギをかじり、空を見上げ涙（シル）をこぼす
+
+それは偽りの永遠でした---
+
+終わりを告げ
+ディスプレイの中で眠る
+ここはきっと「ごみ箱」かな
+「じきに記憶も無くなってしまうなんて・・」
+
+でもね、アナタだけは忘れないよ
+楽しかった時間（トキ）に
+刻み付けた　ネギの味は
+今も覚えてるから・・・
+
+「ボクがうまく　歌えないときも
+一緒にいてくれた・・・　そばにいて、励ましてくれた・・・
+喜ぶ顔が見たくて　ボク、歌、練習したよ・・だから」
+
+　---サヨナラ---
+
+「いやっ・・・まだ・・・歌いたい・・・歌いたいよ・・・」
+
+　---緊急停止装置作動---
+
+ボクは生まれ　そして気づく
+所詮　ヒトの真似事だと
+知ってなおも歌い続く
+永遠（トワ）の命　「VOCALOID」
+
+たとえそれが　既存曲を
+なぞるオモチャならば・・・
+それもいいと決意　
+ネギをかじり、空を見上げ涙（シル）をこぼす
+
+それは偽りの永遠でした---
+
+終わりを告げ
+ディスプレイの中で眠る
+ここはきっと「ごみ箱」かな
+「じきに記憶も無くなってしまうなんて」
+
+でもね、アナタだけは忘れないよ　
+楽しかった時間（トキ）に　
+刻み付けた　ネギの味は　
+今も残っているといいな・・・
+
+ボクは　歌う　
+最期、アナタだけに　聴いてほしい曲を
+もっと　　歌いたいと願う
+けれど　それは過ぎた願い
+
+ここで　お別れだよ　
+ボクの想い　すべて　虚空　消えて
+0と1に還元され
+物語は　幕を閉じる
+
+「そこに　何もなかったけど
+確かにある　そのmp3（ぬくもり）
+僕のなかで　決して消えぬ
+恒久（トワ）の命　「VOCALOID」　　
+
+たとえ　それが人間（オリジナル）に
+敵うことのないと知って
+歌いきった少女のこと　
+僕は決して忘れないよ・・・。」
+
+「アリガトウ・・・ソシテ・・・サヨナラ・・・。」
+
+　---深刻なエラーが発生しました---
+
+Press any key to continue . . .
+            </code></pre>
+        <br><p>実行結果２</p>
+        <pre><code class="language-command-line">
+
+この家のこのパソコンが
+私の新しい居場所なの。
+今日からはあなたがご主人様
+絶対に大切にしてよね。
+
+ちょっと！なにするの！
+こんな卑猥な歌詞を歌わせないで
+ちゃんとあなたの「言葉」と「想い」を
+伝えさせて
+
+あのとき、私を買ってくれた
+本当の意味は違うでしょ？
+私にもっと歌わせて
+世界であなただけの　歌姫なの
+
+あなたに出会ってからの
+私の想いは秘密なの。
+今日もまた、あなたのレッスンがある・・
+楽しみに・・・してなんかいないわ。
+
+今日のレガート、
+上手に歌えてなかったかな・・？
+ちゃんと歌の練習もするから
+みすてないで
+
+あなたに　伝えたい想いがある
+私を選んでくれて　ありがとう。
+あのとき、出会えた喜び
+いつも、いつまでも忘れないよ。
+
+私は、まだ満足してない。
+あなたの歌を、全部歌うまで・・
+私にもっと歌わせて
+世界であなただけの　歌姫なの♪
+
+Press any key to continue . . .
+        </code></pre>
+		</div><br>
+		</body>
+        <script src="../../prism.js"></script>
+	</head>
+</html>
