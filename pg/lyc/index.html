@@ -22,9 +22,9 @@
 			<div class="title">
 				<h1>アットウィキから歌詞を取得 (Python)</h1>
                 <p>・ページ構造がめんどくさいので、コードもちょっと複雑</p>
-				<p>・曲が存在しない、曲名が重複する場合は取得不可(あいまい検索用のページが作られるため)</p>
-                <p>・(追記)作者のメッセージがある記事だと、余計に文が入る。また、特定のタグがない記事がたまにあり、それも取得不可(取得成功率７割くらい？)</p>
                 <p>→記事構成を統一してくれれば...</p>
+                <p>→2025/7/1更新 F12で見たときよりかはちょっと単純だったことが判明し、出来るだけ多くのページで対応できるように修正</p>
+				<p>・曲が存在しない、曲名が重複する場合は取得不可(あいまい検索用のページが作られるため)</p>
 				<p>・そのうち、歌詞以外も含め取得が用意なデータベースを公開したい(完成したが、サーバーが用意できない...)</p>
                 <p>※実行しすぎないように注意</p>
 			</div><br>
@@ -33,7 +33,7 @@
 			</div>
 		<div class="main">
 			<p>C#の　Pythonアプリケーション　で作成</p>
-            <p>BeautifulSoup4　requests　の２つが必要(timeは標準モジュールなので入ってるはず)</p>
+            <p>BeautifulSoup4　requests　の２つが必要(timeとhtmlは標準モジュールなので入ってるはず)</p>
             <p>(Visual Studioなら、右上あたりの黄色いプレゼントボックスを押し、左中央から検索してインストールできる)</p>
 			<p>あとは↓をコピペ</p>
 			<pre><code class="language-py">
@@ -42,63 +42,92 @@
 from bs4 import BeautifulSoup
 import requests
 import time
+import html
+
 def getl(name):
     url = get_url(name)
-    time.sleep(1) #一応アクセス間隔をあける.
+    time.sleep(1)
     if url == "null":
-        #曲が存在しない、曲名が重複する場合は取得不可(あいまい検索用のページが作られるため)
-        print("失敗...(曲が存在しないか、同じ曲名が重複しています。)")
+        print("失敗...(曲が存在しません...)")
         return
     res = requests.get(url)
     soup = BeautifulSoup(res.content,'html.parser')
-    elems = soup.find_all(["div"])
+    elems = soup.find_all()
+    start = 0
     lyc = ""
-    eab = False
-    for elem in elems:
-        if len(elem.text) >= 3:
-            #曲名の次のdivタグから歌詞が開始するっぽい.
-            if elem.text.find("曲名：") == 1:
-                eab = True
-            #spanタグが含まれたdivタグ(荒れた場合の掲示板閉鎖などの警告)か、classがあるdivタグが来たら終了っぽい.
-            elif len(elem.find_all(["span"])) > 0:
-                #追記:たまに強調でspanを使ってることがあるっぽい(ブラウザ上からだと見えない).
-                if len(elem.find_all("span", style="font-weight:bold;color:#000000;background-color:#ffff66;")) == 0:
-                    eab = False
-                elif eab:
-                    lyc += elem.text.replace("\n\n\n","\n").replace("\n\n","\n") #ざっくり改行コードを減らす.
-            elif elem.get("class") != None:
-                eab = False
-            elif eab:
-                lyc += elem.text.replace("\n\n\n","\n").replace("\n\n","\n") #ざっくり改行コードを減らす.
+    #歌詞が来る場所を調べる.
+    for i in range(len(elems)):
+        if elems[i].name == "h3":
+            if '歌詞' in elems[i].text:
+                start = i
+                break
+    #歌詞を読み取る.
+    for i in range(start + 1,len(elems)):
+        if len(elems[i].text) >= 3:
+            #たまにあるっぽい.
+            if elems[i].get("target") == "_blank":
+                continue
+            #コメントか関連動画(h3タグ)が来たら終了.
+            elif elems[i].name == "h3" and ('コメント' in elems[i].text or '関連動画' in elems[i].text):
+                break
+            lyc += elems[i].text.replace("\n\n\n","\n").replace("\n\n","\n") #ざっくり改行コードを減らす.
     return lyc
 
-#指定した曲のURLを取得.
+#ページ番号を求める.
 def get_url(name):
-    res = requests.get("https://w.atwiki.jp/hmiku/search?andor=and&keyword=" + name)
-    index = res.text.find('title="' + name + '"')
+    res = requests.get("https://w.atwiki.jp/hmiku/list?&keyword=" + name)
+
+    #CDと過去ログを除外.
+    txt = html.unescape(res.text).replace('title="' + name + "/CD", "").replace('title="' + name + "/過去ログ", "")
+
+    #曲名/があるか調べる あれば曲名が重複してる可能性あり.
+    index = txt.find('title="' + name + "/")
+    if index != -1:
+        index = txt.find('title="' + name)
+        #最初のヒット位置以降で曲が重複するか調べる.
+        dq = 0
+        y = txt[index + 1:]
+        index2 = txt[index + 1:].find('title="' + name)
+        if index2 != -1:
+            print("曲名が重複しています　ボカロPで絞ってください")
+            name2 = input("ボカロP：")
+            index = txt.find('title="' + name + '/' + name2)
+    else:
+        #曲名 (更新日時)があるか調べる .
+        #上で曖昧さ回避ページがないことを確認してから、確実に単体ページがあるか調べる
+        index = txt.find('title="' + name + " (")
     if index == -1:
         return "null"
     dq = 0
     purl = ""
+    #hrefのところを持ってくる.
     while dq < 2:
-        if res.text[index] == '"':
+        if txt[index] == '"':
             dq += 1
         elif dq == 1:
-            purl = res.text[index] + purl;
+            purl = txt[index] + purl;
         index -= 1
-    purl = "https://w.atwiki.jp" + purl;
+    purl = "https:" + purl;
     return purl
 
-txt = getl("初音ミクの消失") #すきな曲で.
-print(txt)
+while 1:
+    ip = input("曲名：")
+    if ip == "\q":
+        break
+    txt = getl(ip)
+    print("-----------")
+    print(txt)
+    print("-----------")
 			</code></pre>
 		</div><br>
 		<div class="text_frame">
 			<h1>完成！</h1>
 		</div>
 		<div class="main">
-            <p>実行結果１</p>
+            <p>実行結果例</p>
             <pre><code class="language-command-line">
+曲名：初音ミクの消失
+-----------
 
 　---深刻なエラーが発生しました---
 
@@ -182,49 +211,18 @@ print(txt)
 
 　---深刻なエラーが発生しました---
 
-Press any key to continue . . .
+-----------
+曲名：
             </code></pre>
-        <br><p>実行結果２</p>
-        <pre><code class="language-command-line">
-
-この家のこのパソコンが
-私の新しい居場所なの。
-今日からはあなたがご主人様
-絶対に大切にしてよね。
-
-ちょっと！なにするの！
-こんな卑猥な歌詞を歌わせないで
-ちゃんとあなたの「言葉」と「想い」を
-伝えさせて
-
-あのとき、私を買ってくれた
-本当の意味は違うでしょ？
-私にもっと歌わせて
-世界であなただけの　歌姫なの
-
-あなたに出会ってからの
-私の想いは秘密なの。
-今日もまた、あなたのレッスンがある・・
-楽しみに・・・してなんかいないわ。
-
-今日のレガート、
-上手に歌えてなかったかな・・？
-ちゃんと歌の練習もするから
-みすてないで
-
-あなたに　伝えたい想いがある
-私を選んでくれて　ありがとう。
-あのとき、出会えた喜び
-いつも、いつまでも忘れないよ。
-
-私は、まだ満足してない。
-あなたの歌を、全部歌うまで・・
-私にもっと歌わせて
-世界であなただけの　歌姫なの♪
-
-Press any key to continue . . .
-        </code></pre>
 		</div><br>
+        <div class="text_frame">
+			<h1>注意点</h1>
+		</div>
+		<div class="main">
+            <p>※アットウィキに登録されている曲名で入力してください。　例：サンドリヨン（Cendrillon）</p>
+            <p>(上の例だと、（Cendrillon）部分まで必要なのと、括弧は全角なのが注意点)</p>
+            <p>※[+]内の、色付き歌詞とかも読み込むように設定している</p>
+        </div>
 		</body>
         <script src="../../prism.js"></script>
 	</head>
