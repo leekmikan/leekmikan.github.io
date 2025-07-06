@@ -1,1 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>DockerでNginx PHP MySQL(PDO)を使う</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="DockerでNginx PHP MySQL(PDO)を使う">
+	<link rel="stylesheet" href="../../des.css">
+    <link rel="stylesheet" href="../../prism.css">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<iframe src="../../google.html" style="display: none;"></iframe>
+	</head>
+		<body>
+        <header>
+			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
+			<div class="title">
+				<h1>DockerでNginx PHP MySQL(PDO)を使う</h1>
+                <p>・調べてたものを要約した感じなので間違い、不要な部分あるかも</p>
+                <p>・自分は基礎ができる程度なので...</p>
+            </div><br>
+            <div class="text_frame">
+				<h1>構造</h1>
+			</div>
+		<div class="main">
+            <p>何気にこれ書くの初だから書き方ミスってるかも</p>
+            <p>以下すべてを入れるフォルダの名前は任意　　→以下(親フォルダ)とする</p>
+			<pre><code class="language-command-line">
+docker-compose.yml
+docker
+|--nginx
+|  |--default.conf
+|
+|--php
+|  |--(Webページ用のフォルダ)
+|  |  |--(index.phpなど)
+|  |
+|  |--Dockerfile
+|  |--php.ini
+|
+|--sql
+   |--Dockerfile
+   |--(データベースを保存したファイル.sql)
+            </code></pre>
+            </div><br>
+			<div class="text_frame">
+				<h1>ソースコード</h1>
+			</div>
+		<div class="main">
+                        <p>docker-compose.yml</p>
+			<pre><code class="language-command-line">
+version: '3.8'
 
+services:
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docker/php/(Webページ用のフォルダ):/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php-fpm
+  php-fpm:
+    build:
+      context: ./docker/php
+    volumes:
+     - ./docker/php/(Webページ用のフォルダ):/var/www/html/(Webページ用のフォルダ)
+     - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+     - sql
+  sql:
+    build:
+      context: ./docker/sql
+    volumes:
+      - ./docker/sql/(データベースを保存したファイル).sql:/docker-entrypoint-initdb.d/init.sql
+			</code></pre>
+            <br><p>nginx/default.conf</p>
+			<pre><code class="language-command-line">
+server {
+    listen 80;
+
+    server_name localhost;
+
+    root /var/www/html;
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass php-fpm:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+			</code></pre>
+            <br><p>php/Dockerfile</p>
+			<pre><code class="language-command-line">
+FROM php:7.4-fpm
+
+COPY php.ini /usr/local/etc/php/
+ENV TZ=Asia/Tokyo
+RUN docker-php-ext-install pdo pdo_mysql
+
+WORKDIR /var/www/html
+
+COPY (Webページ用のフォルダ) .
+
+# PHP-FPMを起動
+EXPOSE 9000
+CMD ["php-fpm"]
+			</code></pre>
+            <br><p>php/php.ini</p>
+            <p>とりあえず、コメントがない部分すべて</p>
+			<pre><code class="language-command-line">
+[PHP]
+engine = On
+short_open_tag = Off
+precision = 14
+output_buffering = Off
+zlib.output_compression = Off
+implicit_flush = Off
+unserialize_callback_func =
+serialize_precision = -1
+disable_functions = passthru,exec,system,chroot,chgrp,chown,shell_exec,proc_open,proc_get_status,popen,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server
+disable_classes =
+zend.enable_gc = On
+zend.exception_ignore_args = Off
+zend.exception_string_param_max_len = 15
+expose_php = Off
+max_execution_time = 30
+max_input_time = 60
+memory_limit = 128M
+error_reporting = E_ALL
+display_errors = On
+display_startup_errors = On
+log_errors = On
+ignore_repeated_errors = Off
+ignore_repeated_source = Off
+report_memleaks = On
+variables_order = "GPCS"
+request_order = "GP"
+register_argc_argv = Off
+auto_globals_jit = On
+post_max_size = 8M
+auto_prepend_file =
+auto_append_file =
+default_mimetype = "text/html"
+default_charset = "UTF-8"
+doc_root =
+user_dir =
+enable_dl = Off
+file_uploads = On
+upload_max_filesize = 2M
+max_file_uploads = 20
+allow_url_fopen = Off
+allow_url_include = Off
+default_socket_timeout = 60
+extension=mbstring
+extension=mysqli
+extension=openssl
+extension=pdo_mysql
+[CLI Server]
+cli_server.color = On
+[Date]
+date.timezone = "Asia/Tokyo"
+[filter]
+[iconv]
+[intl]
+[sqlite3]
+[Pcre]
+[Pdo]
+[Pdo_mysql]
+pdo_mysql.default_socket=
+[Phar]
+[mail function]
+SMTP = localhost
+smtp_port = 25
+mail.add_x_header = Off
+mail.mixed_lf_and_crlf = Off
+[ODBC]
+odbc.allow_persistent = On
+odbc.check_persistent = On
+odbc.max_persistent = -1
+odbc.max_links = -1
+odbc.defaultlrl = 4096
+odbc.defaultbinmode = 1
+[MySQLi]
+mysqli.max_persistent = -1
+mysqli.allow_persistent = On
+mysqli.max_links = -1
+mysqli.default_port = 3306
+mysqli.default_socket =
+mysqli.default_host =
+mysqli.default_user =
+mysqli.default_pw =
+[mysqlnd]
+mysqlnd.collect_statistics = On
+mysqlnd.collect_memory_statistics = On
+[PostgreSQL]
+pgsql.allow_persistent = On
+pgsql.auto_reset_persistent = Off
+pgsql.max_persistent = -1
+pgsql.max_links = -1
+pgsql.ignore_notice = 0
+pgsql.log_notice = 0
+[bcmath]
+bcmath.scale = 0
+[browscap]
+[Session]
+session.save_handler = files
+session.use_strict_mode = 0
+session.use_cookies = 1
+session.use_only_cookies = 1
+session.name = PHPSESSID
+session.auto_start = 0
+session.cookie_lifetime = 0
+session.cookie_path = /
+session.cookie_domain =
+session.cookie_httponly =
+session.cookie_samesite =
+session.serialize_handler = php
+session.gc_probability = 1
+session.gc_divisor = 1000
+session.gc_maxlifetime = 1440
+session.referer_check =
+session.cache_limiter = nocache
+session.cache_expire = 180
+session.use_trans_sid = 0
+session.trans_sid_tags = "a=href,area=href,frame=src,form="
+session.upload_progress.enabled = Off
+[Assertion]
+zend.assertions = 1
+[COM]
+[mbstring]
+mbstring.language = Japanese
+[gd]
+[exif]
+[Tidy]
+tidy.clean_output = Off
+[soap]
+soap.wsdl_cache_enabled=1
+soap.wsdl_cache_dir="/tmp"
+soap.wsdl_cache_ttl=86400
+soap.wsdl_cache_limit = 5
+[sysvshm]
+[ldap]
+ldap.max_links = -1
+[dba]
+[opcache]
+[curl]
+[openssl]
+[ffi]
+			</code></pre>
+            <br><p>sql/Dockerfile</p>
+			<pre><code class="language-command-line">
+FROM mysql:5.7
+EXPOSE 3306
+ENV MYSQL_ROOT_PASSWORD="(パスワード)"
+ENV MYSQL_DATABASE="(データベース名)"
+ENV MYSQL_USER="(ユーザー名)"
+ENV MYSQL_PASSWORD="(パスワード)"
+COPY (データベースを保存したファイル).sql /docker-entrypoint-initdb.d/init.sql
+			</code></pre>
+            <p>※PDO接続のとき、DNSは、mysql:host=(親フォルダ)-sql-1;dbname=(データベース名)</p>
+            <p>(親フォルダ)-sql-1のところは人によって違うかも　docker ps　で確認してみて</p>
+		</div><br>
+        <div class="text_frame">
+			<h1>実行</h1>
+		</div>
+		<div class="main">
+            <pre><code class="language-command-line">
+$ cd (親フォルダ)
+$ docker compose up -d
+
+上でダメなら一応?(不明)
+$ docker compose build
+$ docker compose stop
+$ docker compose up -d
+            </code></pre>
+		</div><br>
+		<div class="text_frame">
+			<h1>完成！</h1>
+		</div>
+		<div class="main">
+            <p>実行結果例</p>
+            <p>ちょっと操作したので、データが表示されている</p>
+            <img src="スクリーンショット 2025-07-07 015758.png">
+		</div><br>
+		</body>
+        <script src="../../prism.js"></script>
+	</head>
+</html>
