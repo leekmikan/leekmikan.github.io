@@ -63,7 +63,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./docker/php/(Webページ用のフォルダ):/var/www/html
+      - ./docker/php/(Webページ用のフォルダ):/var/www/html/(Webページ用のフォルダ)
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php-fpm
@@ -292,6 +292,7 @@ $ docker compose up -d
 			<h1>完成！</h1>
 		</div>
 		<div class="main">
+            <p>(Webページ用のフォルダ)の中にindex.phpがあれば、　localhost:8080/(Webページ用のフォルダ)/index.php　にアクセスするとページが見れる</p>
             <p>実行結果例</p>
             <p>ちょっと操作したので、データが表示されている</p>
             <img src="スクリーンショット 2025-07-07 015758.png">
