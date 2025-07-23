@@ -1,0 +1,96 @@
+@font-face {
+  font-family: 'Main'; /* フォント名 */
+  /* フォーマットごとにパスを指定 */
+  src: url('../ZenKakuGothicAntique-Regular.ttf') format('truetype');
+}
+body{
+font-family: "Main";
+}
+#star{
+font-size: 32px;
+}
+img.tab_button{
+	vertical-align: middle;
+	width:209px;
+	height:149px;
+}
+button.tab_button{
+	vertical-align: middle;
+	width:200px;
+	height:100px;
+}
+.tab_button:hover{
+	opacity:0.5;
+	cursor: pointer;
+}
+.tab_button:active{
+	position: relative;
+	top: 3px;
+}
+
+body{
+color: #000000;
+background-image: url("F.jpg");
+background-size:100% auto;
+}
+.cover{
+	background: #FFFFFF80;
+}
+.title{
+text-align:center;
+color: #000000;
+background: #39FFA0C0;
+border-top: 1px solid #39FFA0C0;
+padding: 1em 0px;
+}
+.main{
+color: #000000;
+background: #39C0E0C0;
+border-radius: 10px;
+padding: 1em 0px;
+margin: 1em 0px;
+}
+.tab{
+padding: 1em 0px;
+text-align:center;
+color: #000000;
+background: #0080FF;
+border-radius: 10px;
+padding: 1em 0px;
+}
+.index{
+	width: 50%;
+	color: #000000;
+	background: #FF39A0C0;
+	padding: 1em 0px;
+	margin: 1em 0px;
+}
+li{
+	text-align: left;
+}
+.index a{
+	color:#0000FF;
+}
+.text_frame{
+	padding:0 1em;
+	border-top: 1px solid #39FFA0;
+	margin:1em 0;
+}
+div:not(.title) img{
+width: 50%;
+}
+
+header button{
+	width: 19%;
+	height: 50px;
+	background: #FF39A0C0;
+	color: #000000;
+	margin: 1em 0px;
+	vertical-align: middle;
+}
+header button:hover{
+	background: #FFFFFF50;
+}
+.ct{
+	text-align:center;
+}
