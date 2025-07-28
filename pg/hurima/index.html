@@ -1,1 +1,254 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>フリマ風Webページ</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="給料未払いの会社が消えたので、仕方なく公開するフリマ風Webページ(PHP)">
+	<link rel="stylesheet" href="../../des.css">
+	<link rel="stylesheet" href="des.css">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<iframe src="../../google.html" style="display: none;"></iframe>
+	</head>
+		<body>
+				<header>
+			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
+			<div class="title">
+				<h1>フリマ風Webページ</h1>
+				<p>・大学１年生の頃にバイト先で作ったもの</p>
+				<p>・ちなみに、前任者が消えたため、ほぼ1人での開発</p>
+				<p>・会社が倒産したので法律的には、著作権は会社に移らないっぽい？</p>
+				<p>・誰か<span id="price">0</span>円支払ってくれたらファイルあげるので買ってくれー</p>
+				<p>上記の金額は、アルバイト(雇用契約)の未払い金(時給1,200円)+遅延損害金(数か月　毎日更新)　(正直これ以下でもいい)</p>
+				<p>・各画面のコメントは、様子見のため、当たり障りのないところから記入</p>
+				<p>※まだ各画面の画像を載せていません!!(様子見+ローカルサーバーの設定を完了次第)</p>
+			</div>
+		<div class="text_frame">
+				<h1>1.ホーム</h1>
+			</div>
+		<div class="main">
+			<p>バナー広告的なものや、ジャンル別検索など</p>
+		</div>
+		<div class="text_frame">
+				<h1>2.記事ページ例(適当)</h1>
+			</div>
+		<div class="main">
+			<p>なんでも</p>
+		</div>
+		<div class="text_frame">
+				<h1>3.クイズページ</h1>
+			</div>
+		<div class="main">
+			<p>クイズ正解から抽選n人にポイントプレゼントなど...</p>
+		</div>
+		<div class="text_frame">
+				<h1>4.カート内容表示</h1>
+			</div>
+		<div class="main">
+			<p>ただtableにカート内容を表示するだけ　ポイントの使用はここで確認</p>
+		</div>
+		<div class="text_frame">
+				<h1>5.カート内容表示確認</h1>
+			</div>
+		<div class="main">
+			<p>4.カート内容表示　の内容を確認</p>
+		</div>
+		<div class="text_frame">
+				<h1>6.支払い選択</h1>
+			</div>
+		<div class="main">
+			<p>クレジットカード、コンビニ払いなどを選択</p>
+		</div>
+		<div class="text_frame">
+				<h1>7.購入完了</h1>
+			</div>
+		<div class="main">
+			<p>購入完了した旨の表示と、出品者に注文メールを送信</p>
+		</div>
+		<div class="text_frame">
+				<h1>8.出品商品表示</h1>
+			</div>
+		<div class="main">
+			<p>今出品されている品物を表示　ページ移動や詳細検索も可</p>
+		</div>
+		<div class="text_frame">
+				<h1>9.詳細検索</h1>
+			</div>
+		<div class="main">
+			<p>名前(部分検索)、値段(上限下限)、ジャンルなどを指定して検索</p>
+		</div>
+		<div class="text_frame">
+				<h1>10.商品詳細</h1>
+			</div>
+		<div class="main">
+			<p>商品画像(サムネ1枚+他4枚)誰が出品してるか(公式かなど)、商品状態、出品方式などを表示　ログインしていればカートに入れることができる</p>
+		</div>
+		<div class="text_frame">
+				<h1>11.チャット</h1>
+			</div>
+		<div class="main">
+			<p>LINEみたいに購入(予定)者と出品者での1対1のコミュニケーションがとれる(投稿時刻、既読付き)</p>
+		</div>
+		<div class="text_frame">
+				<h1>12.チャット確認</h1>
+			</div>
+		<div class="main">
+			<p>11.チャットで書いた内容を送るかどうかの確認</p>
+		</div>
+		<div class="text_frame">
+				<h1>13.通報</h1>
+			</div>
+		<div class="main">
+			<p>変な商品があれば通報　データベースに通報理由とともに商品IDを送る</p>
+		</div>
+		<div class="text_frame">
+				<h1>14.出品者プロフィール</h1>
+			</div>
+		<div class="main">
+			<p>出品者のプロフィールを表示</p>
+		</div>
+		<div class="text_frame">
+				<h1>15.ログイン</h1>
+			</div>
+		<div class="main">
+			<p>普通のログイン画面　凍結垢はログイン不可</p>
+		</div>
+		<div class="text_frame">
+				<h1>16.パスワード忘れ用</h1>
+			</div>
+		<div class="main">
+			<p>パスワード忘れ用　メールアドレスに確認メールを送信</p>
+		</div>
+		<div class="text_frame">
+				<h1>7.ログイン画面(パスワード忘れ用)</h1>
+			</div>
+		<div class="main">
+			<p>パスワード忘れ時に送信されたメールに書いてある文字列を入力してログイン</p>
+		</div>
+		<div class="text_frame">
+				<h1>18.新規アカウント作成</h1>
+			</div>
+		<div class="main">
+			<p>ユーザー情報を入力してアカウントを作成</p>
+		</div>
+		<div class="text_frame">
+				<h1>19.新規アカウント作成　確認</h1>
+			</div>
+		<div class="main">
+			<p>新規アカウントを作成してもよいか確認</p>
+		</div>
+		<div class="text_frame">
+				<h1>20.マイページ</h1>
+			</div>
+		<div class="main">
+			<p>課金、売買状況などのページに移動可　ポイントの確認も可</p>
+		</div>
+		<div class="text_frame">
+				<h1>21.購入商品一覧</h1>
+			</div>
+		<div class="main">
+			<p>今までに購入した商品を表示　ここから評価画面へ移動できる</p>
+		</div>
+		<div class="text_frame">
+				<h1>22.評価画面</h1>
+			</div>
+		<div class="main">
+			<p>購入した商品を★5つで評価</p>
+		</div>
+		<div class="text_frame">
+				<h1>23.閲覧履歴</h1>
+			</div>
+		<div class="main">
+			<p>閲覧履歴を表示</p>
+		</div>
+		<div class="text_frame">
+				<h1>24.出品情報</h1>
+			</div>
+		<div class="main">
+			<p>自分の出品情報を確認</p>
+		</div>
+		<div class="text_frame">
+				<h1>25.価格変更</h1>
+			</div>
+		<div class="main">
+			<p>出品中の商品価格を変更できる　値下げのみ</p>
+		</div>
+		<div class="text_frame">
+				<h1>26.商品削除</h1>
+			</div>
+		<div class="main">
+			<p>出品中の商品を削除できる</p>
+		</div>
+		<div class="text_frame">
+				<h1>27.チャット選択</h1>
+			</div>
+		<div class="main">
+			<p>任意の商品に対して、購入(予定)者の誰と話すか選択　未読あり表示実装</p>
+		</div>
+		<div class="text_frame">
+				<h1>28.各種設定画面</h1>
+			</div>
+		<div class="main">
+			<p>各種設定ができる　プロフィール変更　ブロックリスト　デフォルトの支払方法設定(未実装?)　メールでのお知らせを受け取るか設定</p>
+		</div>
+		<div class="text_frame">
+				<h1>29.プロフィール変更</h1>
+			</div>
+		<div class="main">
+			<p>プロフィールを変更できる　コメントを設定など</p>
+		</div>
+		<div class="text_frame">
+				<h1>30.プロフィール変更確認</h1>
+			</div>
+		<div class="main">
+			<p>プロフィールを変更するか確認</p>
+		</div>
+		<div class="text_frame">
+				<h1>31.ブロックリスト</h1>
+			</div>
+		<div class="main">
+			<p>ブロックリストを表示　ここでブロックを解除できる</p>
+		</div>
+		<div class="text_frame">
+				<h1>32.デフォルトの支払方法設定(未実装?)</h1>
+			</div>
+		<div class="main">
+			<p>デフォルトの支払方法設定(未実装?)</p>
+		</div>
+		<div class="text_frame">
+				<h1>33.デフォルトの支払方法設定確認(未実装?)</h1>
+			</div>
+		<div class="main">
+			<p>デフォルトの支払方法設定を変更するか確認(未実装?)</p>
+		</div>
+		<div class="text_frame">
+				<h1>34.評価確認</h1>
+			</div>
+		<div class="main">
+			<p>購入者からの評価を確認できる</p>
+		</div>
+		<div class="text_frame">
+				<h1>35.サブスクリプション画面</h1>
+			</div>
+		<div class="main">
+			<p>各種サブスクリプションの有効期限確認　解約など</p>
+		</div>
+		<div class="text_frame">
+				<h1>その他</h1>
+			</div>
+		<div class="main">
+			<p>・ページ内容が同じで複数あるもの(チャット、支払画面)は一部省略した</p>
+		</div>
+		</body>
+		<script src="main.js"></script>
+		<script>
+			money_jp();
+		</script>
+	</head>
+</html>
