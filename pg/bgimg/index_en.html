@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="uft-8">
+	<title>[C#][For beginners]Display images in the front row</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="[C#][For beginners]Display images in the front row">
+	<link rel="stylesheet" href="../../des.css">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+    <link rel="stylesheet" href="../../prism.css">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<iframe src="../../google.html" style="display: none;"></iframe>
+	</head>
+		<body>
+            <header>
+			<button onclick="location.href='https://leekmikan.github.io/index_en.html'">Home</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">Poor Drawing Collection</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">Math Quizzes</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index_en.html'">Program Collection</button>
+		</header>
+			<div class="title">
+                <p>※Using google translate※</p>
+				<h1>[C#][For beginners]Display images in the front row</h1>
+				<p>・Display the image and prevent the application from being removed</p>
+				<p>・Can be created with Visual Studio</p>
+			</div><br>
+			<div class="text_frame">
+				<h1>Preparation steps + source code</h1>
+			</div>
+		<div class="main">
+            <ol>
+                <p>※To disable it, enter "112358" while the application is active.</p>
+                <li>Created using C# "Windows Forms Application (.NET Framework)"</li>
+                <li>Open the designer properties</li>
+                <li>Enter "F1_KD" in KeyDown</li>
+                <li>Enter "F1_CL" in FormClosing</li>
+                <li>Place the PictureBox wherever you like</li>
+                <li>Copy and paste the code</li>
+                <li>Change the namespace part to your project name.</li>
+                <li>Set the RGB value of "use_color" in the code to a color that is not used in the image.<br>※Please note that there is an old bug in Windows that makes clicking work or not depending on the color!</li>
+                <li>(If you want to run it automatically after starting the PC) Delete /* and */ in the code.</li>
+            </ol>
+			<pre><code class="language-cs">
+using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Bgpic
+{
+    public partial class Form1 : Form
+    {
+        Keys[] password = { Keys.D1, Keys.D1, Keys.D2, Keys.D3, Keys.D5, Keys.D8 };
+        int pcount = 0;
+        Image img = Image.FromFile(@"X.png"); //Any image path.
+        MyHook myHook = new MyHook();
+        Color use_color = Color.FromArgb(1, 1, 1); //Change the color here.
+        public Form1()
+        {
+            InitializeComponent();
+            myHook.Hook();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
+            this.TopMost = true;
+            pictureBox1.Width = Screen.PrimaryScreen.Bounds.Width;
+            pictureBox1.Height = Screen.PrimaryScreen.Bounds.Height;
+            this.TransparencyKey = use_color;
+            this.BackColor = use_color;
+            pictureBox1.BackColor = use_color;
+            this.FormBorderStyle = FormBorderStyle.None;
+            /*
+            Microsoft.Win32.RegistryKey regkey =
+            Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
+            @"Software\Microsoft\Windows\CurrentVersion\Run", true);
+            regkey.SetValue(Application.ProductName, Application.ExecutablePath);
+            regkey.Close();
+            */
+            
+            Itv();
+        }
+        public async void Itv()
+        {
+            await Task.Delay(30);
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
+            this.TopMost = true;
+            pictureBox1.Width = Screen.PrimaryScreen.Bounds.Width;
+            pictureBox1.Height = Screen.PrimaryScreen.Bounds.Height;
+            Draw();
+            Itv2();
+        }
+        public void Draw()
+        {
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+            }
+            Bitmap canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            Graphics g = Graphics.FromImage(canvas);
+            //Position and size are optional.
+            g.DrawImage(img, (canvas.Width - img.Width) / 2, (canvas.Height - img.Height) / 2 + 800, img.Width, img.Height);
+            pictureBox1.Image = canvas;
+            g.Dispose();
+        }
+        public void Itv2()
+        {
+            Itv();
+        }
+        private void F1_KD(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == password[pcount])
+            {
+                pcount++;
+                if (pcount >= password.Length)
+                {
+                    /*
+                    Microsoft.Win32.RegistryKey regkey =
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
+                    @"Software\Microsoft\Windows\CurrentVersion\Run", true);
+                    regkey.DeleteValue(Application.ProductName);
+                    regkey.Close();
+                    */
+                    Application.Exit();
+                }
+            }
+            else
+            {
+                pcount = 0;
+            }
+        }
+        class MyHook
+        {
+            delegate int delegateHookCallback(int nCode, IntPtr wParam, IntPtr lParam);
+            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            static extern IntPtr SetWindowsHookEx(int idHook, delegateHookCallback lpfn, IntPtr hMod, uint dwThreadId);
+
+            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+            [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            static extern IntPtr GetModuleHandle(string lpModuleName);
+
+            IntPtr hookPtr = IntPtr.Zero;
+            delegateHookCallback callback;
+            public void Hook()
+            {
+                callback = HookCallback;
+                using (Process curProcess = Process.GetCurrentProcess())
+                using (ProcessModule curModule = curProcess.MainModule)
+                {
+                    hookPtr = SetWindowsHookEx(
+                        13,
+                        callback,
+                        GetModuleHandle(curModule.ModuleName),
+                        0
+                    );
+                }
+            }
+
+            int HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
+            {
+                Keys k = (Keys)(short)Marshal.ReadInt32(lParam);
+                short sk = (short)k;
+                if (0x30 <= sk && sk <= 0x39)
+                {
+                    return 0;
+                }
+                return 1;
+            }
+
+            public void HookEnd()
+            {
+                UnhookWindowsHookEx(hookPtr);
+                hookPtr = IntPtr.Zero;
+            }
+        }
+
+        private void F1_CL(object sender, FormClosingEventArgs e)
+        {
+            if (pcount < password.Length) e.Cancel = true;
+        }
+    }
+}
+
+			</code></pre>
+		</div><br>
+		<div class="text_frame">
+			<h1>Completed!</h1>
+		</div>
+		<div class="main">
+			<img src="スクリーンショット 2025-05-02 163001.png"><br>
+		</div><br>
+        <div class="text_frame">
+			<h1>Reference</h1>
+		</div>
+		<div class="main">
+			<p>I'll add it later as I remember.</p>
+		</div><br>
+		</body>
+        <script src="../../prism.js"></script>
+	</head>
+</html>
