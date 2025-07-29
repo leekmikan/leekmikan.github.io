@@ -2,9 +2,9 @@
 <html lang="ja">
 	<head>
 	<meta charset="uft-8">
-	<title>アットウィキから歌詞を取得 (Python)</title>
+	<title>Get lyrics from atwiki (Python)</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
-	<meta name="description" content="アットウィキから歌詞を取得 (Python)">
+	<meta name="description" content="Get lyrics from atwiki (Python) Web scraping">
 	<link rel="stylesheet" href="../../des.css">
     <link rel="stylesheet" href="../../prism.css">
 	<link rel="icon" type="image/jpg" href="../../icon.jpg">
@@ -13,32 +13,26 @@
 	</head>
 		<body>
         <header>
-			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
-			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+            <button onclick="location.href='https://leekmikan.github.io/index_en.html'">Home</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">Poor Drawing Collection</button>
 			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
-			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
-			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">Math Quizzes</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index_en.html'">Program Collection</button>
 		</header>
 			<div class="title">
-				<h1>アットウィキから歌詞を取得 (Python)</h1>
-                <p>・ページ構造がめんどくさいので、コードもちょっと複雑</p>
-                <p>→記事構成を統一してくれれば...</p>
-                <p>→2025/7/1更新 F12で見たときよりかはちょっと単純だったことが判明し、出来るだけ多くのページで対応できるように修正</p>
-				<p>・曲が存在しない、曲名が重複する場合は取得不可(あいまい検索用のページが作られるため)</p>
-				<p>・そのうち、歌詞以外も含め取得が用意なデータベースを公開したい(完成したが、サーバーが用意できない...)</p>
-                <p>※実行しすぎないように注意</p>
+                <p>※Using google translate※</p>
+				<h1>Get lyrics from Atwiki (Python)</h1>
+                <p>・Web scraping</p>
+                <p>・The page structure is tedious, so the code is a bit complicated.</p>
 			</div><br>
 			<div class="text_frame">
-				<h1>ソースコード</h1>
+				<h1>Source code</h1>
 			</div>
 		<div class="main">
-			<p>Pythonアプリケーション　で作成</p>
-            <p>BeautifulSoup4　requests　の２つが必要(timeとhtmlは標準モジュールなので入ってるはず)</p>
-            <p>(Visual Studioなら、右上あたりの黄色いプレゼントボックスを押し、左中央から検索してインストールできる)</p>
-			<p>あとは↓をコピペ</p>
+			<p>Created with "Python application"</p>
+            <p>Two things are required: BeautifulSoup4, requests</p>
 			<pre><code class="language-py">
 # -*- coding: shift-jis -*-
-#上は、# -*- coding: utf-8 -*- にする必要があったり、そもそも書かなくていい場合があったりする(環境による).
 from bs4 import BeautifulSoup
 import requests
 import time
@@ -48,59 +42,59 @@ def getl(name):
     url = get_url(name)
     time.sleep(1)
     if url == "null":
-        print("失敗...(曲が存在しません...)")
+        print("Failed...(Song does not exist...)")
         return
     res = requests.get(url)
     soup = BeautifulSoup(res.content,'html.parser')
     elems = soup.find_all()
     start = 0
     lyc = ""
-    #歌詞が来る場所を調べる.
+    #Find out where the lyrics come from.
     for i in range(len(elems)):
         if elems[i].name == "h3":
             if '歌詞' in elems[i].text:
                 start = i
                 break
-    #歌詞を読み取る.
+    #Read the lyrics.
     for i in range(start + 1,len(elems)):
         if len(elems[i].text) >= 3:
-            #たまにあるっぽい.
+            #Occasionally.
             if elems[i].get("target") == "_blank":
                 continue
-            #コメントか関連動画(h3タグ)が来たら終了.
+            #Ends when a comment or related video (h3 tag) arrives.
             elif elems[i].name == "h3" and ('コメント' in elems[i].text or '関連動画' in elems[i].text):
                 break
-            lyc += elems[i].text.replace("\n\n\n","\n").replace("\n\n","\n") #ざっくり改行コードを減らす.
+            lyc += elems[i].text.replace("\n\n\n","\n").replace("\n\n","\n") #Reduce line breaks.
     return lyc
 
-#ページ番号を求める.
+#Get page number.
 def get_url(name):
     res = requests.get("https://w.atwiki.jp/hmiku/list?&keyword=" + name)
 
-    #CDと過去ログを除外.
+    #Exclude CD and archives.
     txt = html.unescape(res.text).replace('title="' + name + "/CD", "").replace('title="' + name + "/過去ログ", "")
 
-    #曲名/があるか調べる あれば曲名が重複してる可能性あり.
+    #Check if the song name exists. If it does, there may be a duplicate song name.
     index = txt.find('title="' + name + "/")
     if index != -1:
         index = txt.find('title="' + name)
-        #最初のヒット位置以降で曲が重複するか調べる.
+        #Check if songs overlap after the first hit position.
         dq = 0
         y = txt[index + 1:]
         index2 = txt[index + 1:].find('title="' + name)
         if index2 != -1:
-            print("曲名が重複しています　ボカロPで絞ってください")
-            name2 = input("ボカロP：")
+            print("There are duplicate song titles. Please narrow down your search by VocaloidP.")
+            name2 = input("VocaloidP：")
             index = txt.find('title="' + name + '/' + name2)
     else:
-        #曲名 (更新日時)があるか調べる .
-        #上で曖昧さ回避ページがないことを確認してから、確実に単体ページがあるか調べる
+        #Check if song title (update date) exists .
+        #Make sure there is no disambiguation page above, then check to see if there is a standalone page.
         index = txt.find('title="' + name + " (")
     if index == -1:
         return "null"
     dq = 0
     purl = ""
-    #hrefのところを持ってくる.
+    #Bring in the href.
     while dq < 2:
         if txt[index] == '"':
             dq += 1
@@ -111,7 +105,7 @@ def get_url(name):
     return purl
 
 while 1:
-    ip = input("曲名：")
+    ip = input("Song name：")
     if ip == "\q":
         break
     txt = getl(ip)
@@ -121,12 +115,12 @@ while 1:
 			</code></pre>
 		</div><br>
 		<div class="text_frame">
-			<h1>完成！</h1>
+			<h1>Completed！</h1>
 		</div>
 		<div class="main">
-            <p>実行結果例</p>
+            <p>Execution result example</p>
             <pre><code class="language-command-line">
-曲名：初音ミクの消失
+Song name：初音ミクの消失
 -----------
 
 　---深刻なエラーが発生しました---
@@ -212,16 +206,14 @@ while 1:
 　---深刻なエラーが発生しました---
 
 -----------
-曲名：
+Song name：
             </code></pre>
 		</div><br>
         <div class="text_frame">
-			<h1>注意点</h1>
+			<h1>Note</h1>
 		</div>
 		<div class="main">
-            <p>※アットウィキに登録されている曲名で入力してください。　例：サンドリヨン（Cendrillon）</p>
-            <p>(上の例だと、（Cendrillon）部分まで必要なのと、括弧は全角なのが注意点)</p>
-            <p>※[+]内の、色付き歌詞とかも読み込むように設定している</p>
+            <p>※Please enter the song title as registered on atWiki. Example：サンドリヨン（Cendrillon）</p>
         </div>
 		</body>
         <script src="../../prism.js"></script>
