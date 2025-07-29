@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="uft-8">
+	<title>Display an image in Notepad (C#)</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="Display an image in Notepad (C#)">
+	<link rel="stylesheet" href="../../des.css">
+    <link rel="stylesheet" href="../../prism.css">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<iframe src="../../google.html" style="display: none;"></iframe>
+	</head>
+		<body>
+        <header>
+			<button onclick="location.href='https://leekmikan.github.io/index_en.html'">Home</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">Poor Drawing Collection</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">Math Quizzes</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index_en.html'">Program Collection</button>
+		</header>
+			<div class="title">
+				<h1>Display an image in Notepad (C#)</h1>
+				<p>・Like ASCII art?</p>
+				<p>・It becomes metallic</p>
+				<p>・Can be created with Visual Studio</p>
+			</div><br>
+			<div class="text_frame">
+				<h1>Source code</h1>
+			</div>
+		<div class="main">
+			<p>Created as a "C# console application (.NET Framework)"</p>
+			<p>Replace the namespace part with your project name.</p>
+            <p>Specify the image file in the "Image file path here" section</p>
+			<pre><code class="language-cs">
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
+
+namespace (Change here)
+{
+    public partial class Form1 : Form
+    {
+        //↓Use your favorite characters(Multibyte characters, in order of density)).
+        string[] dchs = { "歌","姫","電", "音", "初", "子", "39", "YY", "01", "ね", "ギ", "♪", "み", "は", "ネ", "ミ", "ク", "く", "つ","３","９","０", "Ｙ", "１" ,"　" };
+        
+        //For blank.
+        string bg = "・";
+
+        //Scale(1/SCALEx).
+        const int SCALE = 5;
+
+        //Gamma Correction(Maybe 3.5 would be just right?).
+        const double GAMMA = 3.5;
+
+        //For black and white inversion (select true if the text in Notepad is white, false if it is black).
+        bool rev = true;
+
+        public Form1()
+        {
+            InitializeComponent();
+            Bitmap bitmap = new Bitmap(@"Image file path");
+            Bitmap bmp = new Bitmap(bitmap,new Size(bitmap.Width / SCALE,bitmap.Height / SCALE));
+            BitmapData data = bmp.LockBits(
+            new Rectangle(0, 0, bmp.Width, bmp.Height),
+            ImageLockMode.ReadWrite,
+            PixelFormat.Format32bppArgb);
+            byte[] buf = new byte[bmp.Width * bmp.Height * 4];
+            Marshal.Copy(data.Scan0, buf, 0, buf.Length);
+            Encoding enc = Encoding.GetEncoding("UTF-8");
+            StreamWriter writer = new StreamWriter(@"return.txt", false, enc);
+            // ファイルを閉じる
+            int avr = 0;
+            for (int i = 0; i < buf.Length; i += 4)
+            {
+                avr = 0;
+                for (int j = 0; j < 4; j++) avr += buf[i + j];
+                if (avr == 0)
+                {
+                    writer.Write(bg);
+                }
+                else
+                {
+                    avr = (int)(256 * 4 * Math.Pow(avr / 256.0 / 4, GAMMA));
+                    writer.Write(dchs[rev ? dchs.Length - 1 - avr * dchs.Length / 256 / 4 : avr * dchs.Length / 256 / 4]);
+                }
+                if(i > 0 && i % (bmp.Width * 4) == 0) writer.Write("\n");
+            }
+            writer.Close();
+            bmp.UnlockBits(data);
+        }
+    }
+}
+			</code></pre>
+		</div><br>
+		<div class="text_frame">
+			<h1>Completed！</h1>
+		</div>
+		<div class="main">
+			<img src="スクリーンショット 2025-06-26 235644.png"><br>
+            <p>On Windows, you can change the zoom level by holding down Ctrl and rotating the mouse wheel.</p>
+            <p><a href="return.txt" download="return.txt">Download execution example (1.97MB)</a></p>
+		</div><br>
+		</body>
+        <script src="../../prism.js"></script>
+	</head>
+</html>
