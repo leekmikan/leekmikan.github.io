@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="uft-8">
+	<title>Using Nginx, PHP, MySQL (PDO) with Docker</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="Using Nginx, PHP, MySQL (PDO) with Docker">
+	<link rel="stylesheet" href="../../des.css">
+    <link rel="stylesheet" href="../../prism.css">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<iframe src="../../google.html" style="display: none;"></iframe>
+	</head>
+		<body>
+        <header>
+			<button onclick="location.href='https://leekmikan.github.io/index_en.html'">Home</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">Poor Drawing Collection</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">Math Quizzes</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index_en.html'">Program Collection</button>
+		</header>
+			<div class="title">
+                <p>※Using google translate※</p>
+				        <h1>Using Nginx, PHP, MySQL (PDO) with Docker</h1>
+                <p>・It's a summary of what I researched, so there may be some mistakes or unnecessary parts.</p>
+                <p>・I can do the basics so...</p>
+            </div><br>
+            <div class="text_frame">
+				<h1>Structure</h1>
+			</div>
+		<div class="main">
+            <p>The name of the folder to put all of the following in can be arbitrary.　　→Below (Parent folder)</p>
+			<pre><code class="language-command-line">
+docker-compose.yml
+docker
+|--nginx
+|  |--default.conf
+|
+|--php
+|  |--(Folder for web pages)
+|  |  |--(index.php etc.)
+|  |
+|  |--Dockerfile
+|  |--php.ini
+|
+|--sql
+   |--Dockerfile
+   |--(Where the database is saved.sql)
+            </code></pre>
+            </div><br>
+			<div class="text_frame">
+				<h1>Source code</h1>
+			</div>
+		<div class="main">
+                        <p>docker-compose.yml</p>
+			<pre><code class="language-command-line">
+version: '3.8'
+
+services:
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docker/php/(Folder for web pages):/var/www/html/(Folder for web pages)
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php-fpm
+  php-fpm:
+    build:
+      context: ./docker/php
+    volumes:
+     - ./docker/php/(Folder for web pages):/var/www/html/(Folder for web pages)
+     - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+     - sql
+  sql:
+    build:
+      context: ./docker/sql
+    volumes:
+      - ./docker/sql/(Where the database is saved).sql:/docker-entrypoint-initdb.d/init.sql
+			</code></pre>
+            <br><p>nginx/default.conf</p>
+			<pre><code class="language-command-line">
+server {
+    listen 80;
+
+    server_name localhost;
+
+    root /var/www/html;
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass php-fpm:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+			</code></pre>
+            <br><p>php/Dockerfile</p>
+			<pre><code class="language-command-line">
+FROM php:7.4-fpm
+
+COPY php.ini /usr/local/etc/php/
+ENV TZ=Asia/Tokyo
+RUN docker-php-ext-install pdo pdo_mysql
+
+WORKDIR /var/www/html
+
+COPY (Folder for web pages) .
+
+EXPOSE 9000
+CMD ["php-fpm"]
+			</code></pre>
+            <br><p>php/php.ini</p>
+            <p>(All parts without comments)</p>
+			<pre><code class="language-command-line">
+[PHP]
+engine = On
+short_open_tag = Off
+precision = 14
+output_buffering = Off
+zlib.output_compression = Off
+implicit_flush = Off
+unserialize_callback_func =
+serialize_precision = -1
+disable_functions = passthru,exec,system,chroot,chgrp,chown,shell_exec,proc_open,proc_get_status,popen,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server
+disable_classes =
+zend.enable_gc = On
+zend.exception_ignore_args = Off
+zend.exception_string_param_max_len = 15
+expose_php = Off
+max_execution_time = 30
+max_input_time = 60
+memory_limit = 128M
+error_reporting = E_ALL
+display_errors = On
+display_startup_errors = On
+log_errors = On
+ignore_repeated_errors = Off
+ignore_repeated_source = Off
+report_memleaks = On
+variables_order = "GPCS"
+request_order = "GP"
+register_argc_argv = Off
+auto_globals_jit = On
+post_max_size = 8M
+auto_prepend_file =
+auto_append_file =
+default_mimetype = "text/html"
+default_charset = "UTF-8"
+doc_root =
+user_dir =
+enable_dl = Off
+file_uploads = On
+upload_max_filesize = 2M
+max_file_uploads = 20
+allow_url_fopen = Off
+allow_url_include = Off
+default_socket_timeout = 60
+extension=mbstring
+extension=mysqli
+extension=openssl
+extension=pdo_mysql
+[CLI Server]
+cli_server.color = On
+[Date]
+[filter]
+[iconv]
+[intl]
+[sqlite3]
+[Pcre]
+[Pdo]
+[Pdo_mysql]
+pdo_mysql.default_socket=
+[Phar]
+[mail function]
+SMTP = localhost
+smtp_port = 25
+mail.add_x_header = Off
+mail.mixed_lf_and_crlf = Off
+[ODBC]
+odbc.allow_persistent = On
+odbc.check_persistent = On
+odbc.max_persistent = -1
+odbc.max_links = -1
+odbc.defaultlrl = 4096
+odbc.defaultbinmode = 1
+[MySQLi]
+mysqli.max_persistent = -1
+mysqli.allow_persistent = On
+mysqli.max_links = -1
+mysqli.default_port = 3306
+mysqli.default_socket =
+mysqli.default_host =
+mysqli.default_user =
+mysqli.default_pw =
+[mysqlnd]
+mysqlnd.collect_statistics = On
+mysqlnd.collect_memory_statistics = On
+[PostgreSQL]
+pgsql.allow_persistent = On
+pgsql.auto_reset_persistent = Off
+pgsql.max_persistent = -1
+pgsql.max_links = -1
+pgsql.ignore_notice = 0
+pgsql.log_notice = 0
+[bcmath]
+bcmath.scale = 0
+[browscap]
+[Session]
+session.save_handler = files
+session.use_strict_mode = 0
+session.use_cookies = 1
+session.use_only_cookies = 1
+session.name = PHPSESSID
+session.auto_start = 0
+session.cookie_lifetime = 0
+session.cookie_path = /
+session.cookie_domain =
+session.cookie_httponly =
+session.cookie_samesite =
+session.serialize_handler = php
+session.gc_probability = 1
+session.gc_divisor = 1000
+session.gc_maxlifetime = 1440
+session.referer_check =
+session.cache_limiter = nocache
+session.cache_expire = 180
+session.use_trans_sid = 0
+session.trans_sid_tags = "a=href,area=href,frame=src,form="
+session.upload_progress.enabled = Off
+[Assertion]
+zend.assertions = 1
+[COM]
+[mbstring]
+mbstring.language = Japanese
+[gd]
+[exif]
+[Tidy]
+tidy.clean_output = Off
+[soap]
+soap.wsdl_cache_enabled=1
+soap.wsdl_cache_dir="/tmp"
+soap.wsdl_cache_ttl=86400
+soap.wsdl_cache_limit = 5
+[sysvshm]
+[ldap]
+ldap.max_links = -1
+[dba]
+[opcache]
+[curl]
+[openssl]
+[ffi]
+			</code></pre>
+            <br><p>sql/Dockerfile</p>
+			<pre><code class="language-command-line">
+FROM mysql:5.7
+EXPOSE 3306
+ENV MYSQL_ROOT_PASSWORD="(Password)"
+ENV MYSQL_DATABASE="(Database name)"
+ENV MYSQL_USER="(User name)"
+ENV MYSQL_PASSWORD="(Password)"
+COPY (Where the database is saved).sql /docker-entrypoint-initdb.d/init.sql
+			</code></pre>
+            <p>※When connecting via PDO, DNS is "mysql:host=(Parent folder)-sql-1;dbname=(Database name)"</p>
+            <p>(Parent folder)-sql-1 may be different for each person. Check with docker ps.</p>
+		</div><br>
+        <div class="text_frame">
+			<h1>Execute</h1>
+		</div>
+		<div class="main">
+            <pre><code class="language-command-line">
+$ cd (Parent folder)
+$ docker compose up -d
+
+If the above doesn't work?
+$ docker compose build
+$ docker compose stop
+$ docker compose up -d
+            </code></pre>
+		</div><br>
+		<div class="text_frame">
+			<h1>Completed！</h1>
+		</div>
+		<div class="main">
+            <p>If there is index.php in (Parent folder), If you access "localhost:8080/(Parent folder)/index.php" you can see the page.</p>
+            <p>Execution result example</p>
+            <img src="スクリーンショット 2025-07-07 015758.png">
+		</div><br>
+        <div class="text_frame">
+			<h1>Reference</h1>
+		</div>
+		<div class="main">
+            <p>Later</p>
+		</div><br>
+		</body>
+        <script src="../../prism.js"></script>
+	</head>
+</html>
