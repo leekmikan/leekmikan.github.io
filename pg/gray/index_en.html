@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="uft-8">
+	<title>[C#]Create different looking images</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="[C#]Create different looking images">
+	<link rel="stylesheet" href="../../des.css">
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+    <link rel="stylesheet" href="../../prism.css">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<iframe src="../../google.html" style="display: none;"></iframe>
+	</head>
+		<body>
+            <header>
+			<button onclick="location.href='https://leekmikan.github.io/index_en.html'">Home</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">Poor Drawing Collection</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">Math Quizzes</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index_en.html'">Program Collection</button>
+		</header>
+			<div class="title">
+				<h1>[C#]Create different looking images</h1>
+				<p>・Create images that look different depending on application settings</p>
+				<p>・Used in the image posted on the home page</p>
+			</div><br>
+			<div class="text_frame">
+				<h1>Preparation steps + source code</h1>
+			</div>
+		<div class="main">
+            <ol>
+                <li>Created using "C# Windows Forms Application (.NET Framework)"</li>
+                <li>Copy and paste the code</li>
+            </ol>
+			<pre><code class="language-cs">
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Windows.Forms;
+
+namespace RGBtoRGBA //Change this as needed.
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            RGBtoARGB("Q1A.jpg", 1, Color.Black,false);
+            GrayPic("img1.png", "img2.png");
+        }
+        public void GrayPic(string source, string source2)
+        {
+            Bitmap source_b = new Bitmap(source);
+            Bitmap source2_b = new Bitmap(new Bitmap(source2),new Size(source_b.Width,source_b.Height));
+            Rectangle rect = new Rectangle(0, 0, source_b.Width, source_b.Height);
+            BitmapData source_data = source_b.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+            BitmapData source2_data = source2_b.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+            try
+            {
+                Bitmap canvas = new Bitmap(source_data.Width, source_data.Height);
+                byte[] imgdata = new byte[source_data.Stride * source_data.Height];
+                byte[] imgdata2 = new byte[source2_data.Stride * source2_data.Height];
+                System.Runtime.InteropServices.Marshal.Copy(source_data.Scan0, imgdata, 0, imgdata.Length);
+                System.Runtime.InteropServices.Marshal.Copy(source2_data.Scan0, imgdata2, 0, imgdata2.Length);
+                int argb;
+                for (int y = 0; y < source_data.Height; ++y)
+                {
+                    for (int x = 0; x < source_data.Width; ++x)
+                    {
+                        argb = 0;
+                        byte[] gray = { 0, 0 };
+                        int pos = y * source_data.Stride + x * 4;
+                        gray[0] = (byte)((imgdata[pos] + imgdata[pos + 1] + imgdata[pos + 2]) / 6.0);
+                        gray[1] = (byte)((imgdata2[pos] + imgdata2[pos + 1] + imgdata2[pos + 2]) / 6.0);
+                        gray[1] += 127;
+                        double alpha = 1 - Math.Abs(gray[0] - gray[1]) / 255.0;
+                        for (int i = 0;i < 3; ++i)
+                        {
+                            argb += (byte)(gray[0] / alpha) << (8 * i);
+                        }
+                        argb += (byte)(alpha * 255) << 24;
+                        canvas.SetPixel(x, y, Color.FromArgb(argb));
+                    }
+                }
+                canvas.Save(AppDomain.CurrentDomain.BaseDirectory + Path.GetFileNameWithoutExtension(source) + "x" + Path.GetFileNameWithoutExtension(source2) + ".png", System.Drawing.Imaging.ImageFormat.Png);
+            }
+            finally
+            {
+                source_b.UnlockBits(source_data);
+            }
+            source_b.Dispose();
+        }
+    }
+}
+
+
+			</code></pre>
+		</div><br>
+		<div class="text_frame">
+			<h1>Completed！</h1>
+		</div>
+		<div class="main">
+			<div class="ct"><img src="../../FxQ0B.png"></div><br>
+            <p>Download it and try it with various applications!</p>
+		</div>
+        <div class="text_frame">
+			<h1>Calculation process for each pixel</h1>
+		</div>
+		<div class="main">
+            <h2>\(R_1,G_1,B_1\)...RGB values of the first image(0~255)</h2>
+            <h2>\(R_2,G_2,B_2\)...RGB values of the second image(0~255)</h2>
+            <h2>\(A_3,R_3,G_3,B_3\)...ARGB value of the output image(0~255)</h2>
+            <h2>\(X,Y\)...Temporary variables</h2>
+            <h2>\(X=\frac{R_1+G_1+B_1}{6}\)</h2>
+            <h2>\(Y=\frac{R_2+G_2+B_2}{6}\)</h2>
+            <h2>\(A_3=128+X-Y\)</h2>
+            <h2>\(R_3=G_3=B_3=\frac{255X}{A_3}\)</h2>
+            <p>※The formulas used in the programs are slightly different, but the calculations and results are exactly the same.</p>
+		</div><br>
+		</body>
+        <script src="../../prism.js"></script>
+        <script type="text/javascript"src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+	</head>
+</html>
