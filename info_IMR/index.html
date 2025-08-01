@@ -5,14 +5,13 @@
 	<title>Incremental Mass Rewritten関係のメモ(beta版 Evolution4まで)</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
 	<meta name="description" content="Wikiに書かれていなかった部分のみの情報を記載(編集できないので) ネタバレ注意 Evolution4まで記載">
-	<link rel="stylesheet" href="../des.css">
-	<link rel="stylesheet" href="des.css">
+	<link rel="stylesheet" href="../des.css" media="print" onload="this.media='all'">
+	<link rel="stylesheet" href="des.css" media="print" onload="this.media='all'">
 	<link rel="icon" type="image/jpg" href="../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
 	<iframe src="../google.html" style="display: none;"></iframe>
 	</head>
 		<body>
-			<body>
 			<header>
 			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
 			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
@@ -1932,7 +1931,8 @@
 		</div>
 		<p>すべての仮説上の元素には、国際純正・応用化学連合(IUPAC)の体系的な元素名が与えられる。(引用：Wikipedia 拡張周期表)</p>
 		<p>化学はあまり詳しくないけど、多分あってる</p>
-		元素番号：<input id="enum" type="number" min="1" max="999" onchange="show_ename()" value="119">
+		<label for="enum">元素番号：</label>
+		<input name="enum" id="enum" type="number" min="1" max="999" onchange="show_ename()" value="119">
 		<h2 id="ename">...</h2>
 		</body>
 		<script src="main.js"></script>

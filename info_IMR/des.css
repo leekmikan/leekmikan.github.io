@@ -30,7 +30,7 @@ background: #ff5a83;
 color: #000000;
 }
 .rip{
-background: #ff2121;
+background: #800000;
 color: #FFFFFF;	
 }
 .spc{
@@ -43,6 +43,10 @@ input[type="number"]{
 ol {
   counter-reset: counter;
   list-style-type: none;
+}
+li{
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 li::before {
   counter-increment: counter;
