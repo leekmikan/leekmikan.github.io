@@ -1,11 +1,12 @@
+/*
 @font-face {
-  font-family: 'Main'; /* フォント名 */
-  /* フォーマットごとにパスを指定 */
+  font-family: 'Main';
   src: url('ZenKakuGothicAntique-Regular.ttf') format('truetype');
 }
 body{
-font-family: "Main";
+  font-family: "Main";
 }
+*/
 #star{
 font-size: 32px;
 }
