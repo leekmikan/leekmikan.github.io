@@ -5,8 +5,8 @@
 	<title>Simple music effector for C++</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
 	<meta name="description" content="Simple music effector for C++ You can add effects to your music with just a few line codes">
-	<link rel="stylesheet" href="../../des.css">
-	<link rel="stylesheet" href="../../prism.css">
+	<link rel="stylesheet" href="../../des.css" media="print" onload="this.media='all'">
+	<link rel="stylesheet" href="../../prism.css" media="print" onload="this.media='all'">
 	<link rel="icon" type="image/jpg" href="../../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
 	</head>
@@ -16,7 +16,7 @@
 			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">Poor Drawing Collection</button>
 			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
 			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">Math Quizzes</button>
-			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">Program Collection</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index_en.html'">Program Collection</button>
 		</header>
 			<div class="title">
 				<p>※Using google translate※</p>
@@ -43,7 +43,7 @@
 			<div class="main">
 				<p>I used North Korean music because it seems that copyright is invalid.</p>
 				<p>The full sound source has been cut out in "2.Cut"</p>
-				<audio controls src="1.wav"></audio>
+				<audio controls src="1.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>1.Output as is</h1>
@@ -56,7 +56,7 @@ wd.Export(2); //Number of channels(1 for mono)
 //wd.Export(2,"Example2.wav"); //Name can be specified
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="1.wav"></audio>
+				<audio controls src="1.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>2.Cut</h1>
@@ -70,7 +70,7 @@ wd.Cut(40.7, 43.8); //Select start and end points in seconds
 wd.Export(2); //Channels
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="1.wav"></audio>
+				<audio controls src="1.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>3.Change speed and pitch</h1>
@@ -83,7 +83,7 @@ wd.Speed(1.5,-6); //Playback speed, Pitch(X semitones)
 wd.Export(2); //Channels
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="2.wav"></audio>
+				<audio controls src="2.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>4.Reverb (Low load)</h1>
@@ -96,7 +96,7 @@ wd.AlgorithmicReverb(300, 0.6, 0.6); //Delay(milliseconds), magnification, Perce
 wd.Export(2); //Channels
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="3.wav"></audio>
+				<audio controls src="3.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>5.Reverb (heavy load) (ConvolutionReverb)</h1>
@@ -113,7 +113,7 @@ wd.ConvolutionReverb("IR.wav", 0.4,150);//IR file(16bit 2ch wav) Percentage of o
 wd.Export(2); //Channels
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="4.wav"></audio>
+				<audio controls src="4.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>6.Change key</h1>
@@ -127,7 +127,7 @@ wd.Custom_Scale(MAJOR_SCALE,0); //Pitch change arrangement(int[12]),key signatur
 wd.Export(2); //Channels
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="5.wav"></audio>
+				<audio controls src="5.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>7.Flanger</h1>
@@ -140,7 +140,7 @@ wd.Flanger(1,0.5);//Speed Percentage of original song,
 wd.Export(2); //Channels
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="6.wav"></audio>
+				<audio controls src="6.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>8.Compressor</h1>
@@ -154,7 +154,7 @@ wd.Compressor(0.25);//What power should the waveform amplitude be raised to
 wd.Export(2); //Channels
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="7.wav"></audio>
+				<audio controls src="7.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>９．Voice Canceller</h1>
@@ -170,7 +170,7 @@ wd.LRdel(1000); //If you want to reduce monophonic sound, put this after
 wd.Export(2); //Channels
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="8.wav"></audio>
+				<audio controls src="8.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>10.Extract Voice</h1>
@@ -184,7 +184,7 @@ wd.CenterMultiplier(5); //The larger the argument, the less likely the sound wil
 wd.Export(2); //Channels
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="9.wav"></audio>
+				<audio controls src="9.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>11.Sampling frequency change</h1>
@@ -197,7 +197,7 @@ wd.Quality(8000); //Specify the sampling frequency
 wd.Export(2); //Channels
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="10.wav"></audio>
+				<audio controls src="10.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>12.Alien Style</h1>
@@ -210,7 +210,7 @@ wd.Alien(1024, 0.1, 0.5, 1.5,1); //Length of one frame, Frame-to-frame accelerat
 wd.Export(2); //Channels
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="11.wav"></audio>
+				<audio controls src="11.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>13.Multiple acceleration</h1>
@@ -223,7 +223,7 @@ wd.Multiple(3, 10); //Overlap location (seconds),Speed difference (%)
 wd.Export(2); //Channels
 wd.Dispose(); //Dispose
 				</code></pre>
-				<audio controls src="12.wav"></audio>
+				<audio controls src="12.wav" preload="none"></audio>
 			</div><br>
 			<div class="text_frame">
 				<h1>Others</h1>
