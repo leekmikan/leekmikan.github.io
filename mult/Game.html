@@ -56,14 +56,12 @@
 			<br><br><br>
 			<button onclick="Save();alert('セーブ完了');" class="g">手動セーブ(30秒毎に自動セーブされる)</button><br><br>
 			<button onclick="if(confirm('データ削除しますか')){Wipe()}" class="r">データ削除</button><br><br>
-			<label for="letter">指数表記方法(全般)</label><br>
-			<input type="radio" name="letter" onchange="letter_type = Number(this.value); Update();" value="0">指数表記(あまりにも大きい場合は、クヌースの矢印表記を使用)<br>
-			<input type="radio" name="letter" onchange="letter_type = Number(this.value); Update();" value="1" checked>日本語表記+指数表記　(次の単位までの値が2乗になるため、矜羯羅から先は指数表記を組み合わせる。)<br>
-			<input type="radio" name="letter" onchange="letter_type = Number(this.value); Update();" value="2">無限(1.8×10^308)のx乗表記<br>
+			<label><input type="radio" name="letter" onchange="letter_type = Number(this.value); Update();" value="0">指数表記(あまりにも大きい場合は、クヌースの矢印表記を使用)</label><br>
+			<label><input type="radio" name="letter" onchange="letter_type = Number(this.value); Update();" value="1" checked>日本語表記+指数表記　(次の単位までの値が2乗になるため、矜羯羅から先は指数表記を組み合わせる。)</label><br>
+			<label><input type="radio" name="letter" onchange="letter_type = Number(this.value); Update();" value="2">無限(1.8×10^308)のx乗表記</label><br>
 			<br>
-			<label for="letterg">指数表記方法(重量)</label><br>
-			<input type="radio" name="letterg" onchange="letter_typeg = Number(this.value); Update();" value="0">他と表記を合わせる<br>
-			<input type="radio" name="letterg" onchange="letter_typeg = Number(this.value); Update();" value="1" checked>グラム表記(Incremental Mass Rewrittenに近い形式)<br>
+			<label><input type="radio" name="letterg" onchange="letter_typeg = Number(this.value); Update();" value="0">他と表記を合わせる</label><br>
+			<label><input type="radio" name="letterg" onchange="letter_typeg = Number(this.value); Update();" value="1" checked>グラム表記(Incremental Mass Rewrittenに近い形式)</label><br>
 			<p><a href="https://leekmikan.github.io/pg/index.html">ここで使ったJavaScriptコードはこちら</a></p>
 			<p>ドラえもんのひみつ道具「バイバイン」で栗まんじゅうを増やしたときの数を計算するシミュレーター</p>
 			<p>-1x、+1xボタンで、増殖倍率の変更(初期値：2倍)</p>

@@ -116,7 +116,6 @@ function Update(){
     for(var i = 0;i < num_wiki.length;i++){
         document.getElementById("num").getElementsByTagName("span")[i].innerHTML = Text(num_wiki[i]);
     }
-    document.getElementById('twv').innerText = player.tw.toFixed(4);
 }
 function Add_baibain(ig){
     if(ig === null) ig = -1;
