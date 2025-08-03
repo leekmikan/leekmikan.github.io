@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="uft-8">
+	<title>SEO on Github pages</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="SEO on Github pages">
+	<link rel="stylesheet" href="../des.css" media="print" onload="this.media='all'">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+	<iframe src="../google.html" style="display: none;"></iframe>
+	<script defer src="../init.js"></script>
+	</head>
+		<body style="display: none;">
+		<header>
+			<button onclick="location.href='https://leekmikan.github.io/index_en.html'">Home</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">Poor Drawing Collection</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">Math Quizzes</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index_en.html'">Program Collection</button>
+		</header>
+		<div class="title">
+			<p>※Using Google translate</p>
+			<h1>SEO on Github pages</h1>
+			<p>・A bulleted list of SEO measures on Github pages</p>
+			<p>・A compilation of information from many sites</p>
+			<p>・Prioritize increasing your PageSpeed Insights score</p>
+			<p>・Solutions other than the limitations of Github pages (server configuration not possible etc.)</p>
+			<p>・Maybe there's a better way...</p>
+		</div>
+		<div class="text_frame">
+			<h1>1.Add meta tags (required?)</h1>
+		</div>
+		<div class="main">
+			<p>If you don't add the following meta tag, Google won't index your page.<br>It won't appear on the search screen.</p>
+			<pre><code>
+&lt;meta content=&#039;width=device-width,initial-scale=1.0,minimum-scale=1.0&#039; name=&#039;viewport&#039;/&gt;
+			</code></pre>
+		</div>
+		<div class="text_frame">
+			<h1>2.Add "defer" to script</h1>
+		</div>
+		<div class="main">
+			<p>Reduces latency caused by increased web page load times</p>
+			<p>Check that JavaScript is running</p>
+			<pre><code>
+&lt;script defer src=&quot;aaa.js&quot;&gt;&lt;/script&gt;
+			</code></pre>
+		</div>
+		<div class="text_frame">
+			<h1>3.Delay loading css</h1>
+		</div>
+		<div class="main">
+			<p>Add 「media="print" onload="this.media='all'"」</p>
+			<p>Reduces latency caused by increased web page load times</p>
+			<p>Check if the css is loaded</p>
+			<pre><code>
+&lt;link rel=&quot;stylesheet&quot; href=&quot;des.css&quot; media=&quot;print&quot; onload=&quot;this.media=&#039;all&#039;&quot;&gt;
+			</code></pre>
+		</div>
+		<div class="text_frame">
+			<h1>4.Display the body after loading is complete</h1>
+		</div>
+		<div class="main">
+			<p>If you only do "3. Delay load CSS", a layout shift will occur, resulting in a situation where the score is high on mobile devices but low on PCs, so take the following steps:</p>
+			<p>1.Write the following code in a JavaScript file. If window.onload is already set, write it in there.</p>
+			<p>This time, let's call this "init.js".</p>
+			<pre><code>
+window.onload = function(){
+   document.body.style.display = "block";
+}
+			</code></pre>
+			<p>2.Rewrite the body tag to set it to hidden</p>
+			<pre><code>
+&lt;body style=&quot;display: none;&quot;&gt;
+			</code></pre>
+			<p>3.　Load the file created in step 1</p>
+			<pre><code>
+&lt;script defer src=&quot;init.js&quot;&gt;&lt;/script&gt;
+			</code></pre>
+		</div>
+		<div class="text_frame">
+			<h1>Template HTML file</h1>
+		</div>
+		<div class="main">
+			<p>Template HTML file (Only HTML part)</p>
+			<pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+	&lt;head&gt;
+		&lt;meta charset=&quot;uft-8&quot;&gt;
+		&lt;title&gt;「TITLE」&lt;/title&gt;
+		&lt;meta content=&#039;width=device-width,initial-scale=1.0,minimum-scale=1.0&#039; name=&#039;viewport&#039;/&gt;
+		&lt;meta name=&quot;description&quot; content=&quot;「Description of this page」&quot;&gt;
+		&lt;link rel=&quot;stylesheet&quot; href=&quot;「css file」.css&quot; media=&quot;print&quot; onload=&quot;this.media=&#039;all&#039;&quot;&gt;
+		&lt;link rel=&quot;icon&quot; type=&quot;image/jpg&quot; href=&quot;「Icon」.jpg&quot;&gt;
+		&lt;link rel=&quot;apple-touch-icon&quot; sizes=&quot;180x180&quot; href=&quot;「Icon」.jpg&quot;&gt;
+		&lt;iframe src=&quot;../google.html&quot; style=&quot;display: none;&quot;&gt;&lt;/iframe&gt;
+		&lt;script defer src=&quot;「JS file created in "4. Display the body after loading is complete"」.js&quot;&gt;&lt;/script&gt;
+		&lt;body style=&quot;display: none;&quot;&gt;
+			&lt;!--Main text--&gt;
+		&lt;/body&gt;
+	&lt;/head&gt;
+&lt;/html&gt;
+			</code></pre>
+		</div>
+		</body>
+	</head>
+</html>
