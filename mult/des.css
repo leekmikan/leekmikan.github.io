@@ -3,6 +3,9 @@ color: #FFFFFF;
 background: #000000;
 font-family: "UD デジタル 教科書体 NK-B";
 }
+input{
+  margin-bottom: 15px;
+}
 body > :not(button){
   White-space: nowrap;
 }
@@ -65,4 +68,7 @@ table{
   body{
     width: 300%;
   }
+}
+a{
+  color: #9999FF;
 }
