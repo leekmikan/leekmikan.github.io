@@ -5,12 +5,13 @@
 	<title>下手な絵(画伯)置き場　ホラー編</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
 	<meta name="description" content="枚数を分散させるため+ホラー耐性ない人のために、「画伯の展覧会(250枚)」「下手な絵置き場(140枚)」と別にしたページです">
-	<link rel="stylesheet" href="des.css">
+	<link rel="stylesheet" href="des.css" media="print" onload="this.media='all'">
 	<link rel="icon" type="image/jpg" href="../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
 	<iframe src="../google.html" style="display: none;"></iframe>
+<script defer src="../init.js"></script>
 	</head>
-		<body>
+		<body style="display: none;">
 		<div class="title">
 			<h1>下手な絵(画伯)置き場　ホラー編</h1>
 			<p>・全 <span id="sum">0</span> 枚</p>
@@ -88,6 +89,6 @@
 		</table>
 		</div>
 		</body>
-		<script src="main.js"></script>
+		<script defer src="main.js"></script>
 	</head>
 </html>

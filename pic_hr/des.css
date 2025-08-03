@@ -1,12 +1,12 @@
 body{
-color: #800000;
+color: #FF6666;
 background: #000000;
 }
 .title{
 text-align:center;
-color: #FF0000;
-background: #404040;
-border: double 5px #B00000;
+color: #FF6666;
+background: #000000;
+border: double 5px #FF6666;
 }
 .main{
 color: #000000;
