@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>Github pages上でSEO対策</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="Github pages上でのSEO対策">
+	<link rel="stylesheet" href="../des.css" media="print" onload="this.media='all'">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+	<iframe src="../google.html" style="display: none;"></iframe>
+	<script defer src="../init.js"></script>
+	</head>
+		<body style="display: none;">
+		<header>
+			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
+		<div class="title">
+			<h1>Github pages上でSEO対策</h1>
+			<p>・Github pages上でSEO対策を箇条書きでまとめたもの</p>
+			<p>・多数のサイトの情報をまとめた</p>
+			<p>・PageSpeed Insightsでの得点の増加を優先</p>
+			<p>・Github pagesでの制約(サーバーの設定ができないなど)以外での対策</p>
+			<p>・もしかしたらもっと良い方法があるかも...</p>
+		</div>
+		<div class="text_frame">
+			<h1>1.metaタグを付ける(多分必須)</h1>
+		</div>
+		<div class="main">
+			<p>次のmetaタグをつけないと、Google側がクソページ扱いしてきてインデックス登録をしてくれない<br>→検索画面にでてこない</p>
+			<pre><code>
+&lt;meta content=&#039;width=device-width,initial-scale=1.0,minimum-scale=1.0&#039; name=&#039;viewport&#039;/&gt;
+			</code></pre>
+		</div>
+		<div class="text_frame">
+			<h1>2.scriptにdeferを付ける</h1>
+		</div>
+		<div class="main">
+			<p>ウェブページの読み込み時間増加による遅延を軽減</p>
+			<p>JavaScriptが実行できているか確認すること</p>
+			<pre><code>
+&lt;script defer src=&quot;aaa.js&quot;&gt;&lt;/script&gt;
+			</code></pre>
+		</div>
+		<div class="text_frame">
+			<h1>3.cssを遅延読み込みする</h1>
+		</div>
+		<div class="main">
+			<p>media="print" onload="this.media='all'"　を付け加える</p>
+			<p>ウェブページの読み込み時間増加による遅延を軽減</p>
+			<p>cssが読み込めているか確認すること</p>
+			<pre><code>
+&lt;link rel=&quot;stylesheet&quot; href=&quot;des.css&quot; media=&quot;print&quot; onload=&quot;this.media=&#039;all&#039;&quot;&gt;
+			</code></pre>
+		</div>
+		<div class="text_frame">
+			<h1>4.読み込み完了後にbodyを表示する</h1>
+		</div>
+		<div class="main">
+			<p>「3.cssを遅延読み込みする」だけだとレイアウトシフトが発生して、モバイル端末の得点が高いのにPCの得点が低いという状況になるので、次の手順を踏む</p>
+			<p>1.適当なJavaScriptに次のコードを書く　すでにwindow.onloadがあればその中に書く</p>
+			<p>今回はこれをinit.jsとする</p>
+			<pre><code>
+window.onload = function(){
+   document.body.style.display = "block";
+}
+			</code></pre>
+			<p>2.body部分を書き換えて、非表示に設定する</p>
+			<pre><code>
+&lt;body style=&quot;display: none;&quot;&gt;
+			</code></pre>
+			<p>3.　1で作ったファイルを読み込む</p>
+			<pre><code>
+&lt;script defer src=&quot;init.js&quot;&gt;&lt;/script&gt;
+			</code></pre>
+		</div>
+		<div class="text_frame">
+			<h1>5.その他</h1>
+		</div>
+		<div class="main">
+			<p>Github pages関係なく、共通の対策</p>
+			<p>多分PageSpeed Insightsで表示されるので分かるはず</p>
+			<p>今思いつく範囲で箇条書き</p>
+			<ol>
+				<li>画像サイズを小さくする(100KB以下だと良さそう?)　ただし、解像度が悪すぎると若干減点される</li>
+				<li>imgタグ内にalt="画像の説明"を書く</li>
+				<li>inputはlabelタグで囲む/labelタグにfor="input要素のname名"を書いて使う</li>
+				<li>&lt;meta name=&quot;description&quot; content=&quot;このページの説明&quot;&gt;を書く</li>
+			</ol>
+		</div>
+		<div class="text_frame">
+			<h1>最後に.テンプレHTMLファイル</h1>
+		</div>
+		<div class="main">
+			<p>HTML部分のテンプレート</p>
+			<p>アイコン用のlinkタグ付き</p>
+			<pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+	&lt;head&gt;
+		&lt;meta charset=&quot;uft-8&quot;&gt;
+		&lt;title&gt;タイトル&lt;/title&gt;
+		&lt;meta content=&#039;width=device-width,initial-scale=1.0,minimum-scale=1.0&#039; name=&#039;viewport&#039;/&gt;
+		&lt;meta name=&quot;description&quot; content=&quot;このページの説明&quot;&gt;
+		&lt;link rel=&quot;stylesheet&quot; href=&quot;cssファイル.css&quot; media=&quot;print&quot; onload=&quot;this.media=&#039;all&#039;&quot;&gt;
+		&lt;link rel=&quot;icon&quot; type=&quot;image/jpg&quot; href=&quot;アイコン.jpg&quot;&gt;
+		&lt;link rel=&quot;apple-touch-icon&quot; sizes=&quot;180x180&quot; href=&quot;アイコン.jpg&quot;&gt;
+		&lt;iframe src=&quot;../google.html&quot; style=&quot;display: none;&quot;&gt;&lt;/iframe&gt;
+		&lt;script defer src=&quot;「4.読み込み完了後にbodyを表示する」で作ったJSファイル.js&quot;&gt;&lt;/script&gt;
+		&lt;body style=&quot;display: none;&quot;&gt;
+			&lt;!--本文--&gt;
+		&lt;/body&gt;
+	&lt;/head&gt;
+&lt;/html&gt;
+			</code></pre>
+		</div>
+		</body>
+	</head>
+</html>
