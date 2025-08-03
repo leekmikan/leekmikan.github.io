@@ -5,18 +5,18 @@
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
 	<meta name="description" content="ドラえもんのひみつ道具「バイバイン」で栗まんじゅうを増やしたときの数を計算するシミュレーター。クヌースの矢印表記まで表せる">
 	<title>バイバインシミュレーター</title>
-	<link rel="stylesheet" href="des.css">
+	<link rel="stylesheet" href="des.css" media="print" onload="this.media='all'">
 	<link rel="icon" type="image/jpg" href="../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
-	<link rel="stylesheet" href="des.css">
 	<iframe src="../google.html" style="display: none;"></iframe>
-	<script src="Exp.js"></script>
-	<script src="Num.js"></script>
+	<script defer src="Exp.js"></script>
+	<script defer src="Num.js"></script>
+	<script defer src="../init.js"></script>
 	</head>
-		<body>
+		<body style="display: none;">
 			<div class="ct">
 				<p>Update(2025/2/13):計算処理を修正しました。Twitter(現X)にテスト動画からさらに修正</p>
-				<p style="text-align:center;"><a href="https://x.com/leekmikan">Twitter(現X)<a></p>
+				<p style="text-align:center;"><a href="https://x.com/leekmikan">Twitter(現X)</a></p>
 				<h1>現在の栗まんじゅうの数：　<span id="money">1</span>　個</h1>
 				<p>
 					栗まんじゅうの総重量：　<span id="gram">50グラム</span><br>
@@ -27,9 +27,9 @@
 			</div>
 			<table class="ct">
 				<tr>
-					<td><img src="img/kuri.jpg"></td>
+					<td><img src="img/kuri.jpg" alt="栗まんじゅう"></td>
 					<td>←</td>
-					<td><img src="img/bai.jpg"></td>
+					<td><img src="img/bai.jpg" alt="バイバイン"></td>
 				</tr>
 				<tr>
 					<td>1</td>
@@ -114,6 +114,6 @@
 				<li>無辺</li><li>無辺転</li><li>無等</li><li>無等転</li><li>不可数</li><li>不可数転</li><li>不可称</li><li>不可称転</li><li>不可思</li><li>不可思転</li><li>不可量</li><li>不可量転</li><li>不可説</li><li>不可説転</li><li>不可説不可説</li><li>不可説不可説転　(10<sup>13292279957849158729038070602803445760</sup>)</li>
 			</ol>
 		</body>
-		<script src="main.js"></script>
+		<script defer src="main.js"></script>
 	</head>
 </html>
