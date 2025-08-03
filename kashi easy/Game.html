@@ -7,10 +7,10 @@
 	<title>超簡単歌詞クイズ</title>
 	<link rel="icon" type="image/jpg" href="../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
-	<link rel="stylesheet" href="des.css">
+	<link rel="stylesheet" href="des.css" media="print" onload="this.media='all'">
 	<iframe src="../google.html" style="display: none;"></iframe>
 	</head>
-		<body>
+		<body style="display: none;">
 			<button class="b6 bs" onclick="Reset()">成績リセット</button>
 			<div style="text-align:center;">
 				<h1 style="font-size: 48px" id="qs" onCopy="return false;">あああああ</h1>
@@ -60,7 +60,7 @@
 			<p>10問解くごとに成績が更新されるよ(暗記防止)</p>
 			<p>チェックボックスで出題ジャンルを選択しよう</p>
 			<p>目標: 平均正解率90%</p>
-			<p style="text-align:center;"><a href="https://x.com/leekmikan">Twitter(現X)<a></p>
+			<p style="text-align:center;"><a href="https://x.com/leekmikan">Twitter(現X)</a></p>
 			<br>
 			<h2>ヒント(問題に出やすい曲/歌詞の場所):</h2>
 			<p>・人生で絶対聴くであろう曲/歌詞</p>
@@ -70,9 +70,9 @@
 			<p>・サビの始めや最後の部分</p>
 			<p>・ほとんどの学校でうたわれる曲</p>
 		</body>
-		<script src="qs.js"></script>
-		<script src="main.js"></script>
-		<script src="mozibakeyou.js"></script>
-		<script src="f12.js"></script>
+		<script defer src="qs.js"></script>
+		<script defer src="main.js"></script>
+		<script defer src="mozibakeyou.js"></script>
+		<script defer src="f12.js"></script>
 	</head>
 </html>

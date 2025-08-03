@@ -107,6 +107,7 @@ function Save(){
 	}
 }
 function Load(){
+  document.body.style.display = "block";
   document.body.addEventListener('keydown',function(){
     if(event.keyCode == 123){
       event.preventDefault();
