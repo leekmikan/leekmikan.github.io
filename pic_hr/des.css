@@ -8,6 +8,9 @@ color: #FF6666;
 background: #000000;
 border: double 5px #FF6666;
 }
+a{
+	color:#A3A3FF;
+}
 .main{
 color: #000000;
 background: #00FF80;
