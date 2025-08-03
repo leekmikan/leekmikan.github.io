@@ -5,12 +5,13 @@
 	<title>数学の問題集(有名問題の応用か、自作問題など　数学以外もある)</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
 	<meta name="description" content="数学の問題集(有名問題の応用か、自作問題など　数学以外もある)">
-	<link rel="stylesheet" href="../des.css">
+	<link rel="stylesheet" href="../des.css" media="print" onload="this.media='all'">
 	<link rel="icon" type="image/jpg" href="../icon.jpg">
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
 	<iframe src="../google.html" style="display: none;"></iframe>
+	<script defer src="../init.js"></script>
 	</head>
-		<body>
+		<body style="display: none;">
 		<header>
 			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
 			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
@@ -328,7 +329,7 @@ int main(void) {
 		</div>
 		<div class="main">
 			<h2>次の下手な絵(画伯の絵)にあうように、括弧に同じ単語をうめよ。ただし、I以外はすべて小文字にしてある</h2>
-			<div class="ct"><img src="q2.jpg"></div>
+			<div class="ct"><img src="q2.jpg" alt="クイズ用画像1"></div>
 			<div class="ct"><h2>I (    ) secondhand (    ) on the (    )-off online store.</h2></div>
 			<p>ヒント1(注目するもの)：<span class="hd">青と黄色の物体は非常に重要</span></p>
 			<p>ヒント2(意味)：<span class="hd">括弧の内1つは「予約」という意味になる</span></p>
@@ -339,7 +340,7 @@ int main(void) {
 		</div>
 		<div class="main">
 			<h2>次の画像内に隠れている文字列(7文字)を答えよ</h2>
-			<div class="ct"><img src="q3.jpg"></div>
+			<div class="ct"><img src="q3.jpg" alt="クイズ用画像2"></div>
 			<p>ヒント1(画像の特徴)：<span class="hd">よく見ると右下がおかしい</span></p>
 			<p>ヒント2(方針)：<span class="hd">多分ダウンロード必須</span></p>
 			<p>答え：<span class="hd">SHIFT-JIS　(バイナリエディタでキャラクターセットをSHIFT-JISにし、最後の方を見ると...)</span></p>
@@ -360,6 +361,6 @@ int main(void) {
 			<p>答え：<span class="hd">D　(Do you hate ful.→Yes, I do.)</span></p>
 		</div>
 		</body>
-		<script type="text/javascript"src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+		<script defer type="text/javascript"src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 	</head>
 </html>
