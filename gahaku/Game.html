@@ -12,7 +12,7 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
     <iframe src="../google.html" style="display: none;"></iframe>
 	</head>
-		<body style="width :1500px; background-size:cover">
+		<body style="background-size:cover">
 		<h2 id="loading">読み込み中...</h2>
 		<h2 onclick="Start()"id="start" style="display:none;font-family: 'Pinyon Script', cursive;">Click to start</h2>
 		<div id="main"style="display: none">
@@ -23,12 +23,11 @@
 				<img id="pic"src="img/Q0.jpg" alt="初期絵">	
 				<p id="ytb"></p>
 			</div>
-			<div style="position: relative; text-align:center;">
-				<img id="pt" src="img/pt.jpg" alt="プレート">
-                <div class="ians">
-                    <input onclick="Ans()"type="text" id="ans" name="ans" required
+			<div style="text-align:center;">
+				<h2>作品名</h2>
+                <input onclick="Ans()"type="text" id="ans" name="ans" required
                        minlength="0" maxlength="100">
-                </div>
+                <br><br>
 			</div>
 			<div style="text-align:center">
 			<button class="ndb ch"onclick="Change(rd())">諦めて次の作品を見る<br>(ランダム)</button>
