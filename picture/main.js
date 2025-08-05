@@ -8,4 +8,3 @@ titles[1].innerText += "　(" + document.querySelectorAll('#line img').length + 
 titles[2].innerText += "　(" + document.querySelectorAll('#ame img').length + "枚)";
 titles[3].innerText += "　(" + document.querySelectorAll('#ai img').length + "枚)";
 titles[4].innerText += "　(" + document.querySelectorAll('#ldm video').length + "枚)";
-titles[5].innerText += "　(" + document.querySelectorAll('#sec img').length + "枚)";
