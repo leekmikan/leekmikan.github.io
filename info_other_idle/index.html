@@ -2,7 +2,7 @@
 <html lang="ja">
 	<head>
 	<meta charset="uft-8">
-	<title>放置ゲームのメモ</title>
+	<title>放置ゲームのメモ　Antimatter Dimensions,Incremental Mass Rewrittenのチートコードメモ</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
 	<meta name="description" content="Antimatter Dimensions,Incremental Mass Rewrittenのチートコードメモ">
 	<link rel="stylesheet" href="../des.css">
@@ -26,10 +26,10 @@
 			<p>・JavaScriptは普段使わないブラウザ(別セーブデータ)で実行を推奨</p>
 		</div>
 		<div onclick="obj=document.getElementById('anti').style; obj.display=(obj.display=='none')?'block':'none';">
-			<h1 style="cursor:pointer;">▼Antimatter DimensionsのJavaScriptコード</h1>
+			<h2 style="cursor:pointer;">▼Antimatter DimensionsのJavaScriptコード</h2>
 		</div>
 		<div id="anti" style="display:none;clear:both;">
-		<h2>Dilationの強さ調整</h2>
+		<h3>Dilationの強さ調整</h3>
 		<p>1以上にすると、通常時よりも稼げるようになるが、<br>ゲームが崩壊する可能性あり<br>また、Automatiomが機能しなくなる場合もある</p>
 		<pre>
 			<code>
@@ -48,7 +48,7 @@ player.dilation.active = true;
 }, 50);
 			</code>
 		</pre>
-		<h2>装備している通常glyphを全て最強にする</h2>
+		<h3>装備している通常glyphを全て最強にする</h3>
 		<p>5つ装備した後に実行</p>
 		<pre>
 			<code>
@@ -60,7 +60,7 @@ for(var i = 0;i &lt; 5;i++){
 }
 			</code>
 		</pre>
-		<h2>Achivementsを全て解除</h2>
+		<h3>Achivementsを全て解除</h3>
 		<p>AAUと表記されているModと同じ</p>
 		<p>AntimatterDimensions-Unoriginal(Mod)の場合は511にする</p>
 		<p>Pelle以降のAchivementを除く場合は i &lt; 17にする</p>
@@ -71,7 +71,7 @@ for(var i = 0;i &lt; 18;i++){
 }
 			</code>
 		</pre>
-		<h2>EternityChallenge全クリ</h2>
+		<h3>EternityChallenge全クリ</h3>
 		<pre>
 			<code>
 player.eternityChalls.eterc1 = 5;
@@ -88,7 +88,7 @@ player.eternityChalls.eterc11 = 5;
 player.eternityChalls.eterc12 = 5;
 			</code>
 		</pre>
-		<h2>Relic Shards変更</h2>
+		<h3>Relic Shards変更</h3>
 		<p>Modによっては変数が違うので注意</p>
 		<pre>
 			<code>
@@ -98,7 +98,7 @@ player.celestials.effarig.relicShards.mantissa = 1;
 player.celestials.effarig.relicShards.exponent = 100;
 			</code>
 		</pre>
-		<h2>Alchemy最大化</h2>
+		<h3>Alchemy最大化</h3>
 		<pre>
 			<code>
 for(var i = 0;i &lt 25;i++){
@@ -106,7 +106,7 @@ for(var i = 0;i &lt 25;i++){
 }
 			</code>
 		</pre>
-		<h2>V全クリ</h2>
+		<h3>V全クリ</h3>
 		<p>リロード必須</p>
 		<pre>
 			<code>
@@ -120,7 +120,7 @@ for(var i = 6;i &lt 9;i++){
 }
 			</code>
 		</pre>
-		<h2>Alchemy最大化</h2>
+		<h3>Alchemy最大化</h3>
 		<pre>
 			<code>
 for(var i = 0;i &lt 25;i++){
@@ -128,7 +128,7 @@ for(var i = 0;i &lt 25;i++){
 }
 			</code>
 		</pre>
-		<h2>Memory最大化</h2>
+		<h3>Memory最大化</h3>
 		<p>levelではなくmemoriesで指定しないとアップグレードが解除不可能になる気がする</p>
 		<pre>
 			<code>
@@ -138,7 +138,7 @@ player.celestials.ra.pets.enslaved.memories = 1e+100; //適当な数  The Namele
 player.celestials.ra.pets.v.memories = 1e+100; //適当な数
 			</code>
 		</pre>
-		<h2>Sacrifice量変更</h2>
+		<h3>Sacrifice量変更</h3>
 		<p>例として全て1e+100にする</p>
 		<pre>
 			<code>
@@ -151,7 +151,7 @@ player.reality.glyphs.sac.effarig = 1e+100;
 player.reality.glyphs.sac.reality = 1e+100;
 			</code>
 		</pre>
-		<h2>Reality/Imaginary Upgradesの条件削除 購入</h2>
+		<h3>Reality/Imaginary Upgradesの条件削除 購入</h3>
 		<p>必要に応じて5種類用意</p>
 		<pre>
 			<code>
@@ -164,11 +164,11 @@ player.reality.imaginaryUpgradeBits = 67108800; //Imaginary Upgradesの購入
 		</pre>
 		</div>
 		<div onclick="obj=document.getElementById('inc').style; obj.display=(obj.display=='none')?'block':'none';">
-				<h1 style="cursor:pointer;">▼Incremental Mass RewrittenのJavaScriptコード</h1>
+				<h2 style="cursor:pointer;">▼Incremental Mass RewrittenのJavaScriptコード</h2>
 			</div>
 			<div id="inc" style="display:none;clear:both;">
 			<p>※チャレンジのゴールなどの調査に使ってください</p>
-		<h2>巨大数を扱う型 (Decimal)</h2>
+		<h3>巨大数を扱う型 (Decimal)</h3>
 		<p>IMRでは、sign,mag,layerの3つの変数で巨大数を表している</p>
 		<p>sign...符号(0なら0,1以上なら1)</p>
 		<p>mag...真数(巨大数の指数の一番右上の値　　10^xにおけるxのこと)<p>
@@ -195,7 +195,7 @@ player.mass.layer = 2; //10^10^x
 player.mass = E('ee16');
 			</code>
 		</pre>
-		<h2>変数例</h2>
+		<h3>変数例</h3>
 		<p>player.mass ...massの量(Decimal)</p>
 		<p>player.bh.mass ...BH massの量(Decimal)</p>
 		<p>player.inf.points ...IPの量(Decimal)</p>
@@ -204,7 +204,7 @@ player.mass = E('ee16');
 		<p>player.inf.core[0].type ...1番左の装備しているtheoremの名前(String)(配列は0~4)</p>
 		<p>player.inf.core[0].star[6] ...1番左の装備しているtheoremが7番目の効果を持っているか<br>
 		(Boolean)(2つ目の配列は0~7だが、6,7は基本false)</p>
-		<h2>セーブデータ</h2>
+		<h3>セーブデータ</h3>
 		<p>セーブデータは、他の放置ゲームと同様にbase64で書かれているので、デコードしてあげると読める</p>
 		<p>文字列の数値は、1e100やee20などのeを用いた指数表記</p>
 		<p>例 (各rankの数値):<br>
@@ -216,15 +216,15 @@ player.mass = E('ee16');
 		</p>
 		</div>
 			<div onclick="obj=document.getElementById('cc').style; obj.display=(obj.display=='none')?'block':'none';">
-				<h1 style="cursor:pointer;">▼Cookie Clicker スマホ版(一時的)</h1>
+				<h2 style="cursor:pointer;">▼Cookie Clicker スマホ版(一時的)</h2>
 			</div>
 			<div id="cc" style="display:none;clear:both;">
-				<h2>スマホ版限定の隠し要素？</h2>
+				<h3>スマホ版限定の隠し要素？</h3>
 				<p>・大クッキーを2点で掴むようにタップすると、持ち運べる</p>
 				<p>これを利用すると、実績Cookie-dunkerを解除+つかめないようにできる設定が追加</p>
 				<p>・SPECIAL/STATS/MISICが書かれているめん棒を回すと、確率？で一部のアップグレードを開放できる</p>
 				<p>季節限定のアップグレードやフォーチュンクッキーが4つくらい開放できる</p>
-				<h2>power clicks</h2>
+				<h3>power clicks</h3>
 				<p>以下のアップグレードを開放すると、大クッキーの右下にpower clicksと書かれたボタンが現れる</p>
 				<p>一定時間放置すると数字が増え、ONにした状態で大クッキーをタップすると1つ使用できる</p>
 				<p>使った回数×決まった時間の間生産量が増加</p>
@@ -240,7 +240,7 @@ player.mass = E('ee16');
 						<td>1</td>
 					</tr>
 				</table>
-				<h2>天使</h2>
+				<h3>天使</h3>
 				<table border="1">
 					<tr>
 						<td>名前</td>
@@ -283,7 +283,7 @@ player.mass = E('ee16');
 						<td>823543</td>
 					</tr>
 				</table>
-				<h2>悪魔</h2>
+				<h3>悪魔</h3>
 				<table border="1">
 					<tr>
 						<td>名前</td>
@@ -331,12 +331,12 @@ player.mass = E('ee16');
 			<br><p>以下Antimatter DimensionsのMOD(Wikiに情報がない部分かつ変更点中心　一部チートを使用して確認)</p>
 			<p>追加要素が多い、攻略できる、ある程度遊べるもの中心</p>
 			<p>挫折しなければ書き続ける(気分次第)</p>
-			<h1 style="cursor:pointer;">▼NG-4 Respecced v2</h1>
+			<h2 style="cursor:pointer;">▼NG-4 Respecced v2</h2>
 			</div>
 			<div id="ng-4" style="display:none;clear:both;">
 				<p>※作成途中...(2024/7/19)</p>
 				<p>g[xy]はGalaxy Upgradeの行と列を表したもの　例)4行3列目はg43</p>
-				<h2>Galaxy</h2>
+				<h3>Galaxy</h3>
 				<p>2行目以降の文字列が崩れて読めないので、一旦放置</p>
 				<p>崩れていない部分だけ記入</p>
 				<table class="gx" border="1">
@@ -396,7 +396,7 @@ player.mass = E('ee16');
 						<td>上のアップグレードを強化<br>価格:1e90000GP</td>
 					</tr>
 				</table>
-				<h2>Challenges(C13~)</h2>
+				<h3>Challenges(C13~)</h3>
 				<h3>Normal</h3>
 				<table class="am"border="1">
 					<tr>
@@ -532,7 +532,7 @@ player.mass = E('ee16');
 						<td>1stADと8thADの倍率が2~7thADの倍率を強化。2番目のDilationの閾値が1e10倍</td>
 					</tr>
 				</table>
-				<h2>Break Infinity</h2>
+				<h3>Break Infinity</h3>
 				<p>4行目から</p>
 				<table class="inf" border="1">
 					<tr>
@@ -560,7 +560,7 @@ player.mass = E('ee16');
 						<td>Dimensional Sacrificeが強化、膨張後の倍率に乗算されるようになる、倍率の一部が2番目のDilationの閾値に影響を与える<br>価格:1e215IP</td>
 					</tr>
 				</table>
-				<h2>Timeless</h2>
+				<h3>Timeless</h3>
 				<p>Eternityが実行され<br>GPがリセット<br>TDとtickspeedを反物質で購入不可、
 				<br>IC3(tickspeedが1倍)が有効<br>Galaxyが90%弱体化<br>一部Galaxyアップグレードが弱体化</p>
 				<br><p>Dilationと同じように、解除した時にTimeless Shardsを獲得し、Timeless ShardsはTime Pointsを生成する。</p>
@@ -616,24 +616,24 @@ player.mass = E('ee16');
 						<td>「Gain a Time Theorem」の価格増加率がさらに平方根をとる<br>価格:1e55TLP</td>
 					</tr>
 				</table>
-				<h2>Interreality</h2>
+				<h3>Interreality</h3>
 				<p>まだ未実装みたいです (NG-2に実装されるまで)</p>
 				<p>代わりに、1e520EP獲得という目標が用意されている</p>
 			</div>
 			<br>
 			<div onclick="obj=document.getElementById('mnd').style; obj.display=(obj.display=='none')?'block':'none';">
-			<h1 style="cursor:pointer;">▼Redemption Legacy</h1>
+			<h2 style="cursor:pointer;">▼Redemption Legacy</h2>
 			</div>
 			<div id="mnd" style="display:none;clear:both;">
 			<p>このMODの更新が進んだら記入</p>
 			</div><br>
 			<div onclick="obj=document.getElementById('cnd').style; obj.display=(obj.display=='none')?'block':'none';">
-			<h1 style="cursor:pointer;">▼NG+++ Condensed</h1>
+			<h2 style="cursor:pointer;">▼NG+++ Condensed</h2>
 			</div>
 			<div id="cnd" style="display:none;clear:both;">
-			<h2>Obscurements</h2>
+			<h3>Obscurements</h3>
 			<p>弱体化の情報　<br>Condenserを購入して軽減する(各アップデートの横にある)<br>　OSと略される</p>
-			<h2>Time studies (追加分)</h2>
+			<h3>Time studies (追加分)</h3>
 			<p>一部Buy allで買えないものがあるので注意(手動で購入)</p>
 			<table border="1">
 				<tr>
@@ -787,7 +787,7 @@ player.mass = E('ee16');
 					<td>200TT</td>
 				</tr>
 			</table>
-			<h2>Higgs Mechanism(Gohostify->Bosonic Lab)</h2>
+			<h3>Higgs Mechanism(Gohostify->Bosonic Lab)</h3>
 			<table border="1">
 				<tr>
 					<td>名称</td>
@@ -830,9 +830,9 @@ player.mass = E('ee16');
 					<td>Ghostly Rayの獲得量増加</td>
 				</tr>
 			</table>
-			<h2>Annihilation(Gohostify)</h2>
+			<h3>Annihilation(Gohostify)</h3>
 			<p>未実装(e202.5Qa Antimatterで解放)</p>
-			<h2>Break Dilation(Eternity)</h2>
+			<h3>Break Dilation(Eternity)</h3>
 			<p>tachyon particleにより、Cherenkov Radiation(以下CR)が増加</p>
 			<p>CRでアップグレードを購入できるが、CRの量に応じてDTの獲得量が減少する</p>
 			<p>一定量のTachyon Particleと、表示されているアップグレードをすべて購入すると、Cosmic Orbsを獲得できる</p>
@@ -876,12 +876,12 @@ player.mass = E('ee16');
 				</table>
 			</div><br>
 			<div onclick="obj=document.getElementById('spd').style; obj.display=(obj.display=='none')?'block':'none';">
-				<h1 style="cursor:pointer;">▼Nitamadder Timesions(Space Mod)</h1>
+				<h2 style="cursor:pointer;">▼Nitamadder Timesions(Space Mod)</h2>
 				</div>
 				<div id="spd" style="display:none;clear:both;">
-				<h2>全体の変更点</h2>
+				<h3>全体の変更点</h3>
 				<p>IDは16回までしか購入できない</p>
-				<h2>Space Research</h2>
+				<h3>Space Research</h3>
 				<p>このMODでは、Antimatterの量に比例して自身の獲得量が増加しにくくなる代わりに、選んだゲージを貯めることができる</p>
 				<p>ゲージが100%まで溜まるとレベルアップし、さまざまな効果を得られる</p>
 				<p>T1以降は、特定のリセットをするまでレベルアップせずにゲージが溜まり続ける。リセットすると、溜まっていた分レベルアップする</p>
@@ -978,7 +978,7 @@ player.mass = E('ee16');
 						<td>Eternity回数増加</td>
 					</tr>
 				</table>
-				<h2>Space Challenges</h2>
+				<h3>Space Challenges</h3>
 				<p>ここの記述は、覚えている部分以外後まわし(クリアすると内容が見えなくなるため)</p>
 				<p>特定の制約下で、Big Crunchをするとクリア</p>
 				<p>チャレンジの回数で若干内容が変わる(難しくなる)</p>
@@ -1039,7 +1039,7 @@ player.mass = E('ee16');
 						<td>Automator解放</td>
 					</tr>
 				</table>
-				<h2>Mirror</h2>
+				<h3>Mirror</h3>
 				<p>RGB値を増加させることにより、制約を追加し、指定された量のAntimatterを稼ぐと報酬獲得</p>
 				<p>Mirror実行中以外は、Mirrorクリア時に設定したRGB値の合計を、現在指定しているRGB値の比率に応じて振り分ける</p>
 				<p>RGB値のシークバーを動かすと強制的にInfinityリセットされる</p>
@@ -1079,7 +1079,7 @@ player.mass = E('ee16');
 						<td>Space増加</td>
 					</tr>
 				</table>
-				<h2>Time Study(変更点)</h2>
+				<h3>Time Study(変更点)</h3>
 				<table border="1">
 					<tr>
 						<td>No</td>
@@ -1109,11 +1109,11 @@ player.mass = E('ee16');
 				</table>
 			</div><br>
 			<div onclick="obj=document.getElementById('msc').style; obj.display=(obj.display=='none')?'block':'none';">
-				<h1 style="cursor:pointer;">▼ADMusicPlayer(Automationの使用例)</h1>
+				<h2 style="cursor:pointer;">▼ADMusicPlayer(Automationの使用例)</h2>
 				</div>
 				<div id="msc" style="display:none;clear:both;">
 				<p>このMODがうまく動かない(send～とかのエラーがでる)場合は、何回かリロードすると直る</p>
-				<h2>Automation</h2>
+				<h3>Automation</h3>
 				<p>※情報がないので、JavaScriptのコードから推測</p>
 				<p>※int...(負でない)整数　double...(負でない)数</p>
 				<p>Automationで音をならすことができる(たぶんピアノだけ?)</p>
@@ -1194,7 +1194,7 @@ PLAY G4 1beat
 PLAY #F4 1beat
 PLAY E4 4beat
 				</code></pre>
-				<h2>例2</h2>
+				<h3>例2</h3>
 				<p>小学校の歌集にあったやつ　調べるのが面倒なので、記憶と想像で作成　たぶんかなり間違えている(そもそもコードの読み方,規則があまり分からない)</p>
 				<pre><code>
 BPM 130
