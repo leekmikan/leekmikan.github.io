@@ -29,13 +29,13 @@
 				<p>※※※このプログラムを実行/何かしらの課題で提出した際に発生した不利益に関しては、責任は負いかねます。※※※</p>
 			</div>
 			<div class="text_frame">
-				<h1>前提知識</h1>
+				<h2>前提知識</h2>
 			</div>
 			<div class="main">
 			<p>ビット演算、高校レベルの数学、バイナリーデータの読み書きを理解しておくこと</p>
 			</div><br>
 			<div class="text_frame">
-				<h1>プログラム(zip)</h1>
+				<h2>プログラム(zip)</h2>
 			</div>
 		<div class="main">
 			<a href="Music.zip" download="Music.zip">Music.zip</a><br><br><br>
@@ -43,80 +43,80 @@
 			<p><a href="https://leekmikan.github.io/pg/index.html">ほかのプログラムはこちらのページから<a></p>
 		</div><br>
 		<div class="text_frame">
-			<h1>命令一覧/譜面作成について</h1>
+			<h2>命令一覧/譜面作成について</h2>
 		</div>
 		<div class="main">
 			<p>基本的には、太鼓さん次郎と同じような構造</p>
-			<h2>#NAME [string]</h2>
+			<h3>#NAME [string]</h3>
 			<p>曲名など　(ゲーム開始時に取り込まれる)</p>
-			<h2>#EXP [string]</h2>
+			<h3>#EXP [string]</h3>
 			<p>作者名などの詳細　(ゲーム開始時に取り込まれる)</p>
-			<h2>#DEMO [double]</h2>
+			<h3>#DEMO [double]</h3>
 			<p>曲選択時に流れる曲の開始時間[秒](基本的にはサビの時間を入力) (ゲーム開始時に取り込まれる)</p>
-			<h2>#OFFSET [double]</h2>
+			<h3>#OFFSET [double]</h3>
 			<p>譜面を何秒ずらすか(曲の1小節目と譜面の1小説目のタイミングをこれで合わせる)</p>
-			<h2>#LYRICS</h2>
+			<h3>#LYRICS</h3>
 			<p>歌詞トラックの開始地点　カンマ(+改行)区切りで記入　1小節に1文</p>
-			<h2>#LYRICSEND</h2>
+			<h3>#LYRICSEND</h3>
 			<p>歌詞トラックの終わり</p>
-			<h2>#HARD [int]　/　#NORMAL [int]　/　#EASY [int]</h2>
+			<h3>#HARD [int]　/　#NORMAL [int]　/　#EASY [int]</h3>
 			<p>各難易度の譜面の開始地点　難易度は1から10で指定</p>
-			<h2>#END</h2>
+			<h3>#END</h3>
 			<p>譜面終了</p>
-			<h2>#NUM[1~4] [int]</h2>
+			<h3>#NUM[1~4] [int]</h3>
 			<p>各レーンの素因数の値　数値は素数を指定　例)#NUM2 17</p>
-			<h2>#SCROLL [double]</h2>
+			<h3>#SCROLL [double]</h3>
 			<p>譜面速度倍率　追い越し譜面も作れる</p>
-			<h2>#DELAY [double]</h2>
+			<h3>#DELAY [double]</h3>
 			<p>臨時で譜面を遅らせる　何らかの理由で譜面と曲がずれる場合に使用</p>
-			<h2>ノーツ配置</h2>
+			<h3>ノーツ配置</h3>
 			<p>16進数で、1小節ごとにカンマ(+改行)区切りで記入　(左のレーンが1---右のレーンが8の4bit)</p>
 			<p>例：1小節に4分音符<br>●●●●<br>●●●-<br>●●--<br>●---<br>と配置する場合は、</p>
 			<p style="text-align:center;">F731,</p>
 			<p>と記入(小文字不可)</p>
-			<h2>得点計算</h2>
+			<h3>得点計算</h3>
 			<p>得点獲得量はコンボ数により変わり、以下の式の通りになる　(\(c\)...今叩いたノーツを含むコンボ数　\(k\)...判定による倍率)</p>
 			<h3 style="text-align:center;">\(200k(\frac{floor(\frac{min(c,1000)}{10})}{10}+1)\)</h3>
 			<p>\(k\)の値：　\(PERFECT...1\)　\(GOOD...0.5\)　\(OK...0.3\)　\(BAD,MISS...0\)　　(Playing Pause内のdouble[] judge_mult参照)</p>
 			<p>太鼓の達人でいう、初項200点、公比20点(ただし、1000コンボまで得点増加し、Max　1コンボ2200点)</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>Music(メイン部分)</h1>
+			<h2>Music(メイン部分)</h2>
 		</div>
 		<div class="main">
-			<h2>setup</h2>
+			<h3>setup</h3>
 			<p>game_data\musicに入っているフォルダをすべて読み込む</p>
 			<p>.txt,.wavの両方が最低限揃っている曲をすべて取り込み、InfoReader側のInfoクラスのリストに追加する</p>
 			<p>画像ファイルがなければnoimage.jpgをジャケット画像として表示する</p>
 			<p>最後に、ゲーム全体で使う画像(PImageクラス)、効果音(Clipクラス)を読み込む</p>
-			<h2>draw</h2>
+			<h3>draw</h3>
 			<p>state変数でページ推移を分かりやすく表し、その文字列を使ってswitch文で各場面のdraw関数を実行</p>
 			<p>game_time配列([演奏時の経過時間,前のフレームからの経過時間,前のフレーム時のgame_time[0]の値]の計算はここで行う</p>
 			<p>変数se_playingを使って鳴りすぎないようにする</p>
-			<h2>NoteSound</h2>
+			<h3>NoteSound</h3>
 			<p>効果音をならす。　変数se_playingを使って鳴りすぎないようにする</p>
-			<h2>keyPressed</h2>
+			<h3>keyPressed</h3>
 			<p>最初に、変数kを使って代替キーの入力値を通常キーと合わせる</p>
 			<p>kの値に応じて、swithc文で各場面のキー入力関数に移動　演奏中は、同時押しに対応させるため、keyTyped関数から移動</p>
-			<h2>keyReleased</h2>
+			<h3>keyReleased</h3>
 			<p>キーを離したら、効果音を鳴らせるようにする</p>
-			<h2>keyTyped</h2>
+			<h3>keyTyped</h3>
 			<p>同時押しを受け付けるため、演奏中(state=="Playing")のときの処理のみこっちにある</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>InfoRader(曲情報読み込みなど)</h1>
+			<h2>InfoRader(曲情報読み込みなど)</h2>
 		</div>
 		<div class="main">
-			<h2>Infoクラス</h2>
+			<h3>Infoクラス</h3>
 			<p>変数を上から　難易度、各難易度のハイスコア、各難易度のクリア状況、デモの再生時間、曲名、詳細、txtのファイルパス、wavのファイルパス、datのファイルパス、ジャケット画像　を、ゲーム起動時に取得</p>
 			<p>ReadHiScore関数(少し下にある)を使ってハイスコア+クリア状況を取得</p>
 			<p>ReadCommandD,ReadCommandS関数(少し下にある)を使ってその他情報を取得　ただし、<b>文字列は、文字コードをISO-8859-1→SJISにする</b>(ここ初見だと激ムズ　Processingで実行とexeファイルのエクスポートで挙動が変わるので</p>
 			<p>コンストラクタは、datファイルのありなしで2つある</p>
-			<h2>ReadCommandS</h2>
+			<h3>ReadCommandS</h3>
 			<p>命令にくっついている文字列を取得</p>
-			<h2>ReadCommandD</h2>
+			<h3>ReadCommandD</h3>
 			<p>命令にくっついている数値を取得</p>
-			<h2>MakeWavFile</h2>
+			<h3>MakeWavFile</h3>
 			<p>ファイルをバイナリー形式で読み込み、サンプリングレートを抽出する。</p>
 			<p>サンプリングレートにgame_speedを掛けて整数にし、抽出したバイト配列を書き換える</p>
 			<p>サンプリングレートを\(x\)倍すると、再生速度は\(x\)倍　ピッチは半音\(12\log_{2}(x)\)個上がる　(\(y=12\log_{2}(x)\)の逆関数は、\(x=2^\frac{y}{12}\))</p>
@@ -131,9 +131,9 @@
 			<div style="text-align:center;"><img src="eg2.png" alt="バイナリーデータ　サンプリングレート変更後"></div>
 			<p>こちらは1.5倍速でプレイする際に出力される再生用ファイルで、\(00　00　75　30_{(16)}=30000_{(10)}\)[Hz]である。</p>
 			<p>2つのファイルを比較すると、赤枠の4Byteしか変わっていないことがわかる。(つまり、ここをいじれば再生速度を変えられる)</p>
-			<h2>createClip</h2>
+			<h3>createClip</h3>
 			<p>Clipクラスの変数を作る用　コピペ</p>
-			<h2>ReadHiScore</h2>
+			<h3>ReadHiScore</h3>
 			<p>各曲のdatファイルは10byteで、以下のような形になっている(最後だけ1bit区切り)</p>
 			<p style="text-align:center;">H　H　H　N　N　N　E　E　E　xxhhnnee</p>
 			<p>H...むずかしいのスコア(リトルエンディアン)</p>
@@ -145,20 +145,20 @@
 			<p>e...かんたんのクリア状況(0...未クリア　1...クリア　2...フルコンボ　3...パーフェクト)</p>
 			<p>これをビットシフトなどを活用し読み込む。クリア状況はInfoクラス内で読み取る(変数をまとめて返したいため)</p>
 			<p>戻り値は、長さ4のint配列　[むずかしいのスコア,ふつうのスコア,かんたんのスコア,クリア状況をそのままの値で]</p>
-			<h2>SetHiScore</h2>
+			<h3>SetHiScore</h3>
 			<p>ReadHiScoreと逆の手順で、クリア状況を記録</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>NoteRader(譜面情報読み込み)</h1>
+			<h2>NoteRader(譜面情報読み込み)</h2>
 		</div>
 		<div class="main">
-			<h2>Noteクラス</h2>
+			<h3>Noteクラス</h3>
 			<p>音符情報を保持</p>
 			<p>変数を上から、因数の値、流れるレーンの組み合わせの値(1~15)、押されるべきタイミング、スクロール倍率、判定済みか(初期値false)を格納</p>
-			<h2>Eventクラス</h2>
+			<h3>Eventクラス</h3>
 			<p>素因数変化、曲の終了などを保持</p>
 			<p>変数を上から、イベント名、開始時間、値、実行されたか(初期値false)で格納</p>
-			<h2>ReadNotes</h2>
+			<h3>ReadNotes</h3>
 			<p>ファイルを読み込み、for文で1文字1文字を<b>int</b>型でチェックする。(char/byte型ではない)</p>
 			<p>#から改行までの文字列は別で格納して、改行時にReadCommandS,ReadCommandD関数で何の命令、どんな値か確認</p>
 			<p>歌詞も別で格納して、改行時に<b>文字コードをISO-8859-1→SJIS</b>にしてからリストに追加する。</p>
@@ -173,10 +173,10 @@
 			<p>最後に一時的なノーツリストに格納する</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>Playing Pause(演奏中　ポーズ時の処理)</h1>
+			<h2>Playing Pause(演奏中　ポーズ時の処理)</h2>
 		</div>
 		<div class="main">
-			<h2>GamePlaying</h2>
+			<h3>GamePlaying</h3>
 			<p>描画とオート時の判定など</p>
 			<p>//同期の部分で定期的に譜面と曲の再生時間を合わせる(頻度が多いと重い　少ないと同期したときに音符がカクつく)</p>
 			<p>auto_modeがtrueなら、押されるべき時間(notes.get(i).time)と現在時刻(game_time[0])の差がある程度少なければ(2未満)押したことにする</p>
@@ -191,73 +191,73 @@
 			<p>もし、ここでENDが来たら曲を終了させ、リザルト画面へ推移(state="Result")</p>
 			<p>最後に、D/G/J/Lキー入力(press_key)の各ビットを確認し、1であればどのノーツを押したか判定する(JudgeNote関数)</p>
 			<p>対象のビットを0にして終了(桁を多くとってint型にするともっと綺麗にかける　press_key = press_key &~(1&lt;&lt;i))</p>
-			<h2>GamePause</h2>
+			<h3>GamePause</h3>
 			<p>ポーズ画面の描画</p>
-			<h2>GamePlayingKey</h2>
+			<h3>GamePlayingKey</h3>
 			<p>演奏中のキー入力</p>
 			<p>press_key |= (1 &lt;&lt; n)のような形でかける</p>
 			<p>case 'e':の時だけポーズ画面への推移の処理をする</p>
 			<p>音も鳴らす</p>
-			<h2>GamePauseKey</h2>
+			<h3>GamePauseKey</h3>
 			<p>演奏中のキー入力</p>
 			<p>wsで上下移動(sel_pauseを増減)</p>
 			<p>ポーズから一定時間以上経過かつ、sel_pauseが0(再開)のとき演奏中へ、1なら曲Loading(一瞬　実質未使用)から選択画面へ</p>
-			<h2>JudgeNote</h2>
+			<h3>JudgeNote</h3>
 			<p>num_light[ind] = 3;でノーツを光るように設定</p>
 			<p>\(\Delta t=|\)ノーツの押される時間\(-\)現在時刻\(|\)が最小になるノーツを探す。</p>
 			<p>\(\Delta t\)がjudge_range[3](BAD判定)以下(未満)かつ、押したキーに対応するビットが1であれば、そのノーツを判定する。</p>
 			<p>ここでfor文を使い、ノーツを判定、判定に応じた倍率の得点を与える。\(i\lt2\)(GOOD判定まで)なら、コンボ数を増加。でなければ0にする。</p>
 			<p>判定したら、キーに対応するビットを0にし、すべてのビットが0ならそのノーツを判定済みにする。(notes.get(near[0]).judged = true;)</p>
-			<h2>Reload</h2>
+			<h3>Reload</h3>
 			<p>一部変数のリセット、譜面の再読み込みなどしてから演奏中へ<p>
 		</div><br>
 		<div class="text_frame">
-			<h1>Result Loading(リザルト　ロード画面(未使用))</h1>
+			<h2>Result Loading(リザルト　ロード画面(未使用))</h2>
 		</div>
 		<div class="main">
-			<h2>Result</h2>
+			<h3>Result</h3>
 			<p>結果を描画　スコア、各判定のノーツ数、結果(クリア/フルコンボ/パーフェクト)、オート/低速プレイ(記録不可)かどうかを表示</p>
-			<h2>Loading</h2>
+			<h3>Loading</h3>
 			<p>ロード画面(実質未使用)</p>
-			<h2>ResultKey</h2>
+			<h3>ResultKey</h3>
 			<p>リザルト画面のキー入力</p>
-			<h2>Record</h2>
+			<h3>Record</h3>
 			<p>ハイスコアかクリア状況が良くなった時にSetHiScore関数を用いてdatファイルを書き換える</p>
 			<p>オートと低速プレイ(再生速度1未満　誤差を考慮して0.99未満に設定)の場合は記録しない</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>Select Opt(曲選択画面　オプション)</h1>
+			<h2>Select Opt(曲選択画面　オプション)</h2>
 		</div>
 		<div class="main">
-			<h2>SelectMenu</h2>
+			<h3>SelectMenu</h3>
 			<p>曲選択画面の描画</p>
-			<h2>SelectMenuBase</h2>
+			<h3>SelectMenuBase</h3>
 			<p>曲選択画面関連すべてのベース(背景など)の描画</p>
-			<h2>SelectDifficulty</h2>
+			<h3>SelectDifficulty</h3>
 			<p>難易度の描画</p>
-			<h2>SelectOptions</h2>
+			<h3>SelectOptions</h3>
 			<p>オプションの描画</p>
-			<h2>SelectKey</h2>
+			<h3>SelectKey</h3>
 			<p>曲選択画面のキー入力</p>
 			<p>sel_music = (sel_music - 1 \(\pm\) info.size()) % info.size();のように、選択肢の個数の倍数を足すことで、正負を気にせず選択番号の0と最終番号をループさせることができる。</p>
 			<p>再生させる曲と時間を、譜面ファイル内で指定した時間(#DEMO)に応じて変える</p>
-			<h2>SelectDifficultyKey</h2>
+			<h3>SelectDifficultyKey</h3>
 			<p>難易度選択と開始</p>
-			<h2>SelectOptionsKey</h2>
+			<h3>SelectOptionsKey</h3>
 			<p>オプション選択</p>
 			<p>bool値は、random_note = !random_note;のようにすると簡単に切り替えられる</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>Title Exp(タイトル　ゲーム説明)</h1>
+			<h2>Title Exp(タイトル　ゲーム説明)</h2>
 		</div>
 		<div class="main">
-			<h2>TitleMenu</h2>
+			<h3>TitleMenu</h3>
 			<p>タイトルを表示</p>
-			<h2>TitleMenuKey</h2>
+			<h3>TitleMenuKey</h3>
 			<p>タイトル画面操作用</p>
-			<h2>ExpGame</h2>
+			<h3>ExpGame</h3>
 			<p>説明表示(swich文でページ切り替え)</p>
-			<h2>ExpGameKey</h2>
+			<h3>ExpGameKey</h3>
 			<p>説明時のページ移動用</p>
 		</div>
 		</body>
