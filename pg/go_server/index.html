@@ -4,7 +4,7 @@
 	<meta charset="uft-8">
 	<title>[GO]サーバーのGET/POSTの送受信練習用</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
-	<meta name="description" content="画像を組み合わせて画像を生成 (C#)">
+	<meta name="description" content="サーバーのGET/POSTの送受信練習用　練習代わりに書いたやつ">
 	<link rel="stylesheet" href="../../des.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="../../prism.css" media="print" onload="this.media='all'">
 	<link rel="icon" type="image/jpg" href="../../icon.jpg">
@@ -28,7 +28,7 @@
             <p>GO自体、paiza以来２年ぶり、GOのサーバーサイド触れて２日だからミスあるかも</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>環境</h1>
+			<h2>環境</h2>
 		</div>
 		<div class="main">
             <ul>
@@ -38,7 +38,7 @@
             </ul>
         </div>
         <div class="text_frame">
-			<h1>事前準備</h1>
+			<h2>事前準備</h2>
 		</div>
 		<div class="main">
             <ol>
@@ -47,7 +47,7 @@
             </ol>
         </div>
         <div class="text_frame">
-			<h1>コード</h1>
+			<h2>コード</h2>
 		</div>
 		<div class="main">
 			<p>server.go</p>
@@ -152,14 +152,14 @@ func main() {
             </code></pre>
         </div>
         <div class="text_frame">
-			<h1>結果</h1>
+			<h2>結果</h2>
 		</div>
 		<div class="main">
             <p>ブラウザのURLに「http://localhost:8080/post?name=任意の名前」を入力すると、j_dataに名前、IDが追加される</p>
             <p>ブラウザのURLに「http://127.0.0.1:8080/get」を入力すると、現在の名簿(j_data)の中身が表示される</p>
         </div>
 		<div class="text_frame">
-			<h1>(おまけ)JSONファイル読み込み、Webページで表示</h1>
+			<h2>(おまけ)JSONファイル読み込み、Webページで表示</h2>
 		</div>
 		<div class="main">
 			<p><a href="data.json" download="data.json">使用ファイル</a></p>
