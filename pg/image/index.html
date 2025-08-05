@@ -2,9 +2,9 @@
 <html lang="ja">
 	<head>
 	<meta charset="uft-8">
-	<title>画像を組み合わせて画像を生成 (C#)</title>
+	<title>画像を組み合わせて画像を生成 (C#)　大量の画像を組み合わせて大きな画像を作る</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
-	<meta name="description" content="画像を組み合わせて画像を生成 (C#)">
+	<meta name="description" content="画像を組み合わせて画像を生成 (C#)　大量の画像を組み合わせて大きな画像を作る">
 	<link rel="stylesheet" href="../../des.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="../../prism.css" media="print" onload="this.media='all'">
 	<link rel="icon" type="image/jpg" href="../../icon.jpg">
@@ -27,7 +27,7 @@
 				<p>・Visual Studioで作成可</p>
 			</div><br>
 			<div class="text_frame">
-				<h1>ソースコード</h1>
+				<h2>ソースコード</h2>
 			</div>
 		<div class="main">
 			<p>C#の　コンソールアプリ(.NET Framework)　で作成</p>
@@ -259,7 +259,7 @@ namespace (ここ変えて)
 			</code></pre>
 		</div><br>
 		<div class="text_frame">
-			<h1>工程１：データベースの作成</h1>
+			<h2>工程１：データベースの作成</h2>
 		</div>
 		<div class="main">
 			<p>毎回組み合わせに使う画像の平均色を求めるのが大変なので、以下の構造のバイナリ形式のデータベースを作る</p>
@@ -277,7 +277,7 @@ MakeData("data", @"D:\data\BACKUP\Pic", 32);
 			<br><p>Finishが表示されるまで待ち、成功すれば、datファイルが作成される</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>工程２：画像の生成</h1>
+			<h2>工程２：画像の生成</h2>
 		</div>
 		<div class="main">
 			<p>データベースの情報と、作成したい画像の各ピクセルのL*a*b*色表系上の距離を計算し、使われた回数が少ない画像の中で最も距離が小さいものを貼り付ける</p>
@@ -295,7 +295,7 @@ MakePicture("Name", @"D:\data\img\xxx.png", "data", 4, 16);
 			<br><p>Finishが表示されるまで待ち、成功すれば、datファイルが作成される　(引数によっては数分かかる)</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>完成！</h1>
+			<h2>完成！</h2>
 		</div>
 		<div class="main">
 			<p>ファイルサイズがめちゃくちゃデカイのでスクショで</p>
@@ -306,7 +306,7 @@ MakePicture("Name", @"D:\data\img\xxx.png", "data", 4, 16);
 			<p>元画像わかるかな？</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>エラーが出る！</h1>
+			<h2>エラーが出る！</h2>
 		</div>
 		<div class="main">
 			<p>工程２：画像の生成　で完成画像の縮小倍率を小さくしすぎてませんか？<br>→Bitmapクラスで作れない程の大きさの画像を作成しようとすると失敗します</p>

@@ -27,7 +27,7 @@
 				<p>・Can be created with Visual Studio</p>
 			</div><br>
 			<div class="text_frame">
-				<h1>Source code</h1>
+				<h2>Source code</h2>
 			</div>
 		<div class="main">
 			<p>Created as a C# console application (.NET Framework)</p>
@@ -259,7 +259,7 @@ namespace (Change here)
 			</code></pre>
 		</div><br>
 		<div class="text_frame">
-			<h1>Step 1: Creating a database</h1>
+			<h2>Step 1: Creating a database</h2>
 		</div>
 		<div class="main">
 			<p>Since it is a hassle to calculate the average color of each image used for combination, we create a binary database with the following structure:</p>
@@ -277,7 +277,7 @@ MakeData("data", @"D:\data\BACKUP\Pic", 32);
 			<br><p>Wait until Finish is displayed. If successful, the dat file will be created.</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>Step 2: Image generation</h1>
+			<h2>Step 2: Image generation</h2>
 		</div>
 		<div class="main">
 			<p>Calculate the distance between the database information and each pixel of the image you want to create on the L*a*b* color space, and paste the image with the smallest distance among the least frequently used images.</p>
@@ -295,7 +295,7 @@ MakePicture("Name", @"D:\data\img\xxx.png", "data", 4, 16);
 			<br><p>Wait until Finish is displayed, and if successful, the dat file will be created (this may take several minutes depending on the arguments).</p>
 		</div><br>
 		<div class="text_frame">
-			<h1>Completed！</h1>
+			<h2>Completed！</h2>
 		</div>
 		<div class="main">
 			<p>The file size is so big(about 100MB) that it's a screenshot.</p>
@@ -304,7 +304,7 @@ MakePicture("Name", @"D:\data\img\xxx.png", "data", 4, 16);
 			<img src="スクリーンショット 2025-04-22 012416.jpg" alt="Big mosaic image　detail"><br>
 		</div><br>
 		<div class="text_frame">
-			<h1>I get an error！</h1>
+			<h2>I get an error！</h2>
 		</div>
 		<div class="main">
 			<p>Did you reduce the scale of the finished image too much in "Step 2: Image Generation"?<br>→If you try to create an image that is too large to be created with the Bitmap class, it will fail.</p>
