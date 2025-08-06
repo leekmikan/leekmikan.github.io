@@ -1,1 +1,64 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+    <meta name="google-site-verification" content="CbDnvL6rMRyk8Thyq_2hoGiOR44qnbxasIA2RAS9Ke8" />
+    <meta name="description" content="[便利系ツール]プロセカの推奨消費スタミナの計算　イベントの稼働時間から計算">
+    <link rel="icon" type="image/jpg" href="../../icon.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+    <title>[便利系ツール]プロセカの推奨消費スタミナの計算　イベントの稼働時間から計算</title>
+    <iframe src="../../google.html" style="display: none;"></iframe>
+    <link rel="stylesheet" href="../des.css" media="print" onload="this.media='all'">
+<script defer src="../../init.js"></script>
+	</head>
+		<body style="display: none;">
+    <div class="cover">
+    <div class="ct">
+        <header>
+			<button onclick="location.href='https://leekmikan.github.io/vocalo_home/index.html'">ボカロ用ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
+		<div class="title">
+			<h1>[便利系ツール]プロセカの推奨消費スタミナの計算</h1>
+            <p>簡易的にイベントの稼働時間から計算</p>
+			<p>イベント進めていくうちにずれが生じると思うので、定期的に残り時間で計算を推奨(ペースの変化が分かる)</p>
+			<p>常にスタミナ満タンになるはずなので、自然回復は無視</p>
+		</div>
+		<div class="text_frame">
+			<h2>数値入力</h2>
+		</div>
+		<div class="main">
+			<p>必須項目以外を入力することで、自動で必須項目に入る値を計算します</p>
+			<label for="lbs">ライブボーナス小[個]　　　　　　　</label>
+			<input name="lbs" id="lbs" type="number" value="0" min="0" step="1" onchange="Inputlba()"><br><br>
+			<label for="lbl">ライブボーナス大[個]　　　　　　　</label>
+			<input name="lbl" id="lbl" type="number" value="0" min="0" step="1" onchange="Inputlba()"><br><br>
+			<label for="cs">クリスタル[個]　　　　　　　　　　</label>
+			<input name="cs" id="cs" type="number" value="0" min="0" step="10" onchange="Inputlba()"><br><br>
+			<label for="lba">ライブボーナス計(必須)　　　　　　</label>
+			<input name="lba" id="lba" type="number" value="2000" min="0" step="1" onchange="Stamina()"><br><br>
+			<label for="holdd">イベント開催日数[日]　　　　　　　</label>
+			<input name="holdd" id="holdd" type="number" value="0" min="0" step="1" onchange="Inputacth()"><br><br>
+			<label for="actp">稼働率[%]　　　　　　　　　　　　 </label>
+			<input name="actp" id="actp" type="number" value="0" min="0" max="100" step="1" onchange="Inputacth()"><br><br>
+			<label for="acth">稼働時間[時](必須) 　　　　　　　　</label>
+			<input name="acth" id="acth" type="number" value="40" min="0" onchange="Stamina()"><br><br>
+			<label for="roopt">1曲の所要時間(曲選択含め)[秒](必須)</label>
+			<input name="roopt" id="roopt" type="number" value="180" min="0" step="1" onchange="Stamina()"><br><br>
+		</div>
+		<div class="text_frame">
+			<h2>結果</h2>
+		</div>
+		<div class="main">
+			<p>推奨消費スタミナは、<span class="big" id="sval">0</span>個です</p>
+			<p>厳密値(<span class="big" id="svalx">0</span>個)</p>
+			<p>曲の予想周回数は、<span class="big" id="rval">0</span>回です</p>
+			<p>※推奨消費スタミナが<span class="big">10</span>を超えた場合は、スタミナを消費しきれないことを表す</p>
+		</div>
+		<script src="main.js"></script>
+    </body>
+</html>
