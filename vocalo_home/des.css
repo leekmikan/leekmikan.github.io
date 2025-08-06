@@ -10,6 +10,13 @@ font-family: "Main";
 #star{
 font-size: 32px;
 }
+.big{
+	font-size: 24px;
+}
+input{
+	font-size: 20px;
+	width: 10vw;
+}
 img.tab_button{
 	vertical-align: middle;
 	width:209px;
@@ -97,4 +104,7 @@ header button:hover{
 }
 li{
 	margin-bottom: 20px;
+}
+.err{
+	color: red;
 }
