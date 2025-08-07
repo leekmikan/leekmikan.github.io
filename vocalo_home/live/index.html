@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+    <meta name="google-site-verification" content="CbDnvL6rMRyk8Thyq_2hoGiOR44qnbxasIA2RAS9Ke8" />
+    <meta name="description" content="[便利系ツール]ライブの当選率、倍率の近似計算">
+    <link rel="icon" type="image/jpg" href="../../icon.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+    <title>[便利系ツール]ライブの当選率、倍率の近似計算</title>
+    <iframe src="../../google.html" style="display: none;"></iframe>
+    <link rel="stylesheet" href="../des.css" media="print" onload="this.media='all'">
+<script defer src="../../init.js"></script>
+	</head>
+		<body style="display: none;">
+    <div class="cover">
+    <div class="ct">
+        <header>
+			<button onclick="location.href='https://leekmikan.github.io/vocalo_home/index.html'">ボカロ用ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
+		<div class="title">
+			<h1>[便利系ツール]ライブの当選率、倍率の近似計算</h1>
+            <p>Twitter(X)などの当選アンケートから倍率を予測し、何公演買えば何%当たるかを計算</p>
+			<p>全員のイベント公演応募数は同じと仮定して計算(分散、標準偏差が0)</p>
+		</div>
+		<div class="text_frame">
+			<h2>数値入力</h2>
+		</div>
+		<div class="main">
+			<label for="oubo">全員の応募公演数[個]</label>
+			<input name="oubo" id="oubo" type="number" value="6" min="1" step="1" onchange="Cal()"><br><br>
+			<label for="tousen">当選者の割合[%]　　</label>
+			<input name="tousen" id="tousen" type="number" value="60" min="0" step="1" max="100" onchange="Cal()"><br><br>
+			<br><br>
+			<p>以下、自分の当選確率を求めたい場合に入力</p>
+			<label for="oubom">自分の応募公演数[個]</label>
+			<input name="oubom" id="oubom" type="number" value="1" min="1" max="100" step="1" onchange="Cal()"><br><br>
+		</div>
+		<div class="text_frame">
+			<h2>結果</h2>
+		</div>
+		<div class="main">
+			<p>当選倍率は<span class="big" id="sval">0</span>倍です</p><br>
+			<p>あなたがN公演当選する確率は以下の通りです。</p>
+			<table border="1" id="list" style="margin: auto;">
 
+			</table>
+		</div>
+		<script src="main.js"></script>
+    </body>
+</html>
