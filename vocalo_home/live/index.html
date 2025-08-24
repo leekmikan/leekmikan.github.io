@@ -4,177 +4,52 @@
     <meta charset="UTF-8">
     <meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
     <meta name="google-site-verification" content="CbDnvL6rMRyk8Thyq_2hoGiOR44qnbxasIA2RAS9Ke8" />
-    <meta name="description" content="leekmikan(ねぎみかん)のボカロ用メインページ　初音ミク中心に色々書く用">
-    <link rel="icon" type="image/jpg" href="../icon.jpg">
-    <link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
-    <title>leekmikan(ねぎみかん)のボカロ用メインページ(仮)</title>
-    <iframe src="../google.html" style="display: none;"></iframe>
-    <link rel="stylesheet" href="des.css" media="print" onload="this.media='all'">
-<script defer src="../init.js"></script>
+    <meta name="description" content="[便利系ツール]ライブの当選率、倍率の近似計算">
+    <link rel="icon" type="image/jpg" href="../../icon.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+    <title>[便利系ツール]ライブの当選率、倍率の近似計算</title>
+    <iframe src="../../google.html" style="display: none;"></iframe>
+    <link rel="stylesheet" href="../des.css" media="print" onload="this.media='all'">
+<script defer src="../../init.js"></script>
 	</head>
 		<body style="display: none;">
     <div class="cover">
     <div class="ct">
         <header>
-			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/vocalo_home/index.html'">ホーム(ボカロ版)</button>
 			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
-			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://x.com/leekmikan/'">X</button>
 			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
 			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
 		</header>
 		<div class="title">
-			<h1>leekmikan(ねぎみかん)ボカロ用メインページ(仮)</h1>
-            <p>初音ミク中心に色々書く用　リトリン代わり？</p>
-            <p>プロフィール、取引情報</p>
-            <p>このページは一旦適当に作って、大学、バイト、インターンが暇なときに直す (背景とか適当)</p>
-            <p>パソコン推奨</p>
+			<h1>[便利系ツール]ライブの当選率、倍率の近似計算</h1>
+            <p>Twitter(X)などの当選アンケートから倍率を予測し、何公演買えば何%当たるかを計算</p>
+			<p>全員のイベント公演応募数は同じと仮定して計算(分散、標準偏差が0)</p>
 		</div>
-        <p>タブを押すと、閉じることができます</p>
-         <div onclick="obj=document.getElementById('pg0').style; obj.display=(obj.display=='none')?'block':'none';">
-		    	<h2 style="cursor:pointer;">▼プロフィール</h2>
-		    </div>
-		    <div id="pg0" style="clear:both;">
-                <div class="main">
-                    <h3>名前(本垢関係)</h3>
-                    <p>leekmikan(ねぎみかん　→　ミクとリンの持ち物)</p>
-                    <h3>名前(サブ垢関係)</h3>
-                    <p>bananatuna(バナナマグロ　→　レンとルカの持ち物)</p>
-                    <h3>年齢</h3>
-		    	    <p>20　(2025/7)</p>
-                    <h3>誕生日</h3>
-                    <p>9/17　(出産予定日は大体ミクと同じだったけど、遅すぎてミクダヨーと同じ誕生日になった)</p>
-                    <h3>好きなボカロP(一部)(別名義、敬称略)</h3>
-                    <p></p>
-                    <p>前Twitterで書いたのと組み合わせが違うかも...</p>
-		            <ol>
-                        <li>OSTER project</li>
-                        <li>supercell</li>
-                        <li>くちばしP</li>
-                        <li>とくP</li>
-                        <li>デッドボールP</li>
-                        <li>azuma</li>
-                        <li>トラボルタ</li>
-                        <li>きさら</li>
-                        <li>ika</li>
-                        <li>samfree</li>
-                        <li>ヤスオP</li>
-		            </ol>
-                    <h3>グッズの購入方針</h3>
-                    <p>公式グッズはまとめて買うことが多い。同人系はコミケ、ボーマスなどで出店していれば、クオリティー関係なくほぼ全員回って購入(FF、有名、初めてのところ優先)</p>
-                </div>
-            </div>
-            <div onclick="obj=document.getElementById('pg1').style; obj.display=(obj.display=='none')?'block':'none';">
-		    	<h2 style="cursor:pointer;">▼協力願い　(暇な人)</h2>
-		    </div>
-		    <div id="pg1" style="clear:both;">
-                <div class="main">
-			<h3>ボカロ厨の方で入力してくれる方がいると助かります！</h3>
-			<h3>目的</h3>
-			<p>アットウィキよりも情報量を減らす代わりに、データ分析で取得しやすくしたり、最低限の情報を知ることができるようにする</p>
-    		<p>大学の研究やデータ分析の課題で、ボカロを題材にして誰でも簡単に調べられるようにする</p>
-			<p>例：「ボカロPと歌詞の関係性」「ボカロ文化の各年の変化」「各年の公式グッズの販売種類数の推移」</p>
-			<h3>メリット</h3>
-			<p>情報の登録/修正も簡単(多分)</p>
-			<p>データベース、JSON構造は単純にしている→入れ子構造になっていない</p>
-			<h3>デメリット</h3>
-			<p>詳細な情報は載せない</p>
-    		<h3>その他</h3>
-			<p>一応、データベースには可能な限り目を通して、怪しいものは削除、荒れが発覚したら修正不可に変更予定</p>
-    		<p>こちらのページは作りたて(2025/7/2)</p>
-			<p>無料版なので、上部ちょっと広告がある</p>
-			<p>APIを実装したページはあるが、使い方の公開はまだしていない。(一応使えるけど、書き忘れたのと、今忙しいので書いていないだけ)</p>
-		<p><a href="https://leekmikan.f5.si/index.php">ここ　(https://leekmikan.f5.si/index.php)</a></p>
+		<div class="text_frame">
+			<h2>数値入力</h2>
 		</div>
-            </div>
-			<div onclick="obj=document.getElementById('pg01').style; obj.display=(obj.display=='none')?'block':'none';">
-		    	<h2 style="cursor:pointer;">▼ツール</h2>
-		    </div>
-		    <div id="pg01" style="clear:both;">
-				<div class="main">
-					<p><a href="stamina/index.html">プロセカの推奨消費スタミナの計算　イベントの稼働時間から計算</a></p>
-					<p><a href="live/index.html">ライブの当選確率　当落率から近似値を計算</a></p>
-				</div>
-			</div>
-            <div onclick="obj=document.getElementById('pg2').style; obj.display=(obj.display=='none')?'block':'none';">
-		    	<h2 style="cursor:pointer;">▼取引用タブ</h2>
-		    </div>
-		    <div id="pg2" style="clear:both;">
-            <div class="text_frame">
-			    <h2>目次</h2>
-		    </div>
-		    <div class="index">
-		    	<ol>
-		    		<li><a href="#i1">条件など</a></li>
-		    		<li><a href="#i2">状態</a></li>
-		    		<li><a href="#i3">グッズ一覧　(随時追加)</a></li>
-                    <li><a href="#i4">グッズ画像　(随時追加)</a></li>
-		    	</ol>
-		    </div>
-		    <div class="text_frame" id="i1">
-		    	<h3>条件</h3>
-		    </div>
-		    <div class="main">
-                <h3>譲/求</h3>
-		    	<p>譲：後述のグッズ(１つから可)</p>
-		    	<p>求：任意のミクのグッズなんでも/買い取り</p>
-		    	<h3>場所</h3>
-		    	<p>池袋～新宿～町田　(23区全体でも)</p>
-		    	<h3>可能日時</h3>
-                <p>これから夏休みなので、不定期になるかも...(基本時間を開けられる)</p>
-		    	<table border="1">
-		    		<tr><td>曜日</td><td>時間</td></tr>
-		    		<tr><td>日</td><td>10:00～13:00</td></tr>
-		    		<tr><td>月</td><td>×</td></tr>
-		    		<tr><td>火</td><td>×</td></tr>
-		    		<tr><td>水</td><td>10:00～13:00</td></tr>
-		    		<tr><td>木</td><td>×</td></tr>
-		    		<tr><td>金</td><td>10:00～13:00</td></tr>
-		    		<tr><td>土</td><td>10:00～13:00</td></tr>
-		    	</table>
-		    </div>
-		    <div class="text_frame" id="i2">
-		    	<h3>状態</h3>
-		    </div>
-		    <div class="main">
-		    	<ul>
-		    		<li>中身が見えない物は、確認のため開封済み</li>
-		    		<li>触れるのは整理、移動の時のみ</li>
-		    		<li>暗所に保存</li>
-		    		<li>定期的に換気</li>
-		    	</ul>
-		    </div>
-		    <div class="text_frame" id="i3">
-		    	<h3>グッズ一覧　(随時追加)</h3>
-		    </div>
-		    <div class="main">
-		    	<p>画像は前のポストを見ることを推奨(どこかであげてるはず)</p>
-		    	<p>時間があればこちらに追加予定</p>
-		    	<p>細かい名称が分からないものあり</p>
-		    	<p>※買い取り用の金額は適当　(相場があまりよく分からないので)</p>
-		    	<table border="1">
-		    		<tr><td>名称</td><td>金額(買い取り用　各)[円]</td></tr>
-		    		<tr><td>ぽてぬい　リン/レン/ルカ/MEIKO/KAITO</td><td>500</td></tr>
-		    		<tr><td>肩ズンFig　MEIKO</td><td>200</td></tr>
-		    		<tr><td>プロセカ　映画　特典 3週目　青柳冬弥</td><td>500</td></tr>
-		    		<tr><td>缶バッジ　草薙寧々</td><td>300</td></tr>
-		    		<tr><td>下敷き　天馬咲希</td><td>100</td></tr>
-		    		<tr><td>ナユタン星への快爽列車(※中古を勘違いで購入したもの)</td><td>300</td></tr>
-		    		<tr><td>一番くじD賞　アクリルスタンド　MEIKO,KAITO</td><td>1000</td></tr>
-		    		<tr><td>一番くじE賞　缶バッジ　MEIKO,KAITO</td><td>500</td></tr>
-		    		<tr><td>一番くじF賞　プレートぬーどるストッパー　リン,レン,ルカ×２</td><td>300</td></tr>
-		    		<tr><td>一番くじG賞　クリアポスター　レン,KAITO</td><td>200</td></tr>
-		    	</table>
-                </div>
-		    <div class="text_frame" id="i4">
-		    	<h3>画像</h3>
-		    </div>
-		    <div class="main">
-		    	<img src="DSC_0473.JPG" alt="ぽてぬい　鏡音リン　レン　巡音ルカ　MEIKO　KAITO">
-		    	<img src="GkooyyoWoAAxYP8.jpg" alt="ボカロ　プロセカ　取引用画像">
-		    	<img src="GnIZ0BwbgAUbp-1.jpg" alt="一番くじ　鏡音リン　レン　巡音ルカ　MEIKO　KAITO">
-		    	<img src="GnKSqJpaQAA-peS.jpg" alt="一番くじ　鏡音リン　レン　巡音ルカ　MEIKO　KAITO">
-		    </div>
-        </div>
-        </div>
+		<div class="main">
+			<label for="oubo">全員の応募公演数[個]</label>
+			<input name="oubo" id="oubo" type="number" value="6" min="1" step="1" onchange="Cal()"><br><br>
+			<label for="tousen">当選者の割合[%]　　</label>
+			<input name="tousen" id="tousen" type="number" value="60" min="0" step="1" max="100" onchange="Cal()"><br><br>
+			<br><br>
+			<p>以下、自分の当選確率を求めたい場合に入力</p>
+			<label for="oubom">自分の応募公演数[個]</label>
+			<input name="oubom" id="oubom" type="number" value="1" min="1" max="100" step="1" onchange="Cal()"><br><br>
+		</div>
+		<div class="text_frame">
+			<h2>結果</h2>
+		</div>
+		<div class="main">
+			<p>当選倍率は<span class="big" id="sval">0</span>倍です</p><br>
+			<p>あなたがN公演当選する確率は以下の通りです。</p>
+			<table border="1" id="list" style="margin: auto;">
+
+			</table>
+		</div>
+		<script src="main.js"></script>
     </body>
 </html>
