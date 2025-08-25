@@ -1,4 +1,5 @@
 button{
+    position: relative;
     width: 200px;
     height: 50px;
     margin: 5px 3px;
@@ -13,4 +14,12 @@ button{
 input{
     padding: 1em 0px;
     margin: 1em 0px;
+}
+.titles{
+    background: #303030C0;
+    color: #ffffff;
+    position: absolute;
+    top: -5px;
+    left: 0px;
+    width: 100%;
 }
