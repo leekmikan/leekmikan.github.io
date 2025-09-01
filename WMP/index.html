@@ -1,1 +1,154 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="uft-8">
+	<title>Windows Media Player(Legacy)でコミケなどで買ったCDを取り込む | 考えられる全パターン紹介</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="Windows Media Player(Legacy)でコミケなどで買ったCDを取り込む | 考えられる全パターン紹介">
+	<link rel="stylesheet" href="../des.css">
+	<link rel="stylesheet" href="des.css">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+	<iframe src="../google.html" style="display: none;"></iframe>
+	<script src="main.js"></script>
+	</head>
+		<body>
+			<header>
+			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
+			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
+			<button onclick="location.href='https://x.com/mirilelumeka'">X</button>
+			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
+			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
+		</header>
+		<div class="title">
+			<h1>Windows Media Player(Legacy)でコミケなどで買ったCDを取り込む<br>考えられる全パターン紹介</h1>
+			<p>・数が少ない同人CDを取り込む際に起きる特有のトラブルの対処法を中心に記載</p>
+			<p>・基本1から順に進めていき、トラブルが発生した場合は分岐に従っていくと、最終的にゴールに到達します</p>
+			<p>(ボカロCDを300枚くらい取り込んだから、ほとんどのトラブルを網羅出来てるはず...)</p>
+			<p>以下、Windows Media PlayerをWMPと略す</p>
+		</div>
+		<div class="text_frame" id="i1">
+		<h2>1. CDをPCに挿入</h2>
+		</div>
+    	<div class="main">
+			<p>PCに付いているCDドライブにCDを入れる</p>
+			<p class="err">なければ外付けCDドライブを購入し、USB接続をしてください...</p>
+		</div>
+		<div class="text_frame">
+		<h2>2. Windows Media Player(Legacy)を起動</h2>
+		</div>
+    	<div class="main">
+			<p>検索欄から「Windows Media Player」と入力すると出てくると思うので、出てきたらクリックして開く</p>
+			<div class="ct"><img src="2.png"></div>
+			<p class="err">出てこなければ入ってないのでインストール(多分あり得ない?)</p>
+		</div>
+		<div class="text_frame">
+		<h2>3. CDのマークがついたドライブを押す</h2>
+		</div>
+    	<div class="main">
+			<p>WMP左側のCDマークがついたドライブを押す(多分、Eドライブ)</p>
+			<p><a href="#i4">問題ない場合はこちら</a></p>
+			<p><a href="#i31">違うCDの情報が表示される場合はこちら</a></p>
+			<p><a href="#i311">情報が表示されない場合(曲名がトラック1,トラック2...のまま)はこちら</a></p>
+		</div>
+		<div class="text_frame" id="i31">
+		<h2>3-1. アルバムアートを再検索する</h2>
+		</div>
+    	<div class="main">
+			<p>ここに来る原因は、WMPのデータベース(CCDB)が、「曲数と曲の長さ的にこれかな～?」というので別のアルバムと間違えられた場合</p>
+			<p>(例：プロセカの映画特典CD)</p>
+			<p>アルバムアート付近を右クリックし、「アルバム情報の検索」をクリック</p>
+			<p>該当のアルバムがあれば選択</p>
+			<p><a href="#i4">問題ない場合はこちら</a></p>
+			<p><a href="#i32">該当のアルバムが見つからない場合はこちら</a></p>
+		</div>
+		<div class="text_frame" id="i32">
+		<h2>3-2. WMPの設定を変更する</h2>
+		</div>
+    	<div class="main">
+			<p class="err">※2度ここに来てしまった人は、「4-1. ジャケット画像を用意」までネットワークを遮断してください。</p>
+			<p>WMP左上の「整理」から「オプション」を開き、「ライブラリ」を次の画像のような設定にする。</p>
+			<div class="ct"><img src="32.png"></div>
+			<p><a href="#i411">完了したら一旦CDを取り込み直す(「3-1-1. 手入力をする(めっちゃめんどい)」に移動するまでは同じ手順を踏む?)</a></p>
+		</div>
+		<div class="text_frame" id="i311">
+		<h2>3-1-1. 手入力をする(めっちゃめんどい)</h2>
+		</div>
+    	<div class="main">
+			<p>ここに来る原因は、WMPのデータベース(CCDB)が、該当のアルバム情報を見つけられなかった場合</p>
+			<p>(例：超小規模の同人サークルのCD)</p>
+			<p>アルバムの各項目のテキストを、手元のCDを参考に手入力する</p>
+			<p>入力したいところを右クリックし、「編集」を押すと書き込める</p>
+			<p class="err">(予測変換で)Tabキーを押すとうまく入力できないのでうっかり押さないこと。(めんどい..)</p>
+			<p>手入力箇所</p>
+			<ul>
+				<li>アルバム
+					<ul>
+						<li>アルバム名</li>
+						<li>アーティスト名</li>
+						<li>ジャンル</li>
+						<li>発売年</li>
+					</ul>
+				</li>
+				<li>タイトル(曲名)</li>
+				<li>参加アーティスト</li>
+				<li>作曲者(参加アーティストと同じか空欄で良さそう?)</li>
+			</ul>
+			<p><a href="#i4">次はこちら</a></p>
+		</div>
+		<div class="text_frame" id="i4">
+		<h2>4. CDの取り込み</h2>
+		</div>
+    	<div class="main">
+			<p>WMP上部にある「CDの取り込み」を押して取り込む</p>
+			<p class="err">※画像は、取り込み完了状態</p>
+			<p><a href="#i5">問題ない場合はこちら</a></p>
+			<p><a href="#i41">ジャケット画像がない場合はこちら(取り込み後に実行)</a></p>
+		</div>
+		<div class="text_frame" id="i41">
+		<h2>4-1. ジャケット画像を用意</h2>
+		</div>
+    	<div class="main">
+			<p>CDを取り外す</p>
+			<p>アルバム名でググるなどして画像を探す</p>
+			<p>見つけた画像を右クリックすると、「画像をコピー」のような文言が出てくるため選択</p>
+			<p>WMPに戻り、左側の「アルバム」を選択し、該当のアルバムを探す</p>
+			<p>右クリックすると、「アルバムアートの貼り付け」がでてくるので選択</p>
+			<p><a href="#i5">問題ない場合はこちら</a></p>
+			<p><a href="#i4111">画像が見つからない場合はこちら</a></p>
+			<p><a href="#i411">アルバムが2つ以上に分裂した場合はこちら</a></p>
+		</div>
+		<div class="text_frame" id="i411">
+		<h2>4-1-1. CDの取り込み直し</h2>
+		</div>
+    	<div class="main">
+			<p>ここに来る原因は、CDの取り込み時に、何らかの問題が発生した場合。もう一度やり直すと成功する。</p>
+			<p>CDを取り外す</p>
+			<p>左側の「アルバム」を選択し、該当のアルバムを探す</p>
+			<p>右クリックすると、「削除」がでてくるので選択</p>
+			<p>コンピューター上からも削除する(たぶん　未確認)</p>
+			<p class="err">※2度「3-2. WMPの設定を変更する」に来てしまった人は、再度「4-1. ジャケット画像を用意」までネットワークを遮断してください。</p>
+			<p><a href="#i1">こちらに戻る</a></p>
+		</div>
+		<div class="text_frame" id="i4111">
+		<h2>4-1-1-1. 画像をスキャン</h2>
+		</div>
+    	<div class="main">
+			<p><a href="#i5">プリンターを用意できない場合は飛ばしてください(こちらへ)</a></p>
+			<p>プリンターのスキャナーに、手元のCDのジャケットを読み込ませ、画像データに変換する</p>
+			<p>(解像度は結構小さくても良さそう...　300dpiでも大きかった)</p>
+			<p>後は、画像を正方形(大体で可)に切り取り、ctrl+Vでコピーする。</p>
+			<p>WMPに戻り、左側の「アルバム」を選択し、該当のアルバムを探す</p>
+			<p>右クリックすると、「アルバムアートの貼り付け」がでてくるので選択</p>
+			<p><a href="#i5">こちらへ</a></p>
+		</div>
+		<div class="text_frame" id="i5">
+		<h2>5. ゴール</h2>
+		</div>
+    	<div class="main">
+			<p>C:\Users\(ユーザー名)\Music\　のどこかにフォルダーが生成されてる</p>
+		</div>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+		</body>
+	</head>
+</html>

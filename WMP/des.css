@@ -1,0 +1,11 @@
+.err{
+	display: inline-block;
+	color: #800000;
+	background: #FFFF00;
+}
+.main{
+	margin-bottom: 50px;
+}
+img{
+width: 50vw;
+}
