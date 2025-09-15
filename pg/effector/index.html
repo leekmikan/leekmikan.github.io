@@ -255,6 +255,128 @@ wd.Dispose(); //破棄
 				<h2>２１．調検出 std::string Scale</h2>
 				<p>結構不正確</p>
 			</div><br>
+			<div class="text_frame">
+				<h2>wavファイルを読み込み、出力をしたいだけの人へ</h2>
+			</div>
+			<div class="main">
+				<p>次の各2つの関数があれば良い</p>
+				<p>読み込み</p>
+				<pre><code class="language-cpp">
+WaveData(std::string fname)
+{
+    this->fname = fname;
+    std::ifstream ifs(fname, std::ios::binary);
+    ifs.seekg(0, std::ios::end);
+    fileSize = ifs.tellg();
+    ifs.seekg(0);
+    char* buf = new char[fileSize];
+    ifs.read(buf, fileSize);
+    bit8 = buf[34] / 8;
+    for (int i = 0; i < fileSize; ++i)
+    {
+        if (i < fileSize - 4)
+        {
+            if (buf[i] == 0x64 && buf[i + 1] == 0x61 && buf[i + 2] == 0x74 && buf[i + 3] == 0x61)
+            {
+                fmt = new char[i + 8];
+                fsize = i + 8;
+                for (int j = 0;j < i + 8; j++)
+                {
+                    fmt[j] = buf[j];
+                }
+                wave = BtoI(buf, i + 8,fileSize);
+                msize = fileSize - i - 8;
+                break;
+            }
+        }
+    }
+    for (int i = 0; i < msize / 2; i++)
+    {
+        maxv = std::max(maxv, abs(wave[i]) + 0.0);
+    }
+    ch = ReadN(buf, 22, 23);
+    sample = ReadN(buf, 24, 27);
+    vol_min = -pow(256, bit8) / 2;
+    vol_max = pow(256, bit8) / 2 - 1;
+    ifs.close();
+    if (ch != 2 && bit8 != 2) {
+        this->Dispose();
+    }
+    delete[] buf;
+}
+
+//private関数.
+int* BtoI(char* x, int start, int len)
+{
+    int* rt = new int[(len - start) / 2];
+    for (int i = start; i < len; i += 2)
+    {
+        if (x[i] < 0)
+        {
+            rt[(i - start) / 2] = x[i + 1] * 256 + x[i] + 256;
+        }
+        else
+        {
+            rt[(i - start) / 2] = x[i + 1] * 256 + x[i];
+        }
+    }
+    return rt;
+}
+
+//使用例.
+WaveData wd = WaveData("ファイル名.wav");
+				</code></pre>
+				<p>出力</p>
+				<pre><code class="language-cpp">
+void Export(int cch, std::string name)
+{
+    int* rt;
+    switch (cch)
+    {
+    case 1:
+        rt = new int[msize / 4];
+        for (int i = 0; i < msize / 2 - 1; i += 2)
+        {
+            rt[i / 2] = wave[i] / 2 + wave[i + 1] / 2;
+        }
+        wave = rt;
+        WriteN(1, 22, 22);
+        WriteN(fileSize - msize / 2 - 8, 4, 7);
+        WriteN(fileSize - msize / 2 - 126, fsize - 4, fsize - 1);
+        msize >>= 1;
+        break;
+    default:
+        break;
+    }
+    char* bf = ItoB(wave, vol * vol_max / maxv, msize / 2);
+    std::ofstream ifs(name, std::ios::binary);
+    ifs.write(fmt, fsize);
+    ifs.write(bf, msize);
+    delete[] bf;
+}
+
+//private関数.
+char* ItoB(int* cmp, double mult, int cl)
+{
+    char* rt = new char[cl * 2];
+    for (int i = 0; i < cl; ++i)
+    {
+        if (cmp[i] < 0) {
+            rt[i * 2 + 1] = std::max(cmp[i] * mult, vol_min + 0.0) / 256;
+            rt[i * 2] = cmp[i] * mult - rt[i * 2 + 1] * 256;
+        }
+        else {
+            rt[i * 2 + 1] = std::min(cmp[i] * mult, vol_max + 0.0) / 256;
+            rt[i * 2] = cmp[i] * mult - rt[i * 2 + 1] * 256;
+        }
+    }
+    return rt;
+}
+
+//使用例.
+wd.Export(チャンネル数(1 or 2), "ファイル名.wav");
+				</code></pre>
+			</div>
 		</div>
 		<script src="../../prism.js"></script>
 	</head>
