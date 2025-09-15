@@ -2,9 +2,9 @@
 <html lang="ja">
 	<head>
 	<meta charset="uft-8">
-	<title>[C#][初心者向け]プロセカのバツミクっぽく画像を表示させる</title>
+	<title>[C#][初心者向け]プロセカのバツミクっぽく画像を表示させる | 画像処理</title>
 	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
-	<meta name="description" content="[C#][初心者向け]プロセカのバツミクっぽく画像を表示させる">
+	<meta name="description" content="画像を読み込み、軽い画像処理を施したのち画面の最前列に固定する。応用してgif画像にし、音声を追加すれば、プロセカのバツミクっぽく表示できる。">
 	<link rel="stylesheet" href="../../des.css" media="print" onload="this.media='all'">
 	<link rel="icon" type="image/jpg" href="../../icon.jpg">
     <link rel="stylesheet" href="../../prism.css" media="print" onload="this.media='all'">
@@ -31,6 +31,7 @@
 			</div>
 		<div class="main">
             <ol>
+                <li>クロマキー合成用の画像(背景を緑とか青にした画像)を用意する。...★</li>
                 <li>※解除するには、アプリケーションがアクティブな状態で「112358」と入力</li>
                 <li>C#の　Windowsフォームアプリケーション(.NET Framework)　で作成</li>
                 <li>デザイナーのプロパティを開く</li>
@@ -39,7 +40,7 @@
                 <li>PictureBoxを好きなところに置く</li>
                 <li>先にコードをコピペ</li>
                 <li>namespaceの部分をプロジェクト名に変える</li>
-                <li>コード内のuse_colorのRGB値を、画像に使われていない色にする<br>※Windowsの昔からのバグで、色によってクリックが効く効かないがあるので注意！</li>
+                <li>コード内のuse_colorのRGB値を、★の背景色にする<br>※Windowsのバグで、色によってクリックが効く効かないがあるので注意！<br>(普通の色なら基本問題なし)</li>
                 <li>(PC起動後に自動実行する場合)コード内の/*と*/を削除</li>
             </ol>
 			<pre><code class="language-cs">
@@ -207,6 +208,12 @@ namespace Bgpic
 		</div>
 		<div class="main">
 			<img src="スクリーンショット 2025-05-02 163001.jpg" alt="バツミクっぽく画像を表示している状態"><br>
+		</div><br>
+        <div class="text_frame">
+			<h2>応用問題</h2>
+		</div>
+		<div class="main">
+			<p>画像をgif画像にし、音声を追加してみよう</p>
 		</div><br>
         <div class="text_frame">
 			<h2>参考</h2>
