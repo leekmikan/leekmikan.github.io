@@ -1,0 +1,153 @@
+/*
+  museum-style.css
+  A refined, museum-like stylesheet for exhibition/gallery websites.
+  Usage: <link rel="stylesheet" href="museum-style.css">
+  Expected HTML structure (example):
+    <header class="site-header">...<nav>...</nav></header>
+    <section class="hero"><h1>Exhibition Title</h1><p>Intro</p></section>
+    <main class="content"> <section class="gallery"> <article class="art-card">...</article>...</section> </main>
+    <footer class="site-footer">...</footer>
+*/
+
+:root{
+  --bg:#fbfaf7;            /* warm paper */
+  --panel:#ffffff;         /* card background */
+  --muted:#8b877f;         /* captions, metadata */
+  --accent:#1f2937;        /* deep charcoal for headings */
+  --accent-2:#6b4f3a;      /* warm brown accent */
+  --gap:24px;
+  --max-width:1200px;
+  --radius:10px;
+  --shadow: 0 6px 18px rgba(20,20,20,0.08);
+  --serif: 'Georgia','Times New Roman',serif;
+  --sans: 'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--sans);
+  background:linear-gradient(180deg,var(--bg),#f7f5f2 0%);
+  color:var(--accent);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.6;
+}
+
+.container{
+  width:calc(100% - 48px);
+  max-width:var(--max-width);
+  margin:0 auto;
+  padding:48px 0;
+}
+
+/* Header */
+.site-header{
+  background:transparent;
+  padding:20px 0;
+}
+.site-brand{
+  display:flex;align-items:center;gap:12px;
+}
+.site-brand img{height:48px;width:auto;border-radius:6px;box-shadow:var(--shadow)}
+.site-title{
+  font-family:var(--serif);
+  font-size:1.15rem;
+  letter-spacing:0.06em;
+  color:var(--accent);
+}
+
+/* Navigation */
+.site-nav{margin-top:8px}
+.site-nav ul{display:flex;gap:20px;list-style:none;padding:0;margin:0}
+.site-nav a{
+  text-decoration:none;color:var(--muted);font-weight:600;font-size:0.95rem;
+}
+.site-nav a:hover, .site-nav a:focus{color:var(--accent-2);outline:none}
+
+/* Hero */
+.hero{
+  display:grid;grid-template-columns:1fr;gap:20px;
+  padding:64px 0 48px 0;
+}
+.hero .eyebrow{font-size:0.9rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em}
+.hero h1{
+  font-family:var(--serif);font-size:clamp(2rem,4vw,3.6rem);margin:6px 0;color:var(--accent);
+}
+.hero p.lead{max-width:70ch;color:var(--muted);font-size:1.05rem}
+
+.hero-visual{
+  margin-top:18px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+}
+.hero-visual img{width:100%;height:auto;display:block}
+
+/* Gallery grid */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:var(--gap);
+  margin-top:32px;
+}
+
+.art-card{
+  background:var(--panel);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:transform .28s cubic-bezier(.2,.9,.3,1),box-shadow .28s;
+  display:flex;flex-direction:column;
+}
+.art-card:focus-within, .art-card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(20,20,20,0.12)}
+
+.art-media{width:100%;aspect-ratio:4/3;overflow:hidden;background:#efebe6}
+.art-media img{width:100%;height:100%;object-fit:cover;display:block}
+
+.art-body{padding:18px 16px;flex:1;display:flex;flex-direction:column}
+.art-title{font-family:var(--serif);font-size:1.05rem;margin:0;color:var(--accent)}
+.art-meta{margin-top:8px;color:var(--muted);font-size:0.9rem}
+.art-actions{margin-top:auto;display:flex;gap:10px;align-items:center}
+.button{display:inline-block;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:600;box-shadow:none}
+.button-outline{border:1px solid rgba(31,41,55,0.08);color:var(--accent)}
+.button-primary{background:var(--accent-2);color:#fff}
+
+/* Detail / Spotlight */
+.spotlight{
+  display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:start;margin-top:36px
+}
+.spotlight .media{border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.spotlight .info{font-size:0.98rem;color:var(--muted)}
+
+/* Utilities */
+.kicker{font-size:0.85rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted)}
+.small{font-size:0.9rem}
+.center{text-align:center}
+
+/* Footer */
+.site-footer{padding:40px 0;margin-top:48px;border-top:1px solid rgba(31,41,55,0.04);color:var(--muted)}
+.site-footer .meta{display:flex;flex-wrap:wrap;gap:16px}
+
+/* Accessibility focus styles */
+:focus{outline:3px solid rgba(107,79,58,0.12);outline-offset:3px}
+
+/* Responsive tweaks */
+@media (max-width:880px){
+  .spotlight{grid-template-columns:1fr}
+  .site-nav ul{gap:12px}
+  .container{padding:32px 0}
+}
+
+@media (max-width:480px){
+  .hero{padding:28px 0}
+  .site-brand img{height:40px}
+  .art-title{font-size:1rem}
+}
+
+/* Print-friendly */
+@media print{
+  body{background:white;color:black}
+  .site-nav,.site-footer,.button{display:none}
+  .art-card{box-shadow:none;border-radius:0}
+}
+
+/* End of museum-style.css */
