@@ -102,6 +102,7 @@ body{
 
 .art-media{width:100%;aspect-ratio:4/3;overflow:hidden;background:#efebe6}
 .art-media img{width:100%;height:100%;object-fit:cover;display:block}
+.art-media video{width:100%;height:100%;object-fit:cover;display:block}
 
 .art-body{padding:18px 16px;flex:1;display:flex;flex-direction:column}
 .art-title{font-family:var(--serif);font-size:1.05rem;margin:0;color:var(--accent)}
