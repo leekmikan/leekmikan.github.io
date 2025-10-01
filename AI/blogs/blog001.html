@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/jpg" href="../../icon.jpg">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+  <meta name="description" content="Chat-GPTにブログのデザインを考えてもらい、芸術センスが無くてもきれいなブログページを書けるようにしてもらいました。">
+  <title>Chat-GPTにブログのデザインを考えてもらった！ - leekmikan(ねぎみかん)ブログ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;font-family:Inter,'Noto Sans JP',sans-serif;background:#f9fafb;color:#0b1220;line-height:1.7;padding:24px}
+    .wrap{max-width:880px;margin:0 auto}
+    header.site-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#ff6b6b,#ffb86b);display:flex;align-items:center;justify-content:center;color:white;font-weight:900}
+    nav a{margin-left:14px;text-decoration:none;color:#6b7280;font-size:14px}
+    nav a.cta{background:#ff6b6b;color:white;padding:6px 12px;border-radius:8px;font-weight:700}
+
+    article.post header{margin-bottom:18px}
+    article.post h1{font-size:28px;margin:0 0 12px;line-height:1.3}
+    .post-meta{color:#6b7280;font-size:14px;margin-bottom:12px}
+    .eyebrow{display:inline-block;background:#fff0ee;color:#ff6b6b;padding:4px 10px;border-radius:999px;font-weight:700;font-size:12px;margin-bottom:8px}
+
+    .post-content img{max-width:100%;border-radius:12px;margin:18px 0}
+    .post-content h2{margin-top:28px;font-size:22px;border-left:4px solid #ff6b6b;padding-left:10px}
+    .post-content h3{margin-top:28px;font-size:16px;border-bottom:2px solid #ff6b6b;display: inline-block;}
+    .post-content p{margin:14px 0}
+    .post-content blockquote{margin:18px 0;padding:14px 20px;background:#fff7f5;border-left:4px solid #ff6b6b;color:#444;border-radius:8px}
+    .post-content pre{background:#0f1724;color:#f8f8f2;padding:14px;border-radius:10px;overflow:auto;margin:18px 0}
+    .post-content code{padding:2px 6px;border-radius:4px}
+
+    .share{margin:32px 0;display:flex;gap:10px}
+    .btn{padding:10px 14px;border-radius:10px;font-weight:700;text-decoration:none;font-size:14px}
+    .btn-twitter{background:#1da1f2;color:white}
+    .btn-th{background:#000000;color:white}
+    .btn-line{background:#06c755;color:white}
+
+    .read-next{border-top:1px solid #e5e7eb;margin-top:28px;padding-top:18px}
+    .read-next h3{margin:0 0 14px;font-size:18px}
+    .read-next-list{display:grid;gap:14px}
+    .read-next-item{display:flex;gap:12px;align-items:center}
+    .read-next-item img{width:80px;height:56px;object-fit:cover;border-radius:8px}
+    .read-next-item div{font-size:14px}
+
+    footer.site-footer{margin-top:32px;padding-top:18px;border-top:1px solid #e5e7eb;color:#6b7280;font-size:13px;text-align:center}
+    @media(max-width:640px){
+      body{padding:16px}
+      article.post h1{font-size:22px}
+      .read-next-item{flex-direction:column;align-items:flex-start}
+      .read-next-item img{width:100%;height:auto}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <div class="logo">B</div>
+      <nav>
+        <a href="index.html">ホーム</a>
+        <a href="https://leekmikan.github.io/index.html">ホーム(全体)</a>
+        <a href="https://x.com/mirilelumeka">Twitter</a>
+        <a href="https://leekmikan.github.io/picture/index_gpt.html">展示</a>
+      </nav>
+    </header>
+
+    <article class="post">
+      <header>
+        <div class="eyebrow">SEO</div><div class="eyebrow">AI</div><div class="eyebrow">Chat-GPT</div><div class="eyebrow">ブログ</div>
+        <h1>Chat-GPTにブログのデザインを考えてもらった！</h1>
+        <div class="post-meta">2025年10月02日 • leekmikan • 読了 5分</div>
+      </header>
+
+      <div class="post-content">
+        <p>自分には芸術センスがないため(右上の各URL参照)、Chat-GPTにデザインを考えてもらいました。</p>
+
+        <h2>コードを出力</h2>
+        <p>まずは、Chat-GPTに指示を出します。次のような感じです。</p>
+
+        <blockquote>
+          できるだけアクセス数を稼げるような、ブログ用のWebページのデザインを考え、CSSで出力してください。
+        </blockquote>
+
+        <p>そうすると、HTMLにCSSが入った状態のコードが出てきます。これをトップページとします。</p>
+        <p>CSSのみだった場合は、別途HTMLをお願いしましょう。</p>
+
+        <img src="001/1.png" alt="Chat-GPT考案CSS版1">
+
+        <p>次に、記事のページのCSSをお願いします。次のような感じです。</p>
+        <blockquote>
+          次に、このテンプレートに対応した記事用のテンプレートを作成してください。
+        </blockquote>
+
+        <p>さっきと同様に、HTMLにCSSが入った状態のコードが出てきます。</p>
+        <img src="001/2.png" alt="Chat-GPT考案CSS版2">
+        <h2>コードの修正</h2>
+        <p>動作や見栄えに影響がある部分だけ修正します。</p>
+        <p>最初は、TwitterとFacebookとLINEになっていましたが、FacebookをThreadsに変更しました。</p>
+        <p>また、コードが用意されていなかったので、共通化を考え、次のようなタグに変更しました。</p>
+        <pre><code>
+&lt;div class=&quot;share&quot;&gt;
+  &lt;a href=&quot;https://twitter.com/share?ref_src=twsrc%5Etfw&quot; class=&quot;btn btn-twitter&quot; data-show-count=&quot;false&quot;&gt;Twitterでシェア&lt;/a&gt;&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+  &lt;a href=&quot;https://www.threads.net/intent/post?text=&quot; target=&quot;_blank&quot; class=&quot;btn btn-th&quot; onclick=&quot;this.href += document.title + &#039;%0A%0D&#039; + window.location.href;&quot;&gt;Threadsでシェア&lt;/a&gt;
+  &lt;a href=&quot;https://social-plugins.line.me/lineit/share?url=&quot; class=&quot;btn btn-line&quot; onclick=&quot;this.href += window.location.href + &#039;&amp;text=&#039; + document.title;&quot;&gt;LINEでシェア&lt;/a&gt;
+&lt;/div&gt;
+        </code></pre>
+        <p>ThreadsとLINEに関しては、リンクをクリックする際に、onclickでこのページのタイトルとURLを追加しています。</p>
+        <blockquote>
+          PHPが使える環境であれば、どこかにechoを並べた関数を配置し、呼び出すようにしておくと、修正が楽です。
+          github pagesだと使えません。
+        </blockquote>
+        <h2>CSSの修正</h2>
+        <p>必要に応じて、CSSも修正します。</p>
+        <p>自分の場合は、</p>
+        <ul>
+            <li>codeタグが見づかったので、原因である背景色を削除</li>
+            <li>将来的に使うh3タグを追加</li>
+        </ul>
+        <p>をしました。</p>
+        <h2>テキストとURLを書き換えて完成！</h2>
+        <p>最後に、Chat-GPTが入れたテンプレ用の文章の書き換えと、URLの変更を行います。</p>
+        <p>自分の場合は、</p>
+        <ul>
+            <li>定期購読の削除</li>
+            <li>フッターのコピーライト、既約を削除</li>
+            <li>内容を考え記事の作成</li>
+        </ul>
+        <p>をしました。</p>
+        <h2>まとめ</h2>
+        <p>Chat-GPTにCSSと対応するテンプレートを考えてもらいましたが、芸術センスも色彩感覚もない自分でも綺麗にページを作成することができました。</p>
+        <p>ページ右上のリンク「展示」先も、Chat-GPTにCSSを考えてもらいました。こちらは、「美術館のサイトっぽく」とお願いしています。</p>
+        <p>他にも、</p>
+        <ul>
+            <li>プログラミング作成(TwitterかThreadsかYouTubeで投稿)</li>
+            <li>大学生のプログラミング手伝い(Twitter)</li>
+            <li>クイズ作成(TwitterかThreadsで投稿)</li>
+            <li>下手な絵展示(InstagramかThreadsかYouTubeで投稿)</li>
+            <li>数学作問(TwitterかThreadsで投稿)</li>
+            <li>ミニゲーム作成(TwitterかThreadsかYouTubeで投稿)</li>
+            <li>ボカロ関係のつぶやき(Twitter)</li>
+        </ul>
+        <p>の活動をしているので、閲覧と拡散よろしくお願いします！</p>
+      </div>
+    </article>
+    
+    <div class="share">
+      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="btn btn-twitter" data-show-count="false">Twitterでシェア</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <a href="https://www.threads.net/intent/post?text=" target="_blank" class="btn btn-th" onclick="this.href += document.title + '%0A%0D' + window.location.href;">Threadsでシェア</a>
+      <a href="https://social-plugins.line.me/lineit/share?url=" class="btn btn-line" onclick="this.href += window.location.href + '&text=' + document.title;">LINEでシェア</a>
+    </div>
+
+    <section class="read-next">
+      <h3>次に読む</h3>
+      <p>まだないよ...</p>
+    </section>
+    
+    <footer class="site-footer">
+      2025 leekmikan
+    </footer>
+  </div>
+</body>
+</html>

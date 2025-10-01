@@ -1,1 +1,238 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/jpg" href="../../icon.jpg">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+  <meta name="description" content="Chat-GPTにデザインを考案してもらったブログ用ページ" />
+  <title>leekmikan(ねぎみかん)ブログ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+  /* ==========================================
+     基本設計メモ（意図）
+     - モバイル優先、読みやすいタイポグラフィ
+     - 明確なビジュアルヒエラルキー（Hero → カード → サイドバー）
+     - クリックを誘うカードデザイン、カテゴリラベル、CTA（ニュースレター/人気）
+     - 読者の回遊を促す『関連記事』と『次に読む』ボタン
+     - 高速表示を意識した軽量CSS（スクロール時のアニメは最小限）
+     ========================================== */
 
+  :root{
+    --bg:#0f1724; /* ダークアクセントは記事とボタンを引き立てる */
+    --card:#ffffff;
+    --muted:#6b7280;
+    --accent:#ff6b6b; /* クリックスルーを高めるコントラスト色 */
+    --accent-2:#ffb86b;
+    --max-width:1200px;
+    --radius:14px;
+    --glass: rgba(255,255,255,0.06);
+  }
+
+  /* --- リセット --- */
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    font-family:Inter, 'Noto Sans JP', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+    background:linear-gradient(180deg,#f7fafc 0%, #ffffff 100%);
+    color:#0b1220;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.6;
+    padding:32px 16px;
+  }
+
+  /* --- コンテナ --- */
+  .wrap{max-width:var(--max-width);margin:0 auto;display:grid;grid-template-columns:1fr;gap:28px}
+
+  header.site-header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:20px;box-shadow:0 6px 18px rgba(16,24,40,0.08)}
+  .site-title{font-weight:700;font-size:18px}
+  .site-sub{font-size:12px;color:var(--muted)}
+
+  /* ナビ */
+  nav.top-nav{display:flex;gap:12px;align-items:center}
+  nav.top-nav a{font-size:14px;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:10px}
+  nav.top-nav a.cta{background:var(--accent);color:white;font-weight:700}
+
+  /* --- ヒーロー --- */
+  .hero{background:linear-gradient(90deg, rgba(255,107,107,0.06), rgba(255,184,107,0.02));border-radius:var(--radius);padding:20px;display:grid;grid-template-columns:1fr;gap:12px}
+  .hero .eyebrow{display:inline-block;background:#fff8f6;color:var(--accent);padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px}
+  .hero h1{margin:6px 0 0;font-size:28px;line-height:1.05}
+  .hero p{margin:0;color:var(--muted)}
+  .hero-cta{display:flex;gap:10px;margin-top:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;font-weight:700;text-decoration:none}
+  .btn-primary{background:var(--accent);color:white}
+  .btn-ghost{background:transparent;border:1px solid rgba(11,18,32,0.06);color:var(--muted)}
+
+  /* --- メインレイアウト --- */
+  .layout{display:grid;grid-template-columns:1fr 320px;gap:28px}
+
+  /* 記事リスト */
+  .post-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+  .card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 8px 24px rgba(11,18,32,0.06);display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease}
+  .card:hover{transform:translateY(-6px);box-shadow:0 18px 48px rgba(11,18,32,0.12)}
+  .card .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;background:linear-gradient(180deg,#e2e8f0,#cbd5e1)}
+  .card .content{padding:14px;display:flex;flex-direction:column;gap:8px}
+  .card h3{margin:0;font-size:16px}
+  .meta{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+  .tag{font-size:12px;padding:6px 8px;border-radius:999px;background:var(--glass);color:var(--accent);font-weight:700}
+
+  /* 誘導要素 */
+  .read-next{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px;background:linear-gradient(90deg,rgba(255,107,107,0.03),transparent)}
+
+  /* サイドバー */
+  aside.sidebar{position:relative}
+  .subscribe{background:linear-gradient(180deg,#fff 0%,#fffefa 100%);padding:14px;border-radius:12px;box-shadow:0 8px 24px rgba(11,18,32,0.04)}
+  .subscribe h4{margin:0 0 8px;font-size:16px}
+  .subscribe p{margin:0 0 12px;color:var(--muted);font-size:13px}
+  .input{display:flex;gap:8px}
+  input[type="email"]{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(11,18,32,0.06)}
+  .small-list{margin-top:14px;display:grid;gap:10px}
+  .small-item{display:flex;gap:10px;align-items:center}
+  .small-item img{width:56px;height:40px;border-radius:8px;object-fit:cover}
+
+  /* フッター */
+  footer.site-footer{display:flex;justify-content:space-between;align-items:center;padding-top:18px;border-top:1px solid rgba(11,18,32,0.04);color:var(--muted);font-size:13px}
+
+  /* レスポンシブ */
+  @media (max-width:980px){
+    .layout{grid-template-columns:1fr}
+    .wrap{padding:0 12px}
+    .hero h1{font-size:22px}
+    nav.top-nav{display:none}
+  }
+
+  /* --- アクセシビリティ & パフォーマンスヒント --- */
+  /* focus時は視認性のあるアウトライン */
+  a:focus,button:focus,input:focus{outline:3px solid rgba(255,107,107,0.12);outline-offset:2px}
+
+  /* 画像の遅延読み込みを想定するクラス */
+  .lazy{filter:blur(6px);transform:scale(1.02);transition:filter .45s ease,transform .45s ease}
+  .lazy.loaded{filter:none;transform:none}
+
+  /* 微妙なアニメーション（注意：過剰はNG） */
+  @media (prefers-reduced-motion: no-preference){
+    .card{will-change:transform}
+  }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <div class="brand">
+        <div class="logo">B</div>
+        <div>
+          <div class="site-title">leekmikan(ねぎみかん)ブログ</div>
+          <div class="site-sub">何でもやります</div>
+        </div>
+      </div>
+      <nav class="top-nav">
+        <a href="https://leekmikan.github.io/index.html">ホーム(全体)</a>
+        <a href="https://x.com/mirilelumeka">Twitter</a>
+        <a href="https://leekmikan.github.io/picture/index_gpt.html">展示</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <span class="eyebrow">注目</span>
+      <h1>leekmikan(ねぎみかん)のホームページ</h1>
+      <p>初期のホームページ。ブログの記事が増えたら書き換えます。</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://leekmikan.github.io/">今すぐ見る</a>
+        <!--<a class="btn btn-ghost" href="#">SEOチェックリストを見る</a>-->
+      </div>
+    </section>
+
+    <main class="layout">
+      <section>
+        <div class="post-grid" aria-live="polite">
+          <!-- カード：実際の運用ではimg srcに低解像度のプレースホルダーを入れ、JSで遅延読み込み -->
+          <article class="card" onclick="location.href='001.html'">
+            <img class="thumb lazy" src="001/1.png" alt="サムネイル" loading="lazy">
+            <div class="content">
+              <div class="meta"><span class="tag">SEO</span><span class="tag">AI</span><span>・ 5分で読める</span></div>
+              <h3>Chat-GPTにブログのデザインを考えてもらった！</h3>
+              <p class="meta">2025年10月02日 • 読了 5分</p>
+            </div>
+          </article>
+
+          <article class="card" onclick="location.href='https://leekmikan.github.io/picture/index_gpt.html'">
+            <img class="thumb lazy" src="../../picture/img/moving.gif" alt="サムネイル" loading="lazy">
+            <div class="content">
+              <div class="meta"><span class="tag">画伯</span><span class="tag">下手な絵</span><span>・ シェアしやすい</span></div>
+              <h3>画伯の絵置き場(Chat-GPT考案CSS版)</h3>
+              <p class="meta">2025年9月30日 • 読了 5~60分</p>
+            </div>
+          </article>
+          <article class="card" onclick="location.href='https://leekmikan.github.io/pg/index.html'">
+            <img class="thumb lazy" src="../../pg/notepad/スクリーンショット 2025-06-26 235644.png" alt="サムネイル" loading="lazy">
+            <div class="content">
+              <div class="meta"><span class="tag">プログラミング</span><span>・ 初心者向け</span></div>
+              <h3>いろいろなプログラム置き場</h3>
+              <p class="meta">2025年9月30日 • 読了 5~240分</p>
+            </div>
+          </article>
+          <!-- 繰り返しカードを追加可能 -->
+        </div>
+
+        <!--
+        <div style="margin-top:18px" class="read-next">
+          <div>
+            <strong>次に読む</strong>
+            <div style="color:var(--muted);font-size:13px">関連記事を自動で並べて滞在時間を伸ばしましょう</div>
+          </div>
+          <a class="btn btn-primary" href="#">関連記事を表示</a>
+        </div>
+      -->
+      </section>
+
+      <aside class="sidebar">
+        <div class="small-list" style="margin-top:14px">
+          <div class="small-item">
+            <img src="../../gahaku/img/Q0.jpg" alt="小サムネ">
+            <div>
+              <div style="font-weight:700"><a href="https://leekmikan.github.io/gahaku/Game.html">画伯の展覧会</a></div>
+            </div>
+          </div>
+
+          <div class="small-item">
+            <img src="../../kashi/img/R.jpg" alt="小サムネ">
+            <div>
+              <div style="font-weight:700"><a href="https://leekmikan.github.io/kashi/Game.html">歌詞クイズ</a></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </main>
+
+    <footer class="site-footer">
+      2025 leekmikan
+    </footer>
+  </div>
+
+  <script>
+    /*
+    // 軽いJS：遅延読み込みの擬似実装（実運用ではIntersectionObserverを推奨）
+    document.addEventListener('DOMContentLoaded',function(){
+      const lazyImgs = document.querySelectorAll('.lazy');
+      lazyImgs.forEach(img=>{
+        const src = img.getAttribute('data-src');
+        if(!src) return;
+        const i = new Image();
+        i.src = src;
+        i.onload = ()=>{
+          img.src = src;
+          img.classList.add('loaded');
+        }
+      })
+    })
+  </script>
+</body>
+</html>
