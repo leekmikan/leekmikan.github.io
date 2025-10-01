@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
    <url>
+       <loc>https://leekmikan.github.io/AI/blogs/index.html</loc>
+   </url>
+   <url>
+       <loc>https://leekmikan.github.io/AI/blogs/blog001.html</loc>
+   </url>
+   <url>
        <loc>https://leekmikan.github.io/pg/index.html</loc>
    </url>
    <url>
