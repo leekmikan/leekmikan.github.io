@@ -6,9 +6,19 @@
 	<title>世界一のクソページ｜このページを開く意味は一切ない</title>
 	<meta name="description" content="このページを開いてもなにもないよ。開く人は頭おかしいと思うよ...。それでも開きたい人だけ開いてね">
 	</head>
-		<body>
-			<a id="x" data-text="自分は頭がおかしいので、このリンクを開いてしまいました。" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-			<a id="y" data-text="この人の絵が下手すぎるwww" data-url="https://leekmikan.github.io/picture/index_gpt.html" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+		<body style="overflow: hidden;">
+			<div id="main" style=" transform: scale(2500); position: absolute; left: 15000px;">
+				<a id="x" data-text="自分は頭がおかしいので、このリンクを開いてしまいました。" data-url="https://leekmikan.github.io/Tests/tweet/index.html" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+				<a id="y" data-text="この人の絵が下手すぎるwww" data-url="https://leekmikan.github.io/picture/index_gpt.html" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+			</div>
+			<h2 style="color:#fff; position: absolute;">画面クリックでゲーム開始...</h2>
+			<script>
+			if(Math.random() > 0.8) {
+				document.getElementById("x").remove();
+			}else{
+				document.getElementById("y").remove();
+			}
+			</script>
+			<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 		</body>
-	<script>if(Math.random() > 0.5) document.getElementById("x").click(); else document.getElementById("y").click();</script>
 </html>
