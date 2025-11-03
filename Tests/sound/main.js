@@ -11,7 +11,6 @@ gain.value = 0.5;
 gain.connect(ctx.destination);
 window.addEventListener('load', function(){
     opt();
-    init();
     start = true;
 });
 function init(){
@@ -62,6 +61,7 @@ function opt(){
     if(wh % 2 == 1) wh++;
     document.getElementById("canvas").width = wh;
     document.getElementById("canvas").height = wh;
+    init();
 }
 window.onclick = function(){
     makewave();
