@@ -42,23 +42,13 @@ function init(){
             console.error(err);
         }
     }
-    function stopCamera(){
-    const video = document.getElementById('video');
-    const tracks = video.srcObject.getTracks();
-    tracks.forEach((track) => {
-            track.stop();
-    });
-    video.srcObject = null;
-    }
     //初期処理
     startCamera(constraints);
 }
 function opt(){
-    if(sample != 0) window.onload.stopCamera();
     sample = Number(document.getElementById("sp").value);
     fps = Number(document.getElementById("fps").value);
     wh = Math.ceil(Math.sqrt(sample / fps));
-    if(wh % 2 == 1) wh++;
     document.getElementById("canvas").width = wh;
     document.getElementById("canvas").height = wh;
     init();
@@ -95,6 +85,6 @@ function makewave(){
         source.onended = makewave;
         source.connect(gain);
         source.start(tm);
-        tm += 3 * wh * wh / 2 / sample;
+        tm += 3 * wh * wh / 2 / sample / 1.001;
     }
 }
