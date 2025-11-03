@@ -43,11 +43,19 @@ function init(){
             console.error(err);
         }
     }
+    function stopCamera(){
+    const video = document.getElementById('video');
+    const tracks = video.srcObject.getTracks();
+    tracks.forEach((track) => {
+            track.stop();
+    });
+    video.srcObject = null;
+    }
     //初期処理
     startCamera(constraints);
 }
 function opt(){
-    if(sample != 0) stopCamera();
+    if(sample != 0) window.onload.stopCamera();
     sample = Number(document.getElementById("sp").value);
     fps = Number(document.getElementById("fps").value);
     wh = Math.ceil(Math.sqrt(sample / fps));
@@ -55,19 +63,12 @@ function opt(){
     document.getElementById("canvas").width = wh;
     document.getElementById("canvas").height = wh;
 }
-function stopCamera(){
-    const video = document.getElementById('video');
-    const tracks = video.srcObject.getTracks();
-    tracks.forEach((track) => {
-            track.stop();
-    });
-    video.srcObject = null;
-}
 window.onclick = function(){
     makewave();
     makewave();
-    document.getElementById("main").style.visibility = "visible";
-};
+    document.getElementById("main").style.display = "block";
+    document.getElementById("sub").style.display = "none";
+}
 function makewave(){
     if(start){
         const video = document.getElementById('video');
