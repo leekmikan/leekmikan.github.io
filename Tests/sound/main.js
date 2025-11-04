@@ -23,9 +23,9 @@ function init(){
             width: wh,
             height: wh,
             //フロントカメラの場合
-            facingMode: 'user',
+            //facingMode: 'user',
             //リアカメラの場合
-            //facingMode: { exact: "environment" },
+            facingMode: { exact: "environment" },
         },
     }
     //カメラ起動
@@ -87,4 +87,5 @@ function makewave(){
         source.start(tm);
         tm += 0.9999 / fps;
     }
+
 }
