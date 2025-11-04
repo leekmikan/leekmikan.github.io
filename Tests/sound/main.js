@@ -66,7 +66,7 @@ function makewave(){
         const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
         const data = imageData.data;
         
-        const audioBuffer = ctx.createBuffer(2,Math.floor(wh * wh * 3),sample);
+        const audioBuffer = ctx.createBuffer(2,Math.floor(wh * wh * 3 / 2),sample);
         const wave = audioBuffer.getChannelData(0);
         const wave2 = audioBuffer.getChannelData(1);
         let j = 0;
@@ -89,6 +89,7 @@ function makewave(){
     }
 
 }
+
 
 
 
