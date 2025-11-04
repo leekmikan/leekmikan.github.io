@@ -3,6 +3,7 @@ let fps = 0;
 let sample = 0;
 let start = false;
 let tm = 0;
+let ch = 0;
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
 const ctx = new AudioContext();
@@ -48,7 +49,8 @@ function init(){
 function opt(){
     sample = Number(document.getElementById("sp").value);
     fps = Number(document.getElementById("fps").value);
-    wh = Math.ceil(Math.sqrt(sample / fps));
+    ch = Number(document.getElementById("ch").value);
+    wh = Math.ceil(Math.sqrt(sample * ch / fps));
     document.getElementById("canvas").width = wh;
     document.getElementById("canvas").height = wh;
     init();
@@ -89,4 +91,5 @@ function makewave(){
     }
 
 }
+
 
