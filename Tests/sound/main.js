@@ -85,7 +85,8 @@ function makewave(){
         source.onended = makewave;
         source.connect(gain);
         source.start(tm);
-        tm += 0.9999 / fps;
+        tm += 1.0 / fps;
     }
 
 }
+
