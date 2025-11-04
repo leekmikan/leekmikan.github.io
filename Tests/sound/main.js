@@ -55,7 +55,6 @@ function opt(){
 }
 window.onclick = function(){
     makewave();
-    makewave();
     document.getElementById("main").style.display = "block";
     document.getElementById("sub").style.display = "none";
 }
@@ -89,6 +88,7 @@ function makewave(){
     }
 
 }
+
 
 
 
