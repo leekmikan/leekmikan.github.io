@@ -55,6 +55,7 @@ function opt(){
 }
 window.onclick = function(){
     makewave();
+    makewave();
     document.getElementById("main").style.display = "block";
     document.getElementById("sub").style.display = "none";
 }
@@ -84,10 +85,11 @@ function makewave(){
         source.onended = makewave;
         source.connect(gain);
         source.start(tm);
-        tm += 1.0 / fps;
+        tm += 1.001 / fps;
     }
 
 }
+
 
 
 
