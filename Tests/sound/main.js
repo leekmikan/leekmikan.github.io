@@ -48,7 +48,7 @@ function init(){
 function opt(){
     sample = Number(document.getElementById("sp").value);
     fps = Number(document.getElementById("fps").value);
-    wh = Math.ceil(Math.sqrt(sample * 2 / fps / 3));
+    wh = Math.round(Math.sqrt(sample * 2 / fps / 3));
     document.getElementById("canvas").width = wh;
     document.getElementById("canvas").height = wh;
     init();
@@ -89,6 +89,7 @@ function makewave(){
     }
 
 }
+
 
 
 
