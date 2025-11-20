@@ -27,11 +27,14 @@ function Random_Search(id){
     }while(btn.innerText == "この中でランダム表示")
     btn.onclick();
 }
-window.addEventListener('unload', function () {
-    if (window.localStorage) {
-		let tmp = JSON.stringify(Radio_Val(), undefined, 1);
-		localStorage.setItem('mikumiku_radio', tmp);
-	}
+/*
+window.addEventListener('pagehide', (event) => {
+    if (!event.persisted) {
+      if (window.localStorage) {
+  		let tmp = JSON.stringify(Radio_Val(), undefined, 1);
+  		localStorage.setItem('mikumiku_radio', tmp);
+  	}
+  }
 });
 if (window.localStorage) {
 	let tmp = 0;
@@ -41,6 +44,7 @@ if (window.localStorage) {
 		document.getElementsByTagName("input")[Number(tmp)].click();
 	}
 }
+*/
 function Show_Title(){
     let btns = document.getElementsByTagName("button");
     for(let btn of btns){
