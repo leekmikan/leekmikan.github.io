@@ -53,6 +53,7 @@
 				<p>(長調の曲で-3に設定すると、短調になる。短調の曲で+3に設定すると、長調になる。</p>
 				<h2>その他スケール指定</h2>
 				<p>※5音しかないものは、近くの音階とくっつけています</p>
+				<p>※各スケールの細かい条件は無視しています。(同じ音が連続しないなど)</p>
 				<h3>現在のスケール：<span id="sc">通常</span></h3>
 				<div id="scb">
 					<button onclick="change_s(0)">通常</button>
@@ -87,8 +88,9 @@
 					<button onclick="change_s(29)">エオリアン♭5スケール</button>
 					<button onclick="change_s(30)">オルタードスケール</button>
 					<button onclick="change_s(31)">メジャー・ブルース・スケール</button>
-					<button onclick="change_s(32)">ハンガリアン・メジャー・スケール</button><br><br>
-					<button onclick="change_s(33)">カスタム</button><br>
+					<button onclick="change_s(32)">ハンガリアン・メジャー・スケール</button>
+					<button onclick="change_s(33)">インド音階</button><br><br>
+					<button onclick="change_s(34)">カスタム</button><br>
 					<p>---カスタム用設定---</p>
 					<p>任意の音階の高さをずらします。範囲は半音-6~+6</p>
 					<p>ランダムを指定した音階は, 半音-6~+6の範囲でランダムにずれます。(どうぶつの森のモの音階みたいな)</p>
@@ -109,7 +111,16 @@
 				<h2>テンプレート</h2>
 				<button onclick="egshow(0)">ドレミファソラシド</button>
 				<button onclick="egshow(1)">カノン(リコーダー)</button>
-				<button onclick="egshow(2)">蛍の光(リコーダー+ピアノ)</button><br><br>
+				<button onclick="egshow(2)">蛍の光(リコーダー+ピアノ)</button>
+				<button onclick="egshow(3)">テスト1</button>
+				<button onclick="egshow(4)">テスト2</button>
+				<button onclick="egshow(5)">テスト3</button>
+				<button onclick="egshow(6)">テスト4</button>
+				<button onclick="egshow(7)">テスト5</button>
+				<button onclick="egshow(8)">テスト6</button>
+				<button onclick="egshow(9)">テスト7</button>
+				<button onclick="egshow(10)">テスト8</button><br><br>
+				<br><br>
 				<button onclick="Mexport()" id="exp">生成</button>
 				<br><br><p>設定適用後の調の変化(曲開始時の調)</p>
 				<h3 id="cname">Cメジャー　→　Cメジャー<br>Aマイナー　→　Aマイナー</h3>
@@ -118,7 +129,7 @@
 			<p>C#で作ったテキストファイルからMIDIファイルを作成するプログラムの移植版</p>
 			<p><a href="https://leekmikan.github.io/pg/index.html">元のプログラム(exeファイル　C#)はこちら</a></p>
 			<p><a href="Mid.js">JavaScriptコードはこちら</a></p>
-			<h1>命令一覧</h1>
+			<h2>命令一覧</h2>
 			<div>
 				<p>命令は太鼓さん次郎に近い形式</p>
 				<p>音階はカンマ、命令はセミコロンまたは改行区切りで入力　　　<p>
@@ -139,7 +150,7 @@
 				<p>　'...コメント</p>
 				<p>　|...和音</p>
 			</div>
-			<h1>使用例</h1>
+			<h2>使用例</h2>
 			<h2>0.最初に書いておくと良いもの</h2>
 			<p>#BPM 120;<br>#SF 0;<br>#POWER 96;<br>#TONE 0;</p>
 			<h2>1.通常の音符</h2>
@@ -157,7 +168,7 @@
 			<h2>6.パート分け</h2>
 			<p>#HU 1;C4,<br>#CH 2;#HU 1;E3,</p>
 			<p>BPMと調号は、すべてのパートの最初に書いておくとミスが減る(変化なくても)</p>
-		<h1>いろいろな音符の長さ(メモ)</h1>
+		<h2>いろいろな音符の長さ(メモ)</h2>
 		<p>8分音符+4分音符=3/8</p>
 		<p>8分音符,8分音符(8分音符×2=[4分音符+8分音符](3連付))　=2/12,1/12　　...★</p>
 		<p>★の左の8音符+通常の8分音符=7/24</p>
