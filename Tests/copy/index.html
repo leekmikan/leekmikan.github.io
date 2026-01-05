@@ -1,1 +1,45 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	<meta charset="utf-8">
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	<title>コピー対策用</title>
+	<meta name="description" content="コピー対策用">
+	</head>
+		<body>
+			<div style="text-align: center;"><h1>かわいいミクたち</h1><p>ダウンロードして大画面&高画質で眺めよう！</p></div>
+			<div style="text-align: center; position: relative;" id="img_obj">
+				<canvas id="cv" width="300" height="150"></canvas>
+				<img id="img_f"src="XF2.png" style="position: absolute; ">
+			</div>
+			<script>
+				const canvas = document.getElementById("cv");
+				const ctx = canvas.getContext("2d");
+				const image = new Image();
+				window.onload = () => {
+					canvas.width = document.getElementById("img_f").width;
+					canvas.height = document.getElementById("img_f").height;
+					image.src = 'XCF2.png';
+				}	
+				image.onload = () => {
+					ctx.drawImage(image, 0, 0);
+				};
+				setInterval(function(){
+					if(document.getElementById("img_f") === null){
+					var newElement = document.createElement("img");
+					newElement.src = "XF2.png";
+					newElement.setAttribute("id","img_f");
+					var parentDiv = document.getElementById("img_obj");
+					parentDiv.appendChild(newElement);
+					}
+					document.getElementById("img_f").style = "position: absolute; scale: 0.5; left:" + (document.body.clientWidth / 2 - 480) + "px;top: -150px";
+					canvas.style.position = "absolute";
+					canvas.style.scale = "0.5";
+					canvas.style.left = (document.body.clientWidth / 2 - 480) + "px";
+					canvas.style.top = "-150px";
+				}, 30);
+			</script>
+		</body>
+</html>
