@@ -11,6 +11,9 @@
     border: 2px solid #000;
     border-radius: 10px;
 }
+.nx{
+    background: #ff006a!important;
+}
 .item img{
     margin-top: 10px;
     width: 60%!important;
