@@ -4,3 +4,9 @@ thead{
 table{
     margin: auto;
 }
+.fast{
+    background: #80FF80;
+}
+.late{
+    background: #FF8080;
+}
