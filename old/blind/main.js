@@ -34,6 +34,7 @@ setInterval(function(){
 			document.body.style.backgroundSize = esize + "px";
 			if(esize > 50)esize = 0;
 			if(music.currentTime >  11){
+				document.getElementsByClassName("other")[0].style.display = "block";
 				now = "cont";
 				document.getElementById("cont").style.display = "block";
 				document.body.style.background = "#000000";
@@ -260,6 +261,7 @@ function Pmove(x,y){
 	}
 	for(var i = 0;i < cf.enemy.length;i++){
 		if(cf.player[0] == cf.enemy[i][0] && cf.player[1] == cf.enemy[i][1]){
+			document.getElementsByClassName("other")[0].style.display = "none";
 			Gameover();
 			break;
 		}

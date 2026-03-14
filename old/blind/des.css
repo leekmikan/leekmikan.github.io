@@ -15,8 +15,8 @@ button{
 .flb{
 	margin: 10px 10px;
 	font-size: 20px;
-	width: 200px;
-	height: 100px;
+	width: 20vw;
+	height: 15vw;
 	background: linear-gradient(to top left, #000000, #600000);
 }
 .flb:hover{
@@ -26,8 +26,8 @@ button{
 	color: #000000;
 	margin: 10px 10px;
 	font-size: 20px;
-	width: 200px;
-	height: 100px;
+	width: 20vw;
+	height: 15vw;
 	background: linear-gradient(to top left, #00FF00, #FFFFFF);
 }
 .shop:hover{
@@ -35,9 +35,9 @@ button{
 }
 .tab{
 	color: #000000;
-	margin: 10px 10px;
+	margin: 5px 5px;
 	font-size: 20px;
-	width: 200px;
+	width: 28vw;
 	height: 40px;
 	background: linear-gradient(to top left, #00FFFF, #FFFFFF);
 }
@@ -45,10 +45,10 @@ button{
 	background: #FFFFFF;
 }
 .cont{
-	margin: 10px 10px;
+	margin: 5px 5px;
 	font-size: 20px;
-	width: 200px;
-	height: 100px;
+	width: 20vw;
+	height: 15vw;
 	background: linear-gradient(to top left, #000000, #600000);
 }
 .cont:hover{
