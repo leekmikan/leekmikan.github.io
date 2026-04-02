@@ -130,7 +130,9 @@ body{
 
 /* Accessibility focus styles */
 :focus{outline:3px solid rgba(107,79,58,0.12);outline-offset:3px}
-
+.sns img{
+  margin-right: 30px;
+}
 /* Responsive tweaks */
 @media (max-width:880px){
   .spotlight{grid-template-columns:1fr}
