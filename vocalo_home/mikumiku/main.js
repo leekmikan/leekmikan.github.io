@@ -20,7 +20,7 @@ function Radio_Val(){
 function Random_Search(id){
     if(id == -1) id = Math.floor(Math.random() * (document.getElementsByClassName("main").length - 1));
     id++;
-    let btns = (id >= 0) ? document.getElementsByClassName("main")[id].getElementsByTagName("button") : document.getElementsByTagName("button");
+    let btns = (id >= 0) ? document.getElementsByClassName("main")[id].getElementsByTagName("button") : Array.prototype.slice.call( document.getElementsByTagName("button"), 7 );
     let btn = null;
     do{
         btn = btns[Math.floor(Math.random() * (btns.length - 2)) + 2];
