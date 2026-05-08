@@ -3,6 +3,9 @@ color: #000000;
 background-image: url(../img/akeome2024.jpg);
 background-size: cover;
 }
+p, h2, h4{
+  background: #00ffff80;
+}
 button{
 text-align:center;
 }
