@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns#">
+	<head>
+	<meta charset="uft-8">
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="下手な絵から元の短歌を予測し、相手よりもさきに10枚札を取ろう！">
+	<meta property="og:title" content="画伯の百人一首">
+	<meta property="og:type" content="website">
+	<meta property="og:description" content="下手な絵から元の短歌を予測し、相手よりもさきに10枚札を取ろう！">
+	<meta name="twitter:site" content="@mirilelumeka">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="og:url" content="https://leekmikan.github.io/picture/hyaku/Game.html">
+	<meta property="og:site_name" content="leekmikan(ねぎみかん)のホームページ">
+	<meta property="og:image" content="https://leekmikan.github.io/picture/img/hyaku/ogp.jpg">
+	<title>画伯の百人一首</title>
+	<link rel="stylesheet" href="des.css">
+	<script src="tanka.js"></script>
+	<script src="main.js"></script>
+	<link rel="icon" type="image/jpg" href="../../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+	</head>
+		<body>
+			<div id="sel_d" class="ct">
+				<h2>相手のつよさを選んでください</h2>
+				<button onclick="sel(0)" class="sel">よわい</button>
+				<button onclick="sel(1)" class="sel">ふつう</button>
+				<button onclick="sel(2)" class="sel">つよい</button>
+				<button onclick="sel(3)" class="sel">とてもつよい</button>
+				<button onclick="sel(4)" class="sel">さいきょう</button>
+			</div>
+			<div id="main" class="ct" style="display:none">
+				<h4 id="txt" class="txt"></h4>
+				<table id="field"></table>
+				<h2 id="score" >0-0</h2>
+				<p style="display:none" id="otetsuki">お手つき中　3秒間札を取れません</p>
+			</div>
+			<br><br>
+			<div class="ct">
+				<h2>ルール</h2>
+				<p>上の句と下の句を表す絵をみて、それにあう絵をクリックしよう！</p>
+				<p>相手よりもさきに10枚取ったら勝ち</p>
+				<p><a href="https://leekmikan.github.io/picture/ogura.html">参考などはここに</a></p>
+				<p><a href="https://leekmikan.github.io/picture/ogura2.html">参考などはここに</a></p>
+				<p>効果音：https://taira-komori.net/freesound.html</p>
+			</div>
+		</body>
+	</head>
+</html>

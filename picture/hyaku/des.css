@@ -1,0 +1,70 @@
+body{
+color: #000000;
+background-image: url(../img/akeome2024.jpg);
+background-size: cover;
+}
+button{
+text-align:center;
+}
+.ct{
+text-align:center;
+}
+.sel{
+text-align:center;
+  width: 15vw;
+  height: 8vw;
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #c6c6c6;/*ボタン色*/
+  color: #000000;
+  border: solid 0.8vw #717171;
+  font-size: 1.2vw;
+}
+.sel:hover{
+    background: #e4e4e4;/*ボタン色*/
+    border: solid 1vw #838383;
+}
+.sel:active{
+      background: #505050;/*ボタン色*/
+      border: solid 1vw #838383;
+}
+.txt{
+color: #FFFFFF;
+background: #000000;
+display: inline;
+writing-mode: vertical-rl;
+-ms-writing-mode: tb-rl;
+left: 50%;
+top: 50%;
+}
+table{
+margin: auto;
+}
+img{
+height: 10vw;
+border: 4px solid #000;
+}
+
+.nl{
+height: 10vw;
+border: 0px solid #000;
+}
+
+#score{
+color: #FFFFFF;
+background: #000000;
+margin: 0px;
+}
+#otetsuki{
+font-size: 80px;
+color: #0ff;
+-webkit-text-stroke: 2px #000;
+position: absolute;
+  top: 50%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  display:inline;
+}
