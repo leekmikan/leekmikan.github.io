@@ -1,64 +1,224 @@
-body{
-color: #000000;
-background: #A0FFFF;
+/* ==========================================================================
+   全体の設定
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-.title{
-text-align:center;
-color: #000000;
-background: #FFFF80;
-border: double 5px #4ec4d3;
+
+body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    background-color: #fcf9f6; /* 温かみのある薄いベージュ */
+    color: #333333;
+    line-height: 1.6;
+    padding: 20px 10px;
 }
-.main{
-color: #000000;
-background: #00FF80;
-border-radius: 10px;
+
+/* ==========================================================================
+   レイアウトコンテナ
+   ========================================================================== */
+.recipe-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
 }
-.tab{
-padding: 5px 0px;
-text-align:center;
-color: #000000;
-background: #0080FF;
-border-radius: 10px;
+
+/* ==========================================================================
+   ヘッダー部分
+   ========================================================================== */
+.recipe-header {
+    padding: 30px 24px 20px;
+    text-align: center;
 }
-img.tab_button{
-	vertical-align: middle;
-	width:209px;
-	height:149px;
+
+.category {
+    display: inline-block;
+    background-color: #e67e22;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
 }
-button.tab_button{
-	vertical-align: middle;
-	width:200px;
-	height:100px;
+
+.recipe-header h1 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 12px;
+    line-height: 1.3;
 }
-.tab_button:hover{
-	opacity:0.5;
-	cursor: pointer;
+
+.description {
+    font-size: 0.95rem;
+    color: #666666;
+    margin-bottom: 15px;
 }
-.tab_button:active{
-	position: relative;
-	top: 3px;
+
+.recipe-meta {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    border-top: 1px dashed #e0e0e0;
+    border-bottom: 1px dashed #e0e0e0;
+    padding: 8px 0;
 }
-.button_yellow{
-	border: solid 3px #E0E060;
-	background:radial-gradient(#D0D000, #FFFFC0);
+
+/* ==========================================================================
+   画像部分
+   ========================================================================== */
+.recipe-image img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    display: block;
 }
-.button_green{
-	border: solid 3px #50FF60;
-	background:radial-gradient(#00FF00, #A0FFC0);
+
+/* ==========================================================================
+   コンテンツ部分
+   ========================================================================== */
+.recipe-content {
+    padding: 30px 24px;
 }
-.button_blue{
-	border: solid 3px #80A0FF;
-	background:radial-gradient(#0040FF, #A0C0FF);
+
+h2 {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    border-left: 5px solid #e67e22;
+    padding-left: 10px;
+    margin-bottom: 20px;
 }
-.text_frame{
-    background: #B0FFD0;
-    border-left: double 10px #30C080;
-	width: fit-content;
-	padding: 0em 1em;
+
+/* 材料リスト */
+.ingredients-section {
+    margin-bottom: 40px;
 }
-div:not(.title){
-text-align:center;
+
+.servings {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-weight: normal;
 }
-div:not(.title) img{
-width: 20%;
+
+.ingredients-list {
+    list-style: none;
+}
+
+.ingredients-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f2f6;
+    font-size: 1rem;
+}
+
+.ingredients-list li:last-child {
+    border-bottom: none;
+}
+
+/* ==========================================================================
+   作り方リスト（画像対応版）
+   ========================================================================== */
+.steps-section {
+    margin-bottom: 20px;
+}
+
+.steps-list {
+    list-style: none;
+}
+
+.steps-list li {
+    display: flex;
+    margin-bottom: 30px; /* 手順ごとの余白を少し広げました */
+    align-items: flex-start;
+}
+
+.step-number {
+    background-color: #e67e22;
+    color: #ffffff;
+    font-weight: bold;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    margin-top: 2px;
+}
+
+/* テキストと画像をまとめるコンテナ */
+.step-body {
+    flex-grow: 1;
+}
+
+.step-text {
+    font-size: 1rem;
+    color: #333333;
+    margin-bottom: 12px; /* テキストと画像の間の余白 */
+}
+
+/* 手順画像の設定 */
+.step-image {
+    max-width: 100%; /* 横幅がいっぱいに広がらないように制限 */
+    width: 450px;    /* パソコン画面でのちょうどいいサイズ */
+}
+
+.step-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; /* 画像の角を少し丸くして柔らかい印象に */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* 軽い影をつけて写真を引き立てる */
+    display: block;
+}
+
+/* ==========================================================================
+   フッター部分（ワンポイント）
+   ========================================================================== */
+.recipe-footer {
+    background-color: #fff9f2;
+    padding: 24px;
+    border-top: 1px solid #ffecdb;
+}
+
+.recipe-footer h3 {
+    font-size: 1.1rem;
+    color: #e67e22;
+    margin-bottom: 8px;
+}
+
+.recipe-footer p {
+    font-size: 0.95rem;
+    color: #555555;
+}
+
+/* ==========================================================================
+   レスポンシブ対応（スマホ向け調整）
+   ========================================================================== */
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+    }
+    
+    .recipe-container {
+        border-radius: 0;
+        box-shadow: none;
+    }
+    
+    .recipe-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .recipe-content {
+        padding: 20px 16px;
+    }
 }
