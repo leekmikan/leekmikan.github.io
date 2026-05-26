@@ -1,1 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNS型放置ゲーム(仮)｜ミクの投稿でインプレッションを稼ごう！</title>
+  <link rel="stylesheet" href="des.css">
+</head>
+<body>
+  <div id="game">
+  <div class="tab">
+    <button class="normal" onclick="page=0;pg_change();">ツイート</button>
+    <button class="upgrade" id="sac_tab" onclick="page=1;pg_change();">炎上</button>
+    <button class="miku" id="miku_tab" onclick="page=2;pg_change();">ミク</button>
+    <button class="normal" onclick="page=3;pg_change();">その他</button>
+  </div>
+  <div class="resets">
+    <button id="miku_reset" class="miku_b miku" onclick="miku_reset()">今までの進捗をリセットしてネギ(Y)を獲得<br>+Y <span id="leek_get">0</span></button>
+  </div>
+  <div id="pg0">
+  <div class="container">
+    <div class="header">
+      <span>ツイート</span>
+    </div>
+    <div class="tweet-body">
+      <div class="profile">
+        <div class="avatar">み</div>
+        <div class="profile-info">
+          <strong>ユーザー名</strong>
+          <span>@miku_love · 2時間</span>
+        </div>
+      </div>
+      <div class="tweet-text">
+        ミク可愛い<br>
+      </div>
+      <div class="media">
+        <img src="https://leekmikan.github.io/vocalo_home/F.jpg" alt="ツイートの画像">
+      </div>
+      <div class="meta">
+        <span>2026年5月20日 · Web App</span>
+      </div>
+      <div class="stats">
+        <p>リプライ💭 <span class="n" id="reply">0</span></p>
+        <p>リツイート♲ <span class="n" id="retweets">0</span></p>
+        <p>いいね♥ <span class="n" id="likes">0</span></p>
+        <p>表示回数 ||| <span class="n" id="views">0</span></p>
+        <p>フォロワー👤 <span class="n" id="followers">0</span></p>
+        <p>お金💰 <span class="n" id="money">0</span></p>
+        <p>炎上🔥 <span class="n" id="fire">0</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="header">
+      <span>増加ペナルティー</span>
+    </div>
+      <div class="cap stats">
+        <p>#1 <span class="n" id="p1">100</span></p>
+        <p>#2 <span class="n" id="p2">^1</span></p>
+      </div>
+  </div>
 
+  <div class="upgs">
+    <button class="upg" onclick="player.views = eadd(player.views,0)">||| +1</button><br>
+  </div>
+  <div class="upgs">
+    <h2>表示回数アップグレード</h2><br>
+    <button class="upg" id="vupg0" onclick="vupg_buy(0)">いいねが付くようになる<br>価格：||| 100</button>
+    <button class="upg" id="vupg1" onclick="vupg_buy(1)">フォロワーが付くようになる<br>価格：||| 1000</button>
+    <button class="upg" id="vupg2" onclick="vupg_buy(2)">炎上に応じていいねが増加<br>価格：||| 1億</button>
+    <button class="upg" id="vupg3" onclick="vupg_buy(3)">表示回数に応じてお金を稼ぐ<br>価格：||| 1兆</button><br>
+  </div>
+
+  <div class="upgs">
+    <h2>いいねアップグレード</h2><br>
+    <button class="upg" id="lupg0" onclick="lupg_buy(0)">♥の数に応じて|||が増加<br>価格：♥ 100</button>
+    <button class="upg" id="lupg1" onclick="lupg_buy(1)">リツイートが付くようになる<br>価格：♥ 1万</button>
+    <button class="upg" id="lupg2" onclick="lupg_buy(2)">リツイートの増加式改良<br>価格：♥ 1000万</button>
+    <button class="upg" id="lupg3" onclick="lupg_buy(3)">炎上倍率が自動で更新<br>価格：♥ 1e390</button><br>
+  </div>
+
+  <div class="upgs">
+    <h2>フォロワーアップグレード</h2><br>
+    <button class="upg" id="fupg0" onclick="fupg_buy(0)">炎上商法を覚える<br>価格：👤 20</button>
+    <button class="upg" id="fupg1" onclick="fupg_buy(1)">リプが付くようになる<br>価格：👤 100</button>
+    <button class="upg" id="fupg2" onclick="fupg_buy(2)">いいねの増加式改良<br>価格：👤 1000</button>
+  </div>
+  <div class="upgs" id="moneytab">
+    <h2>お金アップグレード</h2><br>
+    <button class="upg yb" id="mupgr" onclick="mupg_reset(true)">購入状況をリセット<br>💰は返ってこない</button><br>
+    <button class="upg" id="mupg0" onclick="mupg_buy(0)">表示回数を買う(^+<span id="mupg0_val">1</span>)<br>価格：💰 <span id="mupg_cost0">100</span></button>
+    <button class="upg" id="mupg1" onclick="mupg_buy(1)">いいねを買う(^+<span id="mupg1_val">1</span>)<br>価格：💰 <span id="mupg_cost1">100</span></button>
+    <button class="upg" id="mupg2" onclick="mupg_buy(2)">フォロワーを買う(^+<span id="mupg2_val">1</span>)<br>価格：💰 <span id="mupg_cost2">100</span></button>
+    <button class="upg" id="mupg3" onclick="mupg_buy(3)">資産運用をする(^+<span id="mupg3_val">1</span>)<br>価格：💰 <span id="mupg_cost3">100</span></button><br>
+    <p>リセット/アップグレードすると、炎上ボーナスが加算されない炎上が実行されます。</p>
+    <p>ヒント：逆効果になる場合あり</p>
+  </div>
+  </div>
+  <div id="pg1">
+  <div class="upgs">
+    <h2>炎上商法</h2><br>
+    <button class="sac sac_b" id="sac" onclick="sacrifice()">炎上してフォロワーを全員捨て(S)<br>ツイートし直す(💰関係以外リセット)<br><br>代わりに閲覧数増加率を上げる<br><br><span id="sacv">×1.0→×1.0</span></button>
+    <p>到達ボーナス：リセット時に ||| 101 獲得</p>
+  </div>
+  </div>
+  <div id="pg2">
+  <div class="upgs" id="mikutab">
+    <h2>初音ミク</h2><br>
+    <h2>ミクアップグレード</h2>
+    <p>Y×<span id="leek_val">0</span></p>
+    <button class="upg" id="mkupg0" onclick="mkupg_buy(0)">表示回数が1億倍<br><br>価格：Y 1</button>
+    <button class="upg" id="mkupg1" onclick="mkupg_buy(1)">いいねアップグレード3つ目を強化<br>価格：Y 10</button>
+    <button class="upg" id="mkupg2" onclick="mkupg_buy(2)">ネギの数に応じて#1が弱体化<br><br>価格：Y 200</button>
+    <button class="upg" id="mkupg3" onclick="mkupg_buy(3)">アップグレード購入自動化<br><span id="auto_buy">OFF</span><br>価格：Y 1正</button><br>
+    <button class="upg" id="mkupg4" onclick="mkupg_buy(4)">リツイート数^2<br><br>価格：Y 1恒河沙</button>
+    <button class="upg" id="mkupg5" onclick="mkupg_buy(5)">獲得予定のネギの1%を常に貰える<br>価格：Y 1無量大数</button>
+    <button class="upg" id="mkupg6" onclick="mkupg_buy(6)">創作の輪が解放<br><br>価格：Y 10無量大数</button>
+    <button class="upg" id="mkupg7" onclick="mkupg_buy(7)">ゲームクリア！！！<br><br>価格：Y 1e3939</button><br>
+    <p>到達ボーナス：炎上によるアップグレードリセットがされない</p>
+
+    <div id="creator">
+      <h2>創作の輪</h2><br>
+      <div class="creator_block">
+        <div class="song">
+            <h3>音楽</h3>
+            <p>♥に応じて強化</p>
+            <p>曲数: <span id="song_count">1</span></p>
+            <p>#2の増加遅延<br>×<span id="song_power">1</span></p>
+            <button class="upg" id="crupg0" onclick="crupg_buy(0)">強化(+<span id="crupg_val0">0</span>)<br><br>価格：Y <span id="crupg_cost0">1e72</span></button>
+        </div>
+        <div class="art">
+          <h3>イラスト</h3>
+            <p>👤に応じて強化</p>
+            <p>イラスト数: <span id="art_count">1</span></p>
+            <p>💰アップグレード<br>×<span id="art_power">1</span></p>
+            <button class="upg" id="crupg1" onclick="crupg_buy(1)">強化(+<span id="crupg_val1">0</span>)<br><br>価格：Y <span id="crupg_cost1">1e100</span></button>
+        </div>
+        <div class="mmd">
+          <h3>MMD動画</h3>
+          <p>♲に応じて強化</p>
+          <p>MMD動画数: <span id="mmd_count">1</span></p>
+          <p>「表示回数を買う」のペナルティーへの影響度<br>/<span id="mmd_power">1</span></p>
+          <button class="upg" id="crupg2" onclick="crupg_buy(2)">強化(+<span id="crupg_val2">0</span>)<br><br>価格：Y <span id="crupg_cost2">1e150</span></button>
+        </div>
+        </div>
+    </div>
+  </div>
+  </div>
+  <div id="pg3">
+    <div class="upgs">
+      <h2>セーブ/ロード/コピー</h2><br>
+      <button class="upg" onclick="save()">セーブ</button>
+      <button class="upg" onclick="import_save()">ロード</button>
+      <button class="upg" onclick="export_save()">クリップボードにコピー</button>
+      <button class="upg" onclick="delete_save()">セーブデータを消去</button>
+      <p>※オフラインの計算はしません！</p>
+      <h2>コメント</h2>
+      <p>まだいろいろと仮状態</p>
+    </div>
+    </div>
+</div>
+<div id="win">
+  <h1>ゲームクリア！！！</h1>
+  <p>おめでとうございます！あなたはこのゲームをクリアしました！</p>
+</div>
+  <script src="main.js"></script>
+</body>
+</html>
+<!--???-->
