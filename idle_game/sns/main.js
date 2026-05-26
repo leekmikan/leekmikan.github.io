@@ -20,7 +20,7 @@ player = {
 const jp_n = ["","万","億","兆","京","垓","秭","穣","溝","澗","正","載","極","恒河沙","阿僧祇","那由他","不可思議","無量大数"];
 const digit = 3;
 
-const vupgs = [1,3,8,12];
+const vupgs = [2,3,8,12];
 const lupgs = [2,4,7,390];
 const fupgs = [1 + Math.log10(2),2,3];
 const mkupgs = [0,1,Math.log10(200),40,52,68,69,3939];
