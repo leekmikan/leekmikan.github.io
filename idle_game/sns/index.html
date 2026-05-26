@@ -117,6 +117,7 @@
     <button class="upg" id="mkupg6" onclick="mkupg_buy(6)">創作の輪を解放<br><br>価格：Y 10無量大数</button>
     <button class="upg" id="mkupg7" onclick="mkupg_buy(7)">ゲームクリア！！！<br><br>価格：Y 1e3939</button><br>
     <p>到達ボーナス：炎上によるアップグレードリセットがされない</p>
+    <p>注意：Y 1e3939 超えると、ほとんどの機能が停止します！</p>
 
     <div id="creator">
       <h2>創作の輪</h2><br>
@@ -159,12 +160,15 @@
       <p>まだいろいろと仮状態</p>
       <p>バランス未調整(多分2時間くらいでクリアできます...)</p>
       <p>サクサク進むはずなので多分初心者向け</p>
+      <p>3日くらいで作ったので全体的に雑になってるのは許して！</p>
     </div>
     </div>
 </div>
 <div id="win">
   <h1>ゲームクリア！！！</h1>
   <p>おめでとうございます！あなたはこのゲームをクリアしました！</p>
+  <button class="upg" onclick="export_save()">クリップボードにコピー</button>
+  <button class="upg" onclick="delete_save()">セーブデータを消去</button>
 </div>
   <script src="main.js"></script>
 </body>
