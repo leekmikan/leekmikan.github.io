@@ -236,10 +236,8 @@ body {
 .tab button{
     width: 150px;
     height: 40px;
-    border: none;
     margin-right: 10px;
     margin-top: 10px;
-    cursor: pointer;
 }
 
 .normal{
@@ -254,6 +252,30 @@ body {
 
 .miku{
     background: rgb(169, 17, 70);
-    color:  #11e37a; ;
+    color:  #11e37a;
     border-color: #3ca69f;
+}
+
+.chg_button{
+    width: 500px;
+    height: 140px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.chg{
+    background: #fbf70f;
+    color:  #000;
+    border-color: #5f6e00;
+}
+
+.chg_e{
+    background: #5f6e00;
+    color:  #fff;
+    border-color: #5f6e00;
+}
+
+#challenge_power{
+    font-size: 36px;
+    color: #5f6e00;
 }

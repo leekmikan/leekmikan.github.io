@@ -1,3 +1,27 @@
+/*
+player = {
+    reply: -Infinity,
+    retweets: -Infinity,
+    likes: -Infinity,
+    followers: -Infinity,
+    views: 3,
+    money: -Infinity,
+    leeks: 4195,
+    vupgsb: 0,
+    lupgsb: 0,
+    fupgsb: 0,
+    mkupgsb: 255,
+    reach_miku: true,
+    auto_buy: true,
+    mupgs:[0,0,0,0],
+    creator: [0,0,0],
+    creator_upgs: [0,0,0],
+    chg_records: [11500,495,73,7200,2941,6.89],
+    chgbits: 0,
+    sacrifice: -Infinity,
+    c4t : 0,
+}
+*/
 player = {
     reply: -Infinity,
     retweets: -Infinity,
@@ -15,7 +39,10 @@ player = {
     mupgs:[0,0,0,0],
     creator: [0,0,0],
     creator_upgs: [0,0,0],
+    chg_records: [-Infinity,-Infinity,-Infinity,-Infinity,-Infinity,-Infinity],
+    chgbits: 0,
     sacrifice: -Infinity,
+    c4t : 0,
 }
 const jp_n = ["","万","億","兆","京","垓","秭","穣","溝","澗","正","載","極","恒河沙","阿僧祇","那由他","不可思議","無量大数"];
 const digit = 3;
@@ -23,9 +50,10 @@ const digit = 3;
 const vupgs = [2,3,8,12];
 const lupgs = [2,4,7,390];
 const fupgs = [1 + Math.log10(2),2,3];
-const mkupgs = [0,1,Math.log10(200),40,52,68,69,3939];
-const crupgs = [72,100,150];
-const crupgse = [1.3,1.5,2];
+const mkupgs = [0,1,Math.log10(200),40,52,68,69,90,3939];
+const crupgs = [72,200,150];
+const crupgse = [2,6,4];
+const chg_goals = [2900,1024 * Math.log10(2),72,4780,2940,6.33];
 let page = 0;
 function d(x){
     if(x == -Infinity) return 0;
@@ -65,43 +93,66 @@ function efloor(x){
 }
 
 function updates(){
-    if(player.mkupgsb & 64){
-        let eachm = [Math.log10(Math.log10(player.creator[0] + 1) + 1),Math.log10(Math.log10(player.creator[1] + 1) + 1),Math.log10(Math.log10(player.creator[2] + 1) + 1)];
-        player.creator[0] += Math.log10(Math.log10(Math.max(player.likes / 10 + eachm[1] + eachm[2], 0) + 1) + 1) / Math.pow(Math.log10(player.creator[0] * 5 + 10),2);
-        player.creator[1] += Math.log10(Math.log10(Math.max(player.followers / 10 + eachm[0] + eachm[2], 0) + 1) + 1) / Math.pow(Math.log10(player.creator[1] * 5 + 10),2);
-        player.creator[2] += Math.log10(Math.log10(Math.max(player.retweets / 10 + eachm[0] + eachm[1], 0) + 1) + 1) / Math.pow(Math.log10(player.creator[2] * 5+ 10),2);
+    let sump = get_sump();
+    if(!(player.chgbits & 48)){
+        let eachm = [Math.log10(Math.log10(player.creator[0] + 1) + 1) / 10,Math.log10(Math.log10(player.creator[1] + 1) + 1) / 10,Math.log10(Math.log10(player.creator[2] + 1) + 1) / 10];
+        player.creator[0] += Math.log10(Math.log10(Math.max(player.likes / 100 + eachm[1] + eachm[2], 0) + 1) + 1) / Math.pow(Math.log10(player.creator[0] * 5 + 100),4);
+        player.creator[1] += Math.log10(Math.log10(Math.max(player.followers / 100 + eachm[0] + eachm[2], 0) + 1) + 1) / Math.pow(Math.log10(player.creator[1] * 5 + 100),4);
+        player.creator[2] += Math.log10(Math.log10(Math.max(player.retweets / 100 + eachm[0] + eachm[1], 0) + 1) + 1) / Math.pow(Math.log10(player.creator[2] * 5+ 100),4);
+        if(player.chgbits != 0) for(let i = 0;i < player.chg_records.length;i++) player.creator[i] = Math.min(player.creator[i],44);
     }
     if(player.lupgsb & 8) player.sacrifice = eadd(player.sacrifice,player.followers);
     if(player.fupgsb & 2) player.reply = eadd(player.reply,player.sacrifice / 10);
     let lmult = 0;
     if(player.vupgsb & 4) lmult += player.sacrifice < 0 ? 0 : Math.pow(player.sacrifice,0.8);
-    if(player.vupgsb & 1) player.likes = eadd(player.likes,(Math.log10(player.views / 2 + 1) * (player.fupgsb & 4 ? 3 : 1) - 1 + lmult) * (player.mupgs[1] * Math.pow(Math.log10(player.creator[1] / 33 + 10),1 + player.creator_upgs[1]) + 1));
-    if(player.vupgsb & 2) player.followers = eadd(player.followers,(player.likes / 3 - 1) * (player.mupgs[2] * Math.pow(Math.log10(player.creator[1] / 33 + 10),1 + player.creator_upgs[1]) + 1));
+    if(player.vupgsb & 1) player.likes = eadd(player.likes,(Math.log10(player.views / 2 + 1) * (player.fupgsb & 4 ? 3 : 1) - 1 + lmult) * (player.mupgs[1] * Math.pow(Math.log10(player.creator[1] * sump / 200 + 10),1 + player.creator_upgs[1]) + 1));
+    if(player.vupgsb & 2) player.followers = eadd(player.followers,(player.likes / 3 - 1) * (player.mupgs[2] * Math.pow(Math.log10(player.creator[1] * sump / 200 + 10),1 + player.creator_upgs[1]) + 1) + (player.chgbits & 32 ? Math.log10(20) : 0));
     let rpow = 0.01;
     if(player.lupgsb & 4) rpow = player.mkupgsb & 2 ? 0.5 : 0.1;
     if(player.mkupgsb & 2) rpow = 0.5;
     if(player.lupgsb & 2) player.retweets = eadd(player.retweets,(Math.pow(Math.max(player.likes + player.followers,0),rpow) - 2) * (player.mkupgsb & 16 ? 2 : 1));
-    if(player.vupgsb & 8) player.money = eadd(player.money,(player.views / 12 - 1) * (player.mupgs[3] * Math.pow(Math.log10(player.creator[1] / 33 + 10),1 + player.creator_upgs[1]) + 1));
+    if(player.vupgsb & 8) player.money = eadd(player.money,(player.views / 12 - 1) * (player.mupgs[3] * Math.pow(Math.log10(player.creator[1] * sump / 200 + 10),1 + player.creator_upgs[1]) + 1));
     let vmult = 0;
     let sacmult = 5;
     vmult += player.sacrifice < 0 ? 0 : 1 + Math.sqrt(player.sacrifice) * sacmult;
     if(player.mkupgsb & 1) vmult += 8;
     if(player.lupgsb & 1) vmult += player.likes < 0 ? 0 : player.likes;
 
-    let tmp = (player.likes - 1 + (player.retweets < 0 ? 0 : player.retweets) * 5 + vmult) * Math.pow(player.mupgs[0] * Math.pow(Math.log10(player.creator[1] / 33 + 10),1 + player.creator_upgs[1]) + 1,0.5 / Math.pow(Math.log10(player.creator[2] / 1 + 10),1 + player.creator_upgs[2]));
+    let tmp = (player.likes - 1 + (player.retweets < 0 ? 0 : player.retweets) * 5 + vmult) * Math.pow(player.mupgs[0] * Math.pow(Math.log10(player.creator[1] * sump / 200 + 10),1 + player.creator_upgs[1]) + 1,0.5 / Math.pow(Math.log10(player.creator[2] * sump / 1  + 10),1 + player.creator_upgs[2]));
     let p1 = 0.4 * (eadd(tmp,0) - Math.log10(eadd(tmp,0) + 1));
+    if(player.chgbits & 40) p1 += player.c4t * 20;
     if(player.mkupgsb & 4) p1 = Math.pow(p1,1/(Math.log10(player.leeks * 2 + 1) + 1));
     let p2 = 1;
     let p2_start = 308;
-    if(player.mkupgsb & 64) p2_start *= Math.pow(Math.log10(player.creator[0] / 10 + 10),1 + player.creator_upgs[0]);
+    if(player.mkupgsb & 64) p2_start *= Math.pow(Math.log10(player.creator[0] * sump / 10 + 10),1 + player.creator_upgs[0]);
     if(tmp >= p2_start) p2 = 1 + (tmp - p2_start) / 1000;
+     if(player.chgbits & 40) p2 += player.c4t * 0.01;
     gid("p1").innerText = "/" + d(p1);
     gid("p2").innerText = "^1/" + p2.toFixed(digit);
 
-    player.views = eadd(player.views,(player.likes - 1 + (player.retweets < 0 ? 0 : player.retweets) * 5 - p1 + vmult) * (player.mupgs[0] * Math.pow(Math.log10(player.creator[1] / 33 + 10),1 + player.creator_upgs[1]) + 1) / p2);
+    player.views = eadd(player.views,(player.likes - 1 + (player.retweets < 0 ? 0 : player.retweets) * 5 - p1 + vmult) * (player.mupgs[0] * Math.pow(Math.log10(player.creator[1] * sump / 200 + 10),1 + player.creator_upgs[1]) + 1) / p2);
 }
 
 function display(){
+    let sump = 1;
+    if(player.mkupgsb & 128){
+        for(let i = 0;i < 6;i++){
+            if(player.chgbits & (1 << i)) {
+                gid("challenge" + i).classList = "chg_button chg_e";
+                if(i == 5){
+                    if(player.chg_records[i] <= player.views) player.chg_records[i] = Math.min(player.views,chg_goals[i] * 2.0);
+                }else{
+                    if(player.chg_records[i] <= player.views) player.chg_records[i] = player.views;
+                }
+            }else gid("challenge" + i).classList = "chg_button chg";
+            gid("challenge" + i + "_record").innerText = dn(player.chg_records[i]);
+            gid("challenge" + i + "_count").innerText = (player.chg_records[i] > chg_goals[i]) ? Math.max(1,player.chg_records[i] / chg_goals[i]).toFixed(digit) : "0";
+            if(i < 5 && player.chg_records[i] > chg_goals[i]) sump += Math.max(1,player.chg_records[i] / chg_goals[i]);
+        }
+        if(player.chg_records[5] > chg_goals[5]) sump = Math.pow(sump, Math.max(1,player.chg_records[5] / chg_goals[5]));
+        gid("challenge_power").innerText = sump.toFixed(digit);
+        gid("exit_chg").style.display = "inline-block";
+    }
     gid("reply").innerText = dn(player.reply);
     gid("retweets").innerText = dn(player.retweets);
     gid("likes").innerText = dn(player.likes);
@@ -111,10 +162,10 @@ function display(){
     gid("fire").innerText = dn(player.sacrifice);
     if(player.mkupgsb & 64){
         gid("creator").style.display = "block";
-        gid("mupg0_val").innerText = (player.mupgs[0] * Math.pow(Math.log10(player.creator[1] / 33 + 10),1 + player.creator_upgs[1])).toFixed(digit);
-        gid("mupg1_val").innerText = (player.mupgs[1] * Math.pow(Math.log10(player.creator[1] / 33 + 10),1 + player.creator_upgs[1])).toFixed(digit);
-        gid("mupg2_val").innerText = (player.mupgs[2] * Math.pow(Math.log10(player.creator[1] / 33 + 10),1 + player.creator_upgs[1])).toFixed(digit);
-        gid("mupg3_val").innerText = (player.mupgs[3] * Math.pow(Math.log10(player.creator[1] / 33 + 10),1 + player.creator_upgs[1])).toFixed(digit);
+        gid("mupg0_val").innerText = (player.mupgs[0] * Math.pow(Math.log10(player.creator[1] * sump / 200 + 10),1 + player.creator_upgs[1])).toFixed(digit);
+        gid("mupg1_val").innerText = (player.mupgs[1] * Math.pow(Math.log10(player.creator[1] * sump / 200 + 10),1 + player.creator_upgs[1])).toFixed(digit);
+        gid("mupg2_val").innerText = (player.mupgs[2] * Math.pow(Math.log10(player.creator[1] * sump / 200 + 10),1 + player.creator_upgs[1])).toFixed(digit);
+        gid("mupg3_val").innerText = (player.mupgs[3] * Math.pow(Math.log10(player.creator[1] * sump / 200 + 10),1 + player.creator_upgs[1])).toFixed(digit);
     }else{
         gid("creator").style.display = "none";
         gid("mupg0_val").innerText = player.mupgs[0];
@@ -137,7 +188,7 @@ function display(){
     }
     for(let i = 0;i < lupgs.length;i++){
         if(player.lupgsb & (1 << i)) gid("lupg" + i).classList = "upg bg";
-        else if(player.likes >= lupgs[i])  if(player.auto_buy){lupg_buy(i);}else{ gid("lupg" + i).classList = "upg yb"}
+        else if(player.likes >= lupgs[i] && !(player.chgbits & 33))  if(player.auto_buy){lupg_buy(i);}else{ gid("lupg" + i).classList = "upg yb"}
         else gid("lupg" + i).classList = "upg cb";
     }
     for(let i = 0;i < fupgs.length;i++){
@@ -145,11 +196,13 @@ function display(){
         else if(player.followers >= fupgs[i])  if(player.auto_buy){fupg_buy(i);}else{ gid("fupg" + i).classList = "upg yb"}
         else gid("fupg" + i).classList = "upg cb";
     }
-    for(let i = 0;i < mkupgs.length;i++){
+    for(let i = 0;i < mkupgs.length - 1;i++){
         if(player.mkupgsb & (1 << i)) gid("mkupg" + i).classList = "upg bg";
         else if(player.leeks >= mkupgs[i])  gid("mkupg" + i).classList = "upg yb";
         else gid("mkupg" + i).classList = "upg cb";
     }
+    if(player.leeks >= mkupgs[8] && get_sump() > 30.39)  gid("mkupg8").classList = "upg yb";
+    else gid("mkupg8").classList = "upg cb";
     if(player.vupgsb & 8){
         gid("moneytab").style.display = "block";
         let s = 0;
@@ -169,8 +222,8 @@ function display(){
     if(player.views >= 308){
         gid("miku_reset").style.display = "inline-block";
         gid("miku_tab").style.display = "inline-block";
-        gid("leek_get").innerText = dn((player.views - 308) / 39);
-        if(player.mkupgsb & 32) player.leeks = eadd(player.leeks, (player.views - 308) / 39 - 2);
+        gid("leek_get").innerText = (player.chgbits == 0) ? dn((player.views - 308) / 39) : "0";
+        if(player.mkupgsb & 32 && player.chgbits == 0) player.leeks = eadd(player.leeks, (player.views - 308) / 39 - 2);
     }else{
         gid("miku_reset").style.display = "none";
         if(!player.reach_miku) gid("miku_tab").style.display = "none";
@@ -179,9 +232,9 @@ function display(){
         gid("song_count").innerText = dn(player.creator[0]);
         gid("art_count").innerText = dn(player.creator[1]);
         gid("mmd_count").innerText = dn(player.creator[2]);
-        gid("song_power").innerText = Math.pow(Math.log10(player.creator[0] / 10 + 10),1 + player.creator_upgs[0]).toFixed(digit);
-        gid("art_power").innerText = Math.pow(Math.log10(player.creator[1] / 33 + 10),1 + player.creator_upgs[1]).toFixed(digit);
-        gid("mmd_power").innerText = Math.pow(Math.log10(player.creator[2] / 1 + 10),1 + player.creator_upgs[2]).toFixed(digit);
+        gid("song_power").innerText = Math.pow(Math.log10(player.creator[0] * sump / 10 + 10),1 + player.creator_upgs[0]).toFixed(digit);
+        gid("art_power").innerText = Math.pow(Math.log10(player.creator[1] * sump / 200 + 10),1 + player.creator_upgs[1]).toFixed(digit);
+        gid("mmd_power").innerText = Math.pow(Math.log10(player.creator[2] * sump / 1 + 10),1 + player.creator_upgs[2]).toFixed(digit);
         for(let i = 0;i < crupgs.length;i++){
             gid("crupg_val" + i).innerText = player.creator_upgs[i];
             gid("crupg_cost" + i).innerText = d(crupgs[i] * Math.pow(crupgse[i], player.creator_upgs[i]));
@@ -189,6 +242,7 @@ function display(){
             else gid("crupg" + i).classList = "upg cb";
         }
     }
+    gid("chg_tab").style.display = player.mkupgsb & 128 ? "inline-block" : "none";
 }
 
 function vupg_buy(i){
@@ -199,7 +253,7 @@ function vupg_buy(i){
 }
 
 function lupg_buy(i){
-    if(lupgs[i] < player.likes && !(player.lupgsb & (1 << i))){
+    if(lupgs[i] < player.likes && !(player.lupgsb & (1 << i)) && !(player.chgbits & 33)){
         player.likes = efloor(esub(player.likes, lupgs[i]));
         player.lupgsb |= (1 << i);
     }
@@ -217,7 +271,7 @@ function mupg_buy(i){
     for(let i = 0;i < player.mupgs.length;i++){
         s += player.mupgs[i];
     }
-    if(Math.pow(2,s) < player.money && s < 8){
+    if(Math.pow(2,s) < player.money && s < 8 && !(player.chgbits & 36)){
         player.money = efloor(esub(player.money, Math.pow(2,s)));
         player.mupgs[i]++;
         mupg_reset(false);
@@ -225,7 +279,13 @@ function mupg_buy(i){
 }
 
 function mkupg_buy(i){
-    if(mkupgs[i] < player.leeks && !(player.mkupgsb & (1 << i))){
+    if(i == 8 && player.leeks >= 3939 && !(player.mkupgsb & (1 << i))){
+        if(get_sump() > 30.39){
+            player.leeks = efloor(esub(player.leeks, 3939));
+            player.mkupgsb |= (1 << i);
+        }
+    }
+    else if(mkupgs[i] < player.leeks && !(player.mkupgsb & (1 << i))){
         player.leeks = efloor(esub(player.leeks, mkupgs[i]));
         player.mkupgsb |= (1 << i);
     }
@@ -236,8 +296,8 @@ function mkupg_buy(i){
 }
 
 function sacrifice(){
-    if(player.lupgsb & 8) return;
-    player.sacrifice = eadd(player.sacrifice,player.followers);
+    if(player.chgbits & 2) return;
+    if(!(player.chgbits & 32)) player.sacrifice = eadd(player.sacrifice,player.followers);
     player.followers = -Infinity;
     player.views = Math.log10(201);
     player.likes = -Infinity;
@@ -246,9 +306,16 @@ function sacrifice(){
     if(!player.reach_miku) player.fupgsb = 1;
     player.reply = -Infinity;
     player.retweets = -Infinity;
+    player.c4t = 0;
+    if(player.chgbits & 40){
+        player.creator[0] = 0;
+        player.creator[1] = 0;
+        player.creator[2] = 0;
+    }
 }
 
 function mupg_reset(reset){
+    if(player.chgbits & 36) return;
     if(reset) player.mupgs = [0,0,0,0];
     player.followers = -Infinity;
     player.views = Math.log10(201);
@@ -258,9 +325,15 @@ function mupg_reset(reset){
     player.fupgsb = 1;
     player.reply = -Infinity;
     player.retweets = -Infinity;
+    player.c4t = 0;
+    if(player.chgbits & 40){
+        player.creator[0] = 0;
+        player.creator[1] = 0;
+        player.creator[2] = 0;
+    }
 }
-function miku_reset(){
-    player.leeks = eadd(player.leeks,(player.views - 308) / 39);
+function miku_reset(ennter_chg = false){
+    if(player.chgbits == 0) player.leeks = eadd(player.leeks,(player.views - 308) / 39);
     player.reach_miku = true;
     player.followers = -Infinity;
     player.views = Math.log10(201);
@@ -273,6 +346,17 @@ function miku_reset(){
     player.money = -Infinity;
     player.sacrifice = -Infinity;
     player.mupgs = [0,0,0,0];
+    player.creator[0] = 0;
+    player.creator[1] = 0;
+    player.creator[2] = 0;
+    player.c4t = 0;
+    if(!ennter_chg) player.chgbits = 0;
+}
+
+function challenge(i){
+    if(player.chgbits != 0) return;
+    player.chgbits |= (1 << i);
+    miku_reset(true);
 }
 
 function crupg_buy(i){
@@ -283,12 +367,27 @@ function crupg_buy(i){
     else gid("crupg" + i).classList = "upg cb";
 }
 
+function get_sump(){
+    let sump = 1;
+    if(player.mkupgsb & 64){
+    for(let i = 0;i < 5;i++){
+        if(player.chg_records[i] > chg_goals[i]) sump += Math.max(1,player.chg_records[i] / chg_goals[i]);
+    }
+    if(player.chg_records[5] > chg_goals[5]) sump = Math.pow(sump, Math.max(1,player.chg_records[5] / chg_goals[5]));
+    }
+    return sump;
+}
 let save_interval = 0;
 setInterval(function(){
-    if(player.leeks <= 3939){
+    if(player.leeks <= 3939 || (player.c4t < 300 && (player.chgbits & 40))){
         updates();
+    }else if(player.c4t >= 300 && (player.chgbits & 40)){
+
+    }else if(player.chgbits != 0){
+        let sump = get_sump();
+        if(sump < 100) updates();
     }
-    if(player.mkupgsb & 128){
+    if(player.mkupgsb & 256){
         gid("game").style.display = "none";
         gid("win").style.display = "block";
     }
@@ -298,10 +397,11 @@ setInterval(function(){
         save(true);
         save_interval = 0;
     }
+    player.c4t++;
 }, 100);
 
 function pg_change(){
-    for(let i = 0;i < 4;i++){
+    for(let i = 0;i < 5;i++){
         if(i == page) gid("pg" + i).style.display = "block";
         else gid("pg" + i).style.display = "none";
     }
@@ -324,7 +424,7 @@ function keypress_ivent(e) {
         pg_change();
     }
     if(e.code === 'KeyS'){
-        if(player.fupgsb & 1) sacrifice();
+        if(player.fupgsb & 1 && !(player.chgbits & 2)) sacrifice();
     }
 	return false; 
 }
@@ -350,7 +450,7 @@ function export_save(){
 function import_save(){
     let data = prompt("セーブデータを入力してください");
     try{
-        let obj = JSON.parse(atob(data).replace(/:null,/g,":-1e+309,").replace(/:null}/g,":-1e+309}"));
+        let obj = JSON.parse(atob(data).replace(/:null,/g,":-1e+309,").replace(/:null}/g,":-1e+309}").replace(/,null,/g,",-1e+309,").replace(/\[null,/g,"[-1e+309,").replace(/,null\]/g,",-1e+309]"));
         if(obj != undefined) player = obj;
         else alert("セーブデータが正しくありません");  
     }catch(e){
@@ -359,9 +459,10 @@ function import_save(){
 }
 
 function load(){
+    //if(true) return;
     let data = localStorage.getItem("sns_idle");
     try{
-        let obj = JSON.parse(atob(data).replace(/:null,/g,":-1e+309,").replace(/:null}/g,":-1e+309}"));
+        let obj = JSON.parse(atob(data).replace(/:null,/g,":-1e+309,").replace(/:null}/g,":-1e+309}").replace(/,null,/g,",-1e+309,").replace(/\[null,/g,"[-1e+309,").replace(/,null\]/g,",-1e+309]"));
         if(obj != undefined) player = obj;
     }catch(e){}
 }

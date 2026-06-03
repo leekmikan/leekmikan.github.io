@@ -12,7 +12,8 @@
     <button class="normal" onclick="page=0;pg_change();">ツイート</button>
     <button class="upgrade" id="sac_tab" onclick="page=1;pg_change();">炎上</button>
     <button class="miku" id="miku_tab" onclick="page=2;pg_change();">ミク</button>
-    <button class="normal" onclick="page=3;pg_change();">その他</button>
+    <button class="chg" id="chg_tab" onclick="page=3;pg_change();">チャレンジ</button>
+    <button class="normal" onclick="page=4;pg_change();">その他</button>
   </div>
   <div id="pg0">
   <div class="container">
@@ -23,7 +24,7 @@
       <div class="profile">
         <div class="avatar">み</div>
         <div class="profile-info">
-          <strong>ユーザー名</strong>
+          <strong>ミク好き</strong>
           <span>@miku_love · 2時間</span>
         </div>
       </div>
@@ -115,7 +116,8 @@
     <button class="upg" id="mkupg4" onclick="mkupg_buy(4)">リツイート数^2<br><br>価格：Y 1恒河沙</button>
     <button class="upg" id="mkupg5" onclick="mkupg_buy(5)">獲得予定のネギの10%を常に貰える<br>価格：Y 1無量大数</button>
     <button class="upg" id="mkupg6" onclick="mkupg_buy(6)">創作の輪を解放<br><br>価格：Y 10無量大数</button>
-    <button class="upg" id="mkupg7" onclick="mkupg_buy(7)">ゲームクリア！！！<br><br>価格：Y 1e3939</button><br>
+    <button class="upg" id="mkupg7" onclick="mkupg_buy(7)">チャレンジを解放<br><br>価格：Y 1e90</button>
+    <button class="upg" id="mkupg8" onclick="mkupg_buy(8)">ゲームクリア！！！<br><br>価格：Y 1e3939 & チャレンジの報酬倍率×30.39</button><br>
     <p>到達ボーナス：炎上によるアップグレードリセットがされない</p>
     <p>注意：Y 1e3939 超えると、ほとんどの機能が停止します！</p>
 
@@ -149,6 +151,23 @@
   </div>
   <div id="pg3">
     <div class="upgs">
+      <h2>チャレンジ</h2><br>
+      <p>創作の輪強化：×<span id="challenge_power">1</span></p>
+      <button class="chg" id="exit_chg" onclick="miku_reset()">チャレンジ終了</button><br>
+      <button class="chg chg_button" id="challenge0" onclick="challenge(0)">[C1]いいねアップグレード購入不可<br>炎上の効果は×1e4000まで<br>目標：||| 1e2900<br>記録：||| <span id="challenge0_record">0</span><br>クリア回数: <span id="challenge0_count">0</span></button><br>
+      <button class="chg chg_button" id="challenge1" onclick="challenge(1)">[C2]炎上不可<br><br>目標：||| 1.08e308<br>記録：||| <span id="challenge1_record">0</span><br>クリア回数: <span id="challenge1_count">0</span></button><br>
+      <button class="chg chg_button" id="challenge2" onclick="challenge(2)">[C3]💰獲得不可<br><br>目標：||| 1e72<br>記録：||| <span id="challenge2_record">0</span><br>クリア回数: <span id="challenge2_count">0</span></button><br>
+      <button class="chg chg_button" id="challenge3" onclick="challenge(3)">[C4]#1が時間経過で強化　30秒で全生産停止<br>何かしらのリセットで創作の輪もリセット<br>目標：||| 1e4780<br>記録：||| <span id="challenge3_record">0</span><br>クリア回数: <span id="challenge3_count">0</span></button><br>
+      <button class="chg chg_button" id="challenge4" onclick="challenge(4)">[C5]創作の輪無効<br><br>目標：||| 1e2940<br>記録：||| <span id="challenge4_record">0</span><br>クリア回数: <span id="challenge4_count">0</span></button><br>
+      <button class="chg chg_button" id="challenge5" onclick="challenge(5)">[C6]C1～C5有効化　ただし、フォロワー増加量20倍<br>効果なし炎上は実行可能<br><br>目標：||| 213.796万<br>記録：||| <span id="challenge5_record">0</span><br>クリア回数: <span id="challenge5_count">0</span></button><br>
+      <p>C1~C5のクリア回数が創作の輪を強化。　C6はクリア回数の合計を増加。</p>
+      <p>C6は2回までクリア可能(現状不可能)</p>
+      <p>チャレンジ中の創作の輪の各リソースの上限は1載</p>
+      <p>チャレンジ中はネギを獲得できない</p>
+    </div>
+  </div>
+  <div id="pg4">
+    <div class="upgs">
       <h2>セーブあれこれ</h2><br>
       <button class="upg" onclick="save()">セーブ</button>
       <button class="upg" onclick="import_save()">ロード</button>
@@ -161,6 +180,7 @@
       <p>バランス未調整(多分2時間くらいでクリアできます...)</p>
       <p>サクサク進むはずなので多分初心者向け</p>
       <p>3日くらいで作ったので全体的に雑になってるのは許して！</p>
+      <p>追記：数時間かけて6個のチャレンジを追加　その代わり創作の輪を弱体化</p>
     </div>
     </div>
 </div>
