@@ -1,0 +1,19 @@
+body{
+color: #000000;
+background: #A0FFFF;
+width: 1320px;
+}
+.bg{
+	background-image: url("img/haikei.jpg");
+	width: 1320px;
+	height: 700px;
+}
+.rd{
+	color:#ff0000;
+}
+.title{
+text-align:center;
+color: #000000;
+background: #FFFF80;
+border: double 5px #4ec4d3;
+}
