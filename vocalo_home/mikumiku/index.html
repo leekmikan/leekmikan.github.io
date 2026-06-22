@@ -2,335 +2,103 @@
 <html lang="ja" prefix="og: http://ogp.me/ns#">
 	<head>
 	<meta charset="utf-8">
-	<meta property="og:title" content="ミクを眺めるためのショートカットページ｜ランダムで様々なモジュールのミクを画像検索する">
+	<meta property="og:title" content="leekmikan(ねぎみかん)のボカロ用メインページ(仮)">
 	<meta property="og:type" content="website">
-	<meta property="og:description" content="初音ミクを効率的に摂取するために作成。｜色んなミクを見たい人用。">
+	<meta property="og:description" content="leekmikan(ねぎみかん)のボカロ用メインページ｜初音ミク中心に色々書く用">
 	<meta name="twitter:site" content="@leekmikan">
 	<meta name="twitter:card" content="summary_large_image">
-	<meta property="og:url" content="https://leekmikan.github.io/vocalo_home/mikumiku/index.html">
+	<meta property="og:url" content="https://leekmikan.github.io/vocalo_home/index.html">
 	<meta property="og:site_name" content="leekmikan(ねぎみかん)のホームページ">
 	<meta property="og:image" content="https://leekmikan.github.io/vocalo_home/ogp.jpg">
-    <meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
-    <meta name="description" content="初音ミクを効率的に摂取するために作成。｜色んなミクを見たい人用。">
-    <link rel="icon" type="image/jpg" href="../../icon.jpg">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
-    <title>ミクを眺めるためのショートカットページ｜ランダムで様々なモジュールのミクを画像検索する</title>
-    <iframe src="../../google.html" style="display: none;"></iframe>
-    <link rel="stylesheet" href="../des.css" media="print" onload="this.media='all'">
-	<link rel="stylesheet" href="des.css" media="print" onload="this.media='all'">
-<script defer src="../../init.js"></script>
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+    <meta name="description" content="leekmikan(ねぎみかん)のボカロ用メインページ｜初音ミク中心に色々書く用">
+    <title>leekmikan(ねぎみかん)のボカロ用メインページ(仮)</title>
+    <iframe src="../google.html" style="display: none;"></iframe>
+    <link rel="stylesheet" href="des.css" media="print" onload="this.media='all'">
+<script defer src="../init.js"></script>
 	</head>
 		<body style="display: none;">
     <div class="cover">
     <div class="ct">
         <header>
-			<button onclick="location.href='https://leekmikan.github.io/vocalo_home/index.html'">ホーム(ボカロ版)</button>
+			<button onclick="location.href='https://leekmikan.github.io/index.html'">ホーム</button>
 			<button onclick="location.href='https://leekmikan.github.io/picture/index.html'">画伯の絵置き場</button>
-			<button onclick="location.href='https://x.com/leekmikan/'">X</button>
+			<button onclick="location.href='https://x.com/leekmikan'">X</button>
 			<button onclick="location.href='https://leekmikan.github.io/math/index.html'">数学問題集</button>
 			<button onclick="location.href='https://leekmikan.github.io/pg/index.html'">プログラム集</button>
 		</header>
 		<div class="title">
-			<h1>ミクを眺めるためのショートカットページ　ランダムで様々なモジュールのミクを画像検索</h1>
-			<p>ここから好きなミクを1タッチで検索できます。</p>
-			<p>一部ボタンでは、　(PC)Shift長押し/(スマホ)画面長押し　で、詳細情報が出ます</p>
-			<p>使用例：背景代わりにウインドウを置いておく。</p>
-			<button class="random" onclick="Random_Search(-2)">ランダム表示</button>
-			<button class="random" onclick="Random_Search(-1)">ランダム表示(ジャンルで均等)</button>
+			<h1>leekmikan(ねぎみかん)ボカロ用メインページ(仮)</h1>
+            <p>初音ミク中心に色々書く用　リトリン代わり？</p>
+            <p>プロフィール、取引情報</p>
+            <p>このページは一旦適当に作って、暇なときに直す (背景とか適当)</p>
+            <p>パソコン推奨</p>
 		</div>
-		<div class="text_frame">
-			<h2>設定</h2>
-		</div>
-		<div class="main">
-			<p>検索エンジンを選択</p>
-			<p>※マイナーな検索エンジン(下の方)だと、たまに失敗(別の画像が表示)します...</p>
-			<div class="rd">
-				<label><input type="radio" name="engine" value="0" checked>Google</label><br>
-				<label><input type="radio" name="engine" value="1">Bing</label><br>
-				<label><input type="radio" name="engine" value="2">Yahoo</label><br>
-				<label><input type="radio" name="engine" value="3">百度</label><br>
-				<label><input type="radio" name="engine" value="4">Yandex</label><br>
+        <p>タブを押すと、閉じることができます</p>
+         <div onclick="obj=document.getElementById('pg0').style; obj.display=(obj.display=='none')?'block':'none';">
+		    	<h2 style="cursor:pointer;">▼プロフィール</h2>
+		    </div>
+		    <div id="pg0" style="clear:both;">
+                <div class="main">
+                    <h3>名前(本垢関係)</h3>
+                    <p>leekmikan(ねぎみかん　→　ミクとリンの持ち物)</p>
+                    <h3>名前(サブ垢関係)</h3>
+                    <p>bananatuna(バナナマグロ　→　レンとルカの持ち物)</p>
+                    <h3>年齢</h3>
+		    	    <p>20　(2025/7)</p>
+                    <h3>誕生日</h3>
+                    <p>9/17　(出産予定日は大体ミクと同じだったけど、遅すぎてミクダヨーと同じ誕生日になった)</p>
+                    <h3>好きなボカロP(一部)(別名義、敬称略)</h3>
+                    <p></p>
+                    <p>前Twitterで書いたのと組み合わせが違うかも...</p>
+		            <ol>
+                        <li>OSTER project</li>
+                        <li>supercell</li>
+                        <li>くちばしP</li>
+                        <li>とくP</li>
+                        <li>デッドボールP</li>
+                        <li>azuma</li>
+                        <li>トラボルタ</li>
+                        <li>きさら</li>
+                        <li>ika</li>
+                        <li>samfree</li>
+                        <li>ヤスオP</li>
+		            </ol>
+                    <h3>グッズの購入方針</h3>
+                    <p>公式グッズはまとめて買うことが多い。同人系はコミケ、ボーマスなどで出店していれば、クオリティー関係なくほぼ全員回って購入(FF、有名、初めてのところ優先)</p>
+                </div>
+            </div>
+            </div>
+			<div onclick="obj=document.getElementById('pg01').style; obj.display=(obj.display=='none')?'block':'none';">
+		    	<h2 style="cursor:pointer;">▼ツール</h2>
+		    </div>
+		    <div id="pg01" style="clear:both;">
+				<div class="main">
+					<p><a href="stamina/index.html">プロセカの推奨消費スタミナの計算　イベントの稼働時間から計算</a></p>
+					<p><a href="live/index.html">ライブの当選確率　当落率から近似値を計算</a></p>
+					<p><a href="mikumiku/index.html">[自分用]　ミクを眺めるためのショートカットページ</a></p>
+				</div>
 			</div>
-		</div>
-		<div class="text_frame">
-			<h2>目次</h2>
+			<div onclick="obj=document.getElementById('pg3').style; obj.display=(obj.display=='none')?'block':'none';">
+		    	<h2 style="cursor:pointer;">▼欲しいもの</h2>
 		    </div>
-		    <div class="index">
-		    	<ol>
-		    		<li><a href="#i0">単体</a></li>
-		    		<li><a href="#i1">マジミラ</a></li>
-		    		<li><a href="#i2">雪ミク</a></li>
-                    <li><a href="#i3">レーシングミク</a></li>
-					<li><a href="#i4">Project DIVA/mirai</a></li>
-		    		<li><a href="#i5">プロセカ</a></li>
-		    		<li><a href="#i6">ポケミク</a></li>
-                    <li><a href="#i7">MMD</a></li>
-		    	</ol>
+		    <div id="pg3" style="clear:both;">
+				<div class="main">
+					<ol>
+						<li>ローミク SP特典　(座席の差額分支払います！)</li>
+					</ol>
+				</div>
+			</div>
+            <div onclick="obj=document.getElementById('pg2').style; obj.display=(obj.display=='none')?'block':'none';">
+		    	<h2 style="cursor:pointer;">▼取引用タブ</h2>
 		    </div>
-		<div class="text_frame" id="i0">
-		<h2>単体</h2>
-		</div>
-    	<div class="main">
-			<button class="random" onclick="Random_Search(0)">この中でランダム表示</button><br>
-			<button onclick="Search(this.innerText)">初音ミク</button>
-			<button onclick="Search(this.innerText)">初音ミク　V3</button>
-			<button onclick="Search(this.innerText)">初音ミク　V4X</button>
-			<button onclick="Search(this.innerText)">初音ミク　NT</button>
-			<button onclick="Search(this.innerText)">初音ミク　V6</button>
-			<button onclick="Search(this.innerText)">桜ミク</button>
-			<button onclick="Search(this.innerText)">初音ミク　EXPO</button>
-			<button onclick="Search(this.innerText)">初音ミク サンダーボルト</button>
-			<button onclick="Search(this.innerText)">シナミク</button>
-		</div>
-		<div class="text_frame" id="i1">
-		<h2>マジミラ</h2>
-		</div>
-    	<div class="main">
-			<p>詳細情報：愛称</p>
-			<button class="random" onclick="Random_Search(1)">この中でランダム表示</button><br>
-			<button title="初代/横浜ちゃん" onclick="Search(this.innerText)">マジミラミク　2013</button>
-			<button title="インテちゃん" onclick="Search(this.innerText)">マジミラミク　2014</button>
-			<button title="武道館ちゃん" onclick="Search(this.innerText)">マジミラミク　2015</button>
-			<button title="まくはりちゃん" onclick="Search(this.innerText)">マジミラミク　2016</button>
-			<button title="メッセちゃん" onclick="Search(this.innerText)">マジミラミク　2017</button>
-			<button title="ふりかけちゃん" onclick="Search(this.innerText)">マジミラミク　2018</button>
-			<button title="サーカスちゃん" onclick="Search(this.innerText)">マジミラミク　2019</button>
-			<button title="おまつり/夏まつりちゃん" onclick="Search('初音ミク 夏まつりちゃん')">マジミラミク　2020　大阪</button>
-			<button title="おまつり/冬まつりちゃん" onclick="Search('初音ミク 冬まつりちゃん')">マジミラミク　2020　東京</button>
-			<button title="お花ちゃん" onclick="Search(this.innerText)">マジミラミク　2021</button>
-			<button title="テンスちゃん" onclick="Search(this.innerText)">マジミラミク　10th</button>
-			<button title="ヒーローちゃん" onclick="Search(this.innerText)">マジミラミク　2023</button>
-			<button title="サンパレス/トリップちゃん" onclick="Search(this.innerText)">マジミラミク　2024</button>
-			<button title="織姫ちゃん" onclick="Search(this.innerText)">マジミラミク　2025</button>
-			<button title="ひまわりちゃん" onclick="Search(this.innerText)">マジミラミク　2026</button>
-		</div>
-		<div class="text_frame" id="i2">
-		<h2>雪ミク</h2>
-		</div>
-    	<div class="main">
-			<p>詳細情報：愛称</p>
-			<button class="random" onclick="Random_Search(2)">この中でランダム表示</button><br>
-			<button title="初雪さん/初代ちゃん" onclick="Search(this.innerText)">雪ミク　2010</button>
-			<button title="マフラーちゃん" onclick="Search(this.innerText)">雪ミク　2011</button>
-			<button title="ふわこちゃん" onclick="Search(this.innerText)">雪ミク　2012</button>
-			<button title="白無垢ちゃん" onclick="Search(this.innerText)">雪ミク　2013</button>
-			<button title="なまらちゃん" onclick="Search(this.innerText)">雪ミク　2014</button>
-			<button title="ぽっくるちゃん" onclick="Search(this.innerText)">雪ミク　2015</button>
-			<button title="ふくろうちゃん" onclick="Search(this.innerText)">雪ミク　2016</button>
-			<button title="ティンクルちゃん" onclick="Search(this.innerText)">雪ミク　2017</button>
-			<button title="タンチョウちゃん" onclick="Search(this.innerText)">雪ミク　2018</button>
-			<button title="プリンセスちゃん" onclick="Search(this.innerText)">雪ミク　2019</button>
-			<button title="ホルンちゃん" onclick="Search(this.innerText)">雪ミク　2020</button>
-			<button title="時計ちゃん" onclick="Search(this.innerText)">雪ミク　2021</button>
-			<button title="カニ船長ちゃん" onclick="Search(this.innerText)">雪ミク　2022</button>
-			<button title="冬麗ちゃん(うららちゃん)" onclick="Search(this.innerText)">雪ミク　2023</button>
-			<button title="スープカレーちゃん" onclick="Search(this.innerText)">雪ミク　2024</button>
-			<button title="クリスタルちゃん" onclick="Search(this.innerText)">雪ミク　2025</button>
-			<button title="パティスリーちゃん" onclick="Search(this.innerText)">雪ミク　2026</button>
-		</div>
-		<div class="text_frame" id="i3">
-		<h2>レーシングミク</h2>
-		</div>
-    	<div class="main">
-			<button class="random" onclick="Random_Search(3)">この中でランダム表示</button><br>
-			<button onclick="Search(this.innerText)">初音ミク RQ Ver.</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2010</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2011</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2012</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2013</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2014</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2015</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2016</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2017</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2018</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2019</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2020</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2021</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2022</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2023</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2024</button>
-			<button onclick="Search(this.innerText)">レーシングミク　2025</button>
-		</div>
-		<div class="text_frame" id="i4">
-		<h2>Project DIVA/mirai[追加途中]</h2>
-		</div>
-    	<div class="main">
-			<p>詳細情報：対応曲/よく使われる曲[追加途中]</p>
-			<p>※検索結果が少ないもの/AS/雪ミク/マジミラミク/レーシングミクは除外</p>
-			<button class="random" onclick="Random_Search(4)">この中でランダム表示</button><br>
-			<button onclick="Search('Project DIVA　' + this.innerText)">初音ミク</button>
-			<!--初音ミク V3-->
-			<button title="初音ミクの激唱" onclick="Search('Project DIVA　インフィニティ')">∞</button>
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">AMERICANA</button>
-			<button title="Catch the Wave" onclick="Search('DIVA　' + this.innerText)">Catch the Wave</button>
-			<button title="トリコロール・エア・ライン" onclick="Search(this.innerText)">CA 初音ミク</button>
-			<button title="ゴーストルール" onclick="Search(this.innerText + '　初音ミク DIVA')">GHOST</button>
-			<button title="ハロー、プラネット。" onclick="Search('DIVA　' + this.innerText)">Hello World.</button>
-			<button title="1/6 -out of the gravity-" onclick="Search(this.innerText + '　初音ミク DIVA')">out of the gravity</button>
-			<!--Phantom Thief ミク-->
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">P4Dスタイル</button>
-			<button title="shake it!" onclick="Search(this.innerText + '　初音ミク')">Trip The Light Fantastic</button>
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">TYPE2020</button>
-			<!--VN02-->
-			<button title="アゲアゲアゲイン" onclick="Search('DIVA　' + this.innerText)">アゲアゲアゲイン</button>
-			<button title="アンハッピーリフレイン" onclick="Search(this.innerText + '　初音ミク')">アジテーション</button>
-			<button title="アカツキアライヴァル" onclick="Search(this.innerText + '　初音ミク')">アバンガード</button>
-			<!--アラビアン-->
-			<button title="ありふれたせかいせいふく" onclick="Search(this.innerText)">ありふれミク</button>
-			<button title="インタビュア" onclick="Search(this.innerText + '　DIVA')">インタビュア ミク</button>
-			<button title="ロミオとシンデレラ" onclick="Search('ロミオとシンデレラ　初音ミク DIVA')">ヴィンテージドレス</button>
-			<!--うさみみパーカー-->
-			<button title="骸骨楽団とリリア" onclick="Search('骸骨楽団とリリア 初音ミク DIVA')">エトワール</button>
-			<!--エンジェル-->
-			<button onclick="Search(this.innerText + '　初音ミク')">おさんぽスタイル</button>
-			<button onclick="Search(this.innerText + '　初音ミク')">オレンジブロッサム</button>
-			<button title="カラフルメロディ" onclick="Search(this.innerText + '　初音ミク')">カラフルドロップ</button>
-			<button onclick="Search(this.innerText + '　初音ミク')">ガリア軍第7小隊</button>
-			<!--ギャラクシー-->
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">グラデーションリゾート</button>
-			<!--ゴシック-->
-			<button title="裏表ラバーズ" onclick="Search(this.innerText + '　初音ミク')">コンフリクト</button>
-			<button title="サイハテ" onclick="Search(this.innerText)">サイハテミク</button>
-			<button title="こちら、幸福安心委員会です。" onclick="Search(this.innerText + '　初音ミク DIVA')">サイレン</button>
-			<button onclick="Search(this.innerText + '　初音ミク')">サマーメモリー</button>
-			<button onclick="Search(this.innerText + '　初音ミク')">ジャー★ジ</button>
-			<button title="ワールドイズマイン" onclick="Search(this.innerText + '　初音ミク')">シュープリーム</button>
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">スイートパンプキン</button>
-			<!--スクール-->
-			<!--スター-->
-			<button title="はじめまして地球人さん" onclick="Search(this.innerText + '　DIVA')">スチャラカハツネ</button>
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">ストリートポップ</button>
-			<button onclick="Search(this.innerText + '　初音ミク')">スピリチュアル</button>
-			<!--スペチャン5-->
-			<!--スペチャン39-->
-			<!--スノウ-->
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">セレブレーション</button>
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">ソニックスタイル</button>
-			<!--ダンサー-->
-			<!--チア-->
-			<!--チャイナ-->
-			<button title="二次元ドリームフィーバー" onclick="Search(this.innerText + '　初音ミク DIVA')">ディメンション</button>
-			<button title="Glory 3usi9" onclick="Search(this.innerText + '　初音ミク')">ナナイロライン</button>
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">にゃんこ</button>
-			<!--ねむねむ-->
-			<!--ノーブル-->
-			<button title="ワールドイズマイン" onclick="Search(this.innerText + '　初音ミク')">ハートハンター</button>
-			<button title="ODDS&ENDS" onclick="Search(this.innerText + '　初音ミク')">ハートビート</button>
-			<!--パイレーツ-->
-			<!--パジャマパーティ ミク-->
-			<!--ハツネミク-->
-			<!--パンク-->
-			<button title="Weekender Girl" onclick="Search(this.innerText + '　初音ミク')">パンジー</button>
-			<!--ピンクポップス-->
-			<!--フェアウェル-->
-			<!--フェアリー-->
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">フェイ・イェン スタイル</button>
-			<button title="ネトゲ廃人シュプレヒコール" onclick="Search(this.innerText + '　初音ミク')">フォニュエールスタイル</button>
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">プラグイン</button>
-			<button title="サンドリヨン" onclick="Search(this.innerText + '　初音ミク')">プランセス・ブランシュ</button>
-			<!--プリンセス-->
-			<!--ボーカル-->
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">ホワイトドレス</button>
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">ホワイトワンピース</button>
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">マイディアバニー</button>
-			<!--マリオネット-->
-			<button title="LOL-lots of laugh-" onclick="Search(this.innerText + '　初音ミク')">マーチ・ヘイヤ</button>
-			<button title="ミラクルペイント" onclick="Search('ミラクルペイント　初音ミク DIVA')">マジシャン</button>
-			<button title="クローバー・クラブ" onclick="Search(this.innerText)">みくずきん</button>
-			<button onclick="Search(this.innerText)">みくりすたる☆</button>
-			<!--ミコ-->
-			<!--みやび-->
-			<!--メイコスタイル-->
-			<button title="メテオ" onclick="Search(this.innerText + '　初音ミク DIVA')">メテオライト</button>
-			<!--ゆるふわパステル-->
-			<!--ライアー-->
-			<button title="からくりピエロ" onclick="Search(this.innerText + '　初音ミク DIVA')">リグレット</button>
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">リボンガール</button>
-			<button title="Tell Your World" onclick="Search(this.innerText + '　初音ミク')">リンケージ</button>
-			<!--リンスタイル-->
-			<button title="カンタレラ" onclick="Search(this.innerText + '　初音ミク')">ローザ・ビアンカ</button>
-			<button title="Sadistic.Music∞Factory" onclick="Search(this.innerText + '　初音ミク')">わがまま工場長</button>
-			<button title="ローリンガール" onclick="Search(this.innerText + '　初音ミク')">回転少女</button>
-			<button title="指切り" onclick="Search(this.innerText + '　初音ミク')">花詞</button>
-			<button title="千本桜" onclick="Search(this.innerText + '　初音ミク')">壱ノ桜・桜花</button>
-			<!--初音ミク キュート-->
-			<button onclick="Search('DIVA　' + this.innerText)">初音ミク　クリスマス</button>
-			<button onclick="Search(this.innerText + '　DIVA')">初音ミク スイムウェア</button>
-			<button onclick="Search(this.innerText + '　DIVA')">初音ミク スクール競泳</button>
-			<button onclick="Search(this.innerText + '　DIVA')">初音ミク みずたまビキニ</button>
-			<!--初音ミク 浴衣スタイル-->
-			<button onclick="Search('DIVA　' + this.innerText)">初音ミク 蝶</button>
-			<button title="ワールズエンド・ダンスホール" onclick="Search(this.innerText)">初音ミク 翠玉</button>
-			<button title="指切り" onclick="Search(this.innerText + '　初音ミク')">華車</button>
-			<button title="深海少女" onclick="Search('DIVA　' + this.innerText)">深海少女</button>
-			<button title="1925" onclick="Search(this.innerText + '　初音ミク')">鉄道員・鶯</button>
-			<button title="秘密警察" onclick="Search(this.innerText + '　初音ミク')">堕悪天使</button>
-		</div>
-		<div class="text_frame" id="i5">
-		<h2>プロセカ</h2>
-		</div>
-    	<div class="main">
-			<button class="random" onclick="Random_Search(5)">この中でランダム表示</button><br>
-			<button onclick="Search(this.innerText)">レオニミク</button>
-			<button onclick="Search(this.innerText)">モモジャンミク</button>
-			<button onclick="Search(this.innerText)">ビビバスミク</button>
-			<button onclick="Search(this.innerText)">ダショミク</button>
-			<button onclick="Search(this.innerText)">ニーゴミク</button>
-			<button onclick="Search(this.innerText)">バツミク</button>
-			<button onclick="Search(this.innerText)">窓ミク</button>
-			<button onclick="Search(this.innerText)">ポカリミク</button>
-		</div>
-		<div class="text_frame" id="i6">
-		<h2>ポケミク</h2>
-		</div>
-    	<div class="main">
-			<button class="random" onclick="Random_Search(6)">この中でランダム表示</button><br>
-			<button onclick="Search(this.innerText)">ポケミク　あく</button>
-			<button onclick="Search(this.innerText)">ポケミク　いわ</button>
-			<button onclick="Search(this.innerText)">ポケミク　エスパー</button>
-			<button onclick="Search(this.innerText)">ポケミク　かくとう</button>
-			<button onclick="Search(this.innerText)">ポケミク　くさ</button>
-			<button onclick="Search(this.innerText)">ポケミク　ゴースト</button>
-			<button onclick="Search(this.innerText)">ポケミク　こおり</button>
-			<button onclick="Search(this.innerText)">ポケミク　じめん</button>
-			<button onclick="Search(this.innerText)">ポケミク　でんき</button>
-			<button onclick="Search(this.innerText)">ポケミク　どく</button>
-			<button onclick="Search(this.innerText)">ポケミク　ドラゴン</button>
-			<button onclick="Search(this.innerText)">ポケミク　むし</button>
-			<button onclick="Search(this.innerText)">ポケミク　はがね</button>
-			<button onclick="Search(this.innerText)">ポケミク　ひこう</button>
-			<button onclick="Search(this.innerText)">ポケミク　フェアリー</button>
-			<button onclick="Search(this.innerText)">ポケミク　ほのお</button>
-			<button onclick="Search(this.innerText)">ポケミク　みず</button>
-			<button onclick="Search(this.innerText)">ポケミク　ノーマル</button>
-		</div>
-		<div class="text_frame" id="i7">
-		<h2>MMD[追加途中]</h2>
-		</div>
-    	<div class="main">
-			<button class="random" onclick="Random_Search(7)">この中でランダム表示</button><br>
-			<button onclick="Search(this.innerText)">Divaっぽいど</button>
-			<button onclick="Search(this.innerText)">Ika式ミク</button>
-			<button onclick="Search(this.innerText)">KS式ミク</button>
-			<button onclick="Search(this.innerText)">Lat式ミク</button>
-			<button onclick="Search(this.innerText)">REM式ミク</button>
-			<button onclick="Search(this.innerText)">Sour式ミク</button>
-			<button onclick="Search(this.innerText)">Tda式アペミク</button>
-			<button onclick="Search('初音ミクXS')">XS式ミク</button>
-			<button onclick="Search(this.innerText)">YYB式ミク</button>
-			<button onclick="Search(this.innerText)">あにまさ式ミク</button>
-			<button onclick="Search(this.innerText)">おんだ式ミク</button>
-			<button onclick="Search(this.innerText)">カルも式ミク</button>
-			<button onclick="Search(this.innerText)">げのげ式ミク</button>
-			<button onclick="Search(this.innerText)">つみ式ミク</button>
-			<button onclick="Search(this.innerText)">どっと式ミク</button>
-			<button onclick="Search(this.innerText)">ぴるら式ミク</button>
-			<button onclick="Search(this.innerText)">ままま式あぴミク</button>
-			<button onclick="Search(this.innerText)">む～ぶ式ミク</button>
-			<button onclick="Search(this.innerText)">七葉1052式ミク</button>
-			<button onclick="Search(this.innerText)">大和式ミク</button>
-		</div>
-		
+		    <div id="pg2" style="clear:both;">
+				<div class="main ct">
+				<p><a href="trade/index.html">こっちに移動</a></p>
+				</div>
+        	</div>
+        </div>
     </body>
-	<script defer src="main.js"></script>
 </html>
