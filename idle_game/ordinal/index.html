@@ -1,1 +1,37 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ordinal Markup風表記のテスト(仮)</title>
+  <link rel="stylesheet" href="des.css">
+</head>
+<body>
+  <h2><span class="od" id="od">0</span> (<span id="base">0</span>)</h2>
+  <h2>= <span id="pt">0</span> (<span id="p_base">0</span>)</h2>
+  <h3>You have <span id="money" class="money">0</span> P</h3>
+  <h3>Main</h3>
+  <div>
+    <button onclick="addn()" class="ck">Increase ordinal (I)</button><button onclick="get_pt()" class="ck">Convert point (C)</button><br><br>
+    <button onclick="abuy()" class="upg">Auto click (A)<br><span id="auto_s">0</span> /s<br>Cost: <span id="acos">10</span> P</button>
+    <button onclick="base_down()" class="upg">BaseDown (D)<br>Decrease base<br>Cost: <span id="base_d_cos">100</span> P</button>
+    <button onclick="base_up()" class="upg">BaseUp (U)<br>Increase omega base<br>Cost: <span id="base_u_cos">100</span> P</button>
+  </div>
+  <h3>Upgrades</h3>
+  <div>
+  <button onclick="upg_buy(0)" class="upg">Auto click multiply based on spend time from any resets<br><br>Cost:<span id="upg0cos">1000</span> P<br><span id="upg0">No</span></button>
+  <button onclick="upg_buy(1)" class="upg">Auto click multiply based on itself (Max 5000 count)<br><br>Cost:<span id="upg1cos">1000</span> P<br><span id="upg1">No</span></button>
+  <button onclick="upg_buy(2)" class="upg">Gain double omega base<br><br><br>Cost:<span id="upg2cos">1000</span> P<br><span id="upg2">No</span></button>
+  <button onclick="upg_buy(3)" class="upg">BaseUp doesn't reset BaseDown<br><br>Cost:<span id="upg3cos">1000</span> P<br><span id="upg3">No</span></button>
+  <button onclick="upg_buy(4)" class="upg"><span id="rast_upg">Resets first 4 Upgrades, 2 bases and auto click.But, second upgrade is cubed.</span><br><br>Req:Reach ψ(Ω) in base 2</button>
+  <button onclick="upg_buy(5)" class="upg">Beat the game<br><br><br><br>Req:Reach 1508 omega base</button>
+</div>
+<h3>いろいろ説明(日本語)</h3>
+<p>GeminiにOrdinal Markupのような順序数表記を作るプログラムをお願いし、それを改造したもののテスト</p>
+<p>順序数の底を下げて指数を大きくしたり、ωに代入する数を大きくしてポイントを稼ぐ</p>
+<p>最後のアップグレード購入で終わり</p>
+<p>2,3時間で終わらせられる予定なので、セーブ機能は省略</p>
+<p>バランス未調整</p>
+  <script src="main.js"></script>
+</body>
+</html>

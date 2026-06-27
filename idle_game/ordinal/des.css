@@ -1,0 +1,28 @@
+body {
+  background: #000;
+  color:#fff;
+}
+
+h2{
+  font-size: 56px;
+}
+.ck{
+  width: 200px;
+  height: 60px;
+  color:#00ffff;
+  background: #000;
+  border-color: #00ffff;
+}
+.money{
+  font-size: 30px;
+}
+.upg{
+  width: 200px;
+  height: 120px;
+  color:#00ff00;
+  background: #000;
+  border-color: #00ff00;
+}
+div{
+  text-align: center;
+}
