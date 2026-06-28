@@ -1,21 +1,24 @@
 let player = {
-    n_base:10,
-    onum:0,
+    n_base:3,
+    onum:1e15,
     pt_num:-Infinity,
     max_dig:5,
-    pt_base:10,
+    pt_base:140,
     digit:3,
-    upg_bit:0,
+    upg_bit:16,
     auto_buy:0,
     money:-Infinity,
     time: 0,
     reach_max: false,
+    reach_max3: false,
 }
-let auto_costm = Math.log10(1.2);
-let base_d_costs = [2,3,6,10,138,200,530,89515];
-let base_u_costm_e = 1.1;
-let base_u_cost_s = Math.PI;
-let upg_cost = [3,4,7,60,100];
+const auto_costm = Math.log10(1.2);
+const base_d_costs = [2,3,6,10,138,200,530,89515];
+const base_u_costm_e = 1.1;
+const base_u_cost_s = Math.PI;
+const upg_cost = [3,4,7,60,100];
+const capped = 1e+300;
+const end_game = 1924;
 function gid(id){
     return document.getElementById(id);
 }
@@ -24,8 +27,31 @@ function addn(){
     show_n();
 }
 function show_n(){
+    let ac = player.auto_buy;
+    let pbs = Math.floor(player.pt_base);
+    if((player.upg_bit & 1) > 0) ac *= Math.log10(10 + player.time / 10);
+    if((player.upg_bit & 2) > 0) ac *= Math.pow(Math.min(player.auto_buy,5000) + 1,((player.upg_bit & 16) > 0) ? 1.2 : 0.4);
+    if((player.upg_bit & 4) > 0) pbs += pbs - 10;
+    gid("money").innerText = dn(player.money);
+    gid("acos").innerText = (player.auto_buy >= 63133) ? dn(5000 + (player.auto_buy - 63132) * auto_costm * 10) : dn((player.auto_buy + 1) * auto_costm + 1);
+    gid("base").innerText = player.n_base;
+    gid("p_base").innerText = pbs;
+    if(player.n_base <= 2){
+        gid("base_d_cos").innerText = "Infinity";
+    }else{
+        gid("base_d_cos").innerText = dn(base_d_costs[10 - player.n_base]);
+    }
+    for(let i = 0;i < upg_cost.length - 1;i++){
+        gid("upg" + i + "cos").innerText = dn(upg_cost[i]);
+        gid("upg" + i).innerText = ((player.upg_bit & (1 << i)) > 0) ? "Yes" : "No";
+    }
+    gid("base_u_cos").innerText = dn(base_u_cost_s * Math.pow(base_u_costm_e + (player.pt_base - 10) / 1000,player.pt_base - 10));
+    gid("auto_s").innerText = Math.floor(ac);
+    player.onum += ac / 10; 
+    player.time++;
+    gid("rast_upg").innerText = ((player.upg_bit & 16) > 0) ? "Resets first 4 Upgrades, 2 bases and auto click.\n" : "Resets first 4 Upgrades, 2 bases and auto click.But, second upgrade is cubed.";
     gid("od").innerHTML = convertToOrdinal(player.onum,player.n_base);
-    gid("pt").innerText = dn(player.pt_num);
+    gid("pt").innerText = player.pt_num >= capped ? dn(player.pt_num) + " (Capped)" : dn(player.pt_num);
 }
 function convertToOrdinal(x, y) {
 
@@ -53,7 +79,8 @@ function convertToOrdinal(x, y) {
     }
     if(bigY == 3){
         if(bigX >= 7625597484987n) {
-            player.pt_num = (pbs >= 100) ? 1e+200 : Math.pow(pbs,pbs) * Math.log10(pbs);
+            player.upg_bit |= 8;
+            player.pt_num = (pbs >= 140) ? capped : Math.pow(pbs,pbs) * Math.log10(pbs);
             return "ψ(Ω)";
         }
     }
@@ -227,7 +254,7 @@ function upg_buy(x){
     if(x == 5){
         let pbs = Math.floor(player.pt_base);
         if((player.upg_bit & 4) > 0) pbs += pbs - 10;
-        if(pbs >= 1508){
+        if(pbs >= end_game){
             alert("You Win.");
         }
         return;
@@ -239,29 +266,6 @@ function upg_buy(x){
     } 
 }
 setInterval(function(){
-    let ac = player.auto_buy;
-    let pbs = Math.floor(player.pt_base);
-    if((player.upg_bit & 1) > 0) ac *= Math.log10(10 + player.time / 10);
-    if((player.upg_bit & 2) > 0) ac *= Math.pow(Math.min(player.auto_buy,5000) + 1,((player.upg_bit & 16) > 0) ? 1.2 : 0.4);
-    if((player.upg_bit & 4) > 0) pbs += pbs - 10;
-    gid("money").innerText = dn(player.money);
-    gid("acos").innerText = (player.auto_buy >= 63133) ? dn(5000 + (player.auto_buy - 63132) * auto_costm * 10) : dn((player.auto_buy + 1) * auto_costm + 1);
-    gid("base").innerText = player.n_base;
-    gid("p_base").innerText = pbs;
-    if(player.n_base <= 2){
-        gid("base_d_cos").innerText = "Infinity";
-    }else{
-        gid("base_d_cos").innerText = dn(base_d_costs[10 - player.n_base]);
-    }
-    for(let i = 0;i < upg_cost.length - 1;i++){
-        gid("upg" + i + "cos").innerText = dn(upg_cost[i]);
-        gid("upg" + i).innerText = ((player.upg_bit & (1 << i)) > 0) ? "Yes" : "No";
-    }
-    gid("base_u_cos").innerText = dn(base_u_cost_s * Math.pow(base_u_costm_e + (player.pt_base - 10) / 1000,player.pt_base - 10));
-    gid("auto_s").innerText = Math.floor(ac);
-    player.onum += ac / 10; 
-    player.time++;
-    gid("rast_upg").innerText = ((player.upg_bit & 16) > 0) ? "Resets first 4 Upgrades, 2 bases and auto click.\n" : "Resets first 4 Upgrades, 2 bases and auto click.But, second upgrade is cubed.";
     show_n();
 }, 100);
 
