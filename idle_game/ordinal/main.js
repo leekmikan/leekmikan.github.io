@@ -26,7 +26,7 @@ function addn(){
     player.onum++;
     show_n();
 }
-function show_n(){
+function show_n(add=false){
     let ac = player.auto_buy;
     let pbs = Math.floor(player.pt_base);
     if((player.upg_bit & 1) > 0) ac *= Math.log10(10 + player.time / 10);
@@ -47,8 +47,11 @@ function show_n(){
     }
     gid("base_u_cos").innerText = dn(base_u_cost_s * Math.pow(base_u_costm_e + (player.pt_base - 10) / 1000,player.pt_base - 10));
     gid("auto_s").innerText = Math.floor(ac);
-    player.onum += ac / 10; 
-    player.time++;
+    if(add) player.onum += ac / 10; 
+    if(add) player.time++;
+    gid("upg0c").innerText = ((player.upg_bit & 1) > 0) ? Math.log10(10 + player.time / 10).toFixed(1) : 1.0;
+    gid("upg1c").innerText = ((player.upg_bit & 2) > 0) ? Math.pow(Math.min(player.auto_buy,5000) + 1,0.4).toFixed(1) : 1.0;
+    gid("upg4c").innerText = ((player.upg_bit & 16) > 0) ? Math.pow(Math.min(player.auto_buy,5000) + 1,0.8).toFixed(1) : 1.0;
     gid("rast_upg").innerText = ((player.upg_bit & 16) > 0) ? "Resets first 4 Upgrades, 2 bases and auto click.\n" : "Resets first 4 Upgrades, 2 bases and auto click.But, second upgrade is cubed.";
     gid("od").innerHTML = convertToOrdinal(player.onum,player.n_base);
     gid("pt").innerText = player.pt_num >= capped ? dn(player.pt_num) + " (Capped)" : dn(player.pt_num);
@@ -266,7 +269,7 @@ function upg_buy(x){
     } 
 }
 setInterval(function(){
-    show_n();
+    show_n(true);
 }, 100);
 
 document.addEventListener('keydown', (event) => {
