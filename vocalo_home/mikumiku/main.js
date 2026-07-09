@@ -7,6 +7,8 @@ let engine = [
     "https://yandex.com/images/search?from=tabbar&text=",
 ]
 function Search(str){
+    if(document.getElementsByName("not_s")[0].checked) str += " -コスプレ";
+    if(document.getElementsByName("not_s")[1].checked) str += " -フィギュア";
     location.href = engine[Radio_Val()] + str;
 }
 function Radio_Val(){

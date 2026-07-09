@@ -51,6 +51,11 @@
 				<label><input type="radio" name="engine" value="3">百度</label><br>
 				<label><input type="radio" name="engine" value="4">Yandex</label><br>
 			</div>
+			<p>除外設定</p>
+			<div class="rd">
+				<label><input type="checkbox" name="not_s" value="0" checked>コスプレ</label><br>
+				<label><input type="checkbox" name="not_s" value="1">フィギュア</label><br>
+			</div>
 		</div>
 		<div class="text_frame">
 			<h2>目次</h2>
@@ -161,7 +166,7 @@
 			<p>※検索結果が少ないもの/AS/雪ミク/マジミラミク/レーシングミクは除外</p>
 			<button class="random" onclick="Random_Search(4)">この中でランダム表示</button><br>
 			<button onclick="Search('Project DIVA　' + this.innerText)">初音ミク</button>
-			<!--初音ミク V3-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">初音ミク V3</button>
 			<button title="初音ミクの激唱" onclick="Search('Project DIVA　インフィニティ')">∞</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">AMERICANA</button>
 			<button title="Catch the Wave" onclick="Search('DIVA　' + this.innerText)">Catch the Wave</button>
@@ -169,28 +174,29 @@
 			<button title="ゴーストルール" onclick="Search(this.innerText + '　初音ミク DIVA')">GHOST</button>
 			<button title="ハロー、プラネット。" onclick="Search('DIVA　' + this.innerText)">Hello World.</button>
 			<button title="1/6 -out of the gravity-" onclick="Search(this.innerText + '　初音ミク DIVA')">out of the gravity</button>
-			<!--Phantom Thief ミク-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">Phantom Thief ミク</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">P4Dスタイル</button>
 			<button title="shake it!" onclick="Search(this.innerText + '　初音ミク')">Trip The Light Fantastic</button>
-			<button onclick="Search(this.innerText + '　初音ミク DIVA')">TYPE2020</button>
-			<!--VN02-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">TYPE2020</button>
+			<button onclick="Search('Project DIVA　' + this.innerText)">VN02</button>
 			<button title="アゲアゲアゲイン" onclick="Search('DIVA　' + this.innerText)">アゲアゲアゲイン</button>
 			<button title="アンハッピーリフレイン" onclick="Search(this.innerText + '　初音ミク')">アジテーション</button>
 			<button title="アカツキアライヴァル" onclick="Search(this.innerText + '　初音ミク')">アバンガード</button>
 			<!--アラビアン-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">アラビアン</button>
 			<button title="ありふれたせかいせいふく" onclick="Search(this.innerText)">ありふれミク</button>
 			<button title="インタビュア" onclick="Search(this.innerText + '　DIVA')">インタビュア ミク</button>
 			<button title="ロミオとシンデレラ" onclick="Search('ロミオとシンデレラ　初音ミク DIVA')">ヴィンテージドレス</button>
-			<!--うさみみパーカー-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">うさみみパーカー</button>
 			<button title="骸骨楽団とリリア" onclick="Search('骸骨楽団とリリア 初音ミク DIVA')">エトワール</button>
-			<!--エンジェル-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">エンジェル</button>
 			<button onclick="Search(this.innerText + '　初音ミク')">おさんぽスタイル</button>
 			<button onclick="Search(this.innerText + '　初音ミク')">オレンジブロッサム</button>
 			<button title="カラフルメロディ" onclick="Search(this.innerText + '　初音ミク')">カラフルドロップ</button>
 			<button onclick="Search(this.innerText + '　初音ミク')">ガリア軍第7小隊</button>
-			<!--ギャラクシー-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">ギャラクシー</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">グラデーションリゾート</button>
-			<!--ゴシック-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">ゴシック</button>
 			<button title="裏表ラバーズ" onclick="Search(this.innerText + '　初音ミク')">コンフリクト</button>
 			<button title="サイハテ" onclick="Search(this.innerText)">サイハテミク</button>
 			<button title="こちら、幸福安心委員会です。" onclick="Search(this.innerText + '　初音ミク DIVA')">サイレン</button>
@@ -198,69 +204,69 @@
 			<button onclick="Search(this.innerText + '　初音ミク')">ジャー★ジ</button>
 			<button title="ワールドイズマイン" onclick="Search(this.innerText + '　初音ミク')">シュープリーム</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">スイートパンプキン</button>
-			<!--スクール-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">スクール</button>
 			<!--スター-->
 			<button title="はじめまして地球人さん" onclick="Search(this.innerText + '　DIVA')">スチャラカハツネ</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">ストリートポップ</button>
 			<button onclick="Search(this.innerText + '　初音ミク')">スピリチュアル</button>
-			<!--スペチャン5-->
-			<!--スペチャン39-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">スペチャン5</button>
+			<button onclick="Search('Project DIVA　' + this.innerText)">スペチャン39</button>
 			<!--スノウ-->
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">セレブレーション</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">ソニックスタイル</button>
-			<!--ダンサー-->
-			<!--チア-->
-			<!--チャイナ-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">ダンサー</button>
+			<button onclick="Search('Project DIVA　' + this.innerText)">チア</button>
+			<button onclick="Search('Project DIVA　' + this.innerText)">チャイナ</button>
 			<button title="二次元ドリームフィーバー" onclick="Search(this.innerText + '　初音ミク DIVA')">ディメンション</button>
 			<button title="Glory 3usi9" onclick="Search(this.innerText + '　初音ミク')">ナナイロライン</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">にゃんこ</button>
-			<!--ねむねむ-->
-			<!--ノーブル-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">ねむねむ</button>
+			<button onclick="Search('Project DIVA　' + this.innerText)">ノーブル</button>
 			<button title="ワールドイズマイン" onclick="Search(this.innerText + '　初音ミク')">ハートハンター</button>
 			<button title="ODDS&ENDS" onclick="Search(this.innerText + '　初音ミク')">ハートビート</button>
-			<!--パイレーツ-->
-			<!--パジャマパーティ ミク-->
+			<button title="ペリコ・スペースシッパー" onclick="Search('Project DIVA　' + this.innerText)">パイレーツ</button>
+			<button onclick="Search('Project DIVA　' + this.innerText)">パジャマパーティ ミク</button>
 			<!--ハツネミク-->
-			<!--パンク-->
+			<button onclick="Search('Project DIVA　-パンキッシュ　' + this.innerText)">パンク</button>
 			<button title="Weekender Girl" onclick="Search(this.innerText + '　初音ミク')">パンジー</button>
-			<!--ピンクポップス-->
-			<!--フェアウェル-->
-			<!--フェアリー-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">ピンクポップス</button>
+			<button onclick="Search('Project DIVA　' + this.innerText)">フェアウェル</button>
+			<button onclick="Search('Project DIVA　-フェアリーマカロン　' + this.innerText)">フェアリー</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">フェイ・イェン スタイル</button>
 			<button title="ネトゲ廃人シュプレヒコール" onclick="Search(this.innerText + '　初音ミク')">フォニュエールスタイル</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">プラグイン</button>
 			<button title="サンドリヨン" onclick="Search(this.innerText + '　初音ミク')">プランセス・ブランシュ</button>
 			<!--プリンセス-->
-			<!--ボーカル-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">ボーカル</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">ホワイトドレス</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">ホワイトワンピース</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">マイディアバニー</button>
-			<!--マリオネット-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">マリオネット</button>
 			<button title="LOL-lots of laugh-" onclick="Search(this.innerText + '　初音ミク')">マーチ・ヘイヤ</button>
 			<button title="ミラクルペイント" onclick="Search('ミラクルペイント　初音ミク DIVA')">マジシャン</button>
 			<button title="クローバー・クラブ" onclick="Search(this.innerText)">みくずきん</button>
 			<button onclick="Search(this.innerText)">みくりすたる☆</button>
-			<!--ミコ-->
-			<!--みやび-->
-			<!--メイコスタイル-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">ミコ</button>
+			<button onclick="Search('Project DIVA　' + this.innerText)">みやび</button>
+			<!--<button onclick="Search('Project DIVA　' + this.innerText)">メイコスタイル</button>-->
 			<button title="メテオ" onclick="Search(this.innerText + '　初音ミク DIVA')">メテオライト</button>
-			<!--ゆるふわパステル-->
-			<!--ライアー-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">ゆるふわパステル</button>
+			<button onclick="Search('Project DIVA　初音ミク　' + this.innerText)">ライアー</button>
 			<button title="からくりピエロ" onclick="Search(this.innerText + '　初音ミク DIVA')">リグレット</button>
 			<button onclick="Search(this.innerText + '　初音ミク DIVA')">リボンガール</button>
 			<button title="Tell Your World" onclick="Search(this.innerText + '　初音ミク')">リンケージ</button>
-			<!--リンスタイル-->
+			<button onclick="Search('Project DIVA　初音ミク　' + this.innerText)">リンスタイル</button>
 			<button title="カンタレラ" onclick="Search(this.innerText + '　初音ミク')">ローザ・ビアンカ</button>
 			<button title="Sadistic.Music∞Factory" onclick="Search(this.innerText + '　初音ミク')">わがまま工場長</button>
 			<button title="ローリンガール" onclick="Search(this.innerText + '　初音ミク')">回転少女</button>
 			<button title="指切り" onclick="Search(this.innerText + '　初音ミク')">花詞</button>
 			<button title="千本桜" onclick="Search(this.innerText + '　初音ミク')">壱ノ桜・桜花</button>
-			<!--初音ミク キュート-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">初音ミク キュート</button>
 			<button onclick="Search('DIVA　' + this.innerText)">初音ミク　クリスマス</button>
 			<button onclick="Search(this.innerText + '　DIVA')">初音ミク スイムウェア</button>
 			<button onclick="Search(this.innerText + '　DIVA')">初音ミク スクール競泳</button>
 			<button onclick="Search(this.innerText + '　DIVA')">初音ミク みずたまビキニ</button>
-			<!--初音ミク 浴衣スタイル-->
+			<button onclick="Search('Project DIVA　' + this.innerText)">初音ミク 浴衣スタイル</button>
 			<button onclick="Search('DIVA　' + this.innerText)">初音ミク 蝶</button>
 			<button title="ワールズエンド・ダンスホール" onclick="Search(this.innerText)">初音ミク 翠玉</button>
 			<button title="指切り" onclick="Search(this.innerText + '　初音ミク')">華車</button>
