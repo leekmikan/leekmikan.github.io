@@ -1,1 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns#">
+	<head>
+	<meta charset="utf-8">
+	<meta property="og:title" content="世界一下手な字のフォント｜自作">
+	<meta property="og:type" content="website">
+	<meta property="og:description" content="世界一下手な字のフォント｜自作">
+	<meta name="twitter:site" content="@mirilelumeka">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="og:url" content="https://leekmikan.github.io/font/index.html">
+	<meta property="og:site_name" content="leekmikan(ねぎみかん)のホームページ">
+	<meta property="og:image" content="https://leekmikan.github.io/font/ogp.png">
+  <link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>世界一下手な字のフォント｜自作</title>
+  <meta name="description" content="いつもの字をフォントにしてみた｜漢検2級程度まで網羅">
+  <iframe src="../google.html" style="display: none;"></iframe>
+  <link rel="stylesheet" href="../picture/des_gpt.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header container">
+    <div class="site-brand">
+      <img src="../icon.jpg" alt="Museum Logo">
+      <span class="site-title">leekmikan(ねぎみかん)のホームページ</span>
+    </div>
+    <nav class="site-nav">
+      <ul>
+        <li><a href="https://leekmikan.github.io/index.html">ホーム</a></li>
+        <li><a href="https://x.com/mirilelumeka">X(旧Twitter)</a></li>
+        <li><a href="https://leekmikan.github.io/gahaku/Game.html">画伯の展覧会(クイズ)</a></li>
+        <li><a href="https://leekmikan.github.io/pg/index.html">プログラム集</a></li>
+      </ul>
+    </nav>
+  </header>
 
+  <!-- Hero -->
+  <section class="hero container">
+    <div>
+      <p class="eyebrow">企画展</p>
+      <h1>★自作★　世界一下手な字のフォント</h1>
+      <p class="lead">いつもの字をフォントにしてみました。漢検2級程度まで網羅しています。</p>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <main class="content container">
+    <div>
+      <h2>情報</h2>
+      <h3>字　に関する情報</h3>
+      <p class="lead">小学校のあゆみ(通知表)で、国語の字の丁寧さに関する項目がC (学年末だけ情けのB)</p>
+      <p class="lead">定期テストでは、大体2~3%くらい読み間違えで採点ミスが発生する</p><br>
+      <h3>フォントに関する情報</h3>
+      <p class="lead">フォント名は適当なので、必要に応じて書き換えてください。</p>
+      <p class="lead">かなり細いので、大きめにして表示してください。</p>
+      <p class="lead">ひらがな、カタカナ、数字、一部記号、漢検2級程度+よく使いそうな漢字を実装</p>
+      <p><a href="code.txt">実装文字一覧</a></p>
+      <h3>使用ツール</h3>
+      <p>フォント作成：calligraphr　https://www.calligraphr.com/en/</p>
+      <p>書き込み　　：Pictbear</p><br>
+      <h2>デモ</h2>
+      <p class="lead">好きな文字を入れよう！</p>
+      <p class="lead">サイズはh2</p>
+      <textarea style="width:400px;height:200px;" id="tx" onchange="document.getElementById('demo').innerText = this.value">
+★自作★　世界一下手な字のフォント
+みんなここに書いてある文章を読むことができるかな？
+I have a pen.
+東京特許許可局
+αβγθω
+      </textarea>
+      <h2 id="demo"></h2>
+    </div>
+  </section>
+  </main>
+  <section class="hero container">
+    <h2>クリックしてSNSで拡散しよう！！</h2>
+    <div class="sns">
+    <img src="../picture/icon/x.jpg" onclick="location.href = 'https://x.com/intent/post?ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&text=%E3%81%93%E3%81%AE%E4%BA%BA%E3%81%AE%E7%B5%B5%E3%81%8C%E4%B8%8B%E6%89%8B%E3%81%99%E3%81%8E%E3%82%8Bwww%20%23%E6%8B%A1%E6%95%A3%E5%B8%8C%E6%9C%9B&url=https%3A%2F%2Fleekmikan.github.io%2Fpicture%2Findex_gpt.html'">
+    <img src="../picture/icon/th.jpg" onclick="location.href = 'https://www.threads.com/intent/post?text=この人の絵が下手すぎるwww%20https://leekmikan.github.io/picture/index_gpt.html'">
+    <img src="../picture/icon/bs.jpg" onclick="location.href = 'https://bsky.app/intent/compose?text=この人の絵が下手すぎるwww%20https://leekmikan.github.io/picture/index_gpt.html'">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer container" id="tmp">
+    <div class="meta">
+      <span>2025 leekmikan</span>
+      <span><a href="#tmp" onclick="alert('ないよ')">利用規約</a></span>
+      <span><a href="#tmp" onclick="alert('ないよ')">プライバシーポリシー</a></span>
+    </div>
+  </footer>
+</body>
+<style>
+  @font-face {
+  font-family: 'heta'; /* フォント名 */
+  /* フォーマットごとにパスを指定 */
+  src: url('9x.ttf') format('truetype');
+  }
+  #demo{
+    font-family: "heta";
+  }
+</style>
+<script>
+  window.onload = function(){document.getElementById('demo').innerText = document.getElementById('tx').value}
+</script>
+</html>
