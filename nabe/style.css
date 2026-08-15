@@ -1,0 +1,208 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+
+    color: #263238;
+
+    background:
+        radial-gradient(circle at top left, #e3f2fd, transparent 40%),
+        linear-gradient(135deg, #f5f7fa, #e8edf3);
+}
+
+/* 計算機本体 */
+.calculator {
+    width: 100%;
+    max-width: 650px;
+
+    padding: 36px;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.10),
+        0 4px 10px rgba(0, 0, 0, 0.05);
+
+    text-align: center;
+}
+
+/* タイトル */
+h1 {
+    margin: 0 0 12px;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    letter-spacing: 0.03em;
+}
+
+/* 説明 */
+.description {
+    margin: 0 0 30px;
+
+    color: #697586;
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* ラベル */
+label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    text-align: left;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* 入力欄 */
+#numberInput {
+    display: block;
+
+    width: 100%;
+    height: 50px;
+
+    margin-top: 8px;
+    padding: 0 14px;
+
+    border: 2px solid #dce2e8;
+    border-radius: 10px;
+
+    background: #f8fafc;
+    color: #263238;
+
+    font-size: 18px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        background-color 0.2s;
+}
+
+#numberInput:hover {
+    border-color: #b9c4d0;
+}
+
+#numberInput:focus {
+    background: #fff;
+    border-color: #4f7cff;
+
+    box-shadow: 0 0 0 4px rgba(79, 124, 255, 0.15);
+}
+
+/* 計算ボタン */
+#calculateButton {
+    width: 100%;
+    height: 50px;
+
+    margin-top: 15px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #4f7cff;
+    color: #fff;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 12px rgba(79, 124, 255, 0.25);
+
+    transition:
+        background-color 0.2s,
+        transform 0.1s,
+        box-shadow 0.2s;
+}
+
+#calculateButton:hover {
+    background: #3d69e8;
+
+    box-shadow: 0 7px 18px rgba(79, 124, 255, 0.3);
+}
+
+#calculateButton:active {
+    transform: translateY(2px);
+    box-shadow: 0 3px 8px rgba(79, 124, 255, 0.25);
+}
+
+/* 結果 */
+#result {
+    min-height: 58px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 25px 0 0;
+    padding: 15px;
+
+    border-radius: 10px;
+
+    background: #f3f6fa;
+
+    color: #374151;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+/* 結果が空のとき */
+#result:empty {
+    display: none;
+}
+
+/* スマートフォン */
+@media (max-width: 600px) {
+    body {
+        padding: 15px;
+    }
+
+    .calculator {
+        padding: 28px 22px;
+        border-radius: 16px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    #numberInput,
+    #calculateButton {
+        height: 52px;
+    }
+}

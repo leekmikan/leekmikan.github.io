@@ -1,1 +1,60 @@
+<html lang="ja" prefix="og: http://ogp.me/ns#">
+	<head>
+	<meta charset="utf-8">
+	<meta property="og:title" content="高速版｜ナベアツのアホになる回数計算">
+	<meta property="og:type" content="website">
+	<meta property="og:description" content="ナベアツ方程式を応用することにより、巨大な数のアホになる回数を瞬時に計算できます。">
+	<meta name="twitter:site" content="@mirilelumeka">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="og:url" content="https://leekmikan.github.io/nabe/index.html">
+	<meta property="og:site_name" content="leekmikan(ねぎみかん)のホームページ">
+	<meta property="og:image" content="https://leekmikan.github.io/picture/img/aho.jpg">
+	<title>高速版｜ナベアツのアホになる回数計算</title>
+	<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewport'/>
+	<meta name="description" content="ナベアツ方程式を応用することにより、巨大な数のアホになる回数を瞬時に計算できます。">
+	<link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+	<link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+	</head>
+<body>
 
+    <main class="calculator">
+        <h1>【高速版】ナベアツのアホになる回数計算</h1>
+
+        <p class="description">
+            指定した自然数まで数えたときの「アホになる」回数と割合を<br>
+            ナベアツ方程式を応用して高速で計算します。<br><br>
+            
+            通常の数え上げと比較すると、計算量は O(n)→O(log(n)) になります。<br>
+			
+			BigIntを使用しているので、メモリとPCの性能の許す範囲で<br>
+			数百数千桁の数字で計算出来ます。<br><br>
+			
+			ソースコードは、自作のものをAIにアルゴリズムを保ちつつ<br>
+			見やすく書き換えてもらいました。<br>
+			
+			詳しい内容はココ→<a href="https://note.com/leekmikan/n/ncd4030000a98">note</a><br>
+			Twitter(X)垢→<a href="https://x.com/mirilelumeka">&#xA66E;&#xA66E;&#xA66E;</a><br>
+        </p>
+
+        <label for="numberInput">
+            自然数
+            <input
+                type="number"
+                id="numberInput"
+                min="1"
+                placeholder="例：20070831"
+            >
+        </label>
+
+        <button id="calculateButton">
+            計算する
+        </button>
+
+        <p id="result"></p>
+    </main>
+
+    <script src="main.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>
