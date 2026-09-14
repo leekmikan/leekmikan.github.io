@@ -1,0 +1,146 @@
+/* オリジナルフォントの設定 */
+@font-face {
+  font-family: 'MyHetaFont';
+  src: url('9x.ttf') format('truetype'); /* お使いのフォントファイル名・形式に合わせて変更してください */
+}
+
+/* 全体設定：ダサい原色背景と手描きフォント */
+body {
+  background-color: #000080; /* 平成初期に多かった濃い青 */
+  color: #ffff00; /* 蛍光イエロー */
+  font-family: 'MyHetaFont', 'Comic Sans MS', cursive, sans-serif;
+  margin: 0;
+  padding: 10px;
+}
+
+/* スクロールテロップ（marqueeの再現） */
+.marquee-container {
+  background-color: #ff00ff;
+  color: #00ffff;
+  padding: 5px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 3px dashed #ffff00;
+  margin-bottom: 20px;
+}
+
+.marquee-text {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 12s linear infinite;
+  font-size: 1.2rem;
+}
+
+@keyframes marquee {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-100%, 0); }
+}
+
+/* 全体を囲むメイン枠 */
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  border: 5px ridge #ff0000;
+  padding: 15px;
+  background-color: #000000;
+}
+
+.main-title {
+  color: #00ff00;
+  text-shadow: 3px 3px #ff0000;
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.main-title2 {
+  color: #00ff00;
+  text-shadow: 3px 3px #ff0000;
+  font-size: 1.6rem;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+/* 音楽プレイヤーエリア */
+.player-box {
+  border: 3px double #00ffff;
+  padding: 10px;
+  margin: 20px auto;
+  background-color: #333333;
+  width: 80%;
+}
+
+.player-title {
+  color: #ff00ff;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.custom-select {
+  font-family: 'MyHetaFont', sans-serif;
+  font-size: 1rem;
+  padding: 5px;
+  background-color: #ffff00;
+  color: #000000;
+  border: 2px solid #ff0000;
+}
+
+.pixel-btn {
+  font-family: 'MyHetaFont', sans-serif;
+  background-color: #c0c0c0;
+  border: 3px outset #ffffff;
+  padding: 5px 15px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.pixel-btn:active {
+  border-style: inset;
+}
+
+/* GIFギャラリー：あえて傾けて下手さを演出 */
+.gif-gallery {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.gif-item {
+  border: 2px solid #ffffff;
+  padding: 8px;
+  background-color: #111111;
+}
+
+.tilt-left {
+  transform: rotate(-4deg);
+}
+
+.tilt-right {
+  transform: rotate(3deg);
+}
+
+.gif-item img {
+  max-width: 150px;
+  height: auto;
+}
+
+/* コンテンツ枠 */
+.content-box {
+  border: 2px dashed #00ff00;
+  padding: 10px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.under-construction {
+  color: #ff0000;
+  font-weight: bold;
+  margin-top: 30px;
+}

@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta property="og:title" content="[AI実験用]　★ようこそ！僕のホームページへ★">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="AIに下手な絵、下手な音楽、下手な字を活用できるサイトを作ってもらった。">
+  <meta name="twitter:site" content="@mirilelumeka">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:url" content="https://leekmikan.github.io/picture/heta/index.html">
+  <meta property="og:site_name" content="leekmikan(ねぎみかん)のホームページ">
+  <meta property="og:image" content="https://leekmikan.github.io/picture/img/ogp.jpg">
+  <link rel="icon" type="image/jpg" href="../../icon.jpg">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AIに下手な絵、下手な音楽、下手な字を活用できるサイトを作ってもらった。">
+  <title>[AI実験用]　★ようこそ！僕のホームページへ★</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+  <div class="marquee-container">
+    <div class="marquee-text">★　祝！開設　★　音量に注意してゆっくりしていってね！！</div>
+  </div>
+
+  <div class="container">
+    <h1 class="main-title">~　Welcome　to　My　Homepage　~</h1>
+	<h2 class="main-title2">~　AIに自分の苦手な芸術系を全て詰め込んだページを作ってもらったよ。~</h2>
+    <p class="subtitle">※音が出るよ！好きな曲を選んでね！</p>
+
+    <div class="player-box">
+      <div class="player-title">♪　BGMせんたく　♪</div>
+	  <div class="player-title">♪　元ネタわかるかな？　♪</div>
+      <select id="bgmSelect" class="custom-select">
+        <option value="">--　曲をえらんでね　--</option>
+        <option value="bgm1.mp3">BGM1</option>
+        <option value="bgm2.mp3">BGM2</option>
+		<option value="bgm3.mp3">BGM3</option>
+      </select>
+
+      <div class="controls">
+        <button id="playBtn" class="pixel-btn">再生</button>
+        <button id="stopBtn" class="pixel-btn">停止</button>
+      </div>
+      
+      <audio id="audioPlayer" loop></audio>
+    </div>
+
+    <div class="gif-gallery">
+      <div class="gif-item tilt-left">
+        <img src="../img/sorry.gif" alt="自作GIF1">
+        <p>僕の描いた絵１</p>
+      </div>
+      <div class="gif-item tilt-right">
+        <img src="../img/kiss.gif" alt="自作GIF2">
+        <p>僕の描いた絵２</p>
+      </div>
+    </div>
+
+    <div class="content-box">
+      <h2>★　プロフィール　★</h2>
+      <p>なまえ：ねぎみかん</p>
+      <p>すきなもの：いろいろ</p>
+      <p>ひと言：自分より芸術センスがない人がいれば教えてほしいです。</p>
+    </div>
+
+    <div class="under-construction">
+      <p><a href="https://leekmikan.github.io/picture/index_gpt.html">ここにいろんな絵が置いてあるよ</a></p>
+<p><a href="https://leekmikan.github.io/gahaku/Game.html">ここにもいろんな絵が置いてあるよ</a></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
