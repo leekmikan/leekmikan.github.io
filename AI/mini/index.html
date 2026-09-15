@@ -1,1 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="UTF-8">
 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="3秒でできる謎診断。あなたのネット上の印象を勝手に診断します。※ネタ診断です。">
+
+    <meta name="theme-color" content="#171717">
+
+    <!-- OGP -->
+    <meta property="og:type" content="website">
+    <meta property="og:title"
+          content="あなたのネット上の印象、勝手に診断します。">
+    <meta property="og:description"
+          content="3秒で完了。名前を入力するだけで、あなたのネット上の印象を勝手に診断します。※ネタ診断です。">
+    <meta property="og:image"
+          content="https://leekmikan.github.io/AI/mini/ogp.jpg">
+    <meta property="og:url"
+          content="https://leekmikan.github.io/AI/mini/">
+    <meta property="og:site_name"
+          content="leekmikan(ねぎみかん)のホームページ">
+
+    <!-- X -->
+    <meta name="twitter:card"
+          content="summary_large_image">
+    <meta name="twitter:title"
+          content="あなたのネット上の印象、勝手に診断します。">
+    <meta name="twitter:description"
+          content="3秒でできる謎診断。あなたのネット上の印象を勝手に診断します。">
+    <meta name="twitter:image"
+          content="https://leekmikan.github.io/AI/mini/ogp.jpg">
+
+    <title>あなたのネット上の印象、勝手に診断します。</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="hero">
+
+    <div class="hero-inner">
+
+        <div class="eyebrow">
+            ⚡ 3秒でできる謎診断
+        </div>
+
+        <h1>
+            あなたの<br>
+            <span>ネット上の印象</span>、<br>
+            勝手に診断します。
+        </h1>
+
+        <p class="lead">
+            名前を入力するだけ。<br>
+            たぶん当たります。たぶん。
+        </p>
+
+        <button id="startButton" class="main-button">
+            診断してみる →
+        </button>
+
+        <div class="social-proof">
+            👀 とりあえず1回やってみる
+        </div>
+
+        <div class="scroll-hint">
+            ↓
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<section id="diagnosis" class="section diagnosis-section">
+
+    <div class="section-label">
+        STEP 01
+    </div>
+
+    <h2>
+        まず、名前を<br>
+        入力してください。
+    </h2>
+
+    <div class="input-area">
+
+        <input
+            type="text"
+            id="nameInput"
+            maxlength="20"
+            placeholder="例：ミク好き太郎"
+            autocomplete="off"
+        >
+
+        <button id="diagnoseButton">
+            診断する
+        </button>
+
+    </div>
+
+    <p class="note">
+        ※入力した名前はサーバーに送信されません。
+    </p>
+
+    <div id="loading" class="loading hidden">
+
+        <div class="loading-circle"></div>
+
+        <p id="loadingText">
+            解析しています……
+        </p>
+
+    </div>
+
+</section>
+
+
+<section id="resultSection"
+         class="section result-section hidden">
+
+    <div class="section-label">
+        RESULT
+    </div>
+
+    <p class="result-intro">
+        診断結果が出ました。
+    </p>
+
+    <div id="resultCard" class="result-card">
+
+        <div class="result-top">
+
+            <span>
+                ネットの印象診断
+            </span>
+
+            <span id="resultNumber">
+                No.000
+            </span>
+
+        </div>
+
+
+        <div id="rareBadge"
+             class="rare-badge hidden">
+            ★ VERY RARE ★
+        </div>
+
+
+        <div class="result-icon"
+             id="resultIcon">
+            ?
+        </div>
+
+
+        <p class="result-name"
+           id="resultName">
+        </p>
+
+
+        <h2 id="resultTitle">
+        </h2>
+
+
+        <div class="score">
+
+            <div class="score-label">
+
+                <span>
+                    謎の好感度
+                </span>
+
+                <strong>
+                    <span id="scoreNumber">0</span>%
+                </strong>
+
+            </div>
+
+            <div class="score-bar">
+                <div id="scoreBar"></div>
+            </div>
+
+        </div>
+
+
+        <p id="resultText"
+           class="result-text">
+        </p>
+
+
+        <div class="traits"
+             id="traits">
+        </div>
+
+
+        <div class="screenshot-hint">
+
+            📸
+            <strong>
+                この結果をスクショしてSNSに投稿してみてください！
+            </strong>
+
+        </div>
+
+
+        <div class="share-area">
+
+            <p>
+                この結果、誰かに見せたくなりませんか？
+            </p>
+
+            <button id="shareButton"
+                    class="share-button">
+
+                𝕏 この結果をXに投稿する
+
+            </button>
+
+
+            <button id="copyButton"
+                    class="copy-button">
+
+                結果をコピーする
+
+            </button>
+
+
+            <button id="retryButton"
+                    class="retry-button">
+
+                自分をもう一度診断する
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="friend-box">
+
+        <div>
+            <span class="friend-icon">
+                👥
+            </span>
+
+            <div>
+                <strong>
+                    友達の名前でもやってみよう
+                </strong>
+
+                <p>
+                    「これ絶対あなたもやって」
+                    と送ってみてください。
+                </p>
+            </div>
+        </div>
+
+        <button id="friendButton">
+            友達を診断する →
+        </button>
+
+    </div>
+
+</section>
+
+
+<section class="section reaction-section">
+
+    <div class="section-label">
+        WHY?
+    </div>
+
+    <h2>
+        この診断、<br>
+        何が起きるか分かりません。
+    </h2>
+
+    <div class="cards">
+
+        <article class="info-card">
+
+            <span>01</span>
+
+            <h3>
+                結果は毎回変わる
+            </h3>
+
+            <p>
+                同じ名前でも結果が変わることがあります。
+                もう一回やってみると別の結果になるかも。
+            </p>
+
+        </article>
+
+
+        <article class="info-card">
+
+            <span>02</span>
+
+            <h3>
+                たまに変な結果が出る
+            </h3>
+
+            <p>
+                普通の結果だけではありません。
+                「何だこれ」と思ったら正常です。
+            </p>
+
+        </article>
+
+
+        <article class="info-card">
+
+            <span>03</span>
+
+            <h3>
+                友達にも試せる
+            </h3>
+
+            <p>
+                自分だけでなく、友達や家族の名前でも
+                診断できます。
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<section class="section final-section">
+
+    <div class="final-box">
+
+        <p class="big-question">
+            ちなみに……
+        </p>
+
+        <h2>
+            あなたの結果、<br>
+            本当に当たっていましたか？
+        </h2>
+
+        <p>
+            結果が気に入らなかった人も、<br>
+            もう一回だけどうぞ。
+        </p>
+
+        <button id="finalButton">
+            もう一回やる
+        </button>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        これは遊び目的のネタ診断コンテンツです。
+    </p>
+
+    <small>
+        © 2026 leekmikan
+    </small>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
