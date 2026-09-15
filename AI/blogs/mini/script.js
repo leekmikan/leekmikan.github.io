@@ -266,44 +266,18 @@ shareButton.addEventListener("click", async () => {
         `謎の好感度：${score}/100\n\n` +
         `あなたも診断してみてください。`;
 
-    if (navigator.share) {
+    // Xへの投稿URLを作成
+    const xUrl =
+        "https://twitter.com/intent/tweet?text=" +
+        encodeURIComponent(shareText) +
+        "&url=" +
+        encodeURIComponent(location.href);
 
-        try {
-
-            await navigator.share({
-                title: "あなたのネット上の印象診断",
-                text: shareText,
-                url: location.href
-            });
-
-        } catch (error) {
-            // ユーザーが共有画面を閉じた場合などは何もしない
-        }
-
-    } else {
-
-        try {
-
-            await navigator.clipboard.writeText(
-                shareText + "\n" + location.href
-            );
-
-            shareButton.textContent =
-                "結果をコピーしました！";
-
-            setTimeout(() => {
-                shareButton.textContent =
-                    "結果をSNSで共有する";
-            }, 1800);
-
-        } catch (error) {
-
-            alert(
-                "共有できませんでした。結果をスクリーンショットしてSNSに投稿してみてください。"
-            );
-
-        }
-
-    }
+    // Xの投稿画面を新しいタブで開く
+    window.open(
+        xUrl,
+        "_blank",
+        "noopener,noreferrer"
+    );
 
 });
