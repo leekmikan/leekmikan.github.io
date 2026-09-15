@@ -1,1 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="あなたのネット上の印象を勝手に診断します。">
+    <title>あなたのネット上の印象、勝手に診断します。</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<header class="hero">
+    <div class="hero-inner">
+        <div class="eyebrow">⚡ 3秒でできる謎診断</div>
+
+        <h1>
+            あなたの<br>
+            <span>ネット上の印象</span>、<br>
+            勝手に診断します。
+        </h1>
+
+        <p class="lead">
+            名前を入力するだけ。<br>
+            たぶん当たります。たぶん。
+        </p>
+
+        <button id="startButton" class="main-button">
+            診断してみる →
+        </button>
+
+        <div class="scroll-hint">↓ 下にスクロール</div>
+    </div>
+</header>
+
+
+<main>
+
+<section id="diagnosis" class="section diagnosis-section">
+
+    <div class="section-label">STEP 01</div>
+    <h2>まず、名前を入力してください。</h2>
+
+    <div class="input-area">
+        <input
+            type="text"
+            id="nameInput"
+            maxlength="20"
+            placeholder="例：ミク好き太郎"
+            autocomplete="off"
+        >
+        <button id="diagnoseButton">診断する</button>
+    </div>
+
+    <p class="note">
+        ※入力した名前はサーバーに送信されません。
+    </p>
+
+    <div id="loading" class="loading hidden">
+        <div class="loading-circle"></div>
+        <p id="loadingText">解析しています……</p>
+    </div>
+
+</section>
+
+
+<section id="resultSection" class="section result-section hidden">
+
+    <div class="section-label">RESULT</div>
+
+    <div class="result-card">
+
+        <div class="result-top">
+            <span>あなたのネット上の印象</span>
+            <span id="resultNumber">No.000</span>
+        </div>
+
+        <div class="result-icon" id="resultIcon">?</div>
+
+        <p class="result-name" id="resultName"></p>
+
+        <h2 id="resultTitle"></h2>
+
+        <div class="score">
+            <div class="score-label">
+                <span>謎の好感度</span>
+                <strong id="scoreNumber">0</strong>
+            </div>
+            <div class="score-bar">
+                <div id="scoreBar"></div>
+            </div>
+        </div>
+
+        <p id="resultText" class="result-text"></p>
+
+        <div class="traits" id="traits"></div>
+
+        <div class="share-area">
+            <p>この結果、どう思いましたか？</p>
+
+            <button id="shareButton" class="share-button">
+                結果をSNSで共有する
+            </button>
+
+            <button id="retryButton" class="retry-button">
+                もう一度診断する
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section reaction-section">
+
+    <div class="section-label">WHY?</div>
+
+    <h2>
+        なぜ、こんな診断を<br>
+        作ったのか。
+    </h2>
+
+    <div class="cards">
+
+        <article class="info-card">
+            <span>01</span>
+            <h3>一瞬で終わる</h3>
+            <p>
+                名前を入れてボタンを押すだけ。
+                SNSから来た人でも気軽に遊べます。
+            </p>
+        </article>
+
+        <article class="info-card">
+            <span>02</span>
+            <h3>結果が毎回違う</h3>
+            <p>
+                同じ名前でも結果が変わることがあります。
+                何度も試したくなる……かもしれません。
+            </p>
+        </article>
+
+        <article class="info-card">
+            <span>03</span>
+            <h3>人に試したくなる</h3>
+            <p>
+                「これ絶対あなたもやって」
+                と送りたくなることを目指しました。
+            </p>
+        </article>
+
+    </div>
+
+</section>
+
+
+<section class="section final-section">
+
+    <div class="final-box">
+
+        <p class="big-question">
+            ちなみに……
+        </p>
+
+        <h2>
+            あなたの結果は<br>
+            本当に当たっていましたか？
+        </h2>
+
+        <button id="finalButton">
+            もう一回やる
+        </button>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+    <p>これは遊び目的の診断コンテンツです。</p>
+    <small>© 2026 Random Diagnosis</small>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

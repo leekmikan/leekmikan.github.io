@@ -1,0 +1,531 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Noto Sans JP",
+        sans-serif;
+
+    color: #171717;
+    background: #f5f5f2;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 60px 20px;
+
+    background:
+        radial-gradient(circle at 15% 20%, #ffdfdf 0 9%, transparent 25%),
+        radial-gradient(circle at 90% 80%, #dcd9ff 0 10%, transparent 27%),
+        #f5f5f2;
+
+    overflow: hidden;
+}
+
+.hero-inner {
+    width: min(900px, 100%);
+}
+
+.eyebrow,
+.section-label {
+    display: inline-block;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+
+    padding: 7px 11px;
+
+    border: 1px solid #171717;
+    border-radius: 100px;
+}
+
+.hero h1 {
+    margin: 25px 0 20px;
+
+    font-size: clamp(42px, 8vw, 88px);
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+}
+
+.hero h1 span {
+    position: relative;
+    display: inline-block;
+}
+
+.hero h1 span::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: -5px;
+    bottom: 2px;
+
+    height: 9px;
+
+    background: #ff4d67;
+    z-index: -1;
+
+    transform: rotate(-1deg);
+}
+
+.lead {
+    font-size: clamp(17px, 3vw, 23px);
+    line-height: 1.8;
+}
+
+.main-button,
+#diagnoseButton,
+#finalButton {
+    border: 0;
+    cursor: pointer;
+
+    background: #171717;
+    color: white;
+
+    font-weight: 800;
+
+    border-radius: 100px;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+.main-button {
+    margin-top: 20px;
+    padding: 18px 30px;
+    font-size: 17px;
+}
+
+.main-button:hover,
+#diagnoseButton:hover,
+#finalButton:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px #0002;
+}
+
+.scroll-hint {
+    margin-top: 80px;
+    font-size: 12px;
+    opacity: 0.55;
+}
+
+
+/* =========================
+   COMMON
+========================= */
+
+.section {
+    width: min(1000px, calc(100% - 40px));
+    margin: auto;
+
+    padding: 110px 0;
+}
+
+.section h2 {
+    font-size: clamp(30px, 5vw, 52px);
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   DIAGNOSIS
+========================= */
+
+.diagnosis-section {
+    text-align: center;
+}
+
+.input-area {
+    display: flex;
+
+    max-width: 650px;
+    margin: 45px auto 0;
+
+    gap: 10px;
+}
+
+.input-area input {
+    min-width: 0;
+    flex: 1;
+
+    padding: 18px 22px;
+
+    border: 2px solid #171717;
+    border-radius: 15px;
+
+    background: white;
+
+    outline: none;
+}
+
+.input-area input:focus {
+    box-shadow: 0 0 0 4px #ff4d6740;
+}
+
+#diagnoseButton {
+    padding: 0 27px;
+    white-space: nowrap;
+}
+
+.note {
+    margin-top: 12px;
+    font-size: 12px;
+    opacity: 0.5;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+    margin-top: 50px;
+}
+
+.loading-circle {
+    width: 42px;
+    height: 42px;
+
+    margin: auto;
+
+    border: 4px solid #ddd;
+    border-top-color: #171717;
+
+    border-radius: 50%;
+
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+.result-section {
+    padding-top: 30px;
+}
+
+.result-card {
+    max-width: 700px;
+    margin: 35px auto 0;
+
+    padding: clamp(25px, 5vw, 50px);
+
+    background: white;
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 25px 70px #00000012;
+
+    border: 1px solid #ddd;
+}
+
+.result-top {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    opacity: 0.55;
+}
+
+.result-icon {
+    display: grid;
+    place-items: center;
+
+    width: 110px;
+    height: 110px;
+
+    margin: 35px auto 20px;
+
+    border-radius: 50%;
+
+    background: #f1f1ed;
+
+    font-size: 55px;
+}
+
+.result-name {
+    text-align: center;
+    margin: 0;
+
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+#resultTitle {
+    margin: 10px 0 45px;
+
+    text-align: center;
+
+    font-size: clamp(30px, 6vw, 52px);
+}
+
+.score-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    font-size: 13px;
+}
+
+.score-label strong {
+    font-size: 30px;
+}
+
+.score-bar {
+    height: 13px;
+
+    margin-top: 8px;
+
+    background: #e8e8e5;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+#scoreBar {
+    height: 100%;
+    width: 0;
+
+    background: #ff4d67;
+
+    border-radius: inherit;
+
+    transition: width 1.3s cubic-bezier(.2,.8,.2,1);
+}
+
+.result-text {
+    margin: 35px 0;
+
+    line-height: 2;
+    font-size: 16px;
+}
+
+.traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.trait {
+    padding: 8px 13px;
+
+    border-radius: 100px;
+
+    background: #f0f0ed;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.share-area {
+    margin-top: 45px;
+    padding-top: 30px;
+
+    border-top: 1px solid #eee;
+
+    text-align: center;
+}
+
+.share-area p {
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+.share-button {
+    width: 100%;
+
+    padding: 16px;
+
+    border: 0;
+    border-radius: 100px;
+
+    background: #171717;
+    color: white;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.retry-button {
+    margin-top: 15px;
+
+    border: 0;
+    background: none;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+    opacity: 0.65;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.reaction-section {
+    text-align: center;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-top: 45px;
+}
+
+.info-card {
+    padding: 30px;
+
+    background: white;
+
+    border: 1px solid #ddd;
+    border-radius: 22px;
+
+    text-align: left;
+
+    transition: transform 0.2s;
+}
+
+.info-card:hover {
+    transform: translateY(-6px);
+}
+
+.info-card span {
+    font-size: 12px;
+    font-weight: 900;
+    opacity: 0.35;
+}
+
+.info-card h3 {
+    margin-bottom: 10px;
+}
+
+.info-card p {
+    line-height: 1.8;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+
+/* =========================
+   FINAL
+========================= */
+
+.final-section {
+    padding-top: 30px;
+    padding-bottom: 150px;
+}
+
+.final-box {
+    padding: clamp(35px, 8vw, 80px);
+
+    border-radius: 30px;
+
+    background: #171717;
+    color: white;
+
+    text-align: center;
+}
+
+.big-question {
+    font-size: 14px;
+    opacity: 0.5;
+}
+
+.final-box h2 {
+    margin: 20px 0 35px;
+}
+
+#finalButton {
+    padding: 15px 30px;
+    background: white;
+    color: #171717;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 50px 20px;
+
+    text-align: center;
+
+    font-size: 12px;
+    opacity: 0.5;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .hero {
+        min-height: 92vh;
+    }
+
+    .input-area {
+        flex-direction: column;
+    }
+
+    #diagnoseButton {
+        padding: 16px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .result-card {
+        border-radius: 22px;
+    }
+
+}
