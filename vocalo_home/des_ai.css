@@ -1,0 +1,198 @@
+/* ベース設定・フォント */
+body {
+    color: #222222;
+    background-image: url("F.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* 全体レイアウトのコンテナ */
+.page-wrapper {
+    min-height: 100vh;
+    padding: 20px 10px;
+    box-sizing: border-box;
+}
+
+.cover {
+    max-width: 850px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    padding-bottom: 40px;
+}
+
+.container {
+    padding: 0 20px;
+}
+
+/* ヘッダー・ナビゲーション */
+header {
+    padding: 20px 0 10px 0;
+}
+
+.nav-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+header button {
+    flex: 1 1 18%;
+    min-width: 110px;
+    height: 45px;
+    background: rgba(255, 57, 160, 0.85);
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header button:hover {
+    background: rgba(255, 57, 160, 1);
+    transform: translateY(-2px);
+}
+
+/* タイトルエリア */
+.title {
+    text-align: center;
+    color: #111111;
+    background: rgba(57, 255, 160, 0.75);
+    border-radius: 12px;
+    padding: 1.5em 1em;
+    margin: 20px 0;
+    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.title h1 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.subtitle-main {
+    font-weight: bold;
+}
+
+.notice-text {
+    font-size: 0.9rem;
+    color: #444444;
+}
+
+.pc-only {
+    font-size: 0.85rem;
+    color: #666666;
+}
+
+/* アコーディオン・セクション */
+.toggle-guide {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #555555;
+    margin-bottom: 15px;
+}
+
+.section-box {
+    margin-bottom: 15px;
+    border: 1px solid rgba(57, 192, 224, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.accordion-header {
+    background: rgba(57, 192, 224, 0.2);
+    padding: 2px 20px;
+    transition: background 0.2s;
+}
+
+.accordion-header:hover {
+    background: rgba(57, 192, 224, 0.4);
+}
+
+.accordion-header h2 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #005f73;
+}
+
+/* メインコンテンツカード */
+.main {
+    color: #111111;
+    background: rgba(57, 192, 224, 0.15);
+    padding: 1.5em 2em;
+    margin: 0;
+}
+
+.main h3 {
+    font-size: 1rem;
+    color: #005f73;
+    border-bottom: 2px dashed rgba(0, 95, 115, 0.3);
+    padding-bottom: 4px;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.main h3:first-child {
+    margin-top: 0;
+}
+
+.sub-note {
+    font-size: 0.9rem;
+    color: #555555;
+}
+
+/* リスト・リンク装飾 */
+ol, ul {
+    padding-left: 1.5em;
+}
+
+li {
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+.tool-list li, .trade-link {
+    list-style-type: none;
+}
+
+.main a {
+    color: #0077b6;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.main a:hover {
+    color: #00b4d8;
+    text-decoration: underline;
+}
+
+.ct {
+    text-align: center;
+}
+
+/* ユーティリティ */
+#star {
+    font-size: 32px;
+}
+
+.big {
+    font-size: 24px;
+}
+
+.err {
+    color: red;
+}
