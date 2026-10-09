@@ -259,14 +259,14 @@
   <!-- Footer -->
   <footer class="site-footer container" id="tmp">
     <div class="meta">
-      <span>2025 leekmikan</span>
-      <span><a href="#tmp" onclick="alert('ないよ')">利用規約</a></span>
-      <span><a href="#tmp" onclick="alert('ないよ')">プライバシーポリシー</a></span>
+      <span><a id="y"></a> leekmikan</span>
     </div>
   </footer>
   <script>
     window.onload = function(){
    document.body.style.display = "block";
+   let d = new Date();
+   document.getElementById('y').innerText=d.getFullYear();
    const url = new URL(location.href);
    const params = new URLSearchParams(url.search);
    if(params.get("you") == "idiot"){
