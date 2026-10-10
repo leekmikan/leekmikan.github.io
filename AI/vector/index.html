@@ -1,1 +1,104 @@
-
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>スマホ移動距離計</title>
+<style>
+:root{--bg:#eceae4;--fg:#1d2320;--mute:#6b7470;--ac:#0b6e5c;--pad:#d9ddd6;--on:#0b6e5c;--onfg:#fff}
+@media(prefers-color-scheme:dark){:root{--bg:#141817;--fg:#e6eae7;--mute:#8d9792;--ac:#4fd1b5;--pad:#232a27;--on:#4fd1b5;--onfg:#0c1411}}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Hiragino Sans",sans-serif;padding:16px;display:flex;flex-direction:column;gap:14px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+h1{font-size:18px;margin:0}
+#msg{color:var(--mute);font-size:14px;margin:0}
+button{font:inherit;padding:12px;border:0;border-radius:10px;background:var(--on);color:var(--onfg);font-weight:600}
+#pad{flex:1;min-height:180px;border-radius:18px;background:var(--pad);display:flex;align-items:center;justify-content:center;text-align:center;font-size:20px;font-weight:600;touch-action:none;transition:background .1s}
+#pad.on{background:var(--on);color:var(--onfg)}
+#pad[hidden],#start[hidden]{display:none}
+#res{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#res div{border-left:3px solid var(--ac);padding:2px 10px}
+#res small{display:block;color:var(--mute);font-size:13px}
+#res b{font-size:26px;font-variant-numeric:tabular-nums}
+#res .t{grid-column:1/3;border-left-width:6px}
+#res .t b{font-size:38px}
+#info{font-size:12px;color:var(--mute);margin:0}
+</style>
+</head>
+<body>
+<h1>スマホ移動距離計</h1>
+<p id="msg">机などに置いて静止させ、「センサーを有効化」を押してください。</p>
+<button id="start">センサーを有効化</button>
+<div id="pad" hidden>静止させてから<br>ここを長押し → 移動 → 静止 → 離す</div>
+<div id="res">
+  <div><small>X(画面の右方向)</small><b id="rx">–</b></div>
+  <div><small>Y(画面の上方向)</small><b id="ry">–</b></div>
+  <div><small>Z(画面の手前方向)</small><b id="rz">–</b></div>
+  <div class="t"><small>合成した移動距離</small><b id="rt">–</b></div>
+</div>
+<p id="info"></p>
+<script>
+const $=id=>document.getElementById(id);
+let pre=[],rec=[],pressing=false,hz=0;
+function onMotion(e){
+  let a=e.acceleration;
+  if(!a||a.x==null)a=e.accelerationIncludingGravity;
+  if(!a||a.x==null)return;
+  const t=e.timeStamp/1000, s={t,x:a.x,y:a.y,z:a.z};
+  if(pressing)rec.push(s);
+  else{pre.push(s);while(pre.length&&t-pre[0].t>0.6)pre.shift();}
+}
+function calc(pre,rec){
+  const n=rec.length;
+  if(n<5)return null;
+  const m=k=>pre.reduce((s,p)=>s+p[k],0)/pre.length;
+  const b=pre.length>=5?{x:m('x'),y:m('y'),z:m('z')}:{x:0,y:0,z:0};
+  const T=rec[n-1].t-rec[0].t,out={};
+  for(const k of['x','y','z']){
+    const v=[0];
+    for(let i=1;i<n;i++){
+      const dt=rec[i].t-rec[i-1].t;
+      v.push(v[i-1]+((rec[i][k]-b[k])+(rec[i-1][k]-b[k]))/2*dt);
+    }
+    const ve=v[n-1];           // 最後は静止のはず → 残った速度を誤差として線形に除去
+    const c=i=>v[i]-ve*(rec[i].t-rec[0].t)/T;
+    let p=0;
+    for(let i=1;i<n;i++)p+=(c(i)+c(i-1))/2*(rec[i].t-rec[i-1].t);
+    out[k]=p;
+  }
+  out.total=Math.hypot(out.x,out.y,out.z);
+  out.T=T;out.n=n;out.calibrated=pre.length>=5;
+  return out;
+}
+const fmt=m=>(m*100).toFixed(1)+" cm";
+$("start").onclick=async()=>{
+  try{
+    if(typeof DeviceMotionEvent!=="undefined"&&typeof DeviceMotionEvent.requestPermission==="function"){
+      if(await DeviceMotionEvent.requestPermission()!=="granted"){$("msg").textContent="センサーの許可が必要です。設定からモーションセンサーを許可してください。";return;}
+    }
+    addEventListener("devicemotion",onMotion);
+    $("start").hidden=true;$("pad").hidden=false;
+    $("msg").textContent="スマホを静止させたまま、下のエリアを長押ししてください。";
+  }catch(e){$("msg").textContent="センサーを有効にできませんでした(HTTPS接続か確認してください)。";}
+};
+const pad=$("pad");
+pad.addEventListener("contextmenu",e=>e.preventDefault());
+pad.addEventListener("pointerdown",e=>{
+  pad.setPointerCapture(e.pointerId);
+  rec=[];pressing=true;pad.classList.add("on");pad.textContent="計測中… 静止したら離す";
+});
+function end(){
+  if(!pressing)return;
+  pressing=false;pad.classList.remove("on");
+  pad.innerHTML="静止させてから<br>ここを長押し → 移動 → 静止 → 離す";
+  const r=calc(pre,rec);
+  if(!r){$("msg").textContent="計測が短すぎるか、加速度を取得できませんでした。";return;}
+  $("rx").textContent=fmt(r.x);$("ry").textContent=fmt(r.y);$("rz").textContent=fmt(r.z);$("rt").textContent=fmt(r.total);
+  $("msg").textContent="計測しました。もう一度やる場合は静止させてから長押ししてください。";
+  $("info").textContent=`計測時間 ${r.T.toFixed(2)}秒 / サンプル ${r.n}個(約${(r.n/r.T).toFixed(0)}Hz)`+(r.calibrated?"":" / 静止時の補正なし");
+}
+pad.addEventListener("pointerup",end);
+pad.addEventListener("pointercancel",end);
+</script>
+</body>
+</html>
