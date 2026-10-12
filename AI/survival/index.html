@@ -1,1 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>画像ビンゴ・サバイバル</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f6f3;--fg:#222;--card:#fff;--bd:#d8d8d2;--ac:#2f6fed;--hit:#e8a33d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17181a;--fg:#eee;--card:#222428;--bd:#3a3d42;--ac:#6b9bff;--hit:#c98a2b}}
+:root[data-theme="dark"]{--bg:#17181a;--fg:#eee;--card:#222428;--bd:#3a3d42;--ac:#6b9bff;--hit:#c98a2b}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Hiragino Sans",sans-serif}
+*,*:before,*:after{box-sizing:inherit}
+main{max-width:900px;margin:0 auto;padding:16px}
+h1{font-size:1.3rem;margin:0 0 12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:12px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>*{flex:1 1 220px}
+label{display:block;font-size:.85rem;margin-bottom:4px}
+select,input[type=file],input[type=number]{width:100%;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--fg)}
+button{padding:10px 16px;border:0;border-radius:8px;background:var(--ac);color:#fff;font-size:1rem;cursor:pointer}
+button:disabled{opacity:.4;cursor:default}
+button.sub{background:transparent;color:var(--fg);border:1px solid var(--bd)}
+.hidden{display:none}
+.imgs{display:flex;gap:12px}
+.imgs>div{flex:1;min-width:0;text-align:center}
+canvas{max-width:100%;height:auto;border:1px solid var(--bd);border-radius:8px;background:repeating-conic-gradient(#bbb 0 25%,#eee 0 50%) 0 0/16px 16px}
+.cnt{font-size:.85rem;margin-top:4px}
+#num{font-size:4rem;font-weight:700;text-align:center;line-height:1.1;color:var(--ac)}
+#log{display:flex;flex-wrap:wrap;gap:4px 8px;margin-top:8px;max-height:84px;overflow-y:auto;font-size:.8rem;font-weight:600}
+.ctrl{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.ctrl label{display:inline;margin:0}
+#win{text-align:center}
+</style>
+</head>
+<body>
+<main>
+<h1>🎱 画像ビンゴ・サバイバル</h1>
 
+<section id="setup" class="card">
+  <div class="row">
+    <div><label>画像1</label><input type="file" id="f1" accept="image/*"></div>
+    <div><label>画像2</label><input type="file" id="f2" accept="image/*"></div>
+  </div>
+  <div class="row" style="margin-top:12px">
+    <div><label>画像サイズ</label>
+      <select id="sizeMode">
+        <option value="orig">統一しない(元サイズ)</option>
+        <option value="small">小さい方に統一</option>
+        <option value="large">大きい方に統一</option>
+        <option value="custom">指定サイズに統一</option>
+      </select></div>
+    <div id="customBox" class="hidden"><label>指定サイズ(長辺 px)</label><input type="number" id="customPx" value="256" min="16" max="1024"></div>
+  </div>
+  <div class="row" style="margin-top:12px"><div><label>誤差を+1する間隔(回)</label><input type="number" id="interval" value="10" min="1" max="1000"></div></div>
+  <p style="font-size:.8rem;opacity:.7;margin:10px 0">※ 処理負荷のため長辺は最大1024pxに縮小されます。</p>
+  <button id="startBtn" disabled>ゲーム開始</button>
+</section>
+
+<section id="game" class="hidden">
+  <div class="card">
+    <div id="num">–</div>
+    <div id="tol" style="text-align:center;font-size:.9rem"></div>
+    <div class="ctrl" style="justify-content:center">
+      <label><input type="radio" name="mode" value="manual" checked> 手動</label>
+      <label><input type="radio" name="mode" value="auto"> 自動</label>
+      <label>速度 <input type="range" id="speed" min="1" max="10" value="5"></label>
+      <button id="nextBtn">次の数字を引く</button>
+      <button id="autoBtn" class="sub hidden">▶ 自動開始</button>
+    </div>
+    <div id="log"></div>
+  </div>
+  <div class="imgs">
+    <div><canvas id="c1"></canvas><div class="cnt" id="n1"></div></div>
+    <div><canvas id="c2"></canvas><div class="cnt" id="n2"></div></div>
+  </div>
+</section>
+
+<section id="result" class="card hidden">
+  <div id="win">
+    <h2 id="winTitle" style="margin-top:0"></h2>
+    <canvas id="cw"></canvas>
+    <div class="ctrl" style="justify-content:center">
+      <button id="dlBtn">ダウンロード</button>
+      <button id="resetBtn" class="sub">画像選択に戻る</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const imgs=[null,null];
+let datas,alive,drawn,INT=10,timer=null,ended=false,winnerIdx=-1;
+const CH=['赤','緑','青'],COL=['#e5484d','#30a46c','#3e63dd'];
+
+function load(i,file){
+  imgs[i]=null;$('startBtn').disabled=true;
+  if(!file)return;
+  const im=new Image();
+  im.onload=()=>{imgs[i]=im;$('startBtn').disabled=!(imgs[0]&&imgs[1]);};
+  im.src=URL.createObjectURL(file);
+}
+$('f1').onchange=e=>load(0,e.target.files[0]);
+$('f2').onchange=e=>load(1,e.target.files[0]);
+$('sizeMode').onchange=e=>$('customBox').classList.toggle('hidden',e.target.value!=='custom');
+
+function targetSizes(){
+  const m=$('sizeMode').value,MAX=1024;
+  let s=imgs.map(im=>[im.naturalWidth,im.naturalHeight]);
+  const area=a=>a[0]*a[1];
+  if(m==='small'||m==='large'){
+    const base=(m==='small')===(area(s[0])<=area(s[1]))?s[0]:s[1];
+    s=[base.slice(),base.slice()];
+  }else if(m==='custom'){
+    const L=Math.max(16,Math.min(MAX,+$('customPx').value||256));
+    s=s.map(([w,h])=>{const k=L/Math.max(w,h);return[Math.round(w*k),Math.round(h*k)]});
+    return s.map(a=>[Math.max(1,a[0]),Math.max(1,a[1])]);
+  }
+  return s.map(([w,h])=>{const k=Math.min(1,MAX/Math.max(w,h));return[Math.max(1,Math.round(w*k)),Math.max(1,Math.round(h*k))]});
+}
+
+function strip(d){ // RGB(0,0,0)->alpha 0, return alive count
+  const p=d.data;let c=0;
+  for(let i=0;i<p.length;i+=4){
+    if(p[i+3]===0)continue;
+    if(!p[i]&&!p[i+1]&&!p[i+2])p[i+3]=0;else c++;
+  }
+  return c;
+}
+function show(i){
+  const cv=$('c'+(i+1));cv.getContext('2d').putImageData(datas[i],0,0);
+  $('n'+(i+1)).textContent=`画像${i+1}: 残り ${alive[i].toLocaleString()} / ${datas[i].width*datas[i].height} px`;
+}
+
+$('startBtn').onclick=()=>{
+  const sz=targetSizes();
+  datas=[];alive=[];
+  for(let i=0;i<2;i++){
+    const cv=$('c'+(i+1));cv.width=sz[i][0];cv.height=sz[i][1];
+    const ctx=cv.getContext('2d',{willReadFrequently:true});
+    ctx.clearRect(0,0,cv.width,cv.height);
+    ctx.drawImage(imgs[i],0,0,cv.width,cv.height);
+    datas[i]=ctx.getImageData(0,0,cv.width,cv.height);
+    alive[i]=strip(datas[i]);show(i);
+  }
+  drawn=0;ended=false;INT=Math.max(1,Math.floor(+$('interval').value)||10);
+  $('log').innerHTML='';$('num').textContent='–';$('tol').textContent='';
+  $('nextBtn').disabled=false;$('autoBtn').disabled=false;
+  $('setup').classList.add('hidden');$('game').classList.remove('hidden');$('result').classList.add('hidden');
+  setMode();
+  if(alive[0]===0||alive[1]===0)finish();
+};
+
+function step(){
+  if(ended)return;
+  drawn++;
+  const ch=Math.floor(Math.random()*3),n=1+Math.floor(Math.random()*255);
+  const tol=Math.floor(drawn/INT),lo=n-tol,hi=n+tol;
+  $('num').innerHTML=`<span style="color:${COL[ch]}">${CH[ch]}</span> ${n}`;
+  $('tol').textContent=`${drawn}回目 / 誤差 ±${tol}(${CH[ch]} ${Math.max(1,lo)}〜${Math.min(255,hi)} を0に)`;
+  const e=document.createElement('span');e.style.color=COL[ch];e.textContent=`${CH[ch]}${n}${tol?'±'+tol:''}`;
+  $('log').prepend(e);if($('log').children.length>150)$('log').lastChild.remove();
+  for(let i=0;i<2;i++){
+    const p=datas[i].data;let c=0;
+    for(let j=0;j<p.length;j+=4){
+      if(p[j+3]===0)continue;
+      const v=p[j+ch];
+      if(v>=lo&&v<=hi)p[j+ch]=0;
+      if(!p[j]&&!p[j+1]&&!p[j+2])p[j+3]=0;else c++;
+    }
+    alive[i]=c;show(i);
+  }
+  if(alive[0]===0||alive[1]===0)finish();
+}
+
+function finish(){
+  ended=true;stopAuto();
+  $('nextBtn').disabled=true;$('autoBtn').disabled=true;
+  const a=alive[0]>0,b=alive[1]>0;
+  const cw=$('cw'),ctx=cw.getContext('2d');
+  if(a&&!b)winnerIdx=0;else if(b&&!a)winnerIdx=1;else winnerIdx=-1;
+  if(winnerIdx<0){
+    $('winTitle').textContent='引き分け(両方とも透明になりました)';
+    cw.width=1;cw.height=1;$('dlBtn').classList.add('hidden');
+  }else{
+    $('winTitle').textContent=`🏆 画像${winnerIdx+1} の勝利!`;
+    cw.width=datas[winnerIdx].width;cw.height=datas[winnerIdx].height;
+    ctx.putImageData(datas[winnerIdx],0,0);$('dlBtn').classList.remove('hidden');
+  }
+  $('result').classList.remove('hidden');
+  $('result').scrollIntoView({behavior:'smooth'});
+}
+
+function stopAuto(){if(timer){clearInterval(timer);timer=null;}$('autoBtn').textContent='▶ 自動開始';}
+function startAuto(){
+  stopAuto();
+  const ms=Math.round(1100-$('speed').value*100);
+  timer=setInterval(step,ms);$('autoBtn').textContent='⏸ 停止';
+}
+function setMode(){
+  const auto=document.querySelector('input[name=mode]:checked').value==='auto';
+  stopAuto();
+  $('nextBtn').classList.toggle('hidden',auto);
+  $('autoBtn').classList.toggle('hidden',!auto);
+  $('nextBtn').disabled=ended;$('autoBtn').disabled=ended;
+}
+document.querySelectorAll('input[name=mode]').forEach(r=>r.onchange=setMode);
+$('speed').oninput=()=>{if(timer)startAuto();};
+$('nextBtn').onclick=step;
+$('autoBtn').onclick=()=>timer?stopAuto():startAuto();
+
+$('dlBtn').onclick=()=>{
+  $('cw').toBlob(b=>{
+    const a=document.createElement('a');a.href=URL.createObjectURL(b);
+    a.download=`winner_image${winnerIdx+1}.png`;document.body.appendChild(a);a.click();a.remove();
+  },'image/png');
+};
+$('resetBtn').onclick=()=>{
+  stopAuto();ended=false;
+  imgs[0]=imgs[1]=null;$('f1').value='';$('f2').value='';$('startBtn').disabled=true;
+  $('game').classList.add('hidden');$('result').classList.add('hidden');$('setup').classList.remove('hidden');
+};
+</script>
+</body>
+</html>
