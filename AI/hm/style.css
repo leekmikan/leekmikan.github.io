@@ -1,0 +1,40 @@
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f7f7f5;--surface:#fff;--text:#1f1f1d;--muted:#6b6b66;--border:#d9d9d3;--accent:#2f6fed;--accent-text:#fff;--danger:#c0392b;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#181817;--surface:#232322;--text:#ecece8;--muted:#9a9a94;--border:#3a3a37;--accent:#6b9bff;--accent-text:#10131a;--danger:#ff7b6b;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#181817;--surface:#232322;--text:#ecece8;--muted:#9a9a94;--border:#3a3a37;--accent:#6b9bff;--accent-text:#10131a;--danger:#ff7b6b;
+  color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.6}
+main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.3rem;margin:0 0 16px}
+h2{font-size:1rem;margin:28px 0 8px}
+label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:4px}
+textarea,input[type=text]{width:100%;font:inherit;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text)}
+textarea{min-height:110px;resize:vertical}
+#out{min-height:110px;padding:10px;border:1px dashed var(--accent);border-radius:8px;background:var(--surface);white-space:pre-wrap;word-break:break-all;cursor:pointer}
+#out.empty{color:var(--muted)}
+#out:hover{background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
+#status{font-size:.85rem;color:var(--accent);min-height:1.4em;margin-top:4px}
+.pairs{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.pairs li{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:8px}
+.pairs .ch{font-size:1.15rem;min-width:1.6em;text-align:center}
+.pairs .code{font-size:.72rem;color:var(--muted);flex:1;font-family:ui-monospace,Menlo,monospace}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:6px 12px}
+button.primary{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
+button.del{color:var(--danger);padding:2px 10px}
+.add{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}
+.hint{font-size:.8rem;color:var(--muted);margin-top:6px}
+.reset{margin-top:12px}

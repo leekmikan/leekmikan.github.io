@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<head>
+  <meta charset="utf-8">
+	<meta property="og:title" content="ホモグラフ文字変換＆紛らわしい文字確認用ページ">
+	<meta property="og:type" content="website">
+	<meta property="og:description" content="入力した文章を形が非常に似た文字と入れ替えます。また、文章中にアルファベットに似た文字がいくつ入っているかを確認できます。">
+	<meta name="twitter:site" content="@mirilelumeka">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="og:url" content="https://leekmikan.github.io/AI/hm/index.html">
+	<meta property="og:site_name" content="leekmikan(ねぎみかん)のホームページ">
+	<meta property="og:image" content="https://leekmikan.github.io/picture/img/ogp.jpg">
+  <link rel="icon" type="image/jpg" href="../icon.jpg">
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ホモグラフ文字変換＆紛らわしい文字確認用ページ</title>
+  <meta name="description" content="入力した文章を形が非常に似た文字と入れ替えます。また、文章中にアルファベットに似た文字がいくつ入っているかを確認できます。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>ホモグラフ文字変換＆紛らわしい文字確認用ページ</h1>
+  <p>入力した文章を形が非常に似た文字と入れ替えます。</p>
+  <p>また、文章中にアルファベットに似た文字がいくつ入っているかを確認できます。</p>
 
+  <label for="in">入力テキスト</label>
+  <textarea id="in" placeholder="ここにテキストを入力(例:ロボットのタスクは二つ)"></textarea>
+
+  <h2>出力(クリックでコピー)</h2>
+  <div id="out" class="empty" role="button" tabindex="0">ここに結果が表示されます</div>
+  <p>元の文章内のアルファベット似た文字の数：<span id="hm_alpha">0</span><br>(参考程度)</p>
+  <div id="status" aria-live="polite"></div>
+
+  <h2>文字のペア</h2>
+  <ul id="pairs" class="pairs"></ul>
+
+  <h2>ペアを追加</h2>
+  <div class="add">
+    <div><label for="pa">文字A(1文字)</label><input type="text" id="pa" maxlength="2"></div>
+    <div><label for="pb">文字B(1文字)</label><input type="text" id="pb" maxlength="2"></div>
+    <button class="primary" id="addBtn">追加</button>
+  </div>
+  <div class="hint" id="addMsg">見た目が似ている別の文字同士を入力してください。</div>
+  <button class="reset" id="resetBtn">初期ペアに戻す</button>
+  <button class="reset" id="resetBtn2">初期ペア+に設定</button>
+  <p>初期ペア+は、初期ペアよりか見分けやすい文字セットです</p>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
