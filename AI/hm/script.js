@@ -137,7 +137,7 @@
         if(/^[a-zA-Z]$/.test(rt)){
           hm_count++;
         }
-        return map.get(rt);
+        return rt;
       }else{
         return c;
       }
