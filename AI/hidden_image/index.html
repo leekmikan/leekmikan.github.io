@@ -1,1 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2枚の画像を1枚の透過モノクロ画像に合成</title>
+<style>
+  :root { --bg:#fafafa; --fg:#222; --card:#fff; --bd:#ddd; --ac:#2563eb; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#161616; --fg:#eee; --card:#222; --bd:#444; --ac:#60a5fa; }
+  }
+  body { font-family: system-ui, "Hiragino Sans", "Yu Gothic", sans-serif; background:var(--bg); color:var(--fg); margin:0; padding:16px; line-height:1.6; }
+  main { max-width:900px; margin:0 auto; }
+  h1 { font-size:1.3rem; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:560px) { .row { grid-template-columns:1fr; } }
+  .card { background:var(--card); border:1px solid var(--bd); border-radius:8px; padding:12px; }
+  .card h2 { font-size:1rem; margin:0 0 8px; }
+  .thumb { max-width:100%; max-height:200px; display:block; margin-top:8px; background:#000; }
+  button, select { font:inherit; padding:8px 14px; border-radius:6px; border:1px solid var(--bd); background:var(--card); color:var(--fg); }
+  button.primary { background:var(--ac); color:#fff; border-color:var(--ac); }
+  button:disabled { opacity:.5; }
+  .ctl { margin:16px 0; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  #result { max-width:100%; display:block; border:1px solid var(--bd);
+    background: repeating-conic-gradient(#ccc 0 25%, #fff 0 50%) 0 0/16px 16px; }
+  #status { min-height:1.5em; font-size:.9rem; }
+  details { font-size:.9rem; margin-top:16px; }
+  code { background:var(--card); padding:1px 4px; border-radius:3px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>2枚の画像を1枚の透過モノクロ画像に合成</h1>
 
+  <div class="row">
+    <div class="card">
+      <h2>画像A(階調 0–127 に変換)</h2>
+      <input type="file" id="fileA" accept="image/*">
+      <canvas id="thumbA" class="thumb"></canvas>
+    </div>
+    <div class="card">
+      <h2>画像B(階調 128–255 に変換)</h2>
+      <input type="file" id="fileB" accept="image/*">
+      <canvas id="thumbB" class="thumb"></canvas>
+    </div>
+  </div>
+
+  <div class="ctl">
+    <label>サイズ合わせ:
+      <select id="sizeMode">
+        <option value="A">画像Aに合わせる</option>
+        <option value="B">画像Bに合わせる</option>
+        <option value="min">小さい方に合わせる</option>
+        <option value="max">大きい方に合わせる</option>
+      </select>
+    </label>
+    <button id="run" class="primary" disabled>出力する</button>
+    <button id="dl" disabled>PNGを保存</button>
+  </div>
+  <div id="status"></div>
+  <canvas id="result" hidden></canvas>
+
+  <details>
+    <summary>計算の仕組み</summary>
+    <p>各画像を縦横ともに同サイズへ拡縮(アスペクト比は無視して引き伸ばし)し、透過部分は黒で塗りつぶして輝度(0.299R+0.587G+0.114B)を求め、Aは0–127、Bは128–255に線形変換します。</p>
+    <p>連立方程式 <code>cα/255 = a</code>、<code>255(1−α/255) = b−a</code> より、
+    <code>α = 255 + a − b</code>、<code>c = 255·a / α</code>(α=0 のとき a=0 なので c=0)。
+    b−a は 1〜255 なので α は 0〜254、c は 0〜255 に収まります。</p>
+    <p>画像Aは「黒背景に重ねた見え方」、画像Bは「白背景に重ねた見え方」に相当し、出力PNGは白背景では B、黒背景では A に近い見え方になります(丸め誤差あり)。PNGは非乗算アルファのまま直接エンコードしているため、透明度が低い画素でも色情報が保持されます。画像はブラウザ内だけで処理され、外部へ送信されません。</p>
+  </details>
+</main>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const imgs = { A: null, B: null };
+  let outBlob = null;
+
+  function load(key, file) {
+    if (!file) return;
+    const img = new Image();
+    img.onload = () => {
+      imgs[key] = img;
+      const c = $('thumb' + key);
+      const s = Math.min(1, 300 / img.width, 200 / img.height);
+      c.width = Math.max(1, Math.round(img.width * s));
+      c.height = Math.max(1, Math.round(img.height * s));
+      const g = c.getContext('2d');
+      g.fillStyle = '#000'; g.fillRect(0, 0, c.width, c.height);
+      g.drawImage(img, 0, 0, c.width, c.height);
+      $('run').disabled = !(imgs.A && imgs.B);
+    };
+    img.onerror = () => { $('status').textContent = '画像を読み込めませんでした。'; };
+    img.src = URL.createObjectURL(file);
+  }
+  $('fileA').onchange = e => load('A', e.target.files[0]);
+  $('fileB').onchange = e => load('B', e.target.files[0]);
+
+  // 黒背景に合成 → 輝度 → [lo, lo+127] の階調配列を返す
+  function toGray(img, w, h, lo) {
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const g = c.getContext('2d', { willReadFrequently: true });
+    g.fillStyle = '#000'; g.fillRect(0, 0, w, h);
+    g.imageSmoothingQuality = 'high';
+    g.drawImage(img, 0, 0, w, h);
+    const d = g.getImageData(0, 0, w, h).data;
+    const out = new Uint8Array(w * h);
+    for (let i = 0, p = 0; i < d.length; i += 4, p++) {
+      const L = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+      out[p] = lo + Math.round(L * 127 / 255);
+    }
+    return out;
+  }
+
+  // PNG直接エンコード(非乗算RGBA)
+  const crcTable = (() => {
+    const t = new Uint32Array(256);
+    for (let n = 0; n < 256; n++) {
+      let c = n;
+      for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1;
+      t[n] = c >>> 0;
+    }
+    return t;
+  })();
+  function crc32(buf) {
+    let c = 0xFFFFFFFF;
+    for (let i = 0; i < buf.length; i++) c = crcTable[(c ^ buf[i]) & 255] ^ (c >>> 8);
+    return (c ^ 0xFFFFFFFF) >>> 0;
+  }
+  function chunk(type, data) {
+    const out = new Uint8Array(12 + data.length);
+    const v = new DataView(out.buffer);
+    v.setUint32(0, data.length);
+    for (let i = 0; i < 4; i++) out[4 + i] = type.charCodeAt(i);
+    out.set(data, 8);
+    v.setUint32(8 + data.length, crc32(out.subarray(4, 8 + data.length)));
+    return out;
+  }
+  async function encodePNG(rgba, w, h) {
+    const raw = new Uint8Array((w * 4 + 1) * h);
+    for (let y = 0; y < h; y++) {
+      raw[y * (w * 4 + 1)] = 0;
+      raw.set(rgba.subarray(y * w * 4, (y + 1) * w * 4), y * (w * 4 + 1) + 1);
+    }
+    const cs = new Blob([raw]).stream().pipeThrough(new CompressionStream('deflate'));
+    const idat = new Uint8Array(await new Response(cs).arrayBuffer());
+    const ihdr = new Uint8Array(13);
+    const v = new DataView(ihdr.buffer);
+    v.setUint32(0, w); v.setUint32(4, h);
+    ihdr[8] = 8; ihdr[9] = 6;
+    const sig = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]);
+    return new Blob([sig, chunk('IHDR', ihdr), chunk('IDAT', idat), chunk('IEND', new Uint8Array(0))], { type: 'image/png' });
+  }
+
+  $('run').onclick = async () => {
+    const st = $('status');
+    $('run').disabled = true; $('dl').disabled = true;
+    try {
+      const A = imgs.A, B = imgs.B;
+      let w, h;
+      switch ($('sizeMode').value) {
+        case 'A': w = A.width; h = A.height; break;
+        case 'B': w = B.width; h = B.height; break;
+        case 'min': w = Math.min(A.width, B.width); h = Math.min(A.height, B.height); break;
+        default: w = Math.max(A.width, B.width); h = Math.max(A.height, B.height);
+      }
+      if (w * h > 50e6) throw new Error('画像サイズが大きすぎます(5000万画素まで)。');
+      st.textContent = '処理中…';
+      await new Promise(r => setTimeout(r, 30));
+
+      const a = toGray(A, w, h, 0);
+      const b = toGray(B, w, h, 128);
+      const out = new Uint8Array(w * h * 4);
+      for (let p = 0, i = 0; p < a.length; p++, i += 4) {
+        const al = 255 + a[p] - b[p];                 // α = 255 + a − b
+        const c = al > 0 ? Math.min(255, Math.round(255 * a[p] / al)) : 0; // c = 255a/α
+        out[i] = out[i + 1] = out[i + 2] = c;
+        out[i + 3] = al;
+      }
+
+      outBlob = await encodePNG(out, w, h);
+
+      const cv = $('result');
+      cv.hidden = false; cv.width = w; cv.height = h;
+      const bmp = await createImageBitmap(outBlob);
+      cv.getContext('2d').clearRect(0, 0, w, h);
+      cv.getContext('2d').drawImage(bmp, 0, 0);
+      st.textContent = `完了: ${w} × ${h} px(プレビューは市松模様の上に表示)`;
+      $('dl').disabled = false;
+    } catch (e) {
+      st.textContent = 'エラー: ' + e.message;
+    } finally {
+      $('run').disabled = false;
+    }
+  };
+
+  $('dl').onclick = () => {
+    if (!outBlob) return;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(outBlob);
+    a.download = 'output.png';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+})();
+</script>
+</body>
+</html>
