@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>目隠しクイズ</title>
+<style>
+:root{--bg:#f6f6f3;--fg:#1d1d1b;--card:#fff;--ac:#2b6cb0;--mu:#6b6b66;--bd:#d9d9d2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171717;--fg:#eee;--card:#242424;--ac:#6aa9f0;--mu:#a0a09a;--bd:#3a3a3a}}
+:root[data-theme="dark"]{--bg:#171717;--fg:#eee;--card:#242424;--ac:#6aa9f0;--mu:#a0a09a;--bd:#3a3a3a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,"Hiragino Sans",sans-serif}
+.tabs{display:flex;gap:8px;padding:10px 12px 0}
+.tabs button{flex:1;padding:10px;border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:10px;font-size:15px}
+.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+#cv{display:block;width:calc(100% - 24px);height:42vh;margin:10px 12px;border:1px solid var(--bd);border-radius:12px;background:var(--card);touch-action:none}
+.p{padding:0 12px 20px;display:none}.p.on{display:block}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
+button.b{padding:8px 12px;border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:8px;font-size:14px}
+button.b.on{border-color:var(--ac);color:var(--ac);font-weight:700}
+button.pr{background:var(--ac);color:#fff;border-color:var(--ac)}
+input[type=text],textarea,select{width:100%;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg);font-size:14px}
+textarea{height:64px;word-break:break-all}
+small,.mu{color:var(--mu);font-size:12.5px}
+#st{padding:12px;border-radius:10px;border:1px solid var(--bd);background:var(--card);text-align:center;font-weight:700}
+#st.hit{background:var(--ac);color:#fff}
+input[type=range]{flex:1;min-width:120px}
+</style>
+</head>
+<body>
+<div class="tabs"><button id="t1" class="on">お絵かき</button><button id="t2">絵当て</button></div>
+<canvas id="cv"></canvas>
+
+<div id="p1" class="p on">
+  <div class="row"><button class="b on" id="m0">描く</button><button class="b" id="m1">回す</button>
+    <button class="b on" id="pl0">XY面</button><button class="b" id="pl1">XZ面</button><button class="b" id="pl2">YZ面</button></div>
+  <div class="row"><small>奥行き</small><input type="range" id="off" min="-1.5" max="1.5" step="0.05" value="0"></div>
+  <div class="row"><button class="b" id="undo">1本戻す</button><button class="b" id="clr">全消去</button></div>
+  <div class="row"><input type="text" id="ttl" placeholder="タイトル(答え)を入力"></div>
+  <div class="row"><button class="b pr" id="save">保存して共有コードを作る</button></div>
+  <div id="out" style="display:none">
+    <small id="info"></small>
+    <textarea id="code" readonly></textarea>
+    <div class="row"><button class="b" id="cpC">コードをコピー</button><button class="b" id="cpL">リンクをコピー</button></div>
+    <small>リンクが開けない場合は、アプリのURLの末尾に # とコードを付けてください。コードだけを相手に送り、絵当てタブに貼り付けてもOKです。</small>
+  </div>
+</div>
+
+<div id="p2" class="p">
+  <div class="row"><select id="sel"><option value="">保存済みから選ぶ</option></select></div>
+  <div class="row"><textarea id="inCode" placeholder="共有コードを貼り付け"></textarea></div>
+  <div class="row"><button class="b" id="load">コードを読み込む</button><button class="b pr" id="start">センサー開始</button></div>
+  <div id="st">未開始</div>
+  <div class="row"><small>縮尺(1目盛=約何m)</small><input type="range" id="sc" min="0.1" max="1.5" step="0.05" value="0.5"><span id="scv">0.5</span></div>
+  <div class="row"><button class="b" id="rst">座標リセット</button><button class="b" id="rev">答えを見る</button></div>
+  <small>使い方: スマホを持ち、リセットした位置を絵の中心として動かします。線に触れると振動します。目をつぶって形をたどり、何の絵か当ててください。加速度センサーのみで位置を推定するため、ゆっくり動かすとズレにくいです。振動は主にAndroid(Chrome)で動作し、非対応端末では音で知らせます。</small>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const T=THREE,$=id=>document.getElementById(id);
+const cv=$('cv'),R=new T.WebGLRenderer({canvas:cv,antialias:true,alpha:true}),S=new T.Scene(),C=new T.PerspectiveCamera(50,1,.1,100);
+const GD=new T.Group(),GG=new T.Group(),GR=new T.Group();S.add(GD,GG,GR);GG.visible=false;
+const mat=new T.LineBasicMaterial({color:0xe8590c});
+const dot=new T.Mesh(new T.SphereGeometry(.05,12,12),new T.MeshBasicMaterial({color:0x2b8a3e}));GG.add(dot);
+let th=0,ph=Math.PI/2,dist=5,plane=0,off=0,mode=0,drawing=null,strokes=[],gStrokes=[],tab=1;
+const grid=new T.GridHelper(3,6,0x888888,0xbbbbbb);GR.add(grid);
+function cam(){C.position.set(dist*Math.sin(ph)*Math.sin(th),dist*Math.cos(ph),dist*Math.sin(ph)*Math.cos(th));C.lookAt(0,0,0)}
+function gridPos(){grid.rotation.set(plane==0?Math.PI/2:0,0,plane==2?Math.PI/2:0);grid.position.set(plane==2?off:0,plane==1?off:0,plane==0?off:0)}
+function size(){const w=cv.clientWidth,h=cv.clientHeight;R.setSize(w,h,false);R.setPixelRatio(devicePixelRatio);C.aspect=w/h;C.updateProjectionMatrix()}
+addEventListener('resize',size);
+function loop(){requestAnimationFrame(loop);cam();R.render(S,C)}
+function mk(g,pts){const l=new T.Line(new T.BufferGeometry().setFromPoints(pts.map(p=>new T.Vector3(p[0],p[1],p[2]))),mat);g.add(l);return l}
+function rebuild(g,arr){while(g.children.length>(g===GG?1:0))g.remove(g.children[g.children.length-1]);arr.forEach(s=>mk(g,s))}
+size();gridPos();loop();
+
+// 描画・回転
+const ray=new T.Raycaster(),mv=new T.Vector2();
+function hit(e){const r=cv.getBoundingClientRect();mv.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height*2-1));ray.setFromCamera(mv,C);
+ const n=new T.Vector3(plane==2?1:0,plane==1?1:0,plane==0?1:0),pl=new T.Plane(n,-off),o=new T.Vector3();return ray.ray.intersectPlane(pl,o)?[o.x,o.y,o.z]:null}
+let lx=0,ly=0,down=false;
+cv.addEventListener('pointerdown',e=>{if(tab!=1)return;down=true;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId);
+ if(mode==0){const p=hit(e);if(p){drawing=[p];strokes.push(drawing);rebuild(GD,strokes)}}});
+cv.addEventListener('pointermove',e=>{if(!down||tab!=1)return;
+ if(mode==1){th-=(e.clientX-lx)*.008;ph=Math.min(3.1,Math.max(.05,ph-(e.clientY-ly)*.008));lx=e.clientX;ly=e.clientY}
+ else if(drawing){const p=hit(e);if(p){const q=drawing[drawing.length-1];if(Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2])>.02){drawing.push(p);rebuild(GD,strokes)}}}});
+const up=()=>{down=false;drawing=null};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+cv.addEventListener('wheel',e=>{dist=Math.min(10,Math.max(2,dist+e.deltaY*.005))});
+
+// UI
+function setTab(n){tab=n;$('t1').classList.toggle('on',n==1);$('t2').classList.toggle('on',n==2);$('p1').classList.toggle('on',n==1);$('p2').classList.toggle('on',n==2);
+ GD.visible=GR.visible=n==1;GG.visible=n==2&&revealed;if(n==2)fillSel()}
+$('t1').onclick=()=>setTab(1);$('t2').onclick=()=>setTab(2);
+[0,1].forEach(i=>$('m'+i).onclick=()=>{mode=i;$('m0').classList.toggle('on',i==0);$('m1').classList.toggle('on',i==1)});
+[[0,0,Math.PI/2],[1,0,.01],[2,Math.PI/2,Math.PI/2]].forEach(([i,t,p])=>$('pl'+i).onclick=()=>{plane=i;th=t;ph=p;[0,1,2].forEach(k=>$('pl'+k).classList.toggle('on',k==i));gridPos()});
+$('off').oninput=e=>{off=+e.target.value;gridPos()};
+$('undo').onclick=()=>{strokes.pop();rebuild(GD,strokes)};$('clr').onclick=()=>{strokes=[];rebuild(GD,strokes)};
+
+// エンコード(量子化→差分→deflate→base64url)
+const b64=u=>btoa(String.fromCharCode(...u)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const unb64=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
+async function pipe(bytes,K){const s=new Blob([bytes]).stream().pipeThrough(new K('deflate-raw'));return new Uint8Array(await new Response(s).arrayBuffer())}
+function thin(st,sp){const o=[];st.forEach(s=>{const k=[s[0]];s.forEach((p,i)=>{const q=k[k.length-1];if(i==s.length-1||Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2])>=sp)k.push(p)});o.push(k)});return o}
+async function enc(title,st){let sp=.03,code='';
+ for(let i=0;i<9;i++){const s=thin(st,sp).map(a=>{let px=0,py=0,pz=0;const o=[];a.forEach(p=>{const x=Math.round(p[0]*100),y=Math.round(p[1]*100),z=Math.round(p[2]*100);o.push(x-px,y-py,z-pz);px=x;py=y;pz=z});return o});
+  const j=new TextEncoder().encode(JSON.stringify({t:title,s}));
+  code=window.CompressionStream?'z'+b64(await pipe(j,CompressionStream)):'r'+b64(j);
+  if(code.length<1500)return{code,sp,short:true};sp*=1.5}
+ return{code,sp,short:false}}
+async function dec(code){code=code.trim().replace(/^.*#/,'');const u=unb64(code.slice(1));const j=code[0]=='z'?await pipe(u,DecompressionStream):u;
+ const d=JSON.parse(new TextDecoder().decode(j));return{t:d.t,s:d.s.map(a=>{const o=[];let x=0,y=0,z=0;for(let i=0;i<a.length;i+=3){x+=a[i];y+=a[i+1];z+=a[i+2];o.push([x/100,y/100,z/100])}return o})}}
+
+// 保存・共有
+const lsGet=()=>{try{return JSON.parse(localStorage.getItem('bq')||'[]')}catch(e){return[]}};
+const lsSet=v=>{try{localStorage.setItem('bq',JSON.stringify(v))}catch(e){}};
+let lastCode='';
+$('save').onclick=async()=>{if(!strokes.length){alert('線を引いてください');return}
+ const t=$('ttl').value.trim()||'無題',r=await enc(t,strokes);lastCode=r.code;
+ const l=lsGet().filter(x=>x.t!==t);l.unshift({t,c:r.code});lsSet(l.slice(0,30));
+ $('out').style.display='block';$('code').value=r.code;
+ $('info').textContent=r.short?'保存しました。コード長 '+r.code.length+' 文字'+(r.sp>.03?'(長いため点を間引いて短縮しました)':'')+'。':'保存しました。コードが長め('+r.code.length+'文字)なのでURLでは共有できない場合があります。その場合はコードをテキストとして送ってください。'};
+async function copy(txt){try{await navigator.clipboard.writeText(txt)}catch(e){const t=$('code');t.value=txt;t.select();try{document.execCommand('copy')}catch(_){}}}
+$('cpC').onclick=()=>copy(lastCode);
+$('cpL').onclick=()=>{copy(location.href.split('#')[0]+'#'+lastCode)};
+
+// 絵当て
+let revealed=false,scale=.5;
+function fillSel(){const s=$('sel');s.innerHTML='<option value="">保存済みから選ぶ</option>';lsGet().forEach((x,i)=>{const o=document.createElement('option');o.value=i;o.textContent=x.t;s.appendChild(o)})}
+async function loadCode(c){try{const d=await dec(c);gStrokes=d.s;rebuild(GG,gStrokes);revealed=false;GG.visible=false;$('st').textContent='読み込み完了。センサー開始を押してください';$('rev').textContent='答えを見る';window._ans=d.t;resetPos()}catch(e){alert('コードを読み込めませんでした')}}
+$('sel').onchange=e=>{const x=lsGet()[+e.target.value];if(x)loadCode(x.c)};
+$('load').onclick=()=>loadCode($('inCode').value);
+$('sc').oninput=e=>{scale=+e.target.value;$('scv').textContent=scale};
+$('rev').onclick=()=>{revealed=!revealed;GG.visible=revealed&&tab==2;$('rev').textContent=revealed?'隠す':'答えを見る';if(revealed)alert('答え: '+(window._ans||'(未読み込み)'))};
+const P=new T.Vector3(),V=new T.Vector3(),Qo=new T.Quaternion(),Qy=new T.Quaternion(),Q1=new T.Quaternion(-Math.sqrt(.5),0,0,Math.sqrt(.5)),eu=new T.Euler();
+let lt=0,running=false;
+function resetPos(){P.set(0,0,0);V.set(0,0,0);eu.setFromQuaternion(Qo,'YXZ');Qy.setFromAxisAngle(new T.Vector3(0,1,0),-eu.y)}
+$('rst').onclick=resetPos;
+function onOri(e){if(e.alpha==null)return;const r=Math.PI/180;eu.set(e.beta*r,e.alpha*r,-e.gamma*r,'YXZ');Qo.setFromEuler(eu).multiply(Q1)}
+function onMot(e){const a=e.acceleration;if(!a||a.x==null)return;const n=performance.now(),dt=Math.min((n-lt)/1000,.1);lt=n;if(dt<=0)return;
+ const A=new T.Vector3(a.x,a.y,a.z).applyQuaternion(Qy.clone().multiply(Qo));
+ if(A.length()<.2){A.set(0,0,0);V.multiplyScalar(.85)}
+ V.addScaledVector(A,dt).multiplyScalar(.99);P.addScaledVector(V,dt)}
+function dseg(p,a,b){const ab=b.clone().sub(a),t=Math.max(0,Math.min(1,p.clone().sub(a).dot(ab)/(ab.lengthSq()||1)));return p.distanceTo(a.add(ab.multiplyScalar(t)))}
+let ac;function beep(){try{ac=ac||new AudioContext();const o=ac.createOscillator();o.connect(ac.destination);o.frequency.value=660;o.start();o.stop(ac.currentTime+.08)}catch(e){}}
+function near(){const p=P.clone().divideScalar(scale);let m=1e9;gStrokes.forEach(s=>{if(s.length==1)m=Math.min(m,p.distanceTo(new T.Vector3(...s[0])));for(let i=0;i<s.length-1;i++)m=Math.min(m,dseg(p,new T.Vector3(...s[i]),new T.Vector3(...s[i+1])))});return m*scale<.07}
+setInterval(()=>{dot.position.copy(P).divideScalar(scale);if(!running||!gStrokes.length)return;const h=near(),el=$('st');
+ el.textContent=h?'線に触れています':'線から離れています';el.classList.toggle('hit',h);
+ if(h){if(navigator.vibrate)navigator.vibrate(110);else beep()}else if(navigator.vibrate)navigator.vibrate(0)},120);
+$('start').onclick=async()=>{try{if(window.DeviceMotionEvent&&DeviceMotionEvent.requestPermission){if(await DeviceMotionEvent.requestPermission()!=='granted'){alert('センサーが許可されませんでした');return}}
+ if(window.DeviceOrientationEvent&&DeviceOrientationEvent.requestPermission)await DeviceOrientationEvent.requestPermission();}catch(e){}
+ addEventListener('deviceorientation',onOri);addEventListener('devicemotion',onMot);running=true;lt=performance.now();resetPos();
+ $('st').textContent='動かして線を探してください'+(navigator.vibrate?'':'(この端末は振動非対応のため音で知らせます)');beep()};
+
+// URLからの読み込み
+function fromHash(){const h=location.hash.slice(1);if(h.length>10){setTab(2);$('inCode').value=h;loadCode(h)}}
+addEventListener('hashchange',fromHash);fromHash();
+</script>
+</body>
+</html>
