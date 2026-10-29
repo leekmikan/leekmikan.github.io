@@ -1,1 +1,37 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.5, viewport-fit=cover">
+<title>点灯チャレンジ</title>
+<style>
+:root{--bg:#f4f4f2;--fg:#1a1a1a;--off:#111;--on:#22c55e;--err:#ef4444;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1b1a;--fg:#eee}}
+:root[data-theme="dark"]{--bg:#1b1b1a;--fg:#eee}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:12px;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+h1{font-size:16px;margin:4px 0 10px}
+#grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:min(96vw,520px)}
+.cell{aspect-ratio:1;border-radius:12px;background:var(--off);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:12px;padding:4px;transition:background .15s}
+.cell b{font-size:11px;opacity:.7;font-weight:400}
+.cell.on{background:var(--on);color:#04210f}
+.cell.err{background:var(--err)}
+.cell small{font-size:10px;opacity:.85;margin-top:2px}
+#score{margin-top:14px;font-size:22px;font-weight:700}
+#now{font-size:13px;opacity:.75;margin-top:2px}
+button{margin-top:12px;padding:10px 16px;border-radius:10px;border:1px solid currentColor;background:none;color:inherit;font-size:14px}
+p.note{font-size:11px;opacity:.65;max-width:420px;text-align:center}
+</style>
+</head>
+<body>
+<h1>点灯チャレンジ</h1>
+<div id="grid"></div>
+<div id="score">最大緑点灯数 0/12</div>
+<div id="now">現在 0/12</div>
+<button id="perm">センサーを有効化</button>
+<p class="note">緑=条件を満たす / 黒=満たさない / 赤=この端末では取得不可。</p>
+<p>JavaScriptの仕様を理解し、全てのマスを点灯させよう！</p>
+<button onclick="location.href = 'https://twitter.com/intent/tweet?text=%E7%A7%81%E3%81%AF' + window._max + '%2F12%E5%80%8B%E7%82%B9%E7%81%AF%E3%81%A7%E3%81%8D%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82%0Ahttps%3A%2F%2Fleekmikan.github.io%2FAI%2Fjs_ch%2Findex.html'">最高記録をツイート</button>
+<script src="script.js"></script>
+</body>
+</html>
