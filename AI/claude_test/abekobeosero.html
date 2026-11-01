@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>あべこべオセロ</title>
+<style>
+:root{--bg:#f6f5f1;--fg:#222;--sub:#666;--board:#2e7d4f;--line:#1f5c39;--btn:#fff;--bd:#ccc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1b1a;--fg:#eee;--sub:#aaa;--board:#276b44;--line:#184a2f;--btn:#2a2b2a;--bd:#444}}
+:root[data-theme="dark"]{--bg:#1a1b1a;--fg:#eee;--sub:#aaa;--board:#276b44;--line:#184a2f;--btn:#2a2b2a;--bd:#444}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;display:flex;flex-direction:column;align-items:center;padding:12px}
+h1{font-size:20px;margin:4px 0}
+.rule{font-size:12px;color:var(--sub);text-align:center;max-width:420px;margin:0 0 8px;line-height:1.5}
+#status{font-size:16px;margin:6px 0;min-height:24px;font-weight:600;text-align:center}
+#score{display:flex;gap:20px;font-size:15px;margin-bottom:8px}
+#board{display:grid;grid-template-columns:repeat(8,1fr);width:min(94vw,420px);aspect-ratio:1;background:var(--board);border:3px solid var(--line);border-radius:6px}
+.c{border:1px solid var(--line);position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.d{width:82%;height:82%;border-radius:50%;box-shadow:0 2px 3px rgba(0,0,0,.4);transition:background .25s}
+.d.b{background:#111}.d.w{background:#f4f4f4}
+.d.last{outline:3px solid #f2c200}
+.h{width:22%;height:22%;border-radius:50%;background:rgba(255,255,255,.45)}
+button{margin-top:12px;padding:10px 18px;font-size:15px;border:1px solid var(--bd);background:var(--btn);color:var(--fg);border-radius:8px}
+.opt{font-size:14px;margin:4px 0}
+.opt input{width:56px;font-size:16px;padding:4px;border:1px solid var(--bd);background:var(--btn);color:var(--fg);border-radius:6px}
+#log{font-size:12px;color:var(--sub);margin-top:8px;min-height:18px;text-align:center}
+</style>
+</head>
+<body>
+<h1>あべこべオセロ</h1>
+<p class="rule">置ける場所は通常と同じ。ただし置くと、盤面全体の相手の駒のうち<b>本来ひっくり返せる駒を除いたすべて</b>が自分の色になります。</p>
+<label class="opt">適用外ターン数 N: <input type="number" id="nx" value="8" min="0" max="99" step="1"></label>
+<div id="status"></div>
+<div id="score"><span id="sb"></span><span id="sw"></span></div>
+<div id="board"></div>
+<div id="log"></div>
+<button id="reset">最初から</button>
+<script>
+const N=8,DIRS=[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+let bd,turn,last,over,fl,mc;
+const el=document.getElementById('board');
+function init(){
+  bd=Array.from({length:N},()=>Array(N).fill(0));
+  bd[3][3]=2;bd[4][4]=2;bd[3][4]=1;bd[4][3]=1;
+  fl=Array.from({length:N},()=>Array(N).fill(0));mc=0;
+  turn=1;last=null;over=false;
+  document.getElementById('log').textContent='';
+  render();
+}
+function normalFlips(r,c,p){
+  if(bd[r][c])return [];
+  const o=3-p,res=[];
+  for(const[dr,dc]of DIRS){
+    let y=r+dr,x=c+dc;const t=[];
+    while(y>=0&&y<N&&x>=0&&x<N&&bd[y][x]===o){t.push([y,x]);y+=dr;x+=dc}
+    if(t.length&&y>=0&&y<N&&x>=0&&x<N&&bd[y][x]===p)res.push(...t);
+  }
+  return res;
+}
+function moves(p){
+  const m=[];
+  for(let r=0;r<N;r++)for(let c=0;c<N;c++)if(normalFlips(r,c,p).length)m.push([r,c]);
+  return m;
+}
+function play(r,c){
+  if(over)return;
+  const nf=normalFlips(r,c,turn);
+  if(!nf.length)return;
+  const keep=new Set(nf.map(([y,x])=>y*N+x));
+  const o=3-turn;let n=0,pr=0;
+  const NX=Math.max(0,parseInt(document.getElementById('nx').value)||0);
+  mc++;
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+    if(bd[y][x]===o&&!keep.has(y*N+x)){
+      if(fl[y][x]>0&&mc-fl[y][x]<=NX){pr++;continue}
+      bd[y][x]=turn;fl[y][x]=mc;n++;
+    }
+  }
+  bd[r][c]=turn;fl[r][c]=0;last=[r,c];
+  document.getElementById('log').textContent=`本来の反転対象${nf.length}枚は据え置き、それ以外の${n}枚を反転`+(pr?`(直近${NX}ターン内に反転済みの${pr}枚は除外)`:'');
+  const next=3-turn;
+  if(moves(next).length){turn=next}
+  else if(moves(turn).length){
+    document.getElementById('log').textContent+=`(${next===1?'黒':'白'}はパス)`;
+  }else{over=true}
+  render();
+}
+function render(){
+  el.innerHTML='';
+  const mv=over?[]:moves(turn);
+  const ms=new Set(mv.map(([y,x])=>y*N+x));
+  let b=0,w=0;
+  for(let r=0;r<N;r++)for(let c=0;c<N;c++){
+    const cell=document.createElement('div');cell.className='c';
+    const v=bd[r][c];
+    if(v){
+      v===1?b++:w++;
+      const d=document.createElement('div');
+      d.className='d '+(v===1?'b':'w')+(last&&last[0]===r&&last[1]===c?' last':'');
+      cell.appendChild(d);
+    }else if(ms.has(r*N+c)){
+      const h=document.createElement('div');h.className='h';cell.appendChild(h);
+    }
+    cell.onclick=()=>play(r,c);
+    el.appendChild(cell);
+  }
+  document.getElementById('sb').textContent='● 黒 '+b;
+  document.getElementById('sw').textContent='○ 白 '+w;
+  const s=document.getElementById('status');
+  if(over){s.textContent=b>w?'黒の勝ち!':w>b?'白の勝ち!':'引き分け'}
+  else s.textContent=(turn===1?'黒':'白')+'の番です';
+}
+document.getElementById('reset').onclick=init;
+init();
+</script>
+</body>
+</html>
