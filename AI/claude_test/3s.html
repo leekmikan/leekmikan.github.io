@@ -20,6 +20,7 @@ button{font-size:1.2rem;padding:14px 32px;border:0;border-radius:12px;background
 #meter{height:100%;width:100%;background:var(--acc)}
 #cmd{font-size:clamp(1.8rem,9vw,3rem);font-weight:800;line-height:1.3}
 #lives{font-size:2.2rem;letter-spacing:6px}
+#hint{font-size:1.4rem;margin-top:14px;opacity:.75;min-height:1.6em}
 #score{font-size:.95rem;opacity:.7}
 .ok{color:var(--ok)}.ng{color:var(--ng)}
 #note{font-size:.85rem;opacity:.7;max-width:320px}
@@ -34,7 +35,7 @@ button{font-size:1.2rem;padding:14px 32px;border:0;border-radius:12px;background
 </div>
 <div id="game" class="screen">
   <div id="top"><div id="time"></div><div id="meterWrap"><div id="meter"></div></div><div id="score"></div></div>
-  <div id="cmd"></div>
+  <div id="center"><div id="cmd"></div><div id="hint"></div></div>
   <div id="lives"></div>
 </div>
 <div id="result" class="screen">
@@ -83,6 +84,8 @@ const rand = (a, b, step = 1) => a + step * Math.floor(Math.random() * ((b - a) 
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 const angleDiff = (a, b) => { const d = Math.abs(a - b) % 360; return d > 180 ? 360 - d : d; };
 const isFlat = () => S.tilt != null && S.tilt <= CONFIG.flatTol;
+const DIR8 = ['北', '北東', '東', '南東', '南', '南西', '西', '北西'];
+const headingLabel = h => h == null ? '不明' : `${DIR8[Math.round(h / 45) % 8]}(${Math.round(h)}°)`;
 
 const COMMANDS = [
   { id: 'tap', levels: [1], text: () => '画面をタップ',
@@ -97,15 +100,18 @@ const COMMANDS = [
     setup: c => { c.n = rand(...CONFIG.tapRange); c.count = 0; },
     text: c => `画面を${c.n}回タップ`,
     onTap: c => { c.count++; if (c.count > c.n) c.fail(); },
-    check: c => c.count === c.n },
+    check: c => c.count === c.n,
+    hint: c => `現在 ${c.count}回` },
   { id: 'heading', levels: [2, 3],
     setup: c => { c.dir = pick(Object.keys(CONFIG.compass)); },
     text: c => `スマホを${c.dir}へ向けて置く`,
-    check: c => isFlat() && S.heading != null && angleDiff(S.heading, CONFIG.compass[c.dir]) <= CONFIG.headingTol },
+    check: c => isFlat() && S.heading != null && angleDiff(S.heading, CONFIG.compass[c.dir]) <= CONFIG.headingTol,
+    hint: () => `現在 ${headingLabel(S.heading)}` },
   { id: 'tilt', levels: [2, 3],
     setup: c => { c.deg = rand(CONFIG.tiltRange[0], CONFIG.tiltRange[1], CONFIG.tiltStep); },
     text: c => `スマホを水平から${c.deg}度傾けて保つ`,
-    check: c => S.tilt != null && Math.abs(S.tilt - c.deg) <= CONFIG.tiltTol },
+    check: c => S.tilt != null && Math.abs(S.tilt - c.deg) <= CONFIG.tiltTol,
+    hint: () => `現在 ${S.tilt == null ? '不明' : Math.round(S.tilt) + '度'}` },
   { id: 'noTap', levels: [3], grace: true, text: () => '画面をタップするな',
     onTap: c => c.fail(), check: () => true },
   { id: 'still', levels: [3], grace: true, text: () => 'スマホを動かすな',
@@ -153,6 +159,8 @@ function startGame() {
   setTimeout(startRound, 900);
 }
 
+function renderHint() { $('hint').textContent = G.cmd && G.cmd.hint ? G.cmd.hint(G.ctx) : ''; }
+
 function startRound() {
   const pool = COMMANDS.filter(c => c.levels.includes(G.level));
   let cmd = pick(pool);
@@ -162,6 +170,7 @@ function startRound() {
   cmd.setup && cmd.setup(ctx);
   G.ctx = ctx;
   $('cmd').className = ''; $('cmd').textContent = cmd.text(ctx);
+  renderHint();
   G.t0 = performance.now(); G.running = true;
   requestAnimationFrame(tick);
 }
@@ -175,6 +184,7 @@ function tick(now) {
     return;
   }
   $('time').textContent = remain.toFixed(1);
+  renderHint();
   $('meter').style.width = (remain / G.limit * 100) + '%';
   requestAnimationFrame(tick);
 }
@@ -190,6 +200,7 @@ function finish(ok) {
   G.running = false;
   $('cmd').className = ok ? 'ok' : 'ng';
   $('cmd').textContent = ok ? '⭕ OK!' : '❌ ミス';
+  $('hint').textContent = '';
   if (ok) {
     G.score++;
     if (G.limit <= CONFIG.levelUpAt + 1e-6 && G.level < CONFIG.maxLevel) { G.level++; G.limit = CONFIG.startTime; }
