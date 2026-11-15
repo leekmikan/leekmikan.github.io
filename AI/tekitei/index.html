@@ -1,1 +1,101 @@
-
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>中和滴定タイムアタック</title>
+<style>
+:root{--bg:#f6f7f9;--fg:#1d2430;--card:#fff;--line:#7b8798;--acc:#2f6fed;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--fg:#e8ecf2;--card:#1f242c;--line:#8a96a8;--acc:#6b9bff}}
+:root[data-theme="dark"]{--bg:#14171c;--fg:#e8ecf2;--card:#1f242c;--line:#8a96a8;--acc:#6b9bff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;display:flex;justify-content:center}
+main{width:100%;max-width:420px;padding:12px 16px 24px;text-align:center}
+h1{font-size:1.15rem;margin:6px 0}
+#hud{font-size:.95rem;display:flex;justify-content:space-around;margin-bottom:4px}
+#hud b{font-variant-numeric:tabular-nums;font-size:1.1rem}
+#stage{position:relative;width:220px;height:480px;margin:0 auto}
+#bur{position:absolute;left:95px;top:0;width:30px;height:240px;border:2px solid var(--line);border-radius:3px 3px 0 0;background:var(--card);overflow:hidden}
+#bl{position:absolute;left:0;right:0;bottom:0}
+#tk{position:absolute;inset:0;background:repeating-linear-gradient(to bottom,var(--line) 0 1px,transparent 1px 24px);opacity:.7}
+.lb{position:absolute;left:128px;font-size:10px;transform:translateY(-50%)}
+#tip{position:absolute;left:107px;top:242px;width:6px;height:22px;background:var(--line);border-radius:0 0 3px 3px}
+#cock{position:absolute;left:94px;top:246px;width:32px;height:6px;background:var(--acc);border-radius:3px;transition:transform .1s}
+#drop{position:absolute;left:107px;top:266px;width:6px;height:8px;border-radius:50%;background:#5b8def;display:none}
+#drop.on{display:block;animation:fall .35s linear infinite}
+@keyframes fall{from{transform:translateY(0)}to{transform:translateY(var(--fall,24px))}}
+#fw{position:absolute;left:35px;top:300px;width:150px;height:170px;filter:drop-shadow(0 0 1px var(--line)) drop-shadow(0 0 1px var(--line))}
+#fk{width:100%;height:100%;clip-path:polygon(38% 0,62% 0,62% 25%,100% 100%,0 100%,38% 25%);background:var(--card);position:relative}
+#fl{position:absolute;left:0;right:0;bottom:0}
+#ctl{margin:6px 0}
+#ctl label{display:block;font-size:.85rem;margin-bottom:4px}
+input[type=range]{width:90%}
+button{font:inherit;padding:10px 14px;margin:4px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg)}
+button.p{background:var(--acc);color:#fff;border-color:var(--acc)}
+#msg{min-height:1.4em;font-size:.9rem}
+#res{display:none;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:8px}
+#res h2{margin:0 0 6px;font-size:1.05rem}
+#rk{margin:6px 0 10px}
+#rk .r{font-size:2.4rem;font-weight:700;color:var(--acc);line-height:1.1}
+#rk .m{font-size:.9rem}
+</style></head>
+<body><main>
+<h1>中和滴定タイムアタック</h1>
+<div id="hud"><span>時間 <b id="tm">0.00</b> 秒</span><span>滴下量 <b id="rd">0.00</b> mL</span></div>
+<div id="stage">
+<div id="bur"><div id="bl"></div><div id="tk"></div></div>
+<div id="tip"></div><div id="cock"></div><div id="drop"></div>
+<div id="fw"><div id="fk"><div id="fl"></div></div></div>
+</div>
+<div id="ctl">
+<label>コック(右に回すほど速く滴下)<input id="sl" type="range" min="0" max="100" value="0"></label>
+<button id="one">1滴(0.05 mL)</button><button id="close">コックを閉じる</button>
+<button id="judge" class="p">滴定終了(判定)</button>
+</div>
+<div id="msg">中和点でコックを閉じ、判定しよう。</div>
+<div id="res"><h2 id="rt"></h2><div id="rk"></div><button id="tw" class="p">ツイートする</button><button id="again">もう一度</button></div>
+</main>
+<script>
+// ▼ 開発者が用意する画像A,B,C(パス or data URI)。空欄なら代替色で表示。
+const IMG={A:"0.jpg",B:"1.jpg",C:"2.jpg"};
+const FB={A:"#f4a6b0",B:"#8fd9a8",C:"#5b8def"};
+const X0=50,CAP=250,BMAX=50,TOL=0.1,BH=240;
+const $=i=>document.getElementById(i);
+function setImg(el,k){el.style.background=IMG[k]?`url("${IMG[k]}") center / 100% 100% no-repeat`:FB[k]}
+let T,added,t0,over,tfin,last=performance.now();
+function reset(){T=12+Math.random()*26;added=0;t0=0;over=false;tfin=0;
+ $("sl").value=0;$("sl").disabled=false;$("res").style.display="none";$("msg").textContent="中和点でコックを閉じ、判定しよう。";render(0)}
+function state(){return added<T-TOL?"A":added<=T+TOL?"B":"C"}
+function render(now){
+ $("bl").style.height=((BMAX-added)/BMAX*BH)+"px";setImg($("bl"),"C");
+ const fh=(X0+added)/CAP;$("fl").style.height=(fh*100)+"%";setImg($("fl"),state());
+ $("rd").textContent=added.toFixed(2);
+ const el=t0?((over?tfin:now)-t0)/1000:0;$("tm").textContent=Math.max(0,el).toFixed(2);
+ const v=+$("sl").value;$("cock").style.transform=`rotate(${v*0.9}deg)`;
+ $("drop").classList.toggle("on",!over&&v>0&&added<BMAX);
+ $("drop").style.setProperty("--fall",Math.max(8,(300+170*(1-fh))-274)+"px");
+}
+function add(d,now){if(over)return;if(!t0)t0=now;added=Math.min(BMAX,added+d);
+ if(added>T+TOL){finish(false,now)}}
+function finish(ok,now){over=true;tfin=now;$("sl").value=0;$("sl").disabled=true;render(now);
+ const t=((now-t0)/1000).toFixed(2);
+ const sec=(now-t0)/1000;
+ const RK=[[10,"S","よっしゃー！今日は早く帰って遊びにいこ！"],[20,"A","ラッキー！少し早く帰れた！"],[30,"B","よかった。普通に終わった。"],[60,"C","疲れた。少し居残りしちゃったから早く帰ろ。"],[Infinity,"D","終わった...自分の班が最後まで残った..."]];
+ const rk=RK.find(x=>sec<x[0]);
+ $("rt").textContent=ok?`滴定成功!タイム ${t} 秒`:"失敗…滴下しすぎました";
+ $("rk").innerHTML=ok?`<div class="r">ランク ${rk[1]}</div><div class="m">${rk[2]}</div>`:`<div class="r">ランク -</div><div class="m">終わった... 実験やり直しだ...</div>`;
+ $("res").dataset.txt=ok?`${rk[2]}\nタイム： ${t} 秒\nランク：${rk[1]}\n`:"終わった...\n実験やり直しだ...";
+ $("res").style.display="block"}
+function loop(now){const dt=Math.min(.1,(now-last)/1000);last=now;
+ if(!over){const v=+$("sl").value,r=4*Math.pow(v/100,3);if(r>0)add(r*dt,now)}
+ render(now);requestAnimationFrame(loop)}
+$("one").onclick=()=>add(0.05,performance.now());
+$("close").onclick=()=>{$("sl").value=0};
+$("judge").onclick=()=>{if(over)return;const n=performance.now();
+ if(!t0){$("msg").textContent="まだ滴定していません。";return}
+ if(state()==="B")finish(true,n);
+ else $("msg").textContent=state()==="A"?"まだ中和点に達していません。":""};
+$("tw").onclick=()=>{let u="";try{u=location.href}catch(e){}
+ window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent($("res").dataset.txt)+"&url="+encodeURIComponent(u),"_blank")};
+$("again").onclick=reset;
+for(let i=0;i<=5;i++){const d=document.createElement("div");d.className="lb";d.style.top=(i*48)+"px";d.textContent=i*10;$("stage").appendChild(d)}
+reset();requestAnimationFrame(loop);
+</script></body></html>
