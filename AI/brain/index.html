@@ -1,1 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>脳トレ縛りゲーム</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f7fb;--fg:#1d2433;--card:#fff;--bd:#c8cfdd;--ac:#3b6fe0;--r:#e53935;--b:#1e88e5;--g:#43a047}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#14171f;--fg:#e8ecf5;--card:#1f2430;--bd:#3a4256;--ac:#6b93f2;--r:#ef5350;--b:#42a5f5;--g:#66bb6a}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#14171f;--fg:#e8ecf5;--card:#1f2430;--bd:#3a4256;--ac:#6b93f2;--r:#ef5350;--b:#42a5f5;--g:#66bb6a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;text-align:center}
+main{max-width:480px;margin:0 auto;padding:16px}
+h1{font-size:1.4rem;margin:.4em 0}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:12px 0;text-align:left}
+label{display:block;margin:8px 0}
+button{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:10px 20px;font-size:1rem;cursor:pointer}
+button:disabled{opacity:.5}
+input[type=number],select{font-size:1.2rem;padding:8px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--fg)}
+#field{position:relative;margin:16px auto}
+.box{position:absolute;width:72px;height:72px;border:2px solid var(--fg);border-radius:8px;background:var(--card);transition:left .45s,top .45s;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:4px 0}
+.ppl{height:14px;display:flex;gap:3px}
+.ppl i{width:12px;height:12px;border-radius:50%;display:block}
+.num{font-size:2.2rem;font-weight:700;line-height:1}
+.pop{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:1.7rem;font-weight:800;pointer-events:none;z-index:2;animation:fl 1s ease-out forwards;text-shadow:0 0 3px var(--card),0 0 3px var(--card)}
+@keyframes fl{from{opacity:1;transform:translate(-50%,-50%)}to{opacity:0;transform:translate(-50%,-190%)}}
+#msg{font-size:1.2rem;font-weight:700;min-height:1.6em}
+#prompt{min-height:1.5em;margin:4px 0}
+#hud{display:flex;justify-content:space-between;font-weight:600}
+#ans input{width:7em;text-align:center}
+.hide{display:none!important}
+</style></head><body><main>
+<h1>🧠 脳トレ縛りゲーム</h1>
 
+<section id="setup">
+ <div class="card"><b>縛りを選択</b>
+  <label><input type="checkbox" id="ppl"> 人数数え(出入りする人を数える)</label>
+  <label><input type="checkbox" id="short"> 短期記憶(数字が1秒で消える)</label>
+  <label><input type="checkbox" id="long"> 長期記憶 <select id="longN"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> 問前の答えを足す</label>
+  <label><input type="checkbox" id="color"> 色記憶(指定色だけ数える)</label>
+  <label><input type="checkbox" id="shuffle"> シャッフル(短期記憶が必要)</label>
+ </div>
+ <button id="start">スタート</button>
+</section>
+
+<section id="game" class="hide">
+ <div id="hud"><span id="st"></span><span id="time"></span></div>
+ <div id="msg"></div>
+ <div id="field"></div>
+ <div id="prompt"></div>
+ <div id="ans" class="hide"><input type="number" id="av" inputmode="numeric"> <button id="ok">答える</button></div>
+</section>
+
+<section id="result" class="hide">
+ <div class="card"><div id="rs"></div></div>
+ <button id="tw">𝕏 でツイート</button> <button id="again">もう一度</button>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id),sleep=ms=>new Promise(r=>setTimeout(r,ms)),rnd=n=>Math.floor(Math.random()*n);
+const CN=['赤','青','緑'],CC=['var(--r)','var(--b)','var(--g)'],S=72,G=10;
+let cfg,stage,n,boxes,hist,elapsed,pen,miss,phase='idle',hidden,cols,last,resolveAns,sid=0,timer,hideP=false;
+
+function sync(){const ok=$('short').checked;$('shuffle').disabled=!ok;if(!ok)$('shuffle').checked=false;$('longN').disabled=!$('long').checked}
+['ppl','short','long'].forEach(i=>$(i).onchange=sync);sync();
+
+const msg=t=>$('msg').textContent=t;
+function names(){const a=[];if(cfg.ppl)a.push('人数数え');if(cfg.short)a.push('短期記憶');if(cfg.long)a.push('長期記憶'+cfg.longN);if(cfg.color)a.push('色記憶');if(cfg.shuffle)a.push('シャッフル');return a}
+
+function render(){
+ const el=$('field');
+ boxes.forEach(b=>{
+  if(!b.el){b.el=document.createElement('div');b.el.className='box';b.el.innerHTML='<div class="ppl"></div><div class="num"></div>';el.appendChild(b.el)}
+  b.el.style.left=(b.slot%cols)*(S+G)+'px';b.el.style.top=Math.floor(b.slot/cols)*(S+G)+'px';
+  b.el.children[0].innerHTML=(hideP?[]:b.p).map(c=>`<i style="background:${cfg.color?CC[c]:'var(--fg)'}"></i>`).join('');
+  const nm=b.el.children[1];nm.textContent=hidden?'?':b.d;nm.style.color=(cfg.color&&!hidden)?CC[b.c]:'';
+  b.el.style.borderColor=b.dbl?'#8e24aa':'';b.el.style.background=b.dbl?'rgba(142,36,170,.25)':'';b.el.style.boxShadow=b.dbl?'0 0 0 3px #8e24aa':'';
+ });
+}
+
+function pop(b,d,c){
+ const s=document.createElement('span');s.className='pop';s.textContent=d>0?'+1':'-1';
+ s.style.color=cfg.color?CC[c]:'var(--fg)';
+ s.onanimationend=()=>s.remove();b.el.appendChild(s);
+}
+async function runStage(){
+ $('st').textContent=`ステージ ${stage}/10(${n}個)`;
+ cols=Math.ceil(Math.sqrt(n));
+ const f=$('field');f.innerHTML='';f.style.width=(cols*(S+G)-G)+'px';f.style.height=(Math.ceil(n/cols)*(S+G)-G)+'px';
+ boxes=[...Array(n)].map((_,i)=>({d:rnd(10),c:rnd(3),p:[],slot:i}));
+ hidden=true;hideP=false;phase='wait';$('ans').classList.add('hide');$('prompt').textContent='';
+ if(cfg.ppl){
+  boxes.forEach(b=>{for(let k=rnd(4);k--;)b.p.push(rnd(3))});
+  msg('最初の人数を覚えよう');render();await sleep(1800);
+  hideP=true;render();msg('+1 / -1 の増減を数えよう');await sleep(600);
+  for(let i=0;i<2+n;i++){
+   const b=boxes[rnd(n)];let c,d;
+   if(b.p.length==0||(b.p.length<3&&Math.random()<.5)){c=rnd(3);b.p.push(c);d=1}
+   else{c=b.p.splice(rnd(b.p.length),1)[0];d=-1}
+   pop(b,d,c);await sleep(1000);
+  }
+ }else{msg('準備…');render();await sleep(700)}
+ if(cfg.shuffle){
+  hidden=false;render();msg('数字を覚えよう');await sleep(1000+400*n);
+  hidden=true;hideP=true;render();msg('シャッフル中…');await sleep(800);
+  for(let i=0,m=2+rnd(3);i<m;i++){
+   const a=boxes[rnd(n)];let b;do{b=boxes[rnd(n)]}while(b===a);
+   [a.slot,b.slot]=[b.slot,a.slot];render();await sleep(800);
+  }
+ }
+ if(cfg.shuffle)boxes[rnd(n)].dbl=true;
+ hideP=true;hidden=cfg.shuffle;render();
+ let tc=null;
+ if(cfg.color){const pr=[...new Set(boxes.map(b=>b.c))];tc=pr[rnd(pr.length)]}
+ const base=boxes.reduce((s,b)=>{
+  if(cfg.color&&b.c!==tc)return s;
+  const m=cfg.ppl?1+(cfg.color?b.p.filter(x=>x===tc).length:b.p.length):1;
+  return s+b.d*m*(b.dbl?2:1);
+ },0);
+ const add=cfg.long&&hist.length>=cfg.longN?hist[hist.length-cfg.longN]:0;
+ const ans=base+add;
+ const ps=[];
+ if(cfg.color)ps.push(`指定色:<b style="color:${CC[tc]}">${CN[tc]}</b>のみ`);
+ ps.push(cfg.ppl?'各四角の 数字×(人数'+(cfg.color?'(指定色)':'')+'+1) の合計':'数字の合計');
+ if(cfg.long)ps.push(`+ ${cfg.longN}問前の答え`+(hist.length>=cfg.longN?'':'(まだ無いので0)'));
+ if(cfg.shuffle)ps.push('<b style="color:#ab47bc">紫</b>の四角は2倍');
+ $('prompt').innerHTML=ps.join(' / ');
+ phase='answer';last=performance.now();msg('答えを入力');
+ $('ans').classList.remove('hide');$('av').value='';$('av').focus();
+ if(cfg.short){const id=++sid;setTimeout(()=>{if(phase==='answer'&&id===sid){hidden=true;render()}},1000)}
+ const v=await new Promise(r=>resolveAns=r);
+ phase='wait';resolveAns=null;sid++;
+ $('ans').classList.add('hide');hidden=false;hideP=false;render();
+ hist.push(base);
+ const sub=cfg.long?`(この問題単体の答え: ${base})`:'';
+ if(v===ans){msg('⭕ 正解! '+sub);await sleep(cfg.long?1800:700);return true}
+ miss++;pen+=30000;
+ msg(`❌ 不正解… 正解は ${ans}(+30秒) ${sub}`);await sleep(3500);return false;
+}
+
+async function play(){
+ cfg={ppl:$('ppl').checked,short:$('short').checked,long:$('long').checked,longN:+$('longN').value,color:$('color').checked,shuffle:$('shuffle').checked};
+ stage=1;n=2;hist=[];elapsed=0;pen=0;miss=0;
+ $('setup').classList.add('hide');$('result').classList.add('hide');$('game').classList.remove('hide');
+ last=performance.now();clearInterval(timer);
+ timer=setInterval(()=>{const t=performance.now();if(phase==='answer')elapsed+=t-last;last=t;$('time').textContent=((elapsed+pen)/1000).toFixed(1)+'秒'},50);
+ while(stage<=10){
+  if(await runStage()){stage++;n++}else n=Math.max(2,n-1);
+ }
+ clearInterval(timer);phase='idle';
+ const total=((elapsed+pen)/1000).toFixed(2);
+ const nm=names();
+ $('game').classList.add('hide');$('result').classList.remove('hide');
+ $('rs').innerHTML=`<h2 style="margin:0 0 8px">クリア!</h2><div style="font-size:1.8rem;font-weight:700">${total} 秒</div><div>(ミス ${miss}回 / ペナルティ +${miss*30}秒)</div><div style="margin-top:8px">縛り: ${nm.length?nm.join('、'):'なし'}</div>`;
+ $('tw').onclick=()=>{
+  let u='';try{u=location.href}catch(e){}
+  const t=`脳トレ縛りゲーム 10ステージクリア!\nタイム: ${total}秒(ミス${miss}回)\n縛り: ${nm.length?nm.join('、'):'なし'}`;
+  window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(t)+(u?'&url='+encodeURIComponent(u):''),'_blank');
+ };
+}
+function submit(){const v=$('av').value;if(v!==''&&resolveAns)resolveAns(Number(v))}
+$('ok').onclick=submit;$('av').onkeydown=e=>{if(e.key==='Enter')submit()};
+$('start').onclick=play;
+$('again').onclick=()=>{$('result').classList.add('hide');$('setup').classList.remove('hide')};
+</script></body></html>
