@@ -1,1 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>拙い英語クイズ</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--text:#222;--sub:#666;--line:#d8d5cc;--accent:#2f6fed;--accent-t:#fff;--ok:#1b8a4b;--ng:#c93434;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1b1d;--card:#262629;--text:#eee;--sub:#aaa;--line:#444;--accent:#6b9cff;--accent-t:#111;--ok:#5fd18a;--ng:#ff7b7b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b1b1d;--card:#262629;--text:#eee;--sub:#aaa;--line:#444;--accent:#6b9cff;--accent-t:#111;--ok:#5fd18a;--ng:#ff7b7b;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.6}
+main{max-width:640px;margin:0 auto;padding:16px}
+h1{font-size:1.3rem;margin:8px 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+.label{font-size:.8rem;color:var(--sub);margin-bottom:8px}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:8px;padding:8px 14px;cursor:pointer}
+button.on{background:var(--accent);color:var(--accent-t);border-color:var(--accent)}
+button.primary{background:var(--accent);color:var(--accent-t);border-color:var(--accent)}
+.qn{min-width:44px}
+#text{font-size:1.15rem;min-height:3.2em;margin:4px 0 12px}
+#text.hidden{color:var(--sub);font-style:italic}
+input[type=text]{flex:1;min-width:0;font:inherit;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text)}
+#fb{min-height:1.6em;margin-top:12px;font-weight:bold}
+#fb.ok{color:var(--ok)}#fb.ng{color:var(--ng)}
+.note{font-size:.8rem;color:var(--sub)}
+</style>
+</head>
+<body>
+<main>
+<h1>この英文、何のこと?</h1>
 
+<div class="card">
+  <div class="label">問題形式</div>
+  <div class="row">
+    <button id="m-read" class="on">リーディング(文章を読む)</button>
+    <button id="m-listen">リスニング(読み上げ)</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="label">問題を選ぶ</div>
+  <div class="row" id="list"></div>
+</div>
+
+<div class="card">
+  <div class="label" id="qlabel"></div>
+  <div id="text"></div>
+  <div class="row" id="listenRow" style="margin-bottom:12px"><button id="play">▶ 読み上げる</button></div>
+  <div class="row">
+    <input type="text" id="ans" placeholder="答えを入力" autocomplete="off">
+    <button class="primary" id="go">回答</button>
+  </div>
+  <div id="fb"></div>
+  <div class="note" id="note"></div>
+</div>
+</main>
+
+<script>
+/* =====================================================
+   ★問題データ(ここに追加してください)★
+   text    : 英文(英語が苦手な人が書いた雰囲気の文)
+   answers : 正解として受け付ける答えの配列(日本語・英語・表記ゆれなど複数OK)
+   例) { text: "英文", answers: ["正解1", "正解2"] },
+   ===================================================== */
+const QUESTIONS = [
+  { text: "This japanese box has many floors. It use for close many things.",
+    answers: ["たんす","タンス","箪笥"] },
+  { text: "This is a machine that many YouTube channel name includes it name. This is one of three first god item in Japan.",
+    answers: ["テレビ"] },
+  { text: "This is a vegetable using in around the world. In japan, This is third item in first fortune dream.",
+    answers: ["なす","ナス","茄子"] },
+  { text: "This food made from rey and east bacteria. It english means food, start eating, and the end.",
+    answers: ["とーすと","トースト","toast"] },
+  { text: "This is a anime or video game. A boy adventure his town with white ghost and many type ghost.",
+    answers: ["妖怪ウォッチ"] },
+  { text: "This is a song. When someone shows hip fastest in people, this person gets first prise. This event was watched by bear child(s).",
+    answers: ["にんげんっていいな"] },
+  { text: "He is an American company character. In japan, he is very famous because many people make his funny video from niconiko video. Sometimes many people called him 'Origin teacher'.",
+    answers: ["ドナルド","ドナルド・マクドナルド","ロナルド","ロナルド・マクドナルド"] },
+  { text: "This is machine. When appear a person. It open auto. But, few people dosen't open it likes invisible man.",
+    answers: ["じどうどあ","自動ドア"] },
+  { text: "He products gold nugets. He loves a girl. But, he attacks to a girl to eat.",
+    answers: ["カオナシ","かおなし"] },
+  { text: "A man bornd from fruits. He go to the devil land with many animals to kill devil and regain tresure.",
+    answers: ["ももたろう","桃太郎"] },
+  { text: "This is a song. A woman can't tell lover man 'I love you' when together him after costumed her or keep unblella with him. Last, they bye at station even she don't want bye.",
+    answers: ["メルト"] },
+  { text: "This is a man that borned in Meiji period. He isn't protect money type human. So, He use money many contents and rent money from many people. He resarched bacterias and he killed by yello fever.",
+    answers: ["野口英世"] },
+  { text: "This is a game. Famous skill using this game player that hip hit stairs many times to move quickly and pass many walls.One of this game mistery is clock stage warp bug. This bug hasn't solved yet. But, some researcher thinks that this bug occured by space radiation.",
+    answers: ["スーパーマリオ64","スーパーマリオ６４"] },
+  { text: "A man apeals 'I can take it only 30 min'. But, He could't beat a streaming challenge that take it time limit 30 min per day a week",
+    answers: ["すいみん","睡眠"] },
+  { text: "This is a direction that can somethings in english and famous japanease mistakes sentence that appear indian people.",
+    answers: ["右","みぎ"] },
+  { text: "This is a song. This song appears 4 hot water places north to south and every places encounts a event that drop cold water at back from ceiling, hear good songs, watch beautiful girl silet and sing song.",
+    answers: ["いい湯だな","いい湯だな(ビバノン・ロック)"] },
+  { text: "This is a system. This make possible many god actions likes almost people impossible in video game. Sometimes this called very cute gold hair girl. Please answer 3 large capital characters.",
+    answers: ["TAS"] },
+  { text: "This is an imaginary language. This language was used by Japanease to communicate Chinease in internet. So, This language is only text and likes Chinease.",
+    answers: ["似非中国語","偽中国語"] },
+  { text: "This is one of dosen't speak character in Asia.This character means 'and now' and 'you'. This shape likes 'rain'.",
+    answers: ["而"] }, 
+  { text: "A TV program. This has many game. For example, buy cheap item, catcing sushi, insect game, train game etc.",
+    answers: ["はねるのトびら"] },   
+  { text: "This is an art skill. When you start draw a image, you'll draw draft line to decide shape, position etc.",
+    answers: ["あたり","アタリ"] },
+  { text: "This is a video game. Player was stranger in forest on a bike. So, he go to many places to collect items and repair his broken bike. many places are rabilince, log house, mini house, shot mine and fence room. Recentry, he additonaly must to go to big mine. And, A Famous YouTuber turnd to enemy and deplicate many amount to kill player alternate original enemies.",
+    answers: ["恐怖の森"] },
+  { text: "This is a god in ancient text. Now, many people say that this is very cute. So, this turnd to many goods. In a game, this shouts to collect enemies around player or drop an item itself. Black type shout interval is shouter than nomal type.",
+    answers: ["メシェド","メシェド神"] },
+  { text: "This is a very famous 3D software. It was made by C++ and DirectX in 2008. It can move various character and object easily.",
+    answers: ["MikuMikuDance","MMD","mikumikudance","mmd"] },
+  { text: "This is a story. A blind player man was orderd by a costumer to play Japanese guiter. He go to custmer's home and play it many days. But custmer is ghost. Magichan draws spell at his body. but, Magichan forgot draw spell at his ear. Finally, his ear was cut and stolen by customer.",
+    answers: ["耳なし芳一"] },
+  { text: "This is calculate area function. Area turned to a same width infinite stick. Correcting sticks to calculate area.",
+    answers: ["区分求積法","区分求積","くぶんきゅうせき","くぶんきゅうせきほう"] },
+  { text: "This is a fake license file. This was made by yorself and use it yorself to developing your homepage.",
+    answers: ["オレオレ証明書","自己署名証明書"] },
+  { text: "This is a sound. It can write 2 or 4 characters. In F base score. Base note appear second space at bottom. Next note is third space but one key down. Last note is top spase.",
+    answers: ["Cmin","Cm"] },
+  { text: "This big room has super clean water that all wall and ceiling and floor setting many light measure machine likes white heat light. This old type room encounted accident that many machine exprosioned.",
+    answers: ["ハイパーカミオカンデ"] },
+  { text: "This is a sentence rule in coding. For example, you select a variable with range variable and interger variable nomally. But, some type range variable can use as interger variable in some ranguage. We can use expression addition those two variable with astarisk.",
+    answers: ["糖衣構文","とういこうぶん"] },
+  { text: "This is a Japanease famous sightseeing place in Kyoto. This place famous as fox god. This place picture using by backrooms fandom. This level is bad luck number in 3 digits as Cristans.",
+    answers: ["伏見稲荷大社","ふしみいなりたいしゃ"] },
+  { text: "This is a type of particle. Generation has 1 of 3 and this belongs third genaration. This is heaviest in similar particles. This dosen't write with girsha griph.",
+    answers: ["トップ","トップクォーク"] },
+];
+/* ===================================================== */
+
+let idx = 0;
+let mode = "read"; // "read" | "listen"
+const $ = id => document.getElementById(id);
+const norm = s => s.normalize("NFKC").toLowerCase().replace(/\s+/g, "");
+const canSpeak = "speechSynthesis" in window;
+
+function renderList(){
+  const box = $("list");
+  box.innerHTML = "";
+  QUESTIONS.forEach((q, i) => {
+    const b = document.createElement("button");
+    b.className = "qn" + (i === idx ? " on" : "");
+    b.textContent = "第" + (i + 1) + "問";
+    b.onclick = () => { idx = i; $("fb").textContent = ""; $("fb").className = ""; show(true); };
+    box.appendChild(b);
+  });
+}
+
+function show(autoSpeak){
+  const q = QUESTIONS[idx];
+  $("qlabel").textContent = "第" + (idx + 1) + "問 / 全" + QUESTIONS.length + "問";
+  const t = $("text");
+  if (mode === "read") {
+    t.textContent = q.text; t.className = "";
+    $("listenRow").style.display = "none";
+    $("note").textContent = "";
+  } else {
+    t.textContent = "(文章は非表示です。読み上げを聞いて答えてください)"; t.className = "hidden";
+    $("listenRow").style.display = "flex";
+    $("note").textContent = canSpeak ? "" : "お使いのブラウザは読み上げに対応していません。";
+  }
+  $("ans").value = "";
+  renderList();
+  if (mode === "listen" && autoSpeak) speak();
+  $("ans").focus({preventScroll:true});
+}
+
+function speak(){
+  if (!canSpeak) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(QUESTIONS[idx].text);
+  u.lang = "en-US"; u.rate = 0.9;
+  speechSynthesis.speak(u);
+}
+
+function setMode(m){
+  mode = m;
+  if (canSpeak) speechSynthesis.cancel();
+  $("m-read").className = m === "read" ? "on" : "";
+  $("m-listen").className = m === "listen" ? "on" : "";
+  show(true);
+}
+
+function check(){
+  const v = norm($("ans").value);
+  if (!v) return;
+  const fb = $("fb");
+  if (QUESTIONS[idx].answers.some(a => norm(a) === v)) {
+    idx = (idx + 1) % QUESTIONS.length; // 最終問題なら第一問へ
+    fb.textContent = "正解!次の問題です。"; fb.className = "ok";
+    show(true);
+  } else {
+    fb.textContent = "不正解。もう一度考えてみましょう。"; fb.className = "ng";
+    $("ans").value = "";
+    $("ans").focus({preventScroll:true});
+    if (mode === "listen") speak();
+  }
+}
+
+$("m-read").onclick = () => setMode("read");
+$("m-listen").onclick = () => setMode("listen");
+$("play").onclick = speak;
+$("go").onclick = check;
+$("ans").addEventListener("keydown", e => { if (e.key === "Enter" && !e.isComposing) check(); });
+show(false);
+</script>
+</body>
+</html>
